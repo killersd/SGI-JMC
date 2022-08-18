@@ -1,0 +1,53 @@
+﻿@model IEnumerable<SGI_JMC.Models.aluno>
+
+@{
+    ViewData["Title"] = "Alunos Cadastrados";
+}
+<p></p>
+<h3>Alunos Cadastrados</h3>
+
+<div class="container-fluid">
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <a href="../aluno/CreateStudent" class="btn btn-info pull-right fa fa-plus"> Adicionar aluno</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Pai</th>
+                            <th>Mãe</th>
+                            <th>Data de nascimento</th>
+                            <th>Ano da pasta</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            int count = 1;
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.Father_name</td>
+                                <td>@item.Mother_name</td>
+                                <td>@item.Birth_date</td>
+                                <td>@item.Year_folder</td>
+                                <td>
+                                    @Html.ActionLink("Editar", "UpdateStudent", new { id = item.Id })|@Html.ActionLink("Excluir", "DeleteStudent", new { id = item.Id })
+                                </td>
+
+                            </tr>
+                            count++;
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
