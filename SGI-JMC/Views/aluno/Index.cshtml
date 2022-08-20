@@ -38,16 +38,23 @@
                                 <td>
                                     @Html.ActionLink("Editar", "UpdateStudent", new { id = item.Id })|@Html.ActionLink("Excluir", "DeleteStudent", new { id = item.Id })
                                 </td>
-
                             </tr>
                             count++;
                         }
-
                     </tbody>
                 </table>
+                @section Scripts{
+                    <script>
+                        $(document).ready(function() {
+                            $('#dataTable').DataTable({
+                                language: {
+                                    url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/pt-BR.json'
+                                }
+                            });
+                        });
+                    </script>
+                }
+                </div>
             </div>
-
         </div>
     </div>
-
-</div>

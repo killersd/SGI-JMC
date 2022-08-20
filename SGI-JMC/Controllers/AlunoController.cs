@@ -73,7 +73,6 @@ namespace SGI_JMC.Controllers
 
                 return NotFound();
         }
-
         [HttpGet]
         public IActionResult DeleteStudent(int? id)
         {
