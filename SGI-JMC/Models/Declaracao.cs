@@ -8,14 +8,18 @@ namespace SGI_JMC.Models
 
         [Key]
         public int Id { get; set; }
+
         [Display(Name="Nome do aluno")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
         public string Name { get; set; }
+
         [Display(Name = "Nome do pai")]
         public string Father_name { get; set; }
+
         [Display(Name = "Nome da mãe")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
         public string Mother_name { get; set; }
+
         [Display(Name = "Data de nascimento")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
         public DateTime Birth_date { get; set; }
@@ -39,6 +43,7 @@ namespace SGI_JMC.Models
         [Required(ErrorMessage = "Este campo é obrigatório")]
         public string codigoSeed { get; set; }
 
+        [Display(Name = "Data de emissão")]
         public DateTime dataDeEmissao { get; set; }
     }
 }

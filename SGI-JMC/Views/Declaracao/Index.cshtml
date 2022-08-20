@@ -1,0 +1,69 @@
+﻿@model IEnumerable<SGI_JMC.Models.Declaracao>
+
+@{
+    ViewData["Title"] = "Dados das declarações emitida";
+}
+
+<h1>Dados das declarações emitidas</h1>
+<p></p>
+<div class="container-fluid">
+    <div class="card mb-3">
+        <div class="card-header">
+            <a href="../Declaracao/Create" class="btn btn-info pull-right fa fa-plus"> Criar declaração</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nome do aluno</th>
+                            <th>Nome do Pai</th>
+                            <th>Nome da Mãe</th>
+                            <th>Data de nascimento</th>
+                            <th>Ano letivo</th>
+                            <th>Ano/série</th>
+                            <th>Turma</th>
+                            <th>NIS</th>
+                            <th>Cód. SEED</th>
+                            <th>Data de Emissão</th>
+                            <th>Acão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            int count = 1;
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.Father_name</td>
+                                <td>@item.Mother_name</td>
+                                <td>@item.Birth_date</td>
+                                <td>@item.anoLetivo</td>
+                                <td>@item.anoSerie</td>
+                                <td>@item.turma</td>
+                                <td>@item.numeroDoNis</td>
+                                <td>@item.codigoSeed</td>
+                                <td>@item.dataDeEmissao</td>
+                                <td>
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.Id })|@Html.ActionLink("Excluir", "Delete", new { id = item.Id })
+                                </td>
+                            </tr>
+                            count++;
+                        }
+                    </tbody>
+                </table>
+                @section Scripts{
+                    <script>
+                        $(document).ready(function() {
+                            $('#dataTable2').DataTable({
+                                language: {
+                                    url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/pt-BR.json'
+                                }
+                            });
+                        });
+                    </script>
+                }
+                </div>
+            </div>
+        </div>
+    </div>

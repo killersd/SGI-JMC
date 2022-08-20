@@ -1,0 +1,85 @@
+﻿@model SGI_JMC.Models.Declaracao
+
+@{
+    ViewData["Title"] = "Create";
+}
+@*
+<h4>Criar nova declaracao</h4>*@
+<hr />
+<div class="container-fluid">
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4><b>Criar nova declaração</b></h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        @* <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Father_name" class="control-label"></label>
+                            <input asp-for="Father_name" class="form-control" />
+                            <span asp-validation-for="Father_name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Mother_name" class="control-label"></label>
+                            <input asp-for="Mother_name" class="form-control" />
+                            <span asp-validation-for="Mother_name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Birth_date" class="control-label"></label>
+                            <input asp-for="Birth_date" class="form-control" />
+                            <span asp-validation-for="Birth_date" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="anoLetivo" class="control-label"></label>
+                            <input asp-for="anoLetivo" class="form-control" />
+                            <span asp-validation-for="anoLetivo" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Gerar PDF" class="btn btn-primary" />
+                        </div>
+                        @*</form>*@
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="anoSerie" class="control-label"></label>
+                            <input asp-for="anoSerie" placeholder="7º, 8º, 9º..." class="form-control" />
+                            <span asp-validation-for="anoSerie" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="turma" class="control-label"></label>
+                            <input asp-for="turma" placeholder="A, B, U..." class="form-control" />
+                            <span asp-validation-for="turma" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="numeroDoNis" class="control-label"></label>
+                            <input asp-for="numeroDoNis" class="form-control" />
+                            <span asp-validation-for="numeroDoNis" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="codigoSeed" class="control-label"></label>
+                            <input asp-for="codigoSeed" class="form-control" />
+                            <span asp-validation-for="codigoSeed" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
