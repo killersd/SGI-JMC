@@ -19,6 +19,11 @@ namespace SGI_JMC.Data
 
         public DbSet<IdentityUser> Usuario { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            //modelBuilder.Seed();
+        }
 
     }
 }

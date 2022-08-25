@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PdfSharpCore.Drawing;
 using SGI_JMC.Models;
 
 namespace SGI_JMC.Controllers
 {
+    [Authorize]
     public class DeclaracaoController : Controller
     {
         private readonly Context _context;
@@ -148,6 +152,94 @@ namespace SGI_JMC.Controllers
         private bool DeclaracaoExists(int id)
         {
             return _context.Declaracao.Any(e => e.Id == id);
+        }
+
+        public FileResult gerarDeclaracao(Declaracao declaracao)
+        {
+            // Declaracao declaracao = new Declaracao();
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.TrimMargins.Right = 50;
+                page.TrimMargins.Left = 50;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFomatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 12);
+                var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+
+                var brasao = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\BrasaoEstado.png";
+                var escudo = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\Escudo.jpg";
+
+                XImage imgBrasao = XImage.FromFile(brasao);
+                XImage imgEscudo = XImage.FromFile(escudo);
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                graphics.DrawImage(imgBrasao, 275, 20, 50, 75);
+                graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+
+
+                textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+                textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO, DO ESPORTE E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 115, page.Width, page.Height));
+                textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 130, page.Width, page.Height));
+                textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 145, page.Width, page.Height));
+                textFomatter.DrawString("SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 160, page.Width, page.Height));
+                textFomatter.DrawString("DECLARAÇÃO", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 230, page.Width, page.Height));
+
+
+                if (declaracao.numeroDoNis == null)
+                {
+                    declaracao.numeroDoNis = "Não encontrado em nossos registros!";
+                }
+                if (declaracao.Father_name != null)
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                    textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracao.Name + ", nascido(a) em " + declaracao.Birth_date + ", filho(a) de " + declaracao.Mother_name + " e " + declaracao.Father_name + ", " +
+                        "no ano letivo de " + declaracao.anoLetivo + " encontra-se matriculado(a) nesta Unidade de Ensino no " + declaracao.anoSerie + "º ano, turma \"" + declaracao.turma + "\" e possui frequência regular.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 350, page.Width, page.Height));
+
+                }
+                else
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                    textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracao.Name + ", nascido(a) em " + declaracao.Birth_date + ", filho(a) de " + declaracao.Mother_name + ", " +
+                        "no ano letivo de " + declaracao.anoLetivo + " encontra-se matriculado(a) nesta Unidade de Ensino no " + declaracao.anoSerie + "º ano, turma " + declaracao.turma + " e possui frequência regular.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 350, page.Width, page.Height));
+
+                }
+
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("NIS: " + declaracao.numeroDoNis, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 550, page.Width, page.Height));
+                textFomatter.DrawString("CÓD. SIGA: " + declaracao.codigoSeed, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 560, page.Width, page.Height));
+                textFomatter.DrawString("Observação: Esta declaração não contém emendas nem rasuras e é válida por um período de 30 dias ", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 730, page.Width, page.Height));
+
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 650, page.Width, page.Height));
+                textFomatter.DrawString("Equipe Diretiva", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 660, page.Width, page.Height));
+
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                string dataString = DateTime.Now.ToString();
+                textFomatter.DrawString("Declaração emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+
+
+
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+                    doc.Save(stream, false);
+                    var nomeArquivo = "Declaração " + declaracao.Name + ".pdf";
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+
+
+
+            }
         }
     }
 }
