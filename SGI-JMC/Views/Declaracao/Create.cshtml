@@ -40,7 +40,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="anoLetivo" class="control-label"></label>
-                            <input asp-for="anoLetivo" class="form-control" />
+                            <input asp-for="anoLetivo" class="form-control" MaxLength="4"/>
                             <span asp-validation-for="anoLetivo" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -53,22 +53,22 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="anoSerie" class="control-label"></label>
-                            <input asp-for="anoSerie" placeholder="7º, 8º, 9º..." class="form-control" />
+                            <input asp-for="anoSerie" MaxLength="1" placeholder="7º, 8º, 9º..." class="form-control" />
                             <span asp-validation-for="anoSerie" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="turma" class="control-label"></label>
-                            <input asp-for="turma" placeholder="A, B, U..." class="form-control" />
+                            <input asp-for="turma" MaxLength="1" placeholder="A, B, U..." class="form-control" />
                             <span asp-validation-for="turma" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="numeroDoNis" class="control-label"></label>
-                            <input asp-for="numeroDoNis" class="form-control" />
+                            <input asp-for="numeroDoNis" MaxLength="11" class="form-control" />
                             <span asp-validation-for="numeroDoNis" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="codigoSeed" class="control-label"></label>
-                            <input asp-for="codigoSeed" class="form-control" />
+                            <input asp-for="codigoSeed" MaxLength="10" class="form-control" />
                             <span asp-validation-for="codigoSeed" class="text-danger"></span>
                         </div>
                     </div>

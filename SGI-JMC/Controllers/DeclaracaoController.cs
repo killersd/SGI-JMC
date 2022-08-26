@@ -8,14 +8,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PdfSharpCore.Drawing;
+using SGI_JMC.Data;
 using SGI_JMC.Models;
 
 namespace SGI_JMC.Controllers
 {
     [Authorize]
-    public class DeclaracaoController : Controller
+    public class DeclaracaoController : BaseController
     {
         private readonly Context _context;
+        //private readonly ApplicationDbContext _contexto;
 
         public DeclaracaoController(Context context)
         {
@@ -171,7 +173,8 @@ namespace SGI_JMC.Controllers
                 var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
                 var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 12);
                 var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
-                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10); 
+                var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
 
                 var brasao = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\BrasaoEstado.png";
                 var escudo = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\Escudo.jpg";
@@ -191,6 +194,9 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 160, page.Width, page.Height));
                 textFomatter.DrawString("DECLARAÇÃO", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 230, page.Width, page.Height));
 
+                //melhorar isso aqui
+                string turmaString = declaracao.turma.ToString();                
+                string dataNascString = declaracao.Birth_date.ToString("dd/MM/yyyy");
 
                 if (declaracao.numeroDoNis == null)
                 {
@@ -199,16 +205,14 @@ namespace SGI_JMC.Controllers
                 if (declaracao.Father_name != null)
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
-                    textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracao.Name + ", nascido(a) em " + declaracao.Birth_date + ", filho(a) de " + declaracao.Mother_name + " e " + declaracao.Father_name + ", " +
-                        "no ano letivo de " + declaracao.anoLetivo + " encontra-se matriculado(a) nesta Unidade de Ensino no " + declaracao.anoSerie + "º ano, turma \"" + declaracao.turma + "\" e possui frequência regular.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 350, page.Width, page.Height));
-
+                    textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracao.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + declaracao.Mother_name.ToUpper() + " e " + declaracao.Father_name.ToUpper() + ", " +
+                        "no ano letivo de " + declaracao.anoLetivo + ", encontra-se matriculado(a) nesta Unidade de Ensino no " + declaracao.anoSerie + "º ano, turma \"" + turmaString.ToUpper() + "\" e possui frequência regular até esta data.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 350, page.Width, page.Height));
                 }
                 else
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
-                    textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracao.Name + ", nascido(a) em " + declaracao.Birth_date + ", filho(a) de " + declaracao.Mother_name + ", " +
-                        "no ano letivo de " + declaracao.anoLetivo + " encontra-se matriculado(a) nesta Unidade de Ensino no " + declaracao.anoSerie + "º ano, turma " + declaracao.turma + " e possui frequência regular.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 350, page.Width, page.Height));
-
+                    textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracao.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + declaracao.Mother_name.ToUpper() + ", " +
+                        "no ano letivo de " + declaracao.anoLetivo + ", encontra-se matriculado(a) nesta Unidade de Ensino no " + declaracao.anoSerie + "º ano, turma \"" + turmaString.ToUpper() + "\" e possui frequência regular até esta data.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 350, page.Width, page.Height));
                 }
 
 
@@ -226,8 +230,9 @@ namespace SGI_JMC.Controllers
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 string dataString = DateTime.Now.ToString();
                 textFomatter.DrawString("Declaração emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
-
-
+                
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("Esta declaração foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 820, page.Width, page.Height));
 
                 using (MemoryStream stream = new MemoryStream())
                 {
@@ -236,8 +241,6 @@ namespace SGI_JMC.Controllers
                     var nomeArquivo = "Declaração " + declaracao.Name + ".pdf";
                     return File(stream.ToArray(), contentType, nomeArquivo);
                 }
-
-
 
             }
         }
