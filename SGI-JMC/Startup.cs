@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SGI_JMC.Data;
+using SGI_JMC.Settings;
+using SGI_JMC.Services;
 
 namespace SGI_JMC
 {
@@ -36,6 +38,8 @@ namespace SGI_JMC
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.Configure<GmailSettings>(Configuration.GetSection(nameof(GmailSettings)));
+            services.AddSingleton<IEmailService, GmailService>();
             //services.AddIdentityCore<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
         }
 
