@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="~/css/MyStyle.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css" />
 
+    <link rel="stylesheet" href="/lib/bootstrap5/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/css/estilos.css">
+
 </head>
 <body>
     <header>
@@ -22,18 +26,18 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="TipoUsuarios1" asp-action="Index">Tipo usuários</a>
+                        @*                        <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="TipoUsuarios1" asp-action="Index">Tipo usuários</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="AcessoTipoUsuarios1" asp-action="Index">Acesso tipo usuários</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="AcessoTipoUsuarios1" asp-action="Index">Acesso tipo usuários</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="PerfilUsuarios1" asp-action="Index">Perfil usuários</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="PerfilUsuarios1" asp-action="Index">Perfil usuários</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Declaracao" asp-action="Create">Emitir declaração</a>
-                        </li>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Declaracao" asp-action="Create">Emitir declaração</a>
+                        </li>*@
 
                     </ul>
                 </div>
@@ -42,7 +46,7 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            <partial name="_MensagemPartial" />
+            @*<partial name="_MensagemPartial" />*@
             @RenderBody()
         </main>
     </div>
@@ -52,6 +56,7 @@
             &copy; 2022 - SGI-JMC</a>
         </div>
     </footer>
+    <script src="/lib/bootstrap5/dist/js/bootstrap.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
