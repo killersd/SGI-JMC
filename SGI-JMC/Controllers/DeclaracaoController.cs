@@ -173,7 +173,7 @@ namespace SGI_JMC.Controllers
                 var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
                 var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 12);
                 var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
-                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10); 
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
                 var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
 
                 var brasao = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\BrasaoEstado.png";
@@ -195,7 +195,7 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("DECLARAÇÃO", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 230, page.Width, page.Height));
 
                 //melhorar isso aqui
-                string turmaString = declaracao.turma.ToString();                
+                string turmaString = declaracao.turma.ToString();
                 string dataNascString = declaracao.Birth_date.ToString("dd/MM/yyyy");
 
                 if (declaracao.numeroDoNis == null)
@@ -230,18 +230,22 @@ namespace SGI_JMC.Controllers
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 string dataString = DateTime.Now.ToString();
                 textFomatter.DrawString("Declaração emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
-                
+
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                 textFomatter.DrawString("Esta declaração foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 820, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
                 textFomatter.DrawString("SGI-Sistema de Gestão Interna - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 20, page.Width, page.Height));
-                textFomatter.DrawString("Usuário: "+User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
 
                 using (MemoryStream stream = new MemoryStream())
                 {
                     var contentType = "application/pdf";
                     doc.Save(stream, false);
                     var nomeArquivo = "Declaração " + declaracao.Name + ".pdf";
+                    //Salvando no banco
+                    declaracao.dataDeEmissao = DateTime.Now;
+                    _context.Add(declaracao);
+                    _context.SaveChangesAsync();
                     return File(stream.ToArray(), contentType, nomeArquivo);
                 }
 

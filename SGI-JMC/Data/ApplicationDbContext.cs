@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SGI_JMC.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace SGI_JMC.Data
 {
@@ -24,6 +26,6 @@ namespace SGI_JMC.Data
             base.OnModelCreating(modelBuilder);
             //modelBuilder.Seed();
         }
-
+       
     }
 }

@@ -21,7 +21,7 @@ namespace SGI_JMC.Models
 
         [Required(ErrorMessage = "Este campo é obrigatório")]
         [Display(Name = "Data de nascimento")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = false)]
+        [DataType(DataType.Date)]
         public DateTime Birth_date { get; set; }
 
         [Required(ErrorMessage = "Este campo é obrigatório")]

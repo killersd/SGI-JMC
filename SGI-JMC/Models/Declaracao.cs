@@ -23,7 +23,7 @@ namespace SGI_JMC.Models
 
         [Display(Name = "Data de nascimento")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
-        [DisplayFormat(DataFormatString = "{0,c}")]
+        [DataType(DataType.Date)]
         public DateTime Birth_date { get; set; }
         
         [Display(Name = "Ano letivo")]

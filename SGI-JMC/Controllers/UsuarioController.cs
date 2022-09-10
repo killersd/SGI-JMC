@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace SGI_JMC.Controllers
 {
-    
+
     public class UsuarioController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public IActionResult Index()
         {
@@ -22,12 +22,17 @@ namespace SGI_JMC.Controllers
         }
 
         public UsuarioController(UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            SignInManager<IdentityUser> signInManager,
+            RoleManager<IdentityRole> roleManager)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
+            this._roleManager = roleManager;
         }
 
+
+
+        [Authorize(Roles ="administrador")]
         [HttpGet]
         public async Task<IActionResult> Cadastrar(string id)
         {
@@ -186,7 +191,7 @@ namespace SGI_JMC.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        
+        [Authorize(Roles = "administrador")]
         public async Task<IActionResult> IndexUsuarios()
         {
             var usuarios = await _userManager.Users.AsNoTracking().ToListAsync();
@@ -236,6 +241,12 @@ namespace SGI_JMC.Controllers
                 this.MostrarMensagem("Usuário não encontrado.", true);
                 return RedirectToAction(nameof(Index));
             }
+        }
+
+
+        public IActionResult AcessoRestrito([FromQuery] string returnUrl)
+        {
+            return View(model: returnUrl);
         }
 
     }
