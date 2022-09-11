@@ -123,6 +123,7 @@ namespace SGI_JMC.Controllers
         }
 
         // GET: Declaracao/Delete/5
+        [Authorize(Roles = "administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
