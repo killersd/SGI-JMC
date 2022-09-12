@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<IdentityUser>
 @{
     ViewBag.Subtitulo = "Listagem de Usuários";
+    var administradores = ViewBag.Administradores as IEnumerable<string>;
 }
 
 <header class="d-flex justify-content-between align-items-center">
@@ -23,6 +24,7 @@
                 <th>Nome de Usuário</th>
                 <th>E-mail</th>
                 <th>Telefone</th>
+                <th>Administrador</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -33,9 +35,22 @@
                     <td>@usuario.UserName</td>
                     <td>@usuario.Email</td>
                     <td>@usuario.PhoneNumber</td>
+                    <td>@(administradores.Contains(usuario.UserName) ? "Sim" : "Não")</td>
                      <td>
                         <a asp-action="Cadastrar" asp-route-id="@usuario.Id" class="btn btn-sm btn-primary"><i
                         class="fa fa-pencil" title="Alterar"></i></a>
+                        @if (administradores.Contains(usuario.UserName))
+                        {
+                            <a asp-action="RemAdministrador" asp-route-id="@usuario.Id" class="btn btn-sm btn-danger">
+                                <i class="fa fa-minus" title="Remover perfil administrador"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-action="AddAdministrador" asp-route-id="@usuario.Id" class="btn btn-sm btn-success">
+                                <i class="fa fa-plus" title="Adicionar perfil administrador"></i>
+                            </a>
+                        }
                         <a asp-action="Excluir" asp-route-id="@usuario.Id" class="btn btn-sm btn-danger"><i class="fa fa-trash"
                         title="Excluir"></i></a>
                     </td>

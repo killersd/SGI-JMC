@@ -191,10 +191,15 @@ namespace SGI_JMC.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+        
         [Authorize(Roles = "administrador")]
         public async Task<IActionResult> IndexUsuarios()
         {
             var usuarios = await _userManager.Users.AsNoTracking().ToListAsync();
+            //captura os administradore e coloca na viewbag "Administradores"
+            var admins = (await _userManager.GetUsersInRoleAsync("administrador"))
+                .Select(u => u.UserName);
+            ViewBag.Administradores = admins;
             return View(usuarios);
         }
 
@@ -247,6 +252,58 @@ namespace SGI_JMC.Controllers
         public IActionResult AcessoRestrito([FromQuery] string returnUrl)
         {
             return View(model: returnUrl);
+        }
+
+        [Authorize(Roles = "administrador")]
+        public async Task<IActionResult> AddAdministrador(string id)
+        {
+            var usuario = await _userManager.FindByIdAsync(id);
+            if (usuario != null)
+            {
+                var resultado = await _userManager.AddToRoleAsync(usuario, "administrador");
+                if (resultado.Succeeded)
+                {
+                    this.MostrarMensagem(
+                        $"Perfil administrador adicionado com sucesso para <b>{usuario.UserName}</b>.");
+                }
+                else
+                {
+                    this.MostrarMensagem(
+                        $"Não foi possível adicionar perfil administrador para <b>{usuario.UserName}</b>.", true);
+                }
+                return RedirectToAction(nameof(IndexUsuarios));
+            }
+            else
+            {
+                this.MostrarMensagem("Usuário não encontrado.", true);
+                return RedirectToAction(nameof(IndexUsuarios));
+            }
+        }
+
+        [Authorize(Roles = "administrador")]
+        public async Task<IActionResult> RemAdministrador(string id)
+        {
+            var usuario = await _userManager.FindByIdAsync(id);
+            if (usuario != null)
+            {
+                var resultado = await _userManager.RemoveFromRoleAsync(usuario, "administrador");
+                if (resultado.Succeeded)
+                {
+                    this.MostrarMensagem(
+                        $"Perfil administrador removido com sucesso de <b>{usuario.UserName}</b>.");
+                }
+                else
+                {
+                    this.MostrarMensagem(
+                        $"Não foi possível remover perfil administrador de <b>{usuario.UserName}</b>.", true);
+                }
+                return RedirectToAction(nameof(IndexUsuarios));
+            }
+            else
+            {
+                this.MostrarMensagem("Usuário não encontrado.", true);
+                return RedirectToAction(nameof(IndexUsuarios));
+            }
         }
 
     }
