@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="EmailService\" />
+    <Folder Include="wwwroot\Scripts\" />
   </ItemGroup>
 
 </Project>

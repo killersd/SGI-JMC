@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SGI-JMC</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    @*<link rel="stylesheet" href="~/css/site.css" />*@
-    <link rel="stylesheet" href="~/css/MyStyle.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/MyStyle.css" />x''
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css" />
-
 </head>
 <body>
     <header>
@@ -48,10 +47,15 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - SGI-JMC</a>
+        @*        <div class="container">
+        &copy; 2022 - SGI-JMC</a>
+        </div>*@
+        <div class="text-dark bg-light p-1 fixed-bottom text-center">
+            SGI-JMC - @DateTime.Now.Year.ToString() - 
+            &copy;Todos os direitos reservados
         </div>
     </footer>
+    <script src="~/lib/CustomJS.js"></script>
     <script src="~/lib/bootstrap5/dist/js/bootstrap.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

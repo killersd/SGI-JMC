@@ -239,12 +239,12 @@ namespace SGI_JMC.Controllers
                 {
                     this.MostrarMensagem("Não foi possível excluir o usuário.", true);
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexUsuarios));
             }
             else
             {
                 this.MostrarMensagem("Usuário não encontrado.", true);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexUsuarios));
             }
         }
 
