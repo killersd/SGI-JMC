@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SGI_JMC.Extensions;
+using SGI_JMC.Services;
 using SGI_JMC.ViewModels;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SGI_JMC.Controllers
@@ -15,6 +17,7 @@ namespace SGI_JMC.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IEmailService _emailService;
 
         public IActionResult Index()
         {
@@ -23,11 +26,13 @@ namespace SGI_JMC.Controllers
 
         public UsuarioController(UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            IEmailService emailService)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
             this._roleManager = roleManager;
+            this._emailService = emailService;
         }
 
 
@@ -305,6 +310,86 @@ namespace SGI_JMC.Controllers
                 return RedirectToAction(nameof(IndexUsuarios));
             }
         }
+
+        [HttpGet]
+        public IActionResult EsqueciSenha()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EsqueciSenha([FromForm] EsqueciSenhaViewModel dados)
+        {
+            if (ModelState.IsValid)
+            {
+                if (_userManager.Users.AsNoTracking().Any(u => u.NormalizedEmail == dados.Email.ToUpper().Trim()))
+                {
+                    var usuario = await _userManager.FindByEmailAsync(dados.Email);
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(usuario);
+                    var urlConfirmacao = Url.Action(nameof(RedefinirSenha), "Usuario", new { token }, Request.Scheme);
+                    var mensagem = new StringBuilder();
+                    mensagem.Append($"<p>Olá, {usuario.UserName}.</p>");
+                    mensagem.Append("<p>Houve uma solicitação de redefinição de senha para seu usuário em nosso site. Se não foi você que fez a solicitação, ignore essa mensagem. Caso tenha sido você, clique no link abaixo para criar sua nova senha:</p>");
+                    mensagem.Append($"<p><a href='{urlConfirmacao}'>Redefinir Senha</a></p>");
+                    mensagem.Append("<p>Atenciosamente,<br>Equipe de Suporte</p>");
+                    await _emailService.SendEmailAsync(usuario.Email,
+                        "Redefinição de Senha", "", mensagem.ToString());
+                    return View(nameof(EmailRedefinicaoEnviado));
+                }
+                else
+                {
+                    this.MostrarMensagem(
+                            $"Usuário/e-mail <b>{dados.Email}</b> não encontrado.");
+                    return View();
+                }
+            }
+            else
+            {
+                return View(dados);
+            }
+        }
+
+        public IActionResult EmailRedefinicaoEnviado()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult RedefinirSenha(string token)
+        {
+            var modelo = new RedefinirSenhaViewModel();
+            modelo.Token = token;
+            return View(modelo);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RedefinirSenha([FromForm] RedefinirSenhaViewModel dados)
+        {
+            if (ModelState.IsValid)
+            {
+                var usuario = await _userManager.FindByEmailAsync(dados.Email);
+                var resultado = await _userManager.ResetPasswordAsync(
+                    usuario, dados.Token, dados.NovaSenha);
+                if (resultado.Succeeded)
+                {
+                    this.MostrarMensagem(
+                       $"Senha redefinida com sucesso! Agora você já pode fazer login com a nova senha.");
+                    return View(nameof(Login));
+                }
+                else
+                {
+                    this.MostrarMensagem(
+                        $"Não foi possível redefinir a senha. Verifique se preencheu a senha corretamente. Se o problema persistir, entre em contato com o suporte.");
+                    return View(dados);
+                }
+            }
+            else
+            {
+                return View(dados);
+            }
+        }
+
+
 
     }
 }
