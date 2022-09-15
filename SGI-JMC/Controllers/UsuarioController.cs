@@ -135,8 +135,15 @@ namespace SGI_JMC.Controllers
                         usuarioBD, usuarioVM.Senha);
                     if (resultado.Succeeded)
                     {
-                        this.MostrarMensagem("Usuário cadastrado com sucesso. Use suas credenciais para entrar no sistema.");
-                        return RedirectToAction("Login");
+                        this.MostrarMensagem("Usuário cadastrado com sucesso.");
+                        if (User.IsInRole("administrador"))
+                        {
+                            return RedirectToAction("IndexUsuarios");
+                        }
+                        else 
+                        {
+                            return RedirectToAction("Login");
+                        }                        
                     }
                     else
                     {
@@ -329,9 +336,9 @@ namespace SGI_JMC.Controllers
                     var urlConfirmacao = Url.Action(nameof(RedefinirSenha), "Usuario", new { token }, Request.Scheme);
                     var mensagem = new StringBuilder();
                     mensagem.Append($"<p>Olá, {usuario.UserName}.</p>");
-                    mensagem.Append("<p>Houve uma solicitação de redefinição de senha para seu usuário em nosso site. Se não foi você que fez a solicitação, ignore essa mensagem. Caso tenha sido você, clique no link abaixo para criar sua nova senha:</p>");
+                    mensagem.Append("<p>Houve uma solicitação de redefinição de senha para seu usuário em nosso sistema. Se não foi você que fez a solicitação, ignore essa mensagem. Caso tenha sido você, clique no link abaixo para criar sua nova senha:</p>");
                     mensagem.Append($"<p><a href='{urlConfirmacao}'>Redefinir Senha</a></p>");
-                    mensagem.Append("<p>Atenciosamente,<br>Equipe de Suporte</p>");
+                    mensagem.Append("<p>Atenciosamente,<br>Equipe de Suporte do SGI-JMC</p>");
                     await _emailService.SendEmailAsync(usuario.Email,
                         "Redefinição de Senha", "", mensagem.ToString());
                     return View(nameof(EmailRedefinicaoEnviado));
