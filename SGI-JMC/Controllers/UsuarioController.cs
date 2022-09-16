@@ -346,7 +346,7 @@ namespace SGI_JMC.Controllers
                 else
                 {
                     this.MostrarMensagem(
-                            $"Usuário/e-mail <b>{dados.Email}</b> não encontrado.");
+                            $"E-mail <b>{dados.Email}</b> não encontrado.");
                     return View();
                 }
             }
@@ -396,6 +396,39 @@ namespace SGI_JMC.Controllers
             }
         }
 
+
+        [HttpGet, Authorize]
+        public IActionResult AlterarSenha()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AlterarSenha([FromForm] AlterarSenhaViewModel dados)
+        {
+            if (ModelState.IsValid)
+            {
+                var usuario = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+                var resultado = await _userManager.ChangePasswordAsync(usuario, dados.SenhaAtual, dados.NovaSenha);
+                if (resultado.Succeeded)
+                {
+                    this.MostrarMensagem(
+                        $"Sua senha foi alterada com sucesso.");
+                    await _signInManager.SignOutAsync();
+                    return RedirectToAction(nameof(Login), "Usuario");
+                }
+                else
+                {
+                    this.MostrarMensagem(
+                        $"Não foi possível alterar sua senha. Confira os dados informados e tente novamente.");
+                    return View(dados);
+                }
+            }
+            else
+            {
+                return View(dados);
+            }
+        }
 
 
     }
