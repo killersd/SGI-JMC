@@ -57,15 +57,74 @@ else
         </ul>
     </li>
 
-
-    <a class="nav-link" asp-controller="Declaracao" asp-action="Create">Emitir declaração</a>
-
     @if (Context.User.IsInRole("administrador"))
     {
-        <a class="nav-link" asp-controller="Usuario" asp-action="IndexUsuarios">Usuários</a>
-        <a class="nav-link" asp-controller="Usuario" asp-action="Cadastrar">Novo usuário</a>
+        @* <a class="nav-link" asp-controller="Usuario" asp-action="IndexUsuarios">Usuários</a>
+        <a class="nav-link" asp-controller="Usuario" asp-action="Cadastrar">Novo usuário</a>*@
+
+        <li class="nav-link dropdown">
+            <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
+                Usuários
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <a class="dropdown-item" asp-controller="Usuario" asp-action="IndexUsuarios" classes-if-active="disabled">
+                        Todos
+                    </a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <a class="dropdown-item" asp-controller="Usuario" asp-action="Cadastrar">Novo</a>
+                </li>
+            </ul>
+        </li>
+
+
+
     }
-    <a class="nav-link" asp-controller="Aluno" asp-action="Index">Arquivo Morto</a>
+
+    <li class="nav-link dropdown">
+        <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
+            Declarações
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+                <a class="dropdown-item" asp-controller="Declaracao" asp-action="Create" classes-if-active="disabled">
+                    Regular
+                </a>
+            </li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li>
+                <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateProSic">ProSic</a>
+            </li>
+        </ul>
+    </li>
+
+    <li class="nav-link dropdown">
+        <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
+            Arquivo Morto
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+                <a class="dropdown-item" asp-controller="Aluno" asp-action="Index" classes-if-active="disabled">
+                    Consultar
+                </a>
+            </li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li>
+                <a class="dropdown-item" asp-controller="Aluno" asp-action="CreateStudent">Cadastrar</a>
+            </li>
+        </ul>
+    </li>
+
+    //<a class="nav-link" asp-controller="Declaracao" asp-action="Create">Emitir declaração</a>
+    //<a class="nav-link" asp-controller="Aluno" asp-action="Index">Arquivo Morto</a>
 
 }
 else
