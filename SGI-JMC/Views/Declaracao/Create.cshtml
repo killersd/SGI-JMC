@@ -40,13 +40,12 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="anoLetivo" class="control-label"></label>
-                            <input asp-for="anoLetivo" class="form-control" MaxLength="4"/>
+                            <input asp-for="anoLetivo" class="form-control" MaxLength="4" />
                             <span asp-validation-for="anoLetivo" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
-                            @*<input type="submit" value="Baixar declaração" class="btn btn-primary" />*@
+@*                        <div class="form-group">
                             <button type="submit" class="btn btn-primary">Baixar declaração</button>
-                        </div>
+                        </div>*@
 
                         @*</form>*@
                     </div>
@@ -71,8 +70,17 @@
                             <input asp-for="codigoSeed" MaxLength="10" class="form-control" />
                             <span asp-validation-for="codigoSeed" class="text-danger"></span>
                         </div>
+                        <div class="form-group">
+                            <label asp-for="qtdFaltas" class="control-label"></label>
+                            <input asp-for="qtdFaltas" class="form-control" MaxLength="4" />
+                            <span asp-validation-for="qtdFaltas" class="text-danger"></span>
+                        </div>
                     </div>
+                    <div class="d-grid gap-2 col-2 mx-auto">
+                    @*<input type="submit" value="Baixar declaração" class="btn btn-primary" />*@
+                    <button type="submit" class="btn btn-primary">Baixar declaração</button>
                 </div>
+                </div>                
             </form>
         </div>
     </div>

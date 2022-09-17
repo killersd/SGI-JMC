@@ -41,11 +41,18 @@ namespace SGI_JMC.Models
         [Display(Name = "Número do NIS")]
         public string numeroDoNis { get; set; }
 
-        [Display(Name = "Código SEED")]
+        [Display(Name = "Matrícula SIAE")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
         public string codigoSeed { get; set; }
 
         [Display(Name = "Data de emissão")]
         public DateTime dataDeEmissao { get; set; }
+
+        [Required(ErrorMessage ="Este campo é obrigatório")]
+        [Display(Name = "Quantidade de faltas")]
+        public int qtdFaltas { get; set; }
+
+        public int numeroDeclaracao { get; set; }
+        public string codigoAutenticacao { get; set; }
     }
 }
