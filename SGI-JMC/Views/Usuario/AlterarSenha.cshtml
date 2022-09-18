@@ -1,4 +1,4 @@
-﻿@model AlterarSenhaViewModel
+﻿@*@model AlterarSenhaViewModel
 @{
     ViewBag.Subtitulo = "Alteração de Senha";
 }
@@ -36,4 +36,56 @@
         <a asp-action="Index" asp-controller="Home" class="btn btn-outline-secondary">Cancelar</a>
         <button class="btn btn-primary" type="submit">Alterar</button>
     </div>
-</form>
+</form>*@
+
+@model AlterarSenhaViewModel
+
+<partial name="_MensagemPartial" />
+
+<div asp-validation-summary="ModelOnly" class="val-summary text-danger my-3"></div>
+<div class="container-fluid">
+    <div class="card mb-12">
+        <div class="card-header">
+            <h4><b>Alteração de Senha</b></h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="AlterarSenha">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group mb-3 col-4">
+                            <label asp-for="@Model.SenhaAtual"></label><br>
+                            <input asp-for="@Model.SenhaAtual" class="form-control">
+                        </div>
+                        <span asp-validation-for="@Model.SenhaAtual" class="text-danger"></span>
+
+                        <div class="w-100 mt-3"></div>
+                        <div class="form-group mb-3 col-4">
+                            <label asp-for="@Model.NovaSenha"></label><br>
+                            <input asp-for="@Model.NovaSenha" class="form-control">
+                        </div>
+                        <span asp-validation-for="@Model.NovaSenha" class="text-danger"></span>
+
+                        <div class="w-100 mt-3"></div>
+                        <div class="form-group mb-3 col-4">
+                            <label asp-for="@Model.ConfNovaSenha"></label><br>
+                            <input asp-for="@Model.ConfNovaSenha" class="form-control">
+                        </div>
+                        <span asp-validation-for="@Model.ConfNovaSenha" class="text-danger"></span>
+
+                        <div class="w-100"></div>
+                         <div class="col-md-3" style="text-align:center">
+                            <a asp-action="VerificarAutenticidade" asp-controller="Declaracao" class="btn btn-info"><i class="fa fa-ban" aria-hidden="true"></i> Cancelar</a>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-exchange" aria-hidden="true"></i> Alterar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

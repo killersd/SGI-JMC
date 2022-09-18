@@ -42,13 +42,13 @@
                         @if (administradores.Contains(usuario.UserName))
                         {
                             <a asp-action="RemAdministrador" asp-route-id="@usuario.Id" class="btn btn-sm btn-danger">
-                                <i class="fa fa-minus" title="Remover perfil administrador"></i>
+                                <i class="fa fa-user-plus" title="Remover perfil administrador"></i>
                             </a>
                         }
                         else
                         {
                             <a asp-action="AddAdministrador" asp-route-id="@usuario.Id" class="btn btn-sm btn-success">
-                                <i class="fa fa-plus" title="Adicionar perfil administrador"></i>
+                                <i class="fa fa-user-plus" title="Adicionar perfil administrador"></i>
                             </a>
                         }
                         <a asp-action="Excluir" asp-route-id="@usuario.Id" class="btn btn-sm btn-danger"><i class="fa fa-trash"

@@ -51,14 +51,26 @@
         <ul class="dropdown-menu dropdown-menu-end">
             <li>
                 <a class="dropdown-item" asp-controller="Declaracao" asp-action="Create" classes-if-active="disabled">
-                    Regular
+                    Frequência (Regular)
                 </a>
             </li>
             <li>
                 <hr class="dropdown-divider">
             </li>
             <li>
-                <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateProSic">ProSic</a>
+                <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateProSic">Frequência (ProSic)</a>
+            </li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li>
+                <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateTransferenciaRegular">Transferência (Regular)</a>
+            </li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li>
+                <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateTransferenciaProSic">Transferência (ProSic)</a>
             </li>
         </ul>
     </li>
@@ -81,6 +93,22 @@
             </li>
         </ul>
     </li>
+    <li class="nav-link dropdown">
+        <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
+            Advertência
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+                <a class="dropdown-item" asp-controller="Advertencia" asp-action="GerarAdvertencia" classes-if-active="disabled">
+                    Nova
+                </a>
+            </li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>            
+        </ul>
+    </li>
+    @*<a class="nav-link pe-0" asp-controller="Advertencia" asp-action="GerarAdvertencia">Advertência</a>*@
 }
 else
 {

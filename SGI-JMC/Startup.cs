@@ -49,7 +49,7 @@ namespace SGI_JMC
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(3); //5
                 options.Lockout.MaxFailedAccessAttempts = 5; //5
                 options.Lockout.AllowedForNewUsers = true; //true		
-                options.SignIn.RequireConfirmedEmail = false; //false
+                options.SignIn.RequireConfirmedEmail = true; //false
                 options.SignIn.RequireConfirmedPhoneNumber = false; //false
                 options.SignIn.RequireConfirmedAccount = false; //false
             })
@@ -102,7 +102,7 @@ namespace SGI_JMC
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Usuario}/{action=Index}/{id?}");
+                    pattern: "{controller=Declaracao}/{action=VerificarAutenticidade}/{id?}");
                 endpoints.MapRazorPages();
             });
             Inicializador.InicializarIdentity(userManager,roleManager);

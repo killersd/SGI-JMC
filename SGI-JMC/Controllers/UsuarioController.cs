@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SGI_JMC.Extensions;
+using SGI_JMC.Models;
 using SGI_JMC.Services;
 using SGI_JMC.ViewModels;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace SGI_JMC.Controllers
 
 
 
-        [Authorize(Roles ="administrador")]
+        //[Authorize(Roles ="administrador")]
         [HttpGet]
         public async Task<IActionResult> Cadastrar(string id)
         {
@@ -133,17 +134,20 @@ namespace SGI_JMC.Controllers
 
                     var resultado = await _userManager.CreateAsync(
                         usuarioBD, usuarioVM.Senha);
+
                     if (resultado.Succeeded)
                     {
-                        this.MostrarMensagem("Usuário cadastrado com sucesso.");
+                        await EnviarLinkConfirmacaoEmailAsync(usuarioBD);
+                        this.MostrarMensagem("Usuário cadastrado com sucesso. Uma mensagem de confirmação foi enviada para" +
+                            "o seu e-mail. Clique no link de confirmação  recebido para concluir o processo de cadastro.");
                         if (User.IsInRole("administrador"))
                         {
                             return RedirectToAction("IndexUsuarios");
                         }
-                        else 
+                        else
                         {
                             return RedirectToAction("Login");
-                        }                        
+                        }
                     }
                     else
                     {
@@ -172,16 +176,32 @@ namespace SGI_JMC.Controllers
         {
             if (ModelState.IsValid)
             {
-                var resultado = await _signInManager.PasswordSignInAsync(login.Usuario, login.Senha, login.Lembrar, false);
-                if (resultado.Succeeded)
+                try
                 {
-                    login.ReturnUrl = login.ReturnUrl ?? "~/";
-                    return LocalRedirect(login.ReturnUrl);
+                    var usuario = await _userManager.FindByNameAsync(login.Usuario);
+                    if (!_userManager.IsEmailConfirmedAsync(usuario).Result)
+                    {
+                        this.MostrarMensagem("Este e-mail ainda não foi confirmado. Confirme e tente fazer o login novamente.", true);
+                        return View(login);
+                    }
+
+                    var resultado = await _signInManager.PasswordSignInAsync(login.Usuario, login.Senha, login.Lembrar, false);
+                    if (resultado.Succeeded)
+                    {
+                        login.ReturnUrl = login.ReturnUrl ?? "~/";
+                        return LocalRedirect(login.ReturnUrl);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty,
+                            "Tentativa de login inválida. Reveja seus dados de acesso e tente novamente.");
+                        return View(login);
+                    }
                 }
-                else
+                catch (System.Exception)
                 {
-                    ModelState.AddModelError(string.Empty,
-                        "Tentativa de login inválida. Reveja seus dados de acesso e tente novamente.");
+
+                    this.MostrarMensagem("Usuário inválido.", true);
                     return View(login);
                 }
             }
@@ -200,10 +220,10 @@ namespace SGI_JMC.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("VerificarAutenticidade", "Declaracao");
             }
         }
-        
+
         [Authorize(Roles = "administrador")]
         public async Task<IActionResult> IndexUsuarios()
         {
@@ -430,6 +450,39 @@ namespace SGI_JMC.Controllers
             }
         }
 
+        private async Task EnviarLinkConfirmacaoEmailAsync(IdentityUser usuario)
+        {
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(usuario);
+            var urlConfirmacao = Url.Action("ConfirmarEmail",
+                "Usuario", new { email = usuario.Email, token }, Request.Scheme);
+            var mensagem = new StringBuilder();
+            mensagem.Append($"<p>Olá, {usuario.UserName}.</p>");
+            mensagem.Append("<p>Recebemos seu cadastro em nosso sistema. Para concluir o processo de cadastro, clique no link a seguir:</p>");
+            mensagem.Append($"<p><a href='{urlConfirmacao}'>Confirmar Cadastro</a></p>");
+            mensagem.Append("<p>Atenciosamente,<br>Equipe de Suporte</p>");
+            await _emailService.SendEmailAsync(usuario.Email,
+                "Confirmação de Cadastro", "", mensagem.ToString());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ConfirmarEmail(string email, string token)
+        {
+            var usuario = await _userManager.FindByEmailAsync(email);
+            if (usuario == null)
+            {
+                this.MostrarMensagem("Não foi possível confirmar o e-mail. Usuário não encontrado", true);
+            }
+            var resultado = await _userManager.ConfirmEmailAsync(usuario, token);
+            if (resultado.Succeeded)
+            {
+                this.MostrarMensagem("E-mail confirmado com sucesso! Agora você já está liberado para fazer o login.");
+            }
+            else
+            {
+                this.MostrarMensagem("Não foi possível validar seu e-mail. Tente novamente em alguns minutos. Se o problema persistir, entre em contato com o suporte.", true);
+            }
+            return View(nameof(Login));
+        }
 
     }
 }

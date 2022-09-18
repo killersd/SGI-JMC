@@ -11,7 +11,9 @@
     <div class="card mb-3">
         <div class="card-header">
             <h4><b>Arquivo Morto</b></h4>
-            <a href="../aluno/CreateStudent" class="btn btn-info pull-right fa fa-plus"> Adicionar aluno</a>
+            <h6>Digite na caixa de pesquisa para localizar um aluno</h6>
+            @*<h4><b>Arquivo Morto</b></h4>*@
+            @*<a href="../aluno/CreateStudent" class="btn btn-info pull-right fa fa-plus"> Adicionar aluno</a>*@
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -36,16 +38,16 @@
                                 <td>@item.Mother_name</td>
                                 <td>@item.Birth_date</td>
                                 <td>@item.Year_folder</td>
-@*                                <td>
-                                    @Html.ActionLink("Editar", "UpdateStudent", new { id = item.Id })|@Html.ActionLink("Excluir", "DeleteStudent", new { id = item.Id })
-                                </td>*@
+                                @*                                <td>
+                            @Html.ActionLink("Editar", "UpdateStudent", new { id = item.Id })|@Html.ActionLink("Excluir", "DeleteStudent", new { id = item.Id })
+                            </td>*@
                                 <td>
-                                    <a asp-action="UpdateStudent" asp-route-id=@item.Id >
-                                        <i class="fa fa-pencil"   
+                                    <a asp-action="UpdateStudent" asp-route-id=@item.Id>
+                                        <i class="fa fa-pencil"
                                        title="Editar"></i>
                                     </a>
-                                     | 
-                                    <a asp-action="DeleteStudent" asp-route-id=@item.Id >
+                                    |
+                                    <a asp-action="DeleteStudent" asp-route-id=@item.Id>
                                         <i class="fa fa-trash"
                                        title="Excluir"></i>
                                     </a>

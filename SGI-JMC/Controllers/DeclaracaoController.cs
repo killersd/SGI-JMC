@@ -9,7 +9,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PdfSharpCore.Drawing;
 using SGI_JMC.Data;
+using SGI_JMC.Extensions;
 using SGI_JMC.Models;
+using SGI_JMC.ViewModels;
 
 namespace SGI_JMC.Controllers
 {
@@ -151,13 +153,13 @@ namespace SGI_JMC.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-       
+
         [Authorize]
         private bool DeclaracaoExists(int id)
         {
             return _context.Declaracao.Any(e => e.Id == id);
         }
-        
+
         [Authorize]
         public float CalculaFrequenciaGeral(Declaracao declaracao)
         {
@@ -169,11 +171,8 @@ namespace SGI_JMC.Controllers
 
         public FileResult gerarDeclaracao(Declaracao declaracao)
         {
-            declaracao.numeroDeclaracao = GerarNumeroDeclaracao();
-            declaracao.codigoAutenticacao = GerarCodigoDeAutenticacao();
-            GerarCodigoDeAutenticacao();
+            declaracao.codigoAutenticacao = GerarCodigoDeAutenticacao(declaracao);
             float porcentagemDeFaltas = 100 - CalculaFrequenciaGeral(declaracao);
-            // Declaracao declaracao = new Declaracao();
             using (var doc = new PdfSharpCore.Pdf.PdfDocument())
             {
                 var page = doc.AddPage();
@@ -253,7 +252,7 @@ namespace SGI_JMC.Controllers
 
                 textFomatter.DrawString("Número do documento: " + declaracao.numeroDeclaracao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
                 textFomatter.DrawString("Código de verificação: " + declaracao.codigoAutenticacao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
-                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: www.sgi-eejmc.herokuapp.com/declaracao/verificarAutenticidade, preencha os dados " +
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://localhost:44363/Declaracao/VerificarAutenticidade, preencha os dados " +
                     "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
@@ -287,30 +286,67 @@ namespace SGI_JMC.Controllers
         }
 
         [Authorize]
-        public int GerarNumeroDeclaracao()
+        public int GerarNumeroDeclaracao(Declaracao declaracao)
         {
-            int numeroDeclaracao;
+            int numeroDeclaracaoGerado;
 
             Random random = new Random();
 
-            numeroDeclaracao = random.Next().GetHashCode();
-
-            return numeroDeclaracao;
+            numeroDeclaracaoGerado = random.Next().GetHashCode();
+            declaracao.numeroDeclaracao = numeroDeclaracaoGerado;
+            return numeroDeclaracaoGerado;
         }
 
         [Authorize]
-        public string GerarCodigoDeAutenticacao()
+        public string GerarCodigoDeAutenticacao(Declaracao declaracao)
         {
-            string codigoAutenticacao = GerarNumeroDeclaracao().ToString("x");
+            string codigoAutenticacao = GerarNumeroDeclaracao(declaracao).ToString("x");
+            declaracao.codigoAutenticacao = codigoAutenticacao;
             return codigoAutenticacao;
         }
 
-        public Boolean VerificarAutenticidade(Declaracao declaracao)
+        private bool EntidadeExiste(string codAut)
         {
+            return (_context.Declaracao.AsNoTracking().Any(u => u.codigoAutenticacao == codAut));
+        }
 
-            return true;
+        [HttpPost, AllowAnonymous]
+        public async Task<IActionResult> VerificarAutenticidade(
+       [FromForm] VerificarAutenticidadeViewModel verificar)
+        {
+            if (ModelState.IsValid)
+            {
+                if ((_context.Declaracao.Any(u => u.codigoAutenticacao == verificar.CodigoDeVerificacao) &&
+                    (_context.Declaracao.Any(u => u.numeroDeclaracao == verificar.NumeroDeclaracao))))
+                {
+                    this.MostrarMensagem("ESTE DOCUMENTO É VERDADEIRO E FOI GERADO PELO SGI-EEJMC.");
+                    return View(verificar);
+                }
+                else
+                {
+                    this.MostrarMensagem("ESTE DOCUMENTO É FALSO.", true);
+                    return View(verificar);
+                }
+            }
+            else
+            {
+                return View(verificar);
+            }
 
         }
+
+
+        [HttpGet, AllowAnonymous]
+        public IActionResult VerificarAutenticidade()
+        {
+            return View();
+        }
+
+        public IActionResult CreateProSic()
+        {
+            return View();
+        }
+
 
     }
 }

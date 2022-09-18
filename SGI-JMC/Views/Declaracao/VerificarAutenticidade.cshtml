@@ -1,21 +1,19 @@
-﻿@*@{
-    ViewData["Title"] = "Home Page";
-}
-
-<div class="text-center">
-    <h1 class="display-4">Sistema de Gerenciamento Interno</h1>
-</div>
-
-@model VerificarAutenticidadeViewModel
+﻿@model VerificarAutenticidadeViewModel
 
 <partial name="_MensagemPartial" />
 
 <div asp-validation-summary="ModelOnly" class="val-summary text-danger my-3"></div>
-
+<div class="text-center">
+    <h1 class="display-4">Sistema de Gerenciamento Interno</h1>
+    <p></p>
+    <h3 class="display-6">Escola Estadual João de Mattos Carvalho</h3>
+    <p></p>
+</div>
 <div class="container-fluid">
     <div class="card mb-12">
         <div class="card-header">
-            <h4><b>Verificação de Autenticidade</b></h4>
+            <h4><b>Verificação de autenticidade de documento</b></h4>
+            <h6>Insira o número e o código de verificação do documento para veficicar sua autenticidade</h6>
         </div>
         <div class="card-body">
             <form asp-action="VerificarAutenticidade">
@@ -45,4 +43,4 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    }*@
+    }

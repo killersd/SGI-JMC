@@ -14,5 +14,7 @@ namespace SGI_JMC.Models
         public DbSet<SGI_JMC.Models.AcessoTipoUsuario> AcessoTipoUsuario { get; set; }
         public DbSet<SGI_JMC.Models.PerfilUsuario> PerfilUsuario { get; set; }
         public DbSet<SGI_JMC.Models.Declaracao> Declaracao { get; set; }
+        public DbSet<SGI_JMC.Models.DeclaracaoProSic> DeclaracaoProSic { get; set; }
+
     }
 }
