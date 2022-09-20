@@ -85,7 +85,7 @@ namespace SGI_JMC.Controllers
             else
                 return View();
         }
-
+    
         [HttpPost]
         public async Task<IActionResult> DeleteStudent(int? id, aluno student)
         {

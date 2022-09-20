@@ -7,11 +7,11 @@
 <div class="container-fluid">
     <div class="card mb-3">
         <div class="card-header">
-            <h4><b>Criar Declaração de Frequência (ProSic)</b></h4>
+            <h4><b>Declaração de Frequência (ProSic)</b></h4>
             <h6>Preencha os dados e clique em baixar declaração, o download iniciará automaticamente</h6>
         </div>
         <div class="card-body">
-            <form asp-action="">
+            <form asp-action="gerarDeclaracaoProSic">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="row">
                     <div class="col-md-6">
@@ -44,12 +44,12 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="faseProSic" class="control-label"></label>
-                            <input asp-for="faseProSic" MaxLength="1" placeholder="3 ou 4" class="form-control" />
+                            <input asp-for="faseProSic" MaxLength="01" placeholder="3 ou 4" class="form-control" />
                             <span asp-validation-for="faseProSic" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="serieOrigem" class="control-label"></label>
-                            <input asp-for="serieOrigem" MaxLength="1" placeholder="" class="form-control" />
+                            <input asp-for="serieOrigem" MaxLength="01" placeholder="" class="form-control" />
                             <span asp-validation-for="serieOrigem" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -70,15 +70,12 @@
                     </div>
                     <div class="col-md-12" style="text-align:center">
                         @*<input type="submit" value="Baixar declaração" class="btn btn-primary" />*@
-                        <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Baixar declaração</button>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Baixar declaração</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-</div>
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 @section Scripts {
     @{

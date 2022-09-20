@@ -1,48 +1,16 @@
-﻿@*@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Sistema de Gerenciamento Interno</h1>
-</div>
-
-@model VerificarAutenticidadeViewModel
-
-<partial name="_MensagemPartial" />
-
-<div asp-validation-summary="ModelOnly" class="val-summary text-danger my-3"></div>
-
-<div class="container-fluid">
-    <div class="card mb-12">
-        <div class="card-header">
-            <h4><b>Verificação de Autenticidade</b></h4>
-        </div>
-        <div class="card-body">
-            <form asp-action="VerificarAutenticidade">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label asp-for="NumeroDeclaracao" class="control-label"></label>
-                            <input asp-for="NumeroDeclaracao" class="form-control" />
-                            <span asp-validation-for="NumeroDeclaracao" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="CodigoDeVerificacao" class="control-label"></label>
-                            <input asp-for="CodigoDeVerificacao" class="form-control" />
-                            <span asp-validation-for="CodigoDeVerificacao" class="text-danger"></span>
-                        </div>
-                        <div style="align-items:center">
-                            <button type="submit" class="btn btn-primary">Verificar Autenticidade</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
+    <h4 class="display-6">Escola Estadual João de Mattos Carvalho</h4>
+    <p></p>
+    <div>
+        <a href="../Declaracao/VerificarAutenticidade" class="btn btn-primary">Verificar autenticidade de documento</a>
+    </div>
+    <p></p>
+    <div class="container">
+        <img src="~/Imagens/SemTransparencia.jpg" width="350px" />
     </div>
 </div>
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-    }*@

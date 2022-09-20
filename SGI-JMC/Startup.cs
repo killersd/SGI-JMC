@@ -102,7 +102,7 @@ namespace SGI_JMC
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Declaracao}/{action=VerificarAutenticidade}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
             Inicializador.InicializarIdentity(userManager,roleManager);

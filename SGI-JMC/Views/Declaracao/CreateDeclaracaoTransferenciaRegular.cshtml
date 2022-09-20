@@ -1,4 +1,4 @@
-﻿@model SGI_JMC.Models.Declaracao
+﻿@model SGI_JMC.Models.DeclaracaoTransferenciaRegular
 
 @{
     ViewData["Title"] = "Create";
@@ -9,11 +9,11 @@
 <div class="container-fluid">
     <div class="card mb-3">
         <div class="card-header">
-            <h4><b>Declaração de Frequência (Regular)</b></h4>
+            <h4><b>Declaração para Transferência (Regular)</b></h4>
             <h6>Preencha os dados e clique em baixar declaração, o download iniciará automaticamente</h6>
         </div>
         <div class="card-body">
-            <form asp-action="gerarDeclaracao">
+            <form asp-action="gerarDeclaracaoTransferenciaAlunoRegular">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="row">
                     <div class="col-md-6">
@@ -70,11 +70,6 @@
                             <label asp-for="codigoSeed" class="control-label"></label>
                             <input asp-for="codigoSeed" MaxLength="10" class="form-control" />
                             <span asp-validation-for="codigoSeed" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="qtdFaltas" class="control-label"></label>
-                            <input asp-for="qtdFaltas" class="form-control" MaxLength="4" />
-                            <span asp-validation-for="qtdFaltas" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-12" style="text-align:center">

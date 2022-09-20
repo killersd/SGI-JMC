@@ -26,13 +26,11 @@ namespace SGI_JMC.Controllers
             _context = context;
         }
 
-        // GET: Declaracao
         public async Task<IActionResult> Index()
         {
             return View(await _context.Declaracao.ToListAsync());
         }
 
-        // GET: Declaracao/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -50,30 +48,6 @@ namespace SGI_JMC.Controllers
             return View(declaracao);
         }
 
-        // GET: Declaracao/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Declaracao/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Father_name,Mother_name,Birth_date,anoLetivo,anoSerie,turma,numeroDoNis,codigoSeed,dataDeEmissao")] Declaracao declaracao)
-        {
-            if (ModelState.IsValid)
-            {
-                declaracao.dataDeEmissao = DateTime.Now;
-                _context.Add(declaracao);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(declaracao);
-        }
-
-        // GET: Declaracao/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -89,9 +63,6 @@ namespace SGI_JMC.Controllers
             return View(declaracao);
         }
 
-        // POST: Declaracao/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Father_name,Mother_name,Birth_date,anoLetivo,anoSerie,turma,numeroDoNis,codigoSeed,dataDeEmissao")] Declaracao declaracao)
@@ -124,7 +95,6 @@ namespace SGI_JMC.Controllers
             return View(declaracao);
         }
 
-        // GET: Declaracao/Delete/5
         [Authorize(Roles = "administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -143,7 +113,6 @@ namespace SGI_JMC.Controllers
             return View(declaracao);
         }
 
-        // POST: Declaracao/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -154,21 +123,97 @@ namespace SGI_JMC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //Métodos auxiliares
         [Authorize]
         private bool DeclaracaoExists(int id)
         {
             return _context.Declaracao.Any(e => e.Id == id);
         }
-
-        [Authorize]
-        public float CalculaFrequenciaGeral(Declaracao declaracao)
+        private bool EntidadeExiste(string codAut)
         {
-            float pctFaltas;
-            pctFaltas = (declaracao.qtdFaltas * 100) / 1000;
-            return pctFaltas;
+            return (_context.Declaracao.AsNoTracking().Any(u => u.codigoAutenticacao == codAut));
         }
 
 
+
+
+        //Métodos para verificar a autenticidade das declarações
+        [HttpPost, AllowAnonymous]
+        public async Task<IActionResult> VerificarAutenticidade(
+       [FromForm] VerificarAutenticidadeViewModel verificar)
+        {
+            if (ModelState.IsValid)
+            {
+                if ((_context.Declaracao.Any(u => u.codigoAutenticacao == verificar.CodigoDeVerificacao) &&
+                    (_context.Declaracao.Any(u => u.numeroDeclaracao == verificar.NumeroDeclaracao))))
+                {
+                    this.MostrarMensagem("ESTE DOCUMENTO É VERDADEIRO E FOI GERADO PELO SGI-EEJMC.");
+                    return View(verificar);
+                }
+                else if ((_context.DeclaracaoProSic.Any(u => u.codigoAutenticacao == verificar.CodigoDeVerificacao) &&
+                    (_context.DeclaracaoProSic.Any(u => u.numeroDeclaracao == verificar.NumeroDeclaracao))))
+                {
+                    this.MostrarMensagem("ESTE DOCUMENTO É VERDADEIRO E FOI GERADO PELO SGI-EEJMC.");
+                    return View(verificar);
+                }
+                else if ((_context.DeclaracaoTransferenciaRegular.Any(u => u.codigoAutenticacao == verificar.CodigoDeVerificacao) &&
+                    (_context.DeclaracaoTransferenciaRegular.Any(u => u.numeroDeclaracao == verificar.NumeroDeclaracao))))
+                {
+                    this.MostrarMensagem("ESTE DOCUMENTO É VERDADEIRO E FOI GERADO PELO SGI-EEJMC.");
+                    return View(verificar);
+                }
+                else if((_context.DeclaracaoTransferenciaProSic.Any(u => u.codigoAutenticacao == verificar.CodigoDeVerificacao) &&
+                    (_context.DeclaracaoTransferenciaProSic.Any(u => u.numeroDeclaracao == verificar.NumeroDeclaracao))))
+                {
+                    this.MostrarMensagem("ESTE DOCUMENTO É VERDADEIRO E FOI GERADO PELO SGI-EEJMC.");
+                    return View(verificar);
+                }
+                {
+                    this.MostrarMensagem("ESTE DOCUMENTO É FALSO.", true);
+                    return View(verificar);
+                }
+            }
+            else
+            {
+                return View(verificar);
+            }
+
+        }
+
+        [HttpGet, AllowAnonymous]
+        public IActionResult VerificarAutenticidade()
+        {
+            return View();
+        }
+
+
+
+
+        //Métodos para declaração de frequência de aluno regular (6 métodos)
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,Name,Father_name,Mother_name,Birth_date,anoLetivo,anoSerie,turma,numeroDoNis,codigoSeed,dataDeEmissao")] Declaracao declaracao)
+        {
+            if (ModelState.IsValid)
+            {
+                declaracao.dataDeEmissao = DateTime.Now;
+                _context.Add(declaracao);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(declaracao);
+        }
+
+        [Authorize]
         public FileResult gerarDeclaracao(Declaracao declaracao)
         {
             declaracao.codigoAutenticacao = GerarCodigoDeAutenticacao(declaracao);
@@ -305,48 +350,521 @@ namespace SGI_JMC.Controllers
             return codigoAutenticacao;
         }
 
-        private bool EntidadeExiste(string codAut)
+        [Authorize]
+        public float CalculaFrequenciaGeral(Declaracao declaracao)
         {
-            return (_context.Declaracao.AsNoTracking().Any(u => u.codigoAutenticacao == codAut));
-        }
-
-        [HttpPost, AllowAnonymous]
-        public async Task<IActionResult> VerificarAutenticidade(
-       [FromForm] VerificarAutenticidadeViewModel verificar)
-        {
-            if (ModelState.IsValid)
-            {
-                if ((_context.Declaracao.Any(u => u.codigoAutenticacao == verificar.CodigoDeVerificacao) &&
-                    (_context.Declaracao.Any(u => u.numeroDeclaracao == verificar.NumeroDeclaracao))))
-                {
-                    this.MostrarMensagem("ESTE DOCUMENTO É VERDADEIRO E FOI GERADO PELO SGI-EEJMC.");
-                    return View(verificar);
-                }
-                else
-                {
-                    this.MostrarMensagem("ESTE DOCUMENTO É FALSO.", true);
-                    return View(verificar);
-                }
-            }
-            else
-            {
-                return View(verificar);
-            }
-
+            float pctFaltas;
+            pctFaltas = (declaracao.qtdFaltas * 100) / 1000;
+            return pctFaltas;
         }
 
 
-        [HttpGet, AllowAnonymous]
-        public IActionResult VerificarAutenticidade()
-        {
-            return View();
-        }
 
+
+        //Métodos para declaração de frequência de aluno ProSic
+
+        [Authorize]
+        [HttpGet]
         public IActionResult CreateProSic()
         {
             return View();
         }
 
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> CreateProSic([Bind("Id,Name,Father_name,Mother_name,Birth_date,anoLetivo,anoSerie,turma,numeroDoNis,codigoSeed,dataDeEmissao")] DeclaracaoProSic declaracaoProSic)
+        {
+            if (ModelState.IsValid)
+            {
+                declaracaoProSic.dataDeEmissao = DateTime.Now;
+                _context.Add(declaracaoProSic);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(declaracaoProSic);
+        }
 
+        [Authorize]
+        public FileResult gerarDeclaracaoProSic(DeclaracaoProSic declaracaoProSic)
+        {
+            declaracaoProSic.codigoAutenticacao = GerarCodigoDeAutenticacaoProSic(declaracaoProSic);
+            float porcentagemDeFaltas = 100 - CalculaFrequenciaGeralProSic(declaracaoProSic);
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.TrimMargins.Right = 50;
+                page.TrimMargins.Left = 50;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFomatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 14);
+                var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
+
+
+                var brasao = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\BrasaoEstado.png";
+                var escudo = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\Escudo.jpg";
+
+                XImage imgBrasao = XImage.FromFile(brasao);
+                XImage imgEscudo = XImage.FromFile(escudo);
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                //graphics.DrawImage(imgBrasao, 275, 20, 50, 75);
+                graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
+                graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+
+                textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
+                textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO, DO ESPORTE E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
+                textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 60, page.Width, page.Height));
+                textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
+                textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+
+                //textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+                //textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO, DO ESPORTE E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 115, page.Width, page.Height));
+                //textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 130, page.Width, page.Height));
+                //textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 145, page.Width, page.Height));
+                //textFomatter.DrawString("SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 160, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("DECLARAÇÃO", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
+
+                string dataNascString = declaracaoProSic.Birth_date.ToString("dd/MM/yyyy");
+
+                if (declaracaoProSic.numeroDoNis == null)
+                {
+                    declaracaoProSic.numeroDoNis = "Não encontrado em nossos registros!";
+                }
+                if (declaracaoProSic.Father_name != null)
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                    textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracaoProSic.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + declaracaoProSic.Mother_name.ToUpper() + " e " + declaracaoProSic.Father_name.ToUpper() + ", " +
+                        "no ano letivo de " + declaracaoProSic.anoLetivo + ", encontra-se matriculado(a) nesta Unidade de Ensino, na turma de correção de fluxo, fase " + declaracaoProSic.faseProSic + ", do programa " +
+                        "Sergipe na Idade Certa, tendo como turma de origem " + declaracaoProSic.serieOrigem + "º ano,  e da carga horária anual (833 horas), possui frequência de " + porcentagemDeFaltas + "% nesta data.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                }
+                else
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                    textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracaoProSic.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + declaracaoProSic.Mother_name.ToUpper() + ", " +
+                        "no ano letivo de " + declaracaoProSic.anoLetivo + ", encontra-se matriculado(a) nesta Unidade de Ensino na turma de correção de fluxo, fase " + declaracaoProSic.faseProSic + " do Programa Sergipe na Idade Certa, tendo como turma de origem " + declaracaoProSic.serieOrigem + "º ano,  e da carga horária anual (833 horas), possui frequência de " + porcentagemDeFaltas + "% nesta data.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                }
+
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("NIS: " + declaracaoProSic.numeroDoNis, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 400, page.Width, page.Height));
+                textFomatter.DrawString("Matrícula SIAE: " + declaracaoProSic.codigoSeed, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 415, page.Width, page.Height));
+                textFomatter.DrawString("Observação: Esta declaração não contém emendas nem rasuras e é válida por um período de 30 dias ", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 730, page.Width, page.Height));
+
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 470, page.Width, page.Height));
+                textFomatter.DrawString("Equipe Diretiva", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 480, page.Width, page.Height));
+
+
+                textFomatter.DrawString("Número do documento: " + declaracaoProSic.numeroDeclaracao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
+                textFomatter.DrawString("Código de verificação: " + declaracaoProSic.codigoAutenticacao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://localhost:44363/Declaracao/VerificarAutenticidade, preencha os dados " +
+                    "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                string dataString = DateTime.Now.ToString();
+                textFomatter.DrawString("Declaração emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
+                textFomatter.DrawString("Esta declaração foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("SGI-Sistema de Gestão Interna - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+                    doc.Save(stream, false);
+                    var nomeArquivo = "Declaração " + declaracaoProSic.Name + ".pdf";
+                    //Salvando no banco
+                    declaracaoProSic.dataDeEmissao = DateTime.Now;
+                    _context.Add(declaracaoProSic);
+                    _context.SaveChangesAsync();
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+
+            }
+        }
+
+        [Authorize]
+        public int GerarNumeroDeclaracaoProSic(DeclaracaoProSic declaracaoProSic)
+        {
+            int numeroDeclaracaoGerado;
+
+            Random random = new Random();
+
+            numeroDeclaracaoGerado = random.Next().GetHashCode();
+            declaracaoProSic.numeroDeclaracao = numeroDeclaracaoGerado;
+            return numeroDeclaracaoGerado;
+        }
+
+        [Authorize]
+        public string GerarCodigoDeAutenticacaoProSic(DeclaracaoProSic declaracaoProSic)
+        {
+            string codigoAutenticacao = GerarNumeroDeclaracaoProSic(declaracaoProSic).ToString("x");
+            declaracaoProSic.codigoAutenticacao = codigoAutenticacao;
+            return codigoAutenticacao;
+        }
+
+        [Authorize]
+        public float CalculaFrequenciaGeralProSic(DeclaracaoProSic declaracao)
+        {
+            float pctFaltas;
+            pctFaltas = (declaracao.qtdFaltas * 100) / 1000;
+            return pctFaltas;
+        }
+
+
+
+
+        //Métodos para declaração de transferência de aluno Regular
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult CreateDeclaracaoTransferenciaRegular()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> CreateDeclaracaoTransferenciaRegular([Bind("Id,Name,Father_name,Mother_name,Birth_date,anoLetivo,anoSerie,turma,numeroDoNis,codigoSeed,dataDeEmissao")] DeclaracaoTransferenciaRegular declaracaoTransferenciaRegular)
+        {
+            if (ModelState.IsValid)
+            {
+                declaracaoTransferenciaRegular.dataDeEmissao = DateTime.Now;
+                _context.Add(declaracaoTransferenciaRegular);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(declaracaoTransferenciaRegular);
+        }
+
+        [Authorize]
+        public FileResult gerarDeclaracaoTransferenciaAlunoRegular(DeclaracaoTransferenciaRegular declaracaoTransferenciaRegular)
+        {
+            declaracaoTransferenciaRegular.codigoAutenticacao = GerarCodigoDeAutenticacaoTransferenciaRegular(declaracaoTransferenciaRegular);
+            //float porcentagemDeFaltas = 100 - CalculaFrequenciaGeral(declaracaoTransferenciaRegular);
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.TrimMargins.Right = 50;
+                page.TrimMargins.Left = 50;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFomatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 14);
+                var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
+                var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+
+                var brasao = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\BrasaoEstado.png";
+                var escudo = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\Escudo.jpg";
+
+                XImage imgBrasao = XImage.FromFile(brasao);
+                XImage imgEscudo = XImage.FromFile(escudo);
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                //graphics.DrawImage(imgBrasao, 275, 20, 50, 75);
+                graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
+                graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+
+                textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
+                textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO, DO ESPORTE E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
+                textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 60, page.Width, page.Height));
+                textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
+                textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+
+                //textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+                //textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO, DO ESPORTE E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 115, page.Width, page.Height));
+                //textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 130, page.Width, page.Height));
+                //textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 145, page.Width, page.Height));
+                //textFomatter.DrawString("SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 160, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("DECLARAÇÃO", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
+
+                //melhorar isso aqui
+                string turmaString = declaracaoTransferenciaRegular.turma.ToString();
+                string dataNascString = declaracaoTransferenciaRegular.Birth_date.ToString("dd/MM/yyyy");
+
+                if (declaracaoTransferenciaRegular.numeroDoNis == null)
+                {
+                    declaracaoTransferenciaRegular.numeroDoNis = "Não encontrado em nossos registros!";
+                }
+                if (declaracaoTransferenciaRegular.Father_name != null)
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                    textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracaoTransferenciaRegular.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + declaracaoTransferenciaRegular.Mother_name.ToUpper() + " e " + declaracaoTransferenciaRegular.Father_name.ToUpper() + ", " +
+                        "no ano letivo de " + declaracaoTransferenciaRegular.anoLetivo + ", encontra-se matriculado(a) nesta Unidade de Ensino no " + declaracaoTransferenciaRegular.anoSerie + "º ano, turma \"" + turmaString.ToUpper() + "\" e nesta data (" + DateTime.Now.ToShortDateString() + ") seu responsável legal solicitou transferência do discente para outra Unidade de Ensino.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                }
+                else
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                    textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracaoTransferenciaRegular.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + declaracaoTransferenciaRegular.Mother_name.ToUpper() + ", no ano letivo " +
+                        " de " + declaracaoTransferenciaRegular.anoLetivo + ", encontra-se matriculado(a) nesta Unidade de Ensino no " + declaracaoTransferenciaRegular.anoSerie + "º ano, turma \"" + turmaString.ToUpper() + "\" e nesta data (" + DateTime.Now.ToShortDateString() + ") seu responsável legal solicitou transferência do discente para outra Unidade de Ensino.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                }
+
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("NIS: " + declaracaoTransferenciaRegular.numeroDoNis, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 400, page.Width, page.Height));
+                textFomatter.DrawString("Matrícula SIAE: " + declaracaoTransferenciaRegular.codigoSeed, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 415, page.Width, page.Height));
+                textFomatter.DrawString("Observações:", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 675, page.Width, page.Height));
+                textFomatter.DrawString("1. O período para a confecção da transferência é de até 30 dias, caso a documentação do aluno esteja em dias, caso contrário, pode ultrapassar esse prazo. ", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 695, page.Width, page.Height));
+                textFomatter.DrawString("2. Esta declaração não contém emendas nem rasuras e é válida por um período de 30 dias ", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 730, page.Width, page.Height));
+
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 470, page.Width, page.Height));
+                textFomatter.DrawString("Equipe Diretiva", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 480, page.Width, page.Height));
+
+
+                textFomatter.DrawString("Número do documento: " + declaracaoTransferenciaRegular.numeroDeclaracao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
+                textFomatter.DrawString("Código de verificação: " + declaracaoTransferenciaRegular.codigoAutenticacao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://localhost:44363/Declaracao/VerificarAutenticidade, preencha os dados " +
+                    "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                string dataString = DateTime.Now.ToString();
+                textFomatter.DrawString("Declaração emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
+                textFomatter.DrawString("Esta declaração foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("SGI-Sistema de Gestão Interna - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+                    doc.Save(stream, false);
+                    var nomeArquivo = "Declaração " + declaracaoTransferenciaRegular.Name + ".pdf";
+                    //Salvando no banco
+                    declaracaoTransferenciaRegular.dataDeEmissao = DateTime.Now;
+                    _context.Add(declaracaoTransferenciaRegular);
+                    _context.SaveChangesAsync();
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+
+            }
+        }
+
+        [Authorize]
+        public int GerarNumeroDeclaracaoTransferenciaRegular(DeclaracaoTransferenciaRegular declaracaoTransferenciaRegular)
+        {
+            int numeroDeclaracaoGerado;
+
+            Random random = new Random();
+
+            numeroDeclaracaoGerado = random.Next().GetHashCode();
+            declaracaoTransferenciaRegular.numeroDeclaracao = numeroDeclaracaoGerado;
+            return numeroDeclaracaoGerado;
+        }
+
+        [Authorize]
+        public string GerarCodigoDeAutenticacaoTransferenciaRegular(DeclaracaoTransferenciaRegular declaracaoTransferenciaRegular)
+        {
+            string codigoAutenticacao = GerarNumeroDeclaracaoTransferenciaRegular(declaracaoTransferenciaRegular).ToString("x");
+            declaracaoTransferenciaRegular.codigoAutenticacao = codigoAutenticacao;
+            return codigoAutenticacao;
+        }
+
+
+        //Métodos para declaração de transferência de aluno ProSic
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult CreateDeclaracaoTransferenciaProSic()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> CreateDeclaracaoTransferenciaProSic([Bind("Id,Name,Father_name,Mother_name,Birth_date,anoLetivo,anoSerie,turma,numeroDoNis,codigoSeed,dataDeEmissao")] DeclaracaoTransferenciaProSic declaracaoTransferenciaProSic)
+        {
+            if (ModelState.IsValid)
+            {
+                declaracaoTransferenciaProSic.dataDeEmissao = DateTime.Now;
+                _context.Add(declaracaoTransferenciaProSic);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(declaracaoTransferenciaProSic);
+        }
+
+        [Authorize]
+        public FileResult gerarDeclaracaoTransferenciaProSic(DeclaracaoTransferenciaProSic declaracaoTransferenciaProSic)
+        {
+            declaracaoTransferenciaProSic.codigoAutenticacao = GerarCodigoDeAutenticacaoTransferenciaProSic(declaracaoTransferenciaProSic);
+            //float porcentagemDeFaltas = 100 - CalculaFrequenciaGeralProSic(declaracaoTransferenciaProSic);
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.TrimMargins.Right = 50;
+                page.TrimMargins.Left = 50;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFomatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 14);
+                var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
+                var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
+
+
+                var brasao = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\BrasaoEstado.png";
+                var escudo = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\Escudo.jpg";
+
+                XImage imgBrasao = XImage.FromFile(brasao);
+                XImage imgEscudo = XImage.FromFile(escudo);
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                //graphics.DrawImage(imgBrasao, 275, 20, 50, 75);
+                graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
+                graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+
+                textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
+                textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO, DO ESPORTE E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
+                textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 60, page.Width, page.Height));
+                textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
+                textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+
+                //textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+                //textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO, DO ESPORTE E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 115, page.Width, page.Height));
+                //textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 130, page.Width, page.Height));
+                //textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 145, page.Width, page.Height));
+                //textFomatter.DrawString("SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 160, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("DECLARAÇÃO", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
+
+                string dataNascString = declaracaoTransferenciaProSic.Birth_date.ToString("dd/MM/yyyy");
+
+                if (declaracaoTransferenciaProSic.numeroDoNis == null)
+                {
+                    declaracaoTransferenciaProSic.numeroDoNis = "Não encontrado em nossos registros!";
+                }
+                if (declaracaoTransferenciaProSic.Father_name != null)
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                    textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracaoTransferenciaProSic.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + declaracaoTransferenciaProSic.Mother_name.ToUpper() + " e " + declaracaoTransferenciaProSic.Father_name.ToUpper() + ", " +
+                        "no ano letivo de " + declaracaoTransferenciaProSic.anoLetivo + ", encontra-se matriculado(a) nesta Unidade de Ensino, na turma de correção de fluxo, fase " + declaracaoTransferenciaProSic.faseProSic + ", do programa " +
+                        "Sergipe na Idade Certa, tendo como turma de origem " + declaracaoTransferenciaProSic.serieOrigem + "º ano,  e nesta data (" + DateTime.Now.ToShortDateString() + ") seu responsável legal solicitou transferência do discente para outra Unidade de Ensino.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                }
+                else
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                    textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracaoTransferenciaProSic.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + declaracaoTransferenciaProSic.Mother_name.ToUpper() + " e no ano letivo de " + declaracaoTransferenciaProSic.anoLetivo + ", encontra-se matriculado(a) nesta Unidade de Ensino, na " +
+                        "turma de correção de fluxo, fase " + declaracaoTransferenciaProSic.faseProSic + ", do programa Sergipe na Idade Certa, tendo como turma de origem " + declaracaoTransferenciaProSic.serieOrigem + "º ano,  e nesta data (" + DateTime.Now.ToShortDateString() + ") seu responsável legal solicitou transferência do discente para outra Unidade de Ensino.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                }
+
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("NIS: " + declaracaoTransferenciaProSic.numeroDoNis, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 400, page.Width, page.Height));
+                textFomatter.DrawString("Matrícula SIAE: " + declaracaoTransferenciaProSic.codigoSeed, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 415, page.Width, page.Height));
+                textFomatter.DrawString("Observações:", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 675, page.Width, page.Height));
+                textFomatter.DrawString("1. O período para a confecção da transferência é de até 30 dias, caso a documentação do aluno esteja em dias, caso contrário, pode ultrapassar esse prazo. ", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 695, page.Width, page.Height));
+                textFomatter.DrawString("2. Esta declaração não contém emendas nem rasuras e é válida por um período de 30 dias ", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 730, page.Width, page.Height));
+
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 470, page.Width, page.Height));
+                textFomatter.DrawString("Equipe Diretiva", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 480, page.Width, page.Height));
+
+
+                textFomatter.DrawString("Número do documento: " + declaracaoTransferenciaProSic.numeroDeclaracao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
+                textFomatter.DrawString("Código de verificação: " + declaracaoTransferenciaProSic.codigoAutenticacao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://localhost:44363/Declaracao/VerificarAutenticidade, preencha os dados " +
+                    "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                string dataString = DateTime.Now.ToString();
+                textFomatter.DrawString("Declaração emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
+                textFomatter.DrawString("Esta declaração foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("SGI-Sistema de Gestão Interna - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+                    doc.Save(stream, false);
+                    var nomeArquivo = "Declaração " + declaracaoTransferenciaProSic.Name + ".pdf";
+                    //Salvando no banco
+                    declaracaoTransferenciaProSic.dataDeEmissao = DateTime.Now;
+                    _context.Add(declaracaoTransferenciaProSic);
+                    _context.SaveChangesAsync();
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+
+            }
+        }
+
+        [Authorize]
+        public int GerarNumeroDeclaracaoTransferenciaProSic(DeclaracaoTransferenciaProSic declaracaoTransferenciaProSic)
+        {
+            int numeroDeclaracaoGerado;
+
+            Random random = new Random();
+
+            numeroDeclaracaoGerado = random.Next().GetHashCode();
+            declaracaoTransferenciaProSic.numeroDeclaracao = numeroDeclaracaoGerado;
+            return numeroDeclaracaoGerado;
+        }
+
+        [Authorize]
+        public string GerarCodigoDeAutenticacaoTransferenciaProSic(DeclaracaoTransferenciaProSic declaracaoTransferenciaProSic)
+        {
+            string codigoAutenticacao = GerarNumeroDeclaracaoTransferenciaProSic(declaracaoTransferenciaProSic).ToString("x");
+            declaracaoTransferenciaProSic.codigoAutenticacao = codigoAutenticacao;
+            return codigoAutenticacao;
+        }
+
+        [Authorize]
+        public float CalculaFrequenciaTransferenciaProSic(DeclaracaoTransferenciaProSic declaracaoTransferenciaProSic)
+        {
+            float pctFaltas;
+            pctFaltas = (declaracaoTransferenciaProSic.qtdFaltas * 100) / 1000;
+            return pctFaltas;
+        }
+
+        //final
     }
 }

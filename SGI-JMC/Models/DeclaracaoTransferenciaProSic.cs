@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SGI_JMC.Models
 {
-    [Serializable]
-    public class DeclaracaoProSic
+    public class DeclaracaoTransferenciaProSic
     {
+
         [Key]
         public int Id { get; set; }
 
@@ -55,4 +55,3 @@ namespace SGI_JMC.Models
         public string codigoAutenticacao { get; set; }
     }
 }
-

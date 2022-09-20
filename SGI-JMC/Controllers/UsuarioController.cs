@@ -190,11 +190,11 @@ namespace SGI_JMC.Controllers
                     {
                         login.ReturnUrl = login.ReturnUrl ?? "~/";
                         return LocalRedirect(login.ReturnUrl);
+                        //return RedirectToAction("VerificarAutenticidade", "Declaracao");
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty,
-                            "Tentativa de login inválida. Reveja seus dados de acesso e tente novamente.");
+                        this.MostrarMensagem("Senha inválida.", true);
                         return View(login);
                     }
                 }
@@ -220,7 +220,7 @@ namespace SGI_JMC.Controllers
             }
             else
             {
-                return RedirectToAction("VerificarAutenticidade", "Declaracao");
+                return RedirectToAction("Index", "Home");
             }
         }
 
