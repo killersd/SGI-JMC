@@ -53,21 +53,26 @@
                 </li>
             </ul>
         </li>
-            <li class="nav-link dropdown">
-        <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
-            Advertência
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end">
-            <li>
-                <a class="dropdown-item" asp-controller="Advertencia" asp-action="GerarAdvertencia" classes-if-active="disabled">
-                    Nova
-                </a>
-            </li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
-        </ul>
-    </li>
+        <li class="nav-link dropdown">
+            <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
+                Outros
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <a class="dropdown-item" asp-controller="Advertencia" asp-action="Create" classes-if-active="disabled">
+                        Advertência
+                    </a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <a class="dropdown-item" asp-controller="Outros" asp-action="GerarNotificacao" classes-if-active="disabled">
+                        Notificação Diário
+                    </a>
+                </li>
+            </ul>
+        </li>
     }
 
     <li class="nav-link dropdown">
@@ -100,7 +105,24 @@
             </li>
         </ul>
     </li>
-
+    @if (!Context.User.IsInRole("administrador"))
+    {
+        <li class="nav-link dropdown">
+            <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
+                Outros
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <a class="dropdown-item" asp-controller="Advertencia" asp-action="Create" classes-if-active="disabled">
+                        Advertência
+                    </a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+            </ul>
+        </li>
+    }
     <li class="nav-link dropdown">
         <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
             Arquivo Morto
@@ -119,64 +141,8 @@
             </li>
         </ul>
     </li>
-    @*<a class="nav-link pe-0" asp-controller="Advertencia" asp-action="GerarAdvertencia">Advertência</a>*@
 }
 else
 {
-@*    <a class="nav-link pe-0" asp-controller="Usuario" asp-action="Login" data-toggle="modal" data-target="#myModal">Entrar Modal</a>*@
-
     <a class="nav-link pe-0" asp-controller="Usuario" asp-action="Login">Entrar</a>
-
-    @*<a class="nav-link pe-0" asp-controller="Declaracao" asp-action="VerificarAutenticidade">Verificar</a>*@
 }
-@*
-<!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form asp-action="Login">
-                    <partial name="_MensagemPartial" />
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label asp-for="@Model.Usuario"></label><br>
-                                <input asp-for="@Model.Usuario" class="form-control" autofocus autocomplete="off">
-                                <span asp-validation-for="@Model.Usuario" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-group mb-6">
-                                    <label asp-for="@Model.Senha"></label><br>
-                                    <input asp-for="@Model.Senha" class="form-control">
-                                    <span asp-validation-for="@Model.Senha" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-check">
-                                    <input asp-for="@Model.Lembrar" class="form-check-input">
-                                    <label asp-for="@Model.Lembrar" class="form-check-label"></label><br>
-                                    <span asp-validation-for="@Model.Lembrar" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div style="align-items:center">
-                                <button class="btn btn-primary" asp-action="Login" asp-controller="Usuario" type="submit">Entrar</button>
-                            </div>
-                            <p></p>
-                            <p>
-                                Ainda não é cadastrado? <a asp-action="Cadastrar">Clique aqui</a> para se cadastrar.
-                            </p>
-                            <p>
-                                Esqueceu sua senha? <a asp-action="EsqueciSenha">Clique aqui</a> para redefini-la.
-                            </p>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>*@

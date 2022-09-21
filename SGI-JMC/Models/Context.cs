@@ -17,6 +17,7 @@ namespace SGI_JMC.Models
         public DbSet<SGI_JMC.Models.DeclaracaoProSic> DeclaracaoProSic { get; set; }
         public DbSet<SGI_JMC.Models.DeclaracaoTransferenciaRegular> DeclaracaoTransferenciaRegular { get; set; }
         public DbSet<SGI_JMC.Models.DeclaracaoTransferenciaProSic> DeclaracaoTransferenciaProSic { get; set; }
+        public DbSet<SGI_JMC.Models.Advertencia> Advertencia { get; set; }
 
     }
 }

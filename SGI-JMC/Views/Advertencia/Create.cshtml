@@ -1,24 +1,24 @@
-﻿@model SGI_JMC.Models.Declaracao
+﻿@model SGI_JMC.Models.Advertencia
 
 @{
     ViewData["Title"] = "Create";
 }
-@*
-<h4>Criar nova declaracao</h4>*@
+
+<partial name="_MensagemPartial" />
+
+@*<div asp-validation-summary="ModelOnly" class="val-summary text-danger my-3"></div>*@
 <hr />
 <div class="container-fluid">
-    <div class="card mb-3">
+    <div class="card mb-6">
         <div class="card-header">
-            <h4><b>Declaração de Frequência (Regular)</b></h4>
-            <h6>Preencha os dados e clique em baixar declaração, o download iniciará automaticamente</h6>
+            <h4><b>Advertência</b></h4>
+            <h6>Preencha os dados, clique no botão  "Baixar Advertência" e o download iniciará.</h6>
         </div>
         <div class="card-body">
-            <form asp-action="gerarDeclaracao">
+            <form asp-action="gerarAdvertencia">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="row">
                     <div class="col-md-6">
-                        @* <form asp-action="Create">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
                         <div class="form-group">
                             <label asp-for="Name" class="control-label"></label>
                             <input asp-for="Name" class="form-control" />
@@ -40,49 +40,36 @@
                             <span asp-validation-for="Birth_date" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="anoLetivo" class="control-label"></label>
-                            <input asp-for="anoLetivo" class="form-control" MaxLength="4" />
-                            <span asp-validation-for="anoLetivo" class="text-danger"></span>
+                            <label asp-for="anoSerie" class="control-label"></label>
+                            <input asp-for="anoSerie" MaxLenth="01" class="form-control" MaxLength="4" />
+                            <span asp-validation-for="anoSerie" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label asp-for="anoSerie" class="control-label"></label>
-                            <input asp-for="anoSerie" MaxLength="1" placeholder="7º, 8º, 9º..." class="form-control" />
-                            <span asp-validation-for="anoSerie" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
                             <label asp-for="turma" class="control-label"></label>
-                            <input asp-for="turma" MaxLength="1" placeholder="A, B, U..." class="form-control" />
+                            <input asp-for="turma" MaxLength="01" placeholder="A, B ou U" class="form-control" />
                             <span asp-validation-for="turma" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="numeroDoNis" class="control-label"></label>
-                            <input asp-for="numeroDoNis" MaxLength="11" class="form-control" />
-                            <span asp-validation-for="numeroDoNis" class="text-danger"></span>
+                            <label asp-for="turno" class="control-label"></label>
+                            <input asp-for="turno" placeholder="turno" class="form-control" />
+                            <span asp-validation-for="turno" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="codigoSeed" class="control-label"></label>
-                            <input asp-for="codigoSeed" MaxLength="10" class="form-control" />
-                            <span asp-validation-for="codigoSeed" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="qtdFaltas" class="control-label"></label>
-                            <input asp-for="qtdFaltas" class="form-control" MaxLength="4" />
-                            <span asp-validation-for="qtdFaltas" class="text-danger"></span>
-                        </div>
+                            <label asp-for="descricaoDoFato" class="control-label"></label>
+                            <textarea style="resize:none" placeholder="Relate aqui o ocorrido..."MaxLength="475" rows="7" cols="10" asp-for="descricaoDoFato" class="form-control"></textarea>
+                            <span asp-validation-for="descricaoDoFato" class="text-danger"></span>
+                        </div>                        
                     </div>
                     <div class="col-md-12" style="text-align:center">
                         @*<input type="submit" value="Baixar declaração" class="btn btn-primary" />*@
-                        <button type="submit" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Baixar declaração</button>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Baixar advertência</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-</div>
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 @section Scripts {
     @{

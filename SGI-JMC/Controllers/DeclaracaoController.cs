@@ -16,7 +16,7 @@ using SGI_JMC.ViewModels;
 namespace SGI_JMC.Controllers
 {
     [Authorize]
-    public class DeclaracaoController : BaseController
+    public class DeclaracaoController : Controller
     {
         private readonly Context _context;
         //private readonly ApplicationDbContext _contexto;
@@ -134,9 +134,6 @@ namespace SGI_JMC.Controllers
             return (_context.Declaracao.AsNoTracking().Any(u => u.codigoAutenticacao == codAut));
         }
 
-
-
-
         //Métodos para verificar a autenticidade das declarações
         [HttpPost, AllowAnonymous]
         public async Task<IActionResult> VerificarAutenticidade(
@@ -185,9 +182,6 @@ namespace SGI_JMC.Controllers
         {
             return View();
         }
-
-
-
 
         //Métodos para declaração de frequência de aluno regular (6 métodos)
 
@@ -358,9 +352,6 @@ namespace SGI_JMC.Controllers
             return pctFaltas;
         }
 
-
-
-
         //Métodos para declaração de frequência de aluno ProSic
 
         [Authorize]
@@ -527,9 +518,6 @@ namespace SGI_JMC.Controllers
             pctFaltas = (declaracao.qtdFaltas * 100) / 1000;
             return pctFaltas;
         }
-
-
-
 
         //Métodos para declaração de transferência de aluno Regular
 
