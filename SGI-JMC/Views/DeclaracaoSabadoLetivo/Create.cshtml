@@ -1,0 +1,55 @@
+﻿@model SGI_JMC.Models.DeclaracaoSabadoLetivo
+
+@{
+    ViewData["Title"] = "Create";
+}
+@*
+<h4>Criar nova declaracao</h4>*@
+<hr />
+<div class="container-fluid">
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4><b>Declaração de comparecimento (Sábado letivo)</b></h4>
+            <h6>Preencha os dados, clique em baixar declaração e o download iniciará.</h6>
+        </div>
+        <div class="card-body">
+            <form asp-action="gerarDeclaracaoSabadoLetivo">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-12" >
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CPF" class="control-label"></label>
+                            <input asp-for="CPF" placeholder="somente números" class="form-control" />
+                            <span asp-validation-for="CPF" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="dataSabado" class="control-label"></label>
+                            <input asp-for="dataSabado" class="form-control" />
+                            <span asp-validation-for="dataSabado" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="anoLetivo" class="control-label"></label>
+                            <input asp-for="anoLetivo" class="form-control" MaxLength="4" />
+                            <span asp-validation-for="anoLetivo" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12" style="text-align:center">
+                            @*<input type="submit" value="Baixar declaração" class="btn btn-primary" />*@
+                            <button type="submit" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Baixar declaração</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

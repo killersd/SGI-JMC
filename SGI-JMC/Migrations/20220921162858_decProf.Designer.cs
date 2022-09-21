@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SGI_JMC.Models;
 
 namespace SGI_JMC.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220921162858_decProf")]
+    partial class decProf
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -389,31 +391,6 @@ namespace SGI_JMC.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DeclaracaoTransferenciaRegular");
-                });
-
-            modelBuilder.Entity("SGI_JMC.Models.NotificacaoPendenciaDiario", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("dataDeEmissao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("dataLimite")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("qtdAulas")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("NotificacaoPendenciaDiario");
                 });
 
             modelBuilder.Entity("SGI_JMC.Models.PerfilUsuario", b =>

@@ -67,7 +67,7 @@
                     <hr class="dropdown-divider">
                 </li>
                 <li>
-                    <a class="dropdown-item" asp-controller="Outros" asp-action="GerarNotificacao" classes-if-active="disabled">
+                    <a class="dropdown-item" asp-controller="Notificacao" asp-action="Create" classes-if-active="disabled">
                         Notificação Diário
                     </a>
                 </li>
@@ -102,6 +102,12 @@
             </li>
             <li>
                 <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaProSic">Transferência (ProSic)</a>
+            </li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li>
+                <a class="dropdown-item" asp-controller="DeclaracaoSabadoLetivo" asp-action="Create">Sábado letivo (Professor)</a>
             </li>
         </ul>
     </li>

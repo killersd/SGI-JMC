@@ -18,6 +18,8 @@ namespace SGI_JMC.Models
         public DbSet<SGI_JMC.Models.DeclaracaoTransferenciaRegular> DeclaracaoTransferenciaRegular { get; set; }
         public DbSet<SGI_JMC.Models.DeclaracaoTransferenciaProSic> DeclaracaoTransferenciaProSic { get; set; }
         public DbSet<SGI_JMC.Models.Advertencia> Advertencia { get; set; }
+        public DbSet<SGI_JMC.Models.DeclaracaoSabadoLetivo> DeclaracaoSabadoLetivo { get; set; }
+        public DbSet<SGI_JMC.Models.NotificacaoPendenciaDiario> NotificacaoPendenciaDiario { get; set; }
 
     }
 }
