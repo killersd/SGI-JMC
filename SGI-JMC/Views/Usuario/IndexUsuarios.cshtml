@@ -42,7 +42,7 @@
                         @if (administradores.Contains(usuario.UserName))
                         {
                             <a asp-action="RemAdministrador" asp-route-id="@usuario.Id" class="btn btn-sm btn-danger">
-                                <i class="fa fa-user-plus" title="Remover perfil administrador"></i>
+                                <i class="fa fa-user-times" aria-hidden="true" title="Remover perfil administrador"></i>
                             </a>
                         }
                         else

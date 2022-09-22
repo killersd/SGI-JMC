@@ -366,7 +366,7 @@ namespace SGI_JMC.Controllers
                 else
                 {
                     this.MostrarMensagem(
-                            $"E-mail <b>{dados.Email}</b> não encontrado.");
+                            $"E-mail <b>{dados.Email}</b> não encontrado.", true);
                     return View();
                 }
             }
