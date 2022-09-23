@@ -19,7 +19,6 @@ namespace SGI_JMC.Controllers
     public class DeclaracaoController : Controller
     {
         private readonly Context _context;
-        //private readonly ApplicationDbContext _contexto;
 
         public DeclaracaoController(Context context)
         {

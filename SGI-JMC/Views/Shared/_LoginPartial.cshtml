@@ -71,6 +71,14 @@
                         Notificação Diário
                     </a>
                 </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                 <li>
+                    <a class="dropdown-item" asp-controller="" asp-action="" classes-if-active="disabled">
+                        Ofício (geral)
+                    </a>
+                </li>
             </ul>
         </li>
     }
@@ -153,15 +161,15 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
             <li>
-                <a class="dropdown-item" asp-controller="AssumiuFuncao" asp-action="CreateOficio" classes-if-active="disabled">
-                    Ofício
+                <a class="dropdown-item" asp-controller="OficioAssumiuFuncao" asp-action="CreateOficio" classes-if-active="disabled">
+                    Ofício (Professor)
                 </a>
             </li>
             <li>
                 <hr class="dropdown-divider">
             </li>
             <li>
-                <a class="dropdown-item" asp-controller="AssumiuFuncao" asp-action="CreateHorario">Horário</a>
+                <a class="dropdown-item" asp-controller="AssumiuFuncao" asp-action="CreateHorario">Horário (Professor)</a>
             </li>
         </ul>
     </li>

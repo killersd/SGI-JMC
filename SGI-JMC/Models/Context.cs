@@ -20,6 +20,7 @@ namespace SGI_JMC.Models
         public DbSet<SGI_JMC.Models.Advertencia> Advertencia { get; set; }
         public DbSet<SGI_JMC.Models.DeclaracaoSabadoLetivo> DeclaracaoSabadoLetivo { get; set; }
         public DbSet<SGI_JMC.Models.NotificacaoPendenciaDiario> NotificacaoPendenciaDiario { get; set; }
+        public DbSet<SGI_JMC.Models.OficioAssumiuFuncao> OficioAssumiuFuncao { get; set; }
 
     }
 }
