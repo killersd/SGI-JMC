@@ -11,9 +11,13 @@
     <Compile Remove="Migrations\20220920030644_decTransf.Designer.cs" />
     <Compile Remove="Migrations\20220920030833_decTransf.cs" />
     <Compile Remove="Migrations\20220920030833_decTransf.Designer.cs" />
+    <Compile Remove="Migrations\20220925013345_HorarioProfessor.cs" />
+    <Compile Remove="Migrations\20220925013345_HorarioProfessor.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="itext7" Version="7.2.3" />
+    <PackageReference Include="iTextSharp.LGPLv2.Core" Version="1.9.2" />
     <PackageReference Include="MailKit" Version="3.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.26" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />

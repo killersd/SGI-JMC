@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SGI_JMC.Models;
 
 namespace SGI_JMC.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220925013502_HorarioProfessor")]
+    partial class HorarioProfessor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -416,81 +418,6 @@ namespace SGI_JMC.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("q01")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("q02")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("q03")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("q04")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("q05")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("qu01")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("qu02")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("qu03")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("qu04")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("qu05")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("s01")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("s02")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("s03")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("s04")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("s05")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("se01")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("se02")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("se03")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("se04")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("se05")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("t01")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("t02")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("t03")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("t04")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("t05")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

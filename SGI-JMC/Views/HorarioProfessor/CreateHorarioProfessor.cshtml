@@ -1,0 +1,284 @@
+﻿@model SGI_JMC.Models.HorarioProfessor
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<hr />
+<div class="container-fluid">
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4><b>Horário do Professor(a)</b></h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="gerarHorario">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Nome" class="control-label"></label>
+                            <input asp-for="Nome" class="form-control" />
+                            <span asp-validation-for="Nome" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label asp-for="CPF" class="control-label"></label>
+                            <input asp-for="CPF" class="form-control" />
+                            <span asp-validation-for="CPF" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label asp-for="CargaHorariaSemanal" class="control-label"></label>
+                            <input asp-for="CargaHorariaSemanal" class="form-control" MaxLength="4" />
+                            <span asp-validation-for="CargaHorariaSemanal" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Cargo" class="control-label"></label>
+                            <input asp-for="Cargo" class="form-control" />
+                            <span asp-validation-for="Cargo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Disciplina" class="control-label"></label>
+                            <input asp-for="Disciplina" maxlength="11" class="form-control" />
+                            <span asp-validation-for="Disciplina" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <hr />
+                    <p></p>
+                    <hr>
+                    <div class="col-md-12">
+                        <h3 class="text-center">Horário Matutino</h3>
+                        <p></p>
+                    </div>
+                    <p></p>
+                    <hr>
+                    <div class="col-md-2" style="text-align:center;">
+                        <div class="form-group" style="text-align:center">
+                            <h6>Segunda-feira</h6>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="s01" class="form-control" placeholder="1º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="s02" class="form-control" placeholder="2º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="s03" class="form-control" placeholder="3º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="s04" class="form-control" placeholder="4º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="s05" class="form-control" placeholder="5º - Horário" />
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="text-align:center;">
+                        <div class="form-group" style="text-align:center">
+                            <h6>Terça-feira</h6>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="t01" class="form-control" placeholder="1º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="t02" class="form-control" placeholder="2º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="t03" class="form-control" placeholder="3º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="t04" class="form-control" placeholder="4º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="t05" class="form-control" placeholder="5º - Horário" />
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="text-align:center;">
+                        <div class="form-group" style="text-align:center">
+                            <h6>Quarta-Feira</h6>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="q01" class="form-control" placeholder="1º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="q02" class="form-control" placeholder="2º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="q03" class="form-control" placeholder="3º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="q04" class="form-control" placeholder="4º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="q05" class="form-control" placeholder="5º - Horário" />
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="text-align:center;">
+                        <div class="form-group" style="text-align:center">
+                            <h6>Quinta-feira</h6>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="qu01" class="form-control" placeholder="1º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="qu02" class="form-control" placeholder="2º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="qu03" class="form-control" placeholder="3º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="qu04" class="form-control" placeholder="4º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="qu05" class="form-control" placeholder="5º - Horário" />
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="text-align:center;">
+                        <div class="form-group">
+                            <h6>Sexta-feira</h6>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="se01" class="form-control" placeholder="1º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="se02" class="form-control" placeholder="2º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="se03" class="form-control" placeholder="3º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="se04" class="form-control" placeholder="4º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="se05" class="form-control" placeholder="5º - Horário" />
+                        </div>
+                    </div>
+                    <hr />
+                    <p></p>
+                    <hr>
+                    <div class="col-md-12">
+                        <h3 class="text-center">Horário Vespertino</h3>
+                        <p></p>
+                    </div>
+                    <p></p>
+                    <hr>
+                    <div class="col-md-2" style="text-align:center;">
+                        <div class="form-group" style="text-align:center">
+                            <h6>Segunda-feira</h6>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="s01" class="form-control" placeholder="1º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="s02" class="form-control" placeholder="2º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="s03" class="form-control" placeholder="3º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="s04" class="form-control" placeholder="4º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="s05" class="form-control" placeholder="5º - Horário" />
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="text-align:center;">
+                        <div class="form-group" style="text-align:center">
+                            <h6>Terça-feira</h6>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="t01" class="form-control" placeholder="1º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="t02" class="form-control" placeholder="2º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="t03" class="form-control" placeholder="3º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="t04" class="form-control" placeholder="4º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="t05" class="form-control" placeholder="5º - Horário" />
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="text-align:center;">
+                        <div class="form-group" style="text-align:center">
+                            <h6>Quarta-Feira</h6>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="q01" class="form-control" placeholder="1º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="q02" class="form-control" placeholder="2º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="q03" class="form-control" placeholder="3º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="q04" class="form-control" placeholder="4º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="q05" class="form-control" placeholder="5º - Horário" />
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="text-align:center;">
+                        <div class="form-group" style="text-align:center">
+                            <h6>Quinta-feira</h6>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="qu01" class="form-control" placeholder="1º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="qu02" class="form-control" placeholder="2º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="qu03" class="form-control" placeholder="3º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="qu04" class="form-control" placeholder="4º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="qu05" class="form-control" placeholder="5º - Horário" />
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="text-align:center;">
+                        <div class="form-group">
+                            <h6>Sexta-feira</h6>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="se01" class="form-control" placeholder="1º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="se02" class="form-control" placeholder="2º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="se03" class="form-control" placeholder="3º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="se04" class="form-control" placeholder="4º - Horário" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="se05" class="form-control" placeholder="5º - Horário" />
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12" style="text-align:center">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Baixar horário</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

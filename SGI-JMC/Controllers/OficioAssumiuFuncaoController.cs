@@ -32,20 +32,20 @@ namespace SGI_JMC.Controllers
             return View();
         }
 
-        [Authorize]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateOficio([Bind("Id,Name, NumeroOficio, Assunto, destinatario, DataAssumiuFuncao, CPF, vinculo, CargaHoraria,disciplina, DataEmissao")] OficioAssumiuFuncao oficioAssumiuFuncao)
-        {
-            if (ModelState.IsValid)
-            {
-                oficioAssumiuFuncao.DataEmissao = DateTime.Now;
-                _context.Add(oficioAssumiuFuncao);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(oficioAssumiuFuncao);
-        }
+        //[Authorize]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> CreateOficio([Bind("Id,Name, NumeroOficio, Assunto, destinatario, DataAssumiuFuncao, CPF, vinculo, CargaHoraria,disciplina, DataEmissao")] OficioAssumiuFuncao oficioAssumiuFuncao)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        oficioAssumiuFuncao.DataEmissao = DateTime.Now;
+        //        _context.Add(oficioAssumiuFuncao);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(oficioAssumiuFuncao);
+        //}
 
         [Authorize]
         public FileResult gerarOficio(OficioAssumiuFuncao oficioAssumiuFuncao)
@@ -67,75 +67,56 @@ namespace SGI_JMC.Controllers
                 var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
                 var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
                 var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
-
-
+                
                 var brasao = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\BrasaoEstado.png";
                 var escudo = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\Escudo.jpg";
 
                 XImage imgBrasao = XImage.FromFile(brasao);
                 XImage imgEscudo = XImage.FromFile(escudo);
+                oficioAssumiuFuncao.DataEmissao = DateTime.Now;
 
+                //Usuário
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("SGI-Sistema de Gestão Interna - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+                //Cabeçalho
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                //graphics.DrawImage(imgBrasao, 275, 20, 50, 75);
                 graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
                 graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
-
                 textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
                 textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO, DO ESPORTE E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
                 textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 60, page.Width, page.Height));
                 textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
                 textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
                 textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
-
-                //textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
-                //textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO, DO ESPORTE E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 115, page.Width, page.Height));
-                //textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 130, page.Width, page.Height));
-                //textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 145, page.Width, page.Height));
-                //textFomatter.DrawString("SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 160, page.Width, page.Height));
-                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                //textFomatter.DrawString("DECLARAÇÃO", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
-
-                oficioAssumiuFuncao.DataEmissao = DateTime.Now;
-
+                //Início              
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                textFomatter.DrawString("Ofício nº 00"+ oficioAssumiuFuncao.NumeroOficio+"/2022", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
+                textFomatter.DrawString("Ofício nº 00" + oficioAssumiuFuncao.NumeroOficio + "/2022", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
                 textFomatter.DrawString("Assunto: " + oficioAssumiuFuncao.Assunto + ".", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 165, page.Width, page.Height));
                 textFomatter.DrawString("Simão Dias - Se -  " + oficioAssumiuFuncao.DataEmissao.ToShortDateString(), fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
-
+                //Corpo do ofício
                 textFomatter.DrawString("Senhora Diretora,", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 280, page.Width, page.Height));
-
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
-                textFomatter.DrawString("Comunicamos a Vossa Senhoria que "+ oficioAssumiuFuncao.Name + ", CPF "+ oficioAssumiuFuncao.CPF+ ", vínculo "+ oficioAssumiuFuncao.vinculo+ ", ocupante do Cargo de Professor de Educação Básica, assumiu suas funções em regência de classe no dia "+ oficioAssumiuFuncao.DataAssumiuFuncao.ToShortDateString()+ " com carga horária de "+oficioAssumiuFuncao.CargaHoraria+" horas semanais, na disciplina ,"+ oficioAssumiuFuncao.disciplina+ " conforme horário anexo, atuando no  Ensino Fundamental FRC 13 (FRC: Fonte de Recursos do FUNDEB).", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 330, page.Width, page.Height));
-
- 
+                textFomatter.DrawString("Comunicamos a Vossa Senhoria que " + oficioAssumiuFuncao.Name + ", CPF " + oficioAssumiuFuncao.CPF + ", vínculo " + oficioAssumiuFuncao.vinculo + ", ocupante do Cargo de Professor de Educação Básica, assumiu suas funções em regência de classe no dia " + oficioAssumiuFuncao.DataAssumiuFuncao.ToShortDateString() + " com carga horária de " + oficioAssumiuFuncao.CargaHoraria + " horas semanais, na disciplina ," + oficioAssumiuFuncao.disciplina + " conforme horário anexo, atuando no  Ensino Fundamental FRC 13 (FRC: Fonte de Recursos do FUNDEB).", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 330, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 500, page.Width, page.Height));
                 textFomatter.DrawString("Queilanc Borges Batista de Souza", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 510, page.Width, page.Height));
                 textFomatter.DrawString("Diretora - Port. 7469/2019", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 525, page.Width, page.Height));
-
-                //Rodapé
+                //Destinatário
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
                 textFomatter.DrawString("Illma Senhora,", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 670, page.Width, page.Height));
                 textFomatter.DrawString(oficioAssumiuFuncao.destinatario, fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 682, page.Width, page.Height));
                 textFomatter.DrawString("MD. Diretora Regional DRE'2,", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 694, page.Width, page.Height));
-                textFomatter.DrawString("Lagarto - Se,", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 706, page.Width, page.Height));
-
-
-
+                textFomatter.DrawString("Lagarto - Se", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 706, page.Width, page.Height));
+                //Rodapé
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 string dataString = DateTime.Now.ToString();
                 textFomatter.DrawString("Ofício emitido em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
-
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                 textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
                 textFomatter.DrawString("Este ofício foi gerado através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
-
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
                 textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
-
-                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
-                textFomatter.DrawString("SGI-Sistema de Gestão Interna - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
-                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
 
                 using (MemoryStream stream = new MemoryStream())
                 {
@@ -148,7 +129,6 @@ namespace SGI_JMC.Controllers
                     _context.SaveChangesAsync();
                     return File(stream.ToArray(), contentType, nomeArquivo);
                 }
-
             }
         }
     }
