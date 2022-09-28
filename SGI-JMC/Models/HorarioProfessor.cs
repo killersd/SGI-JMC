@@ -65,5 +65,41 @@ namespace SGI_JMC.Models
         public string se04 { get; set; }
         public string se05 { get; set; }
 
+
+        //Horários segunda
+        public string ts01 { get; set; }
+        public string ts02 { get; set; }
+        public string ts03 { get; set; }
+        public string ts04 { get; set; }
+        public string ts05 { get; set; }
+
+        //Horários terça
+        public string tt01 { get; set; }
+        public string tt02 { get; set; }
+        public string tt03 { get; set; }
+        public string tt04 { get; set; }
+        public string tt05 { get; set; }
+
+        //Horários quarta
+        public string tq01 { get; set; }
+        public string tq02 { get; set; }
+        public string tq03 { get; set; }
+        public string tq04 { get; set; }
+        public string tq05 { get; set; }
+
+        //Horários quinta
+        public string tqu01 { get; set; }
+        public string tqu02 { get; set; }
+        public string tqu03 { get; set; }
+        public string tqu04 { get; set; }
+        public string tqu05 { get; set; }
+
+        //Horários sexta
+        public string tse01 { get; set; }
+        public string tse02 { get; set; }
+        public string tse03 { get; set; }
+        public string tse04 { get; set; }
+        public string tse05 { get; set; }
+
     }
 }

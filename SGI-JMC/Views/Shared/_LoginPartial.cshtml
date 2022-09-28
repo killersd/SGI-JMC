@@ -2,16 +2,6 @@
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-@*@model LoginViewModel
-@{
-    var returnUrl = "";
-    ViewBag.Subtitulo = "Login de Usuário";
-    if (Context.Request.Query.ContainsKey("returnUrl"))
-    {
-        returnUrl = Context.Request.Query["returnUrl"].ToString();
-    }
-}*@
-
 @if (Context.User.Identity.IsAuthenticated)
 {
     <li class="nav-link dropdown">
