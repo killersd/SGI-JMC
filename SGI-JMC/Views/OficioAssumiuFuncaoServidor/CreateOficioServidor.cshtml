@@ -1,0 +1,81 @@
+﻿@model SGI_JMC.Models.OficioAssumiuFuncaoServidor
+
+@{
+    ViewData["Title"] = "Ofício assumiu função";
+}
+<hr />
+<div class="container-fluid">
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4><b>Ofício de Assumiu Função</b></h4>
+            <h6>Modelo de ofício para <b>Servidores(as)</b> que assumiram função</h6>
+        </div>
+        <div class="card-body">
+            <form asp-action="gerarOficioServidor">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="NumeroOficio" class="control-label"></label>
+                            <input asp-for="NumeroOficio" class="form-control" />
+                            <span asp-validation-for="NumeroOficio" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Assunto" class="control-label"></label>
+                            <input asp-for="Assunto" class="form-control" />
+                            <span asp-validation-for="Assunto" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="destinatario" class="control-label"></label>
+                            <input asp-for="destinatario" placeholder="Para quem é o ofício?" class="form-control" />
+                            <span asp-validation-for="destinatario" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CPF" class="control-label"></label>
+                            <input asp-for="CPF" class="form-control" MaxLength="11" />
+                            <span asp-validation-for="CPF" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="DataAssumiuFuncao" class="control-label"></label>
+                            <input asp-for="DataAssumiuFuncao" class="form-control" />
+                            <span asp-validation-for="DataAssumiuFuncao" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CargaHoraria" class="control-label"></label>
+                            <input asp-for="CargaHoraria" placeholder="Carga horária semanal" class="form-control" />
+                            <span asp-validation-for="CargaHoraria" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="cargo" class="control-label"></label>
+                            <input asp-for="cargo" class="form-control" />
+                            <span asp-validation-for="cargo" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="vinculo" class="control-label"></label>
+                            <input asp-for="vinculo" placeholder="Contratado ou efetivo" class="form-control" />
+                            <span asp-validation-for="vinculo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="text-align:center">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Baixar ofício</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

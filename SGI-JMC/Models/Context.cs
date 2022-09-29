@@ -23,7 +23,12 @@ namespace SGI_JMC.Models
         public DbSet<SGI_JMC.Models.OficioAssumiuFuncao> OficioAssumiuFuncao { get; set; }
         public DbSet<SGI_JMC.Models.HorarioProfessor> HorarioProfessor { get; set; }
         public DbSet<SGI_JMC.Models.HorarioServidor> HorarioServidor { get; set; }
+        public DbSet<SGI_JMC.Models.OficioAssumiuFuncaoServidor> OficioAssumiuFuncaoServidor { get; set; }
+        public DbSet<SGI_JMC.Models.OficioGeral> OficioGeral { get; set; }
 
         
+
+
+
     }
 }
