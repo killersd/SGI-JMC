@@ -1,0 +1,162 @@
+﻿@model SGI_JMC.Models.HorarioServidor
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<hr />
+<div class="container-fluid">
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4><b>Horário do Servidor(a)</b></h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="gerarHorarioServidor">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Unidade" class="control-label"></label>
+                            <input asp-for="Unidade" class="form-control" />
+                            <span asp-validation-for="Unidade" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label asp-for="Vinculo" class="control-label"></label>
+                            <input asp-for="Vinculo" class="form-control" />
+                            <span asp-validation-for="Vinculo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label asp-for="CargaHorariaSemanal" class="control-label"></label>
+                            <input asp-for="CargaHorariaSemanal" class="form-control" MaxLength="4" />
+                            <span asp-validation-for="CargaHorariaSemanal" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Nome" class="control-label"></label>
+                            <input asp-for="Nome" class="form-control" />
+                            <span asp-validation-for="Nome" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Cargo" class="control-label"></label>
+                            <input asp-for="Cargo" class="form-control" />
+                            <span asp-validation-for="Cargo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Turno" class="control-label"></label>
+                            <input asp-for="Turno" class="form-control" />
+                            <span asp-validation-for="Turno" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="TurnoHorario" class="control-label"></label>
+                            <input asp-for="TurnoHorario" class="form-control" />
+                            <span asp-validation-for="TurnoHorario" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Observacao" class="control-label"></label>
+                            <textarea asp-for="Observacao" style="resize:none" MaxLength="475" rows="2" cols="10" class="form-control"></textarea>
+                            <span asp-validation-for="Observacao" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <hr />
+                    <p></p>
+                    <hr>
+                    <div class="col-md-12">
+                        <h3 class="text-center">Horário</h3>
+                        <p></p>
+                    </div>
+                    <p></p>
+                    <hr>
+                    <div class="col-md-3" style="text-align:center;">
+                        <div class="form-group" style="text-align:center">
+                            <h6>Segunda-feira</h6>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="segunda" maxlength="13" class="form-control" placeholder="Cargo" />
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="text-align:center;">
+                        <div class="form-group" style="text-align:center">
+                            <h6>Terça-feira</h6>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="terca" maxlength="13" class="form-control" placeholder="Cargo" />
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="text-align:center;">
+                        <div class="form-group" style="text-align:center">
+                            <h6>Quarta-Feira</h6>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="quarta" maxlength="13" class="form-control" placeholder="Cargo" />
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="text-align:center;">
+                        <div class="form-group" style="text-align:center">
+                            <h6>Quinta-feira</h6>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="quinta" maxlength="13" class="form-control" placeholder="Cargo" />
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="text-align:center;">
+                        <div class="form-group">
+                            <h6>Sexta-feira</h6>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="sexta" maxlength="13" class="form-control" placeholder="Cargo" />
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="text-align:center;">
+                        <div class="form-group">
+                            <h6>Sábado</h6>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="sabado" maxlength="13" class="form-control" placeholder="Cargo" />
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="text-align:center;">
+                        <div class="form-group">
+                            <h6>Domingo</h6>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="domingo" maxlength="13" class="form-control" placeholder="Cargo" />
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="text-align:center;">
+                        <div class="form-group">
+                            <h6>Domingo</h6>
+                        </div>
+                        <div class="form-group">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Baixar horário</button>
+                        </div>
+                    </div>
+                    <hr />
+                    <p></p>
+                    <hr>
+@*                    <div class="col-md-12" style="text-align:center">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Baixar horário</button>
+                    </div>*@
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

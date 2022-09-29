@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SGI_JMC.Models;
 
 namespace SGI_JMC.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220929002914_horarioservidor")]
+    partial class horarioservidor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -591,9 +593,6 @@ namespace SGI_JMC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Observacao")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Turno")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -608,27 +607,6 @@ namespace SGI_JMC.Migrations
 
                     b.Property<string>("Vinculo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("domingo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("quarta")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("quinta")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("sabado")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("segunda")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("sexta")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("terca")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
