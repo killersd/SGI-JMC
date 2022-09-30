@@ -5,7 +5,7 @@
 @if (Context.User.Identity.IsAuthenticated)
 {
     <li class="nav-link dropdown">
-        <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
+        <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown">
             Olá, <b>@Context.User.Identity.Name</b>!
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
@@ -32,7 +32,7 @@
         @if (Context.User.IsInRole("administrador"))
         {
             <li class="nav-link dropdown">
-                <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
+                <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown">
                     <i class="fa fa-users" aria-hidden="true"></i> Usuários
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -50,7 +50,7 @@
                 </ul>
             </li>
             <li class="nav-link dropdown">
-                <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
+                <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown">
                     <i class="fa fa-sort" aria-hidden="true"></i> Outros
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -80,7 +80,7 @@
         }
 
         <li class="nav-link dropdown">
-            <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
+            <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown">
                 <i class="fa fa-file-text" aria-hidden="true"></i> Declarações
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -118,7 +118,7 @@
         @if (!Context.User.IsInRole("administrador"))
         {
             <li class="nav-link dropdown">
-                <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
+                <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown">
                     <i class="fa fa-sort" aria-hidden="true"></i>  Outros
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -134,7 +134,7 @@
             </li>
         }
         <li class="nav-link dropdown">
-            <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
+            <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown">
                 <i class="fa fa-archive" aria-hidden="true"></i> Arquivo Morto
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -152,7 +152,7 @@
             </ul>
         </li>
         <li class="nav-link dropdown">
-            <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
+            <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown">
                 <i class="fa fa-id-badge" aria-hidden="true"></i> Assumiu função
             </a>
             <ul class="dropdown-menu dropdown-menu-end">

@@ -7,12 +7,25 @@
         returnUrl = Context.Request.Query["returnUrl"].ToString();
     }
 }
+<div class="text-center">
+    <h1 class="display-4">Sistema de Gerenciamento Interno</h1>
+    <h4 class="display-6">Escola Estadual João de Mattos Carvalho</h4>
+    <p></p>
+    <div>
+        <a href="../Declaracao/VerificarAutenticidade" class="btn btn-primary">Verificar autenticidade de documento</a>
+    </div>
+    <p></p>
+    <div class="container">
+        <img src="~/Imagens/SemTransparencia.png" width="350px" />
+    </div>
+</div>
 
-<partial name="_MensagemPartial" />
+
+@*<partial name="_MensagemPartial" />
 
 <div asp-validation-summary="ModelOnly" class="val-summary text-danger my-3"></div>
 <div class="container-fluid">
-    <div class="card mb-6">
+    <div class="card mb-4">
         <div class="card-header">
             <h4><b>Login</b></h4>
             <h6>Insira seu usuário e senha para acessar o sistema</h6>
@@ -21,7 +34,7 @@
             <form asp-action="Login">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label asp-for="@Model.Usuario"></label><br>
                             <input asp-for="@Model.Usuario" class="form-control" autofocus autocomplete="off">
@@ -56,14 +69,15 @@
     <p>
         Esqueceu sua senha? <a asp-action="EsqueciSenha">Clique aqui</a> para redefini-la.
     </p>
-</div>
-@*
+</div>*@
+
 <!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
+                <h3>Login</h3>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -91,34 +105,35 @@
                                     <span asp-validation-for="@Model.Lembrar" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div style="align-items:center">
-                                <button class="btn btn-primary" asp-action="Login" asp-controller="Usuario" type="submit">Entrar</button>
-                            </div>
-                            <p></p>
-                            <p>
-                                Ainda não é cadastrado? <a asp-action="Cadastrar">Clique aqui</a> para se cadastrar.
-                            </p>
-                            <p>
-                                Esqueceu sua senha? <a asp-action="EsqueciSenha">Clique aqui</a> para redefini-la.
-                            </p>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-primary" asp-action="Login" asp-controller="Usuario" type="submit">Entrar</button>
                         </div>
                     </div>
                 </form>
+            </div>
+            <div class="modal-footer">
+                <p>
+                    Ainda não é cadastrado? <a asp-action="Cadastrar">Clique aqui</a> para se cadastrar.
+                </p>
+                <p>
+                    Esqueceu sua senha? <a asp-action="EsqueciSenha">Clique aqui</a> para redefini-la.
+                </p>
             </div>
         </div>
     </div>
 </div>
 
-    <!-- jquery -->
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <!-- bootstrap -->
-    <script type="text/javascript" src="js/bootstrap.js"></script>
-    <!-- chamada da função -->
-    <script type="text/javascript">
-        $(window).load(function() {
-            $('#myModal').modal('show');
-        });
-    </script>*@
+<!-- jquery -->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<!-- bootstrap -->
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<!-- chamada da função -->
+<script type="text/javascript">
+    $(window).load(function() {
+        $('#myModal').modal('show');
+    });
+</script>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
