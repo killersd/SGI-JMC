@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SGI_JMC.Controllers
 {
-
+    
     public class UsuarioController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -107,7 +107,7 @@ namespace SGI_JMC.Controllers
                     if (resultado.Succeeded)
                     {
                         this.MostrarMensagem("Usuário alterado com sucesso.");
-                        return RedirectToAction("IndexUsuarios");
+                        return RedirectToAction("Cadastrar");
                     }
                     else
                     {
@@ -126,7 +126,7 @@ namespace SGI_JMC.Controllers
                     {
                         ModelState.AddModelError("Email",
                             "Já existe um usuário cadastrado com este e-mail.");
-                        return View(usuarioBD);
+                        return View(usuarioVM);
                     }
 
                     usuarioBD = new IdentityUser();
@@ -231,7 +231,10 @@ namespace SGI_JMC.Controllers
             //captura os administradore e coloca na viewbag "Administradores"
             var admins = (await _userManager.GetUsersInRoleAsync("administrador"))
                 .Select(u => u.UserName);
+            var users = (await _userManager.GetUsersInRoleAsync("usuario"))
+                .Select(u => u.UserName);
             ViewBag.Administradores = admins;
+            ViewBag.Usuarios = users;
             return View(usuarios);
         }
 
@@ -313,6 +316,32 @@ namespace SGI_JMC.Controllers
         }
 
         [Authorize(Roles = "administrador")]
+        public async Task<IActionResult> AddPerfilUsuario(string id)
+        {
+            var usuario = await _userManager.FindByIdAsync(id);
+            if (usuario != null)
+            {
+                var resultado = await _userManager.AddToRoleAsync(usuario, "usuario");
+                if (resultado.Succeeded)
+                {
+                    this.MostrarMensagem(
+                        $"Perfil usuario adicionado com sucesso para <b>{usuario.UserName}</b>.");
+                }
+                else
+                {
+                    this.MostrarMensagem(
+                        $"Não foi possível adicionar perfil usuario para <b>{usuario.UserName}</b>.", true);
+                }
+                return RedirectToAction(nameof(IndexUsuarios));
+            }
+            else
+            {
+                this.MostrarMensagem("Usuário não encontrado.", true);
+                return RedirectToAction(nameof(IndexUsuarios));
+            }
+        }
+
+        [Authorize(Roles = "administrador")]
         public async Task<IActionResult> RemAdministrador(string id)
         {
             var usuario = await _userManager.FindByIdAsync(id);
@@ -328,6 +357,32 @@ namespace SGI_JMC.Controllers
                 {
                     this.MostrarMensagem(
                         $"Não foi possível remover perfil administrador de <b>{usuario.UserName}</b>.", true);
+                }
+                return RedirectToAction(nameof(IndexUsuarios));
+            }
+            else
+            {
+                this.MostrarMensagem("Usuário não encontrado.", true);
+                return RedirectToAction(nameof(IndexUsuarios));
+            }
+        }
+
+        [Authorize(Roles = "administrador")]
+        public async Task<IActionResult> RemPerfilUsuario(string id)
+        {
+            var usuario = await _userManager.FindByIdAsync(id);
+            if (usuario != null)
+            {
+                var resultado = await _userManager.RemoveFromRoleAsync(usuario, "usuario");
+                if (resultado.Succeeded)
+                {
+                    this.MostrarMensagem(
+                        $"Perfil usuario removido com sucesso de <b>{usuario.UserName}</b>.");
+                }
+                else
+                {
+                    this.MostrarMensagem(
+                        $"Não foi possível remover perfil usuario de <b>{usuario.UserName}</b>.", true);
                 }
                 return RedirectToAction(nameof(IndexUsuarios));
             }

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace SGI_JMC.Controllers
 {
+    [Authorize(Roles = "usuario, administrador")]
     public class HorarioProfessorController : Controller
     {
 

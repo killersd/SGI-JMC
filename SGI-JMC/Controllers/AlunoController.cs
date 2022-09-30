@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGI_JMC.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "usuario, administrador")]
     public class AlunoController : Controller
     {
         private readonly Context _contexto;

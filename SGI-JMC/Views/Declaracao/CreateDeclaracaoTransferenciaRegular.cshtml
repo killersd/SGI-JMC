@@ -3,8 +3,6 @@
 @{
     ViewData["Title"] = "Create";
 }
-@*
-<h4>Criar nova declaracao</h4>*@
 <hr />
 <div class="container-fluid">
     <div class="card mb-3">
@@ -17,8 +15,6 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="row">
                     <div class="col-md-6">
-                        @* <form asp-action="Create">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
                         <div class="form-group">
                             <label asp-for="Name" class="control-label"></label>
                             <input asp-for="Name" class="form-control" />
@@ -44,11 +40,6 @@
                             <input asp-for="anoLetivo" class="form-control" MaxLength="4" />
                             <span asp-validation-for="anoLetivo" class="text-danger"></span>
                         </div>
-                        @*                        <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Baixar declaração</button>
-                        </div>*@
-
-                        @*</form>*@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
@@ -73,16 +64,12 @@
                         </div>
                     </div>
                     <div class="col-md-12" style="text-align:center">
-                        @*<input type="submit" value="Baixar declaração" class="btn btn-primary" />*@
                         <button type="submit" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Baixar declaração</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-</div>
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 @section Scripts {
     @{

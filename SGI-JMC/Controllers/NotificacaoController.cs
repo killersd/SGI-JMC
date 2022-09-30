@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace SGI_JMC.Controllers
 {
+    [Authorize(Roles = "usuario, administrador")]
     public class NotificacaoController : Controller
     {
         private readonly Context _context;

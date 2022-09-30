@@ -13,6 +13,14 @@
     <Compile Remove="Migrations\20220920030833_decTransf.Designer.cs" />
     <Compile Remove="Migrations\20220925013345_HorarioProfessor.cs" />
     <Compile Remove="Migrations\20220925013345_HorarioProfessor.Designer.cs" />
+    <Compile Remove="Migrations\20220930004146_atualizacaodeusuarios.cs" />
+    <Compile Remove="Migrations\20220930004146_atualizacaodeusuarios.Designer.cs" />
+    <Compile Remove="Migrations\20220930004441_atualizacaodeusuarios.cs" />
+    <Compile Remove="Migrations\20220930004441_atualizacaodeusuarios.Designer.cs" />
+    <Compile Remove="Migrations\20220930004557_atualizacaodeusuarios.cs" />
+    <Compile Remove="Migrations\20220930004557_atualizacaodeusuarios.Designer.cs" />
+    <Compile Remove="Migrations\20220930011925_atualizacaodeusuarios3.cs" />
+    <Compile Remove="Migrations\20220930011925_atualizacaodeusuarios3.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

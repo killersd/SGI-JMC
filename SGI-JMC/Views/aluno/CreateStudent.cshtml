@@ -1,49 +1,4 @@
 ﻿@model SGI_JMC.Models.aluno
-
-@*@{
-    ViewData["Title"] = "CreateStudent";
-}
-
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateStudent">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Father_name" class="control-label"></label>
-                <input asp-for="Father_name" class="form-control" />
-                <span asp-validation-for="Father_name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Mother_name" class="control-label"></label>
-                <input asp-for="Mother_name" class="form-control" />
-                <span asp-validation-for="Mother_name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Birth_date" class="control-label"></label>
-                <input asp-for="Birth_date" class="form-control" />
-                <span asp-validation-for="Birth_date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Year_folder" class="control-label"></label>
-                <input asp-for="Year_folder" class="form-control" />
-                <span asp-validation-for="Year_folder" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <a href="../aluno/Index" class="btn btn-info"> Cancelar</a>
-                <input type="submit" value="Salvar" class="btn btn-success" />
-            </div>
-        </form>
-    </div>
-</div>
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-*@
 <partial name="_MensagemPartial" />
 
 <div asp-validation-summary="ModelOnly" class="val-summary text-danger my-3"></div>

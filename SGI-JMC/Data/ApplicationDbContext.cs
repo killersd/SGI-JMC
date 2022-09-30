@@ -15,16 +15,12 @@ namespace SGI_JMC.Data
             : base(options)
         {
         }
-        public DbSet<SGI_JMC.Models.TipoUsuario> TipoUsuario { get; set; }
-        public DbSet<SGI_JMC.Models.AcessoTipoUsuario> AcessoTipoUsuario { get; set; }
-        public DbSet<SGI_JMC.Models.PerfilUsuario> PerfilUsuario { get; set; }
 
         public DbSet<IdentityUser> Usuario { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.Seed();
         }
        
     }

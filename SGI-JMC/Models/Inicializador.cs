@@ -13,6 +13,12 @@ namespace SGI_JMC.Models
                 perfil.Name = "administrador";
                 roleManager.CreateAsync(perfil).Wait();
             }
+            if (!roleManager.RoleExistsAsync("usuario").Result)
+            {
+                var perfil = new IdentityRole();
+                perfil.Name = "usuario";
+                roleManager.CreateAsync(perfil).Wait();
+            }
         }
 
         private static void InicializarUsuarios(UserManager<IdentityUser> userManager)

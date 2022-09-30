@@ -15,6 +15,7 @@ using SGI_JMC.ViewModels;
 
 namespace SGI_JMC.Controllers
 {
+    [Authorize(Roles = "usuario, administrador")]
     public class DeclaracaoSabadoLetivoController : Controller
     {
         private readonly Context _context;

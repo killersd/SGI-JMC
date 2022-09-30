@@ -23,158 +23,168 @@
         </ul>
     </li>
 
-    @if (Context.User.IsInRole("administrador"))
+    @if (!Context.User.IsInRole("administrador") && !Context.User.IsInRole("usuario"))
     {
+
+    }
+    else
+    {
+        @if (Context.User.IsInRole("administrador"))
+        {
+            <li class="nav-link dropdown">
+                <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
+                    <i class="fa fa-users" aria-hidden="true"></i> Usuários
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item" asp-controller="Usuario" asp-action="IndexUsuarios" classes-if-active="disabled">
+                            Todos
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-controller="Usuario" asp-action="Cadastrar">Novo</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-link dropdown">
+                <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
+                    <i class="fa fa-sort" aria-hidden="true"></i> Outros
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item" asp-controller="Advertencia" asp-action="Create" classes-if-active="disabled">
+                            Advertência
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-controller="Notificacao" asp-action="Create" classes-if-active="disabled">
+                            Notificação Diário
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-controller="oficiogeral" asp-action="createoficiogeral" classes-if-active="disabled">
+                            Ofício (geral)
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        }
+
         <li class="nav-link dropdown">
             <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
-                <i class="fa fa-users" aria-hidden="true"></i> Usuários
+                <i class="fa fa-file-text" aria-hidden="true"></i> Declarações
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li>
-                    <a class="dropdown-item" asp-controller="Usuario" asp-action="IndexUsuarios" classes-if-active="disabled">
-                        Todos
+                    <a class="dropdown-item" asp-controller="Declaracao" asp-action="Create" classes-if-active="disabled">
+                        Frequência (Regular)
                     </a>
                 </li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
                 <li>
-                    <a class="dropdown-item" asp-controller="Usuario" asp-action="Cadastrar">Novo</a>
+                    <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateProSic" classes-if-active="disabled">Frequência (ProSic)</a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaRegular">Transferência (Regular)</a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaProSic">Transferência (ProSic)</a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <a class="dropdown-item" asp-controller="DeclaracaoSabadoLetivo" asp-action="Create">Sábado letivo (Professor)</a>
+                </li>
+            </ul>
+        </li>
+        @if (!Context.User.IsInRole("administrador"))
+        {
+            <li class="nav-link dropdown">
+                <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
+                    <i class="fa fa-sort" aria-hidden="true"></i>  Outros
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item" asp-controller="Advertencia" asp-action="Create" classes-if-active="disabled">
+                            Advertência
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                </ul>
+            </li>
+        }
+        <li class="nav-link dropdown">
+            <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
+                <i class="fa fa-archive" aria-hidden="true"></i> Arquivo Morto
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <a class="dropdown-item" asp-controller="Aluno" asp-action="Index" classes-if-active="disabled">
+                        Consultar
+                    </a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <a class="dropdown-item" asp-controller="Aluno" asp-action="CreateStudent">Cadastrar</a>
                 </li>
             </ul>
         </li>
         <li class="nav-link dropdown">
             <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
-                <i class="fa fa-sort" aria-hidden="true"></i> Outros
+                <i class="fa fa-id-badge" aria-hidden="true"></i> Assumiu função
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li>
-                    <a class="dropdown-item" asp-controller="Advertencia" asp-action="Create" classes-if-active="disabled">
-                        Advertência
+                    <a class="dropdown-item" asp-controller="OficioAssumiuFuncao" asp-action="CreateOficio" classes-if-active="disabled">
+                        Ofício (Professor)
                     </a>
                 </li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
                 <li>
-                    <a class="dropdown-item" asp-controller="Notificacao" asp-action="Create" classes-if-active="disabled">
-                        Notificação Diário
-                    </a>
+                    <a class="dropdown-item" asp-controller="HorarioProfessor" asp-action="CreateHorarioProfessor">Horário (Professor)</a>
                 </li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
-                 <li>
-                    <a class="dropdown-item" asp-controller="oficiogeral" asp-action="createoficiogeral" classes-if-active="disabled">
-                        Ofício (geral)
-                    </a>
+                <li>
+                    <a class="dropdown-item" asp-controller="OficioAssumiuFuncaoServidor" asp-action="CreateOficioServidor">Ofício (Servidor)</a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <a class="dropdown-item" asp-controller="HorarioServidor" asp-action="CreateHorarioServidor">Horário (Servidor)</a>
                 </li>
             </ul>
         </li>
     }
 
-    <li class="nav-link dropdown">
-        <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
-            <i class="fa fa-file-text" aria-hidden="true"></i> Declarações
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end">
-            <li>
-                <a class="dropdown-item" asp-controller="Declaracao" asp-action="Create" classes-if-active="disabled">
-                    Frequência (Regular)
-                </a>
-            </li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
-            <li>
-                <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateProSic" classes-if-active="disabled">Frequência (ProSic)</a>
-            </li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
-            <li>
-                <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaRegular">Transferência (Regular)</a>
-            </li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
-            <li>
-                <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaProSic">Transferência (ProSic)</a>
-            </li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
-            <li>
-                <a class="dropdown-item" asp-controller="DeclaracaoSabadoLetivo" asp-action="Create">Sábado letivo (Professor)</a>
-            </li>
-        </ul>
-    </li>
-    @if (!Context.User.IsInRole("administrador"))
-    {
-        <li class="nav-link dropdown">
-            <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
-                <i class="fa fa-sort" aria-hidden="true"></i>  Outros
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                    <a class="dropdown-item" asp-controller="Advertencia" asp-action="Create" classes-if-active="disabled">
-                        Advertência
-                    </a>
-                </li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-            </ul>
-        </li>
-    }
-    <li class="nav-link dropdown">
-        <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
-            <i class="fa fa-archive" aria-hidden="true"></i> Arquivo Morto
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end">
-            <li>
-                <a class="dropdown-item" asp-controller="Aluno" asp-action="Index" classes-if-active="disabled">
-                    Consultar
-                </a>
-            </li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
-            <li>
-                <a class="dropdown-item" asp-controller="Aluno" asp-action="CreateStudent">Cadastrar</a>
-            </li>
-        </ul>
-    </li>
-    <li class="nav-link dropdown">
-        <a class="nav-link dropdown-toggle text-info" href="#" role="button" data-toggle="dropdown">
-            <i class="fa fa-id-badge" aria-hidden="true"></i> Assumiu função
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end">
-            <li>
-                <a class="dropdown-item" asp-controller="OficioAssumiuFuncao" asp-action="CreateOficio" classes-if-active="disabled">
-                    Ofício (Professor)
-                </a>
-            </li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
-            <li>
-                <a class="dropdown-item" asp-controller="HorarioProfessor" asp-action="CreateHorarioProfessor">Horário (Professor)</a>
-            </li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
-            <li>
-                <a class="dropdown-item" asp-controller="OficioAssumiuFuncaoServidor" asp-action="CreateOficioServidor">Ofício (Servidor)</a>
-            </li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
-            <li>
-                <a class="dropdown-item" asp-controller="HorarioServidor" asp-action="CreateHorarioServidor">Horário (Servidor)</a>
-            </li>
-        </ul>
-    </li>
+
+
 }
 else
 {
