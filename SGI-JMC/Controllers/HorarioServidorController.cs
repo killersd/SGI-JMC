@@ -192,6 +192,10 @@ namespace SGI_JMC.Controllers
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
                 textFomatter.DrawString("Observação:", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 650, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                if (horarioServidor.Observacao==null)
+                {
+                    horarioServidor.Observacao = "Sem observações!";
+                }
                 textFomatter.DrawString(horarioServidor.Observacao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 670, page.Width, page.Height));
 
 

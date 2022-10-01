@@ -1,0 +1,56 @@
+﻿@model IEnumerable<SGI_JMC.Models.Advertencia>
+
+<div class="container-fluid">
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4><b>Advertências Expedidas</b></h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Pai</th>
+                            <th>Mãe</th>
+                            <th>Data de nascimento</th>
+                            <th>Data de expedição</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            int count = 1;
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.Father_name</td>
+                                <td>@item.Mother_name</td>
+                                <td>@item.Birth_date</td>
+                                <td>@item.dataDeEmissao</td>
+                                <td>
+                                    <a asp-action="DeleteAdvertencia" asp-route-id=@item.Id>
+                                        <i class="fa fa-trash"
+                                       title="Excluir"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            count++;
+                        }
+                    </tbody>
+                </table>
+                @section Scripts{
+                    <script>
+                        $(document).ready(function() {
+                            $('#dataTable').DataTable({
+                                language: {
+                                    url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/pt-BR.json'
+                                }
+                            });
+                        });
+                    </script>
+                }
+                </div>
+            </div>
+        </div>
+    </div>

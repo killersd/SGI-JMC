@@ -11,8 +11,14 @@
 <div class="container-fluid">
     <div class="card mb-6">
         <div class="card-header">
-            <h4><b>Advertência</b></h4>
-            <h6>Preencha os dados, clique no botão  "Baixar Advertência" e o download iniciará.</h6>
+            @if (Context.User.IsInRole("administrador"))
+            {
+                <h4><b>Advertência</b><a href="../advertencia/index" class="btn btn-outline-primary pull-right fa fa-database"> Expedidas</a></h4>
+            }
+            else
+            {
+                <h4><b>Advertência</b></h4>
+            }
         </div>
         <div class="card-body">
             <form asp-action="gerarAdvertencia">
@@ -60,7 +66,7 @@
                             <label asp-for="descricaoDoFato" class="control-label"></label>
                             <textarea style="resize:none" placeholder="Relate aqui o ocorrido..." MaxLength="475" rows="7" cols="10" asp-for="descricaoDoFato" class="form-control"></textarea>
                             <span asp-validation-for="descricaoDoFato" class="text-danger"></span>
-                        </div>                        
+                        </div>
                     </div>
                     <div class="col-md-12" style="text-align:center">
                         @*<input type="submit" value="Baixar declaração" class="btn btn-primary" />*@

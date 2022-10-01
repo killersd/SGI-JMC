@@ -25,7 +25,7 @@
 
     @if (!Context.User.IsInRole("administrador") && !Context.User.IsInRole("usuario"))
     {
-
+        //Não mostrar nenhum menu
     }
     else
     {
@@ -182,11 +182,11 @@
             </ul>
         </li>
     }
-
-
-
 }
 else
 {
     <a class="nav-link pe-0" asp-controller="Usuario" asp-action="Login"><i class="fa fa-sign-in" aria-hidden="true"></i> Entrar</a>
 }
+
+
+

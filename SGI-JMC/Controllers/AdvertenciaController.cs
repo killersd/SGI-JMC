@@ -20,6 +20,13 @@ namespace SGI_JMC.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "administrador")]
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Advertencia.ToListAsync());
+        }
+
         [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
         public IActionResult Create()
@@ -94,7 +101,7 @@ namespace SGI_JMC.Controllers
                 string dataNascString = advertencia.Birth_date.ToString("dd/MM/yyyy");
 
                 if (advertencia.Father_name != null)
-                {                    
+                {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                     textFomatter.DrawString("Venho através desta notificação informar que o aluno(a) " + advertencia.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + advertencia.Mother_name.ToUpper() + " e " + advertencia.Father_name.ToUpper() + ", " +
                         " matriculado no " + advertencia.anoSerie + "º ano, turma \"" + advertencia.turma + "\" no turno " + advertencia.turno + ", está sendo advertido por violar as normas do Regimento desta Unidade de Ensino. Informo ainda " +
@@ -121,7 +128,7 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("Advertência emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                 textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
-                textFomatter.DrawString("Esta declaração foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.DrawString("Esta advertência foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
                 textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
