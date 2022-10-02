@@ -1,4 +1,4 @@
-﻿@model EsqueciSenhaViewModel
+﻿@*@model EsqueciSenhaViewModel
 @{
     ViewBag.Subtitulo = "Esqueci Minha Senha";
 }
@@ -26,4 +26,39 @@
         <a asp-action="Index" asp-controller="Home" class="btn btn-outline-secondary">Cancelar</a>
         <button class="btn btn-primary" type="submit">Solicitar Redefinição de Senha</button>
     </div>
-</form>
+</form>*@
+
+
+
+
+@model EsqueciSenhaViewModel
+
+<partial name="_MensagemPartial" />
+
+<div asp-validation-summary="ModelOnly" class="val-summary text-danger my-3"></div>
+<div class="container">
+    <div class="card mb-12">
+        <div class="card-header">
+            <h4><b>Esqueci minha Senha</b></h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="EsqueciSenha" class="row">
+                <div class="col-12 mb-3 col-4">
+                    <label asp-for="@Model.Email"></label><br>
+                    <input asp-for="@Model.Email" class="form-control" autofocus autocomplete="off">
+                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                </div>
+
+            </form>
+            <div class="col-12 mt-3">
+                <a asp-action="Index" asp-controller="Home" class="btn btn-info"><i class="fa fa-ban" aria-hidden="true"></i> Cancelar</a>
+                <button type="submit" class="btn btn-success"><i class="fa fa-exchange" aria-hidden="true"></i> Solicitar Redefinição de Senha</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

@@ -15,7 +15,6 @@
                             <th>Mãe</th>
                             <th>Data de nascimento</th>
                             <th>Data de expedição</th>
-                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -27,13 +26,7 @@
                                 <td>@item.Father_name</td>
                                 <td>@item.Mother_name</td>
                                 <td>@item.Birth_date</td>
-                                <td>@item.dataDeEmissao</td>
-                                <td>
-                                    <a asp-action="DeleteAdvertencia" asp-route-id=@item.Id>
-                                        <i class="fa fa-trash"
-                                       title="Excluir"></i>
-                                    </a>
-                                </td>
+                                <td>@item.dataDeEmissao</td>                                
                             </tr>
                             count++;
                         }
