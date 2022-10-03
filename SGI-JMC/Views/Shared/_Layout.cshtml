@@ -11,25 +11,25 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body style="min-width:372px;">
-@*    <header>
-        <nav class="navbar navbar-expand-lg navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="background-color:#E0FFFF	">
-            <div class="container">
-                <div class="logo">
-                    <h1><a href="/Home/Index">SGI <span> - EEJMC</span></a> </h1>
-                    Sistema de Gerenciamento Interno
-                </div>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
-        </nav>
+    @*    <header>
+    <nav class="navbar navbar-expand-lg navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="background-color:#E0FFFF	">
+    <div class="container">
+    <div class="logo">
+    <h1><a href="/Home/Index">SGI <span> - EEJMC</span></a> </h1>
+    Sistema de Gerenciamento Interno
+    </div>
+    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+    <partial name="_LoginPartial" />
+    </div>
+    </div>
+    </nav>
     </header>*@
     <nav class="navbar navbar-expand-lg border-bottom shadow-sm mb-3 navbar-light" @*style="background-color: #e3f2fd;*@">
         <div class="container">
             <div class="logo">
-                    <h1><a href="/Home/Index">SGI <span> - EEJMC</span></a> </h1>
-                    Sistema de Gerenciamento Interno
-                </div>
+                <h1><a href="/Home/Index">SGI <span> - EEJMC</span></a> </h1>
+                Sistema de Gerenciamento Interno
+            </div>
             <button class="navbar-toggler alert-primary" type="button" data-toggle="collapse"
                     data-target=".navbar-collapse">
                 <span class="navbar-toggler-icon"></span>
@@ -148,6 +148,30 @@
                                 <li>
                                     <a class="dropdown-item" asp-controller="DeclaracaoSabadoLetivo" asp-action="Create">Sábado letivo (Professor)</a>
                                 </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="DeclaracaoExServidor" asp-action="CreateDeclaracaoExServidor">Ex-Servidor</a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="DeclaracaoServidor" asp-action="CreateDeclaracaoServidor">Servidor (Ativo)</a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoConcludentesRegular">Concludente (Regular)</a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoConcludentesProSic">Concludente (ProSic)</a>
+                                </li>
                             </ul>
                         </li>
                         @if (!Context.User.IsInRole("administrador"))
@@ -216,6 +240,24 @@
                                 </li>
                             </ul>
                         </li>
+                        if (Context.User.IsInRole("administrador"))
+                        {
+                            <li class="nav-link dropdown">
+                                <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown">
+                                    <i class="fa fa-eye" aria-hidden="true"></i> Documentos Expedidos
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="advertencia" asp-action="index" classes-if-active="disabled">
+                                            Advertências
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                </ul>
+                            </li>
+                        }
                     }
                 }
                 else

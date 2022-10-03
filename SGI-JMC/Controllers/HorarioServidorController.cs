@@ -16,14 +16,14 @@ namespace SGI_JMC.Controllers
         {
             _context = context;
         }
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
         public IActionResult CreateHorarioServidor()
         {
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         public FileResult gerarHorarioServidor(HorarioServidor horarioServidor)
         {
             using (var doc = new PdfSharpCore.Pdf.PdfDocument())

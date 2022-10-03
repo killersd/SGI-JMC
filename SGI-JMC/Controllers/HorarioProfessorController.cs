@@ -22,14 +22,14 @@ namespace SGI_JMC.Controllers
             _context = context;
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
         public IActionResult CreateHorarioProfessor()
         {
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         [HttpPost]
         public async Task<IActionResult> CreateHorario(HorarioProfessor hp)
         {
@@ -42,7 +42,7 @@ namespace SGI_JMC.Controllers
             return View(hp);
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         private bool verificaCpf(HorarioProfessor horarioProfessor)
         {
             CPFCNPJ.IMain verificaCpf = new CPFCNPJ.Main();
@@ -54,7 +54,7 @@ namespace SGI_JMC.Controllers
             return false;
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         private bool VerificarTurnoTarde(HorarioProfessor hp)
         {
             if (hp.ts01 == null && hp.ts02 == null && hp.ts03 == null && hp.ts04 == null && hp.ts05 == null
@@ -71,7 +71,7 @@ namespace SGI_JMC.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         private bool VerificarTurnoManha(HorarioProfessor hp)
         {
             if (hp.s01 == null && hp.s02 == null && hp.s03 == null && hp.s04 == null && hp.s05 == null
@@ -88,7 +88,7 @@ namespace SGI_JMC.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         public FileResult gerarHorario(HorarioProfessor horarioProfessor)
         {
             using (var doc = new PdfSharpCore.Pdf.PdfDocument())

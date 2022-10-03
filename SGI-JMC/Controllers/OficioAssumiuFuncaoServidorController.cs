@@ -17,14 +17,14 @@ namespace SGI_JMC.Controllers
             _context = context;
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
         public IActionResult CreateOficioServidor()
         {
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         [HttpPost]
         public FileResult gerarOficioServidor(OficioAssumiuFuncaoServidor oficioAssumiuFuncaoServidor)
         {

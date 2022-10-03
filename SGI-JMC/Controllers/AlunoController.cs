@@ -15,11 +15,14 @@ namespace SGI_JMC.Controllers
         {
             _contexto = context;
         }
+
+        [Authorize(Roles = "usuario, administrador")]
         public async Task<IActionResult> Index()
         {
             return View(await _contexto.Alunos.ToListAsync());
         }
 
+        [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
         public IActionResult CreateStudent()
         {
@@ -40,6 +43,7 @@ namespace SGI_JMC.Controllers
 
         }
 
+        [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
         public IActionResult UpdateStudent(int? id)
         {
@@ -73,6 +77,7 @@ namespace SGI_JMC.Controllers
 
                 return NotFound();
         }
+        
         [Authorize(Roles ="administrador")]
         [HttpGet]
         public IActionResult DeleteStudent(int? id)
@@ -85,7 +90,8 @@ namespace SGI_JMC.Controllers
             else
                 return View();
         }
-    
+        
+        [Authorize(Roles = "administrador")]
         [HttpPost]
         public async Task<IActionResult> DeleteStudent(int? id, aluno student)
         {

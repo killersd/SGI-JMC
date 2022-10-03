@@ -1,50 +1,49 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using PdfSharpCore.Drawing;
 using SGI_JMC.Models;
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SGI_JMC.Controllers
 {
-    [Authorize(Roles = "administrador")]
-    public class NotificacaoController : Controller
+    [Authorize(Roles = "usuario, administrador")]
+    public class DeclaracaoExServidorController : Controller
     {
         private readonly Context _context;
-
-        public NotificacaoController(Context context)
+        public DeclaracaoExServidorController(Context context)
         {
             _context = context;
         }
 
-        [Authorize(Roles = "administrador")]
+        //Métodos para declaração de ex servidor
+        [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult CreateDeclaracaoExServidor()
         {
             return View();
         }
 
-        [Authorize(Roles = "administrador")]
+        [Authorize(Roles = "usuario, administrador")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,dataLimite")] Models.NotificacaoPendenciaDiario notificacaoPendenciaDiario)
+        public async Task<IActionResult> CreateDeclaracaoExServidor([Bind("Id,Nome,CPF,vinculo,CargaHoraria,cargo,DataInicioExercicio,DataFimExercicio,DataEmissao,numeroDeclaracaoExServidor,codigoAutenticacaoExServidor,TempoDeServico")] DeclaracaoExServidor declaracaoExServidor)
         {
             if (ModelState.IsValid)
             {
-                notificacaoPendenciaDiario.dataDeEmissao = DateTime.Now;
-                _context.Add(notificacaoPendenciaDiario);
+                declaracaoExServidor.DataEmissao = DateTime.Now;
+                _context.Add(declaracaoExServidor);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Create));
+                return RedirectToAction(nameof(Index));
             }
-            return View(notificacaoPendenciaDiario);
+            return View(declaracaoExServidor);
         }
 
-        [Authorize(Roles = "administrador")]
-        public FileResult gerarNotificacao(Models.NotificacaoPendenciaDiario notificacaoPendenciaDiario)
+        [Authorize(Roles = "usuario, administrador")]
+        public FileResult gerarDeclaracaoExServidor(DeclaracaoExServidor declaracaoExServidor)
         {
+            declaracaoExServidor.numeroDeclaracaoExServidor = GerarNumeroDeclaracaoExServidor(declaracaoExServidor);
+            declaracaoExServidor.codigoAutenticacaoExServidor = GerarCodigoDeAutenticacaoExServidor(declaracaoExServidor);
             using (var doc = new PdfSharpCore.Pdf.PdfDocument())
             {
                 var page = doc.AddPage();
@@ -61,9 +60,6 @@ namespace SGI_JMC.Controllers
                 var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
                 var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
                 var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
-                var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
-                var fonteTituloGigante = new PdfSharpCore.Drawing.XFont("Calibri", 24, PdfSharpCore.Drawing.XFontStyle.Bold);
-
 
 
                 var brasao = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\BrasaoEstado.png";
@@ -84,43 +80,69 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
                 textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                textFomatter.DrawString("NOTIFICAÇÃO", fonteTituloGigante, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
+                textFomatter.DrawString("DECLARAÇÃO", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
-                textFomatter.DrawString("Saudações caro(a) " + notificacaoPendenciaDiario.Name + "! Venho por meio desta, informar que até o dia " + notificacaoPendenciaDiario.dataLimite.ToShortDateString() + ",  o(a) senhor(a) encontra-se com " + notificacaoPendenciaDiario.qtdAulas + " aulas sem registro no Diário Eletrônico. Sendo assim, peço que realize o registro o mais rápido possível, em um prazo de até 48 horas.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                textFomatter.DrawString("Declaro para os devidos fins que o servidor " + declaracaoExServidor.Nome + ", CPF " + declaracaoExServidor.CPF + ", vínculo " + declaracaoExServidor.vinculo + ", exerceu o cargo de " + declaracaoExServidor.cargo + ", nesta Unidade de Ensino, com carga horária semanal de " + declaracaoExServidor.CargaHoraria + " horas, no período de " + declaracaoExServidor.DataInicioExercicio.ToShortDateString() + " à " + declaracaoExServidor.DataFimExercicio.ToShortDateString() + ", totalizando assim " + declaracaoExServidor.TempoDeServico + " dias de trabalho nesta Unidade.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
                 textFomatter.DrawString("Atenciosamente, ", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 370, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 450, page.Width, page.Height));
-                textFomatter.DrawString("Queilanc Borges Batista de Souza", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 460, page.Width, page.Height));
-                textFomatter.DrawString("Diretora - Port. 7469/2019", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 480, page.Width, page.Height));
-                textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 540, page.Width, page.Height));
-                textFomatter.DrawString(notificacaoPendenciaDiario.Name, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 550, page.Width, page.Height));
-                textFomatter.DrawString("Professor(a)", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 570, page.Width, page.Height));
-                textFomatter.DrawString(notificacaoPendenciaDiario.Name, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 550, page.Width, page.Height));
-                textFomatter.DrawString("Ciente em _____/______/2022", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
+                textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 445, page.Width, page.Height));
+                textFomatter.DrawString("Equipe Diretiva", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 460, page.Width, page.Height));
+                textFomatter.DrawString("Número do documento: " + declaracaoExServidor.numeroDeclaracaoExServidor, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
+                textFomatter.DrawString("Código de verificação: " + declaracaoExServidor.codigoAutenticacaoExServidor, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://localhost:44363/Declaracao/VerificarAutenticidade, preencha os dados " +
+                    "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 string dataString = DateTime.Now.ToString();
-                textFomatter.DrawString("Notificação emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+                textFomatter.DrawString("Declaração emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                 textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
-                textFomatter.DrawString("Esta notificação foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.DrawString("Esta declaração foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
                 textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
                 textFomatter.DrawString("SGI-Sistema de Gestão Interna - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
                 textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+
                 using (MemoryStream stream = new MemoryStream())
                 {
                     var contentType = "application/pdf";
                     doc.Save(stream, false);
-                    var nomeArquivo = "Notificação " + notificacaoPendenciaDiario.Name + ".pdf";
+                    var nomeArquivo = "Declaração " + declaracaoExServidor.Nome + ".pdf";
                     //Salvando no banco
-                    notificacaoPendenciaDiario.dataDeEmissao = DateTime.Now;
-                    _context.Add(notificacaoPendenciaDiario);
+                    declaracaoExServidor.DataEmissao = DateTime.Now;
+                    _context.Add(declaracaoExServidor);
                     _context.SaveChangesAsync();
                     return File(stream.ToArray(), contentType, nomeArquivo);
                 }
+
             }
         }
 
+        [Authorize(Roles = "usuario, administrador")]
+        public int GerarNumeroDeclaracaoExServidor(DeclaracaoExServidor declaracaoExServidor)
+        {
+            int numeroDeclaracaoExServidorGerado;
+
+            Random random = new Random();
+            numeroDeclaracaoExServidorGerado = random.Next().GetHashCode();
+            declaracaoExServidor.numeroDeclaracaoExServidor = numeroDeclaracaoExServidorGerado;
+            return numeroDeclaracaoExServidorGerado;
+        }
+
+        [Authorize(Roles = "usuario, administrador")]
+        public string GerarCodigoDeAutenticacaoExServidor(DeclaracaoExServidor declaracaoExServidor)
+        {
+            string codigoAutenticacaoExServidor = GerarNumeroDeclaracaoExServidor(declaracaoExServidor).ToString("x");
+            declaracaoExServidor.codigoAutenticacaoExServidor = codigoAutenticacaoExServidor;
+            return codigoAutenticacaoExServidor;
+        }
+
     }
+
+
 }

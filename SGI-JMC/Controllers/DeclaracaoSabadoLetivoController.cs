@@ -25,14 +25,14 @@ namespace SGI_JMC.Controllers
             _context = context;
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,CPF,dataDeEmissao,anoLetivo,numeroDeclaracaoSabado,codigoAutenticacaoSabado,dataSabado")] DeclaracaoSabadoLetivo declaracaoSabadoLetivo)
@@ -47,7 +47,7 @@ namespace SGI_JMC.Controllers
             return View(declaracaoSabadoLetivo);
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         public FileResult gerarDeclaracaoSabadoLetivo(DeclaracaoSabadoLetivo declaracaoSabadoLetivo)
         {
             declaracaoSabadoLetivo.numeroDeclaracaoSabado = GerarNumeroDeclaracaoSabadoLetivo(declaracaoSabadoLetivo);
@@ -131,7 +131,7 @@ namespace SGI_JMC.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         public int GerarNumeroDeclaracaoSabadoLetivo(DeclaracaoSabadoLetivo declaracaoSabadoLetivo)
         {
             int numeroDeclaracaoSabadoLetivoGerado;
@@ -143,7 +143,7 @@ namespace SGI_JMC.Controllers
             return numeroDeclaracaoSabadoLetivoGerado;
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         public string GerarCodigoDeAutenticacaoSabadoLetivo(DeclaracaoSabadoLetivo declaracaoSabadoLetivo)
         {
             string codigoAutenticacaoSabadoLetivo = GerarNumeroDeclaracaoSabadoLetivo(declaracaoSabadoLetivo).ToString("x");

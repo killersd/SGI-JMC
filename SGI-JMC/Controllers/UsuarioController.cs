@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SGI_JMC.Controllers
 {
-    
+
     public class UsuarioController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -38,8 +38,7 @@ namespace SGI_JMC.Controllers
 
 
 
-        //[Authorize(Roles ="administrador")]
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public async Task<IActionResult> Cadastrar(string id)
         {
             if (!string.IsNullOrEmpty(id))
@@ -62,11 +61,13 @@ namespace SGI_JMC.Controllers
             return View(new CadastrarUsuarioViewModel());
         }
 
+        [Authorize(Roles = "administrador")]
         private bool EntidadeExiste(string id)
         {
             return (_userManager.Users.AsNoTracking().Any(u => u.Id == id));
         }
 
+        [Authorize(Roles = "administrador")]
         private static void MapearCadastrarUsuarioViewModel(CadastrarUsuarioViewModel entidadeOrigem, IdentityUser entidadeDestino)
         {
             entidadeDestino.UserName = entidadeOrigem.NomeUsuario;
@@ -78,9 +79,9 @@ namespace SGI_JMC.Controllers
             entidadeDestino.PhoneNumber = entidadeOrigem.Telefone;
         }
 
-        [HttpPost]
+        [HttpPost, AllowAnonymous]
         public async Task<IActionResult> Cadastrar(
-        [FromForm] CadastrarUsuarioViewModel usuarioVM)
+[FromForm] CadastrarUsuarioViewModel usuarioVM)
         {
             //se for alteração, não tem senha e confirmação de senha
             if (!string.IsNullOrEmpty(usuarioVM.Id))
@@ -165,6 +166,8 @@ namespace SGI_JMC.Controllers
                 return View(usuarioVM);
             }
         }
+
+
         [HttpGet]
         public IActionResult Login()
         {
@@ -238,7 +241,7 @@ namespace SGI_JMC.Controllers
             return View(usuarios);
         }
 
-
+        [Authorize(Roles = "administrador")]
         [HttpGet]
         public async Task<IActionResult> Excluir(string id)
         {
@@ -259,6 +262,7 @@ namespace SGI_JMC.Controllers
             return View(usuario);
         }
 
+        [Authorize(Roles = "administrador")]
         [HttpPost]
         public async Task<IActionResult> ExcluirPost(string id)
         {
@@ -393,12 +397,14 @@ namespace SGI_JMC.Controllers
             }
         }
 
+        [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
         public IActionResult EsqueciSenha()
         {
             return View();
         }
 
+        [Authorize(Roles = "usuario, administrador")]
         [HttpPost]
         public async Task<IActionResult> EsqueciSenha([FromForm] EsqueciSenhaViewModel dados)
         {
@@ -431,11 +437,13 @@ namespace SGI_JMC.Controllers
             }
         }
 
+        [Authorize(Roles = "usuario, administrador")]
         public IActionResult EmailRedefinicaoEnviado()
         {
             return View();
         }
 
+        [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
         public IActionResult RedefinirSenha(string token)
         {
@@ -444,6 +452,7 @@ namespace SGI_JMC.Controllers
             return View(modelo);
         }
 
+        [Authorize(Roles = "usuario, administrador")]
         [HttpPost]
         public async Task<IActionResult> RedefinirSenha([FromForm] RedefinirSenhaViewModel dados)
         {
@@ -471,13 +480,14 @@ namespace SGI_JMC.Controllers
             }
         }
 
-
+        [Authorize(Roles = "usuario, administrador")]
         [HttpGet, Authorize]
         public IActionResult AlterarSenha()
         {
             return View();
         }
 
+        [Authorize(Roles = "usuario, administrador")]
         [HttpPost]
         public async Task<IActionResult> AlterarSenha([FromForm] AlterarSenhaViewModel dados)
         {

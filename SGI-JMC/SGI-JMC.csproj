@@ -21,6 +21,14 @@
     <Compile Remove="Migrations\20220930004557_atualizacaodeusuarios.Designer.cs" />
     <Compile Remove="Migrations\20220930011925_atualizacaodeusuarios3.cs" />
     <Compile Remove="Migrations\20220930011925_atualizacaodeusuarios3.Designer.cs" />
+    <Compile Remove="Migrations\20221002154150_declaracaoExServidor.cs" />
+    <Compile Remove="Migrations\20221002154150_declaracaoExServidor.Designer.cs" />
+    <Compile Remove="Migrations\20221002164600_declaracaoExServidor3.cs" />
+    <Compile Remove="Migrations\20221002164600_declaracaoExServidor3.Designer.cs" />
+    <Compile Remove="Migrations\20221003003900_declaracaoservidorativo.cs" />
+    <Compile Remove="Migrations\20221003003900_declaracaoservidorativo.Designer.cs" />
+    <Compile Remove="Migrations\20221003003939_declaracaoservidorativo.cs" />
+    <Compile Remove="Migrations\20221003003939_declaracaoservidorativo.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,7 +54,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EmailService\" />
     <Folder Include="wwwroot\Scripts\" />
   </ItemGroup>
 

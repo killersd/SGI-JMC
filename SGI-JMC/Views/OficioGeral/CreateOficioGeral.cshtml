@@ -17,7 +17,18 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="Remetente" class="control-label"></label>
-                            <input asp-for="Remetente" class="form-control" placeholder="Alex ou Queila" />
+                            @* <input asp-for="Remetente" class="form-control" placeholder="Alex ou Queila" />*@
+                            <fieldset>
+                                <div>
+                                    <input asp-for="Remetente" type="radio" id="" name="Remetente" value="Alex">
+                                    <label for="Alex">Alex</label>
+                                </div>
+
+                                <div>
+                                    <input asp-for="Remetente" type="radio" id="Queila" name="Remetente" value="Queila">
+                                    <label for="Queila">Queila</label>
+                                </div>
+                            </fieldset>
                             <span asp-validation-for="Remetente" class="text-danger"></span>
                         </div>
                     </div>

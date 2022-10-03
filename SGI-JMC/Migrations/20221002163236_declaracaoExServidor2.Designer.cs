@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SGI_JMC.Models;
 
 namespace SGI_JMC.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20221002163236_declaracaoExServidor2")]
+    partial class declaracaoExServidor2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,125 +118,6 @@ namespace SGI_JMC.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Declaracao");
-                });
-
-            modelBuilder.Entity("SGI_JMC.Models.DeclaracaoConcludentesProSic", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AnoLetivo")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CodigoSeed")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DataDeEmissao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FaseProSic")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NomeDaMae")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NomeDoPai")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NumeroDoNis")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Observacao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ResultadoFinal")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SerieDeOrigem")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("codigoAutenticacaoConcludenteProSic")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("numeroDeclaracaoConcludenteProSic")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DeclaracaoConcludentesProSic");
-                });
-
-            modelBuilder.Entity("SGI_JMC.Models.DeclaracaoConcludentesRegular", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AnoLetivo")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AnoSerie")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CodigoSeed")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DataDeEmissao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NomeDaMae")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NomeDoPai")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NumeroDoNis")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Observacao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ResultadoFinal")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Turma")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(1)");
-
-                    b.Property<string>("codigoAutenticacaoConcludente")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("numeroDeclaracaoConcludente")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DeclaracaoConcludentesRegular");
                 });
 
             modelBuilder.Entity("SGI_JMC.Models.DeclaracaoExServidor", b =>
@@ -373,51 +256,6 @@ namespace SGI_JMC.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DeclaracaoSabadoLetivo");
-                });
-
-            modelBuilder.Entity("SGI_JMC.Models.DeclaracaoServidor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CPF")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(11)")
-                        .HasMaxLength(11);
-
-                    b.Property<string>("CargaHoraria")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DataEmissao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DataInicioExercicio")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("cargo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("codigoAutenticacaoServidor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("numeroDeclaracaoServidor")
-                        .HasColumnType("int");
-
-                    b.Property<string>("vinculo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DeclaracaoServidor");
                 });
 
             modelBuilder.Entity("SGI_JMC.Models.DeclaracaoTransferenciaProSic", b =>

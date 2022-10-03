@@ -25,29 +25,14 @@ namespace SGI_JMC.Controllers
             _context = context;
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
         public IActionResult CreateOficio()
         {
             return View();
         }
 
-        //[Authorize]
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> CreateOficio([Bind("Id,Name, NumeroOficio, Assunto, destinatario, DataAssumiuFuncao, CPF, vinculo, CargaHoraria,disciplina, DataEmissao")] OficioAssumiuFuncao oficioAssumiuFuncao)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        oficioAssumiuFuncao.DataEmissao = DateTime.Now;
-        //        _context.Add(oficioAssumiuFuncao);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(oficioAssumiuFuncao);
-        //}
-
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         public FileResult gerarOficio(OficioAssumiuFuncao oficioAssumiuFuncao)
         {
             using (var doc = new PdfSharpCore.Pdf.PdfDocument())

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace SGI_JMC.Controllers
 {
+    [Authorize(Roles = "usuario, administrador")]
     public class AdvertenciaController : Controller
     {
         private readonly Context _context;
@@ -34,7 +35,7 @@ namespace SGI_JMC.Controllers
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Father_name,Mother_name,Birth_date,anoSerie,turma,dataDeEmissao,descricaoDoFato,turno")] Models.Advertencia advertencia)
@@ -49,7 +50,7 @@ namespace SGI_JMC.Controllers
             return View(advertencia);
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         public FileResult gerarAdvertencia(Models.Advertencia advertencia)
         {
             using (var doc = new PdfSharpCore.Pdf.PdfDocument())

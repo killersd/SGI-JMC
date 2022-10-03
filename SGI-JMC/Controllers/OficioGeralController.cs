@@ -17,14 +17,14 @@ namespace SGI_JMC.Controllers
             _context = context;
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
         public IActionResult CreateOficioGeral()
         {
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "usuario, administrador")]
         public FileResult gerarOficio(OficioGeral oficioGeral)
         {
             using (var doc = new PdfSharpCore.Pdf.PdfDocument())
