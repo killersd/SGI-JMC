@@ -46,9 +46,8 @@ namespace SGI_JMC.Controllers
                 var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
                 var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
 
-                var brasao = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\BrasaoEstado.png";
-                var escudo = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\Escudo.jpg";
-
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
                 XImage imgBrasao = XImage.FromFile(brasao);
                 XImage imgEscudo = XImage.FromFile(escudo);
                 oficioAssumiuFuncaoServidor.DataEmissao = DateTime.Now;
@@ -88,7 +87,7 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("Lagarto - Se", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 706, page.Width, page.Height));
                 //Rodapé
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                string dataString = DateTime.Now.ToString();
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
                 textFomatter.DrawString("Ofício emitido em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                 textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));

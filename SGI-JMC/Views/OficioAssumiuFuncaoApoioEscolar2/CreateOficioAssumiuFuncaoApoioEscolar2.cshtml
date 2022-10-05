@@ -1,17 +1,16 @@
-﻿@model SGI_JMC.Models.OficioAssumiuFuncao
+﻿@model SGI_JMC.Models.OficioAssumiuFuncaoApoioEscolar2
 
 @{
-    ViewData["Title"] = "Ofício assumiu função - Professores - ";
+    ViewData["Title"] = "Ofício assumiu função - Apoio Escolar II";
 }
 <hr />
 <div class="container-fluid">
     <div class="card mb-3">
         <div class="card-header">
-            <h4><b>Ofício de Assumiu Função</b></h4>
-            <h6>Modelo de ofício para <b>professores(as)</b> que assumiram função</h6>
+            <h4><b>Ofício de Assumiu Função (Apoio Escolar II)</b></h4>
         </div>
         <div class="card-body">
-            <form asp-action="gerarOficio">
+            <form asp-action="gerarOficioApoioEscolar2">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="row">
                     <div class="col-md-6">
@@ -48,9 +47,9 @@
                             <span asp-validation-for="DataAssumiuFuncao" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="CargaHoraria" class="control-label"></label>
-                            <input asp-for="CargaHoraria" placeholder="Carga horária semanal" class="form-control" />
-                            <span asp-validation-for="CargaHoraria" class="text-danger"></span>
+                            <label asp-for="CargaHorariaMensal" class="control-label"></label>
+                            <input asp-for="CargaHorariaMensal" placeholder="Carga horária MENSAL" class="form-control" />
+                            <span asp-validation-for="CargaHorariaMensal" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="disciplina" class="control-label"></label>
@@ -62,14 +61,8 @@
                             <input asp-for="vinculo" placeholder="Contratado ou efetivo" class="form-control" />
                             <span asp-validation-for="vinculo" class="text-danger"></span>
                         </div>
-                        @*                 <div class="form-group">
-                        <label asp-for="qtdFaltas" class="control-label"></label>
-                        <input asp-for="qtdFaltas" class="form-control" MaxLength="4" />
-                        <span asp-validation-for="qtdFaltas" class="text-danger"></span>
-                        </div>*@
                     </div>
                     <div class="col-md-12" style="text-align:center">
-                        @*<input type="submit" value="Baixar declaração" class="btn btn-primary" />*@
                         <button type="submit" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Baixar ofício</button>
                     </div>
                 </div>

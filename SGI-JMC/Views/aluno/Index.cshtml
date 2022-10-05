@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SGI_JMC.Models.aluno>
 
 @{
-    ViewData["Title"] = "Alunos Cadastrados";
+    ViewData["Title"] = "Arquivo morto - ";
 }
 <p></p>
 @*<h3>Alunos Cadastrados</h3>*@
@@ -11,7 +11,9 @@
     <div class="card mb-3">
         <div class="card-header">
             <h4><b>Arquivo Morto</b></h4>
-            <h6>Digite na caixa de pesquisa para localizar um aluno</h6>
+            <h6>
+                <a href="../Aluno/CreateStudent" class="btn btn-primary pull-right fa fa-user-plus"> Adicionar</a>
+            </h6>
             @*<h4><b>Arquivo Morto</b></h4>*@
             @*<a href="../aluno/CreateStudent" class="btn btn-info pull-right fa fa-plus"> Adicionar aluno</a>*@
         </div>

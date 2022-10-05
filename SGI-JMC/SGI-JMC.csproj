@@ -29,6 +29,31 @@
     <Compile Remove="Migrations\20221003003900_declaracaoservidorativo.Designer.cs" />
     <Compile Remove="Migrations\20221003003939_declaracaoservidorativo.cs" />
     <Compile Remove="Migrations\20221003003939_declaracaoservidorativo.Designer.cs" />
+    <Compile Remove="Migrations\20221003185628_apoio2.cs" />
+    <Compile Remove="Migrations\20221003185628_apoio2.Designer.cs" />
+    <Compile Remove="Migrations\20221003190124_apoio.cs" />
+    <Compile Remove="Migrations\20221003190124_apoio.Designer.cs" />
+    <Compile Remove="Migrations\20221003191648_apoioEsc.cs" />
+    <Compile Remove="Migrations\20221003191648_apoioEsc.Designer.cs" />
+    <Compile Remove="Migrations\20221003204603_v2.cs" />
+    <Compile Remove="Migrations\20221003204603_v2.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Imagens\BrasaoEstado.png" />
+    <None Remove="Imagens\Escudo.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Imagens\BrasaoEstado.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Imagens\Escudo.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -55,6 +80,15 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Scripts\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\css\BrasaoEstado.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Imagens\BrasaoEstado.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

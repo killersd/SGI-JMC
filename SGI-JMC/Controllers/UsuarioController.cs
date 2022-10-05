@@ -38,7 +38,7 @@ namespace SGI_JMC.Controllers
 
 
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet]
         public async Task<IActionResult> Cadastrar(string id)
         {
             if (!string.IsNullOrEmpty(id))
@@ -61,13 +61,12 @@ namespace SGI_JMC.Controllers
             return View(new CadastrarUsuarioViewModel());
         }
 
-        [Authorize(Roles = "administrador")]
+  
         private bool EntidadeExiste(string id)
         {
             return (_userManager.Users.AsNoTracking().Any(u => u.Id == id));
         }
 
-        [Authorize(Roles = "administrador")]
         private static void MapearCadastrarUsuarioViewModel(CadastrarUsuarioViewModel entidadeOrigem, IdentityUser entidadeDestino)
         {
             entidadeDestino.UserName = entidadeOrigem.NomeUsuario;
@@ -79,7 +78,7 @@ namespace SGI_JMC.Controllers
             entidadeDestino.PhoneNumber = entidadeOrigem.Telefone;
         }
 
-        [HttpPost, AllowAnonymous]
+        [HttpPost]
         public async Task<IActionResult> Cadastrar(
 [FromForm] CadastrarUsuarioViewModel usuarioVM)
         {
@@ -397,14 +396,13 @@ namespace SGI_JMC.Controllers
             }
         }
 
-        [Authorize(Roles = "usuario, administrador")]
+
         [HttpGet]
         public IActionResult EsqueciSenha()
         {
             return View();
         }
 
-        [Authorize(Roles = "usuario, administrador")]
         [HttpPost]
         public async Task<IActionResult> EsqueciSenha([FromForm] EsqueciSenhaViewModel dados)
         {
@@ -437,13 +435,11 @@ namespace SGI_JMC.Controllers
             }
         }
 
-        [Authorize(Roles = "usuario, administrador")]
         public IActionResult EmailRedefinicaoEnviado()
         {
             return View();
         }
 
-        [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
         public IActionResult RedefinirSenha(string token)
         {
@@ -452,7 +448,6 @@ namespace SGI_JMC.Controllers
             return View(modelo);
         }
 
-        [Authorize(Roles = "usuario, administrador")]
         [HttpPost]
         public async Task<IActionResult> RedefinirSenha([FromForm] RedefinirSenhaViewModel dados)
         {

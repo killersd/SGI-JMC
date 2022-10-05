@@ -7,11 +7,6 @@
     resize: none;
 }
 
-/*header: {
-    position: fixed;
-}*/
-
-
 body {
     margin: 0;
     padding-bottom: 20px;
@@ -21,7 +16,7 @@ body {
     color: #333;
     background: #fff;
     background-image: url(../Imagens/fundo.jpg);
-    scrollbar-face-color: #121212;
+    scrollbar-face-color: #121212;    
 }
 
 h1,

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<IdentityUser>
 <partial name="_MensagemPartial" />
 @{
-    ViewBag.Subtitulo = "Listagem de Usuários";
+    ViewData["Title"] = "Usuários cadastrados - ";
     var administradores = ViewBag.Administradores as IEnumerable<string>;
     var usuarios = ViewBag.Usuarios as IEnumerable<string>;
 }
@@ -88,5 +88,5 @@
             </div>
         </div>
     </div>
-        </div>
+            </div>
 

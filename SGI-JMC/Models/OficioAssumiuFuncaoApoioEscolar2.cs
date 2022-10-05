@@ -4,11 +4,14 @@ using System.ComponentModel.DataAnnotations;
 namespace SGI_JMC.Models
 {
     [Serializable]
-    public class OficioGeral
+    public class OficioAssumiuFuncaoApoioEscolar2
     {
         [Key]
         public int Id { get; set; }
-        
+
+        [Display(Name = "Nome do servidor")]
+        [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
+        public string Name { get; set; }
 
         [Display(Name = "Número do ofício")]
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
@@ -22,24 +25,31 @@ namespace SGI_JMC.Models
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
         public string destinatario { get; set; }
 
-          [Display(Name = "Cargo do destinatário")]
+        [Display(Name = "Data que assumiu função")]
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
-        public string CargoDoDestinatario { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime DataAssumiuFuncao { get; set; }
 
-        [Display(Name = "Corpo do ofício")]
+        [Display(Name = "CPF")]
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
-        public string CorpoDoOficio { get; set; }
+        [StringLength(11, ErrorMessage = "O campo {0} deve ter {1} dígitos.")]
+        public string CPF { get; set; }
 
-        [Display(Name = "Remetente")]
+        [Display(Name = "Vínculo")]
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
-        public string Remetente { get; set; }
+        public string vinculo { get; set; }
+
+        [Display(Name = "Carga horária mensal")]
+        [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
+        public string CargaHorariaMensal { get; set; }
+
+        [Display(Name = "Disciplina")]
+        [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
+        public string disciplina { get; set; }
 
         [Display(Name = "Data emissão")]
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
         [DataType(DataType.Date)]
         public DateTime DataEmissao { get; set; }
-
-        [Display(Name = "Cidade do DESTINATÁRIO")]
-        public string Cidade { get; set; }
     }
 }

@@ -177,11 +177,9 @@ namespace SGI_JMC.Controllers
                 var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
                 var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
                 var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
-
-
-                var brasao = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\BrasaoEstado.png";
-                var escudo = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\Escudo.jpg";
-
+                
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
                 XImage imgBrasao = XImage.FromFile(brasao);
                 XImage imgEscudo = XImage.FromFile(escudo);
 
@@ -240,11 +238,11 @@ namespace SGI_JMC.Controllers
 
                 textFomatter.DrawString("Número do documento: " + declaracao.numeroDeclaracao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
                 textFomatter.DrawString("Código de verificação: " + declaracao.codigoAutenticacao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
-                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://localhost:44363/Declaracao/VerificarAutenticidade, preencha os dados " +
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://sgi-eejmc.azurewebsites.net/Declaracao/VerificarAutenticidade, preencha os dados " +
                     "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                string dataString = DateTime.Now.ToString();
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
                 textFomatter.DrawString("Declaração emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
@@ -345,10 +343,8 @@ namespace SGI_JMC.Controllers
                 var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
                 var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
 
-
-                var brasao = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\BrasaoEstado.png";
-                var escudo = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\Escudo.jpg";
-
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
                 XImage imgBrasao = XImage.FromFile(brasao);
                 XImage imgEscudo = XImage.FromFile(escudo);
 
@@ -406,11 +402,11 @@ namespace SGI_JMC.Controllers
 
                 textFomatter.DrawString("Número do documento: " + declaracaoProSic.numeroDeclaracao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
                 textFomatter.DrawString("Código de verificação: " + declaracaoProSic.codigoAutenticacao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
-                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://localhost:44363/Declaracao/VerificarAutenticidade, preencha os dados " +
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://sgi-eejmc.azurewebsites.net/Declaracao/VerificarAutenticidade, preencha os dados " +
                     "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                string dataString = DateTime.Now.ToString();
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
                 textFomatter.DrawString("Declaração emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
@@ -511,11 +507,9 @@ namespace SGI_JMC.Controllers
                 var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
                 var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
                 var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, PdfSharpCore.Drawing.XFontStyle.Bold);
-
-
-                var brasao = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\BrasaoEstado.png";
-                var escudo = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\Escudo.jpg";
-
+                
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
                 XImage imgBrasao = XImage.FromFile(brasao);
                 XImage imgEscudo = XImage.FromFile(escudo);
 
@@ -576,11 +570,11 @@ namespace SGI_JMC.Controllers
 
                 textFomatter.DrawString("Número do documento: " + declaracaoTransferenciaRegular.numeroDeclaracao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
                 textFomatter.DrawString("Código de verificação: " + declaracaoTransferenciaRegular.codigoAutenticacao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
-                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://localhost:44363/Declaracao/VerificarAutenticidade, preencha os dados " +
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://sgi-eejmc.azurewebsites.net/Declaracao/VerificarAutenticidade, preencha os dados " +
                     "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                string dataString = DateTime.Now.ToString();
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
                 textFomatter.DrawString("Declaração emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
@@ -674,10 +668,8 @@ namespace SGI_JMC.Controllers
                 var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
                 var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
 
-
-                var brasao = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\BrasaoEstado.png";
-                var escudo = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\Escudo.jpg";
-
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
                 XImage imgBrasao = XImage.FromFile(brasao);
                 XImage imgEscudo = XImage.FromFile(escudo);
 
@@ -737,11 +729,11 @@ namespace SGI_JMC.Controllers
 
                 textFomatter.DrawString("Número do documento: " + declaracaoTransferenciaProSic.numeroDeclaracao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
                 textFomatter.DrawString("Código de verificação: " + declaracaoTransferenciaProSic.codigoAutenticacao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
-                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://localhost:44363/Declaracao/VerificarAutenticidade, preencha os dados " +
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://sgi-eejmc.azurewebsites.net/Declaracao/VerificarAutenticidade, preencha os dados " +
                     "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                string dataString = DateTime.Now.ToString();
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
                 textFomatter.DrawString("Declaração emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
@@ -843,10 +835,8 @@ namespace SGI_JMC.Controllers
                 var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
                 var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, PdfSharpCore.Drawing.XFontStyle.Bold);
 
-
-                var brasao = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\BrasaoEstado.png";
-                var escudo = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\Escudo.jpg";
-
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
                 XImage imgBrasao = XImage.FromFile(brasao);
                 XImage imgEscudo = XImage.FromFile(escudo);
 
@@ -926,11 +916,11 @@ namespace SGI_JMC.Controllers
 
                 textFomatter.DrawString("Número do documento: " + declaracaoConcludentesProSic.numeroDeclaracaoConcludenteProSic, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
                 textFomatter.DrawString("Código de verificação: " + declaracaoConcludentesProSic.codigoAutenticacaoConcludenteProSic, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
-                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://localhost:44363/Declaracao/VerificarAutenticidade, preencha os dados " +
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://sgi-eejmc.azurewebsites.net/Declaracao/VerificarAutenticidade, preencha os dados " +
                     "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                string dataString = DateTime.Now.ToString();
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
                 textFomatter.DrawString("Declaração emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
@@ -1024,10 +1014,8 @@ namespace SGI_JMC.Controllers
                 var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
                 var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, PdfSharpCore.Drawing.XFontStyle.Bold);
 
-
-                var brasao = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\BrasaoEstado.png";
-                var escudo = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\Escudo.jpg";
-
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
                 XImage imgBrasao = XImage.FromFile(brasao);
                 XImage imgEscudo = XImage.FromFile(escudo);
 
@@ -1116,11 +1104,11 @@ namespace SGI_JMC.Controllers
 
                 textFomatter.DrawString("Número do documento: " + declaracaoConcludentesRegular.numeroDeclaracaoConcludente, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
                 textFomatter.DrawString("Código de verificação: " + declaracaoConcludentesRegular.codigoAutenticacaoConcludente, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
-                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://localhost:44363/Declaracao/VerificarAutenticidade, preencha os dados " +
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://sgi-eejmc.azurewebsites.net/Declaracao/VerificarAutenticidade, preencha os dados " +
                     "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                string dataString = DateTime.Now.ToString();
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
                 textFomatter.DrawString("Declaração emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;

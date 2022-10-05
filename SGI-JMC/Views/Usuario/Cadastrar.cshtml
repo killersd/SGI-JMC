@@ -3,10 +3,10 @@
 
 @{
     bool alterando = Context.Request.RouteValues.ContainsKey("id");
-    if (alterando)
-        ViewBag.Subtitulo = "Alteração de Usuário";
-    else
-        ViewBag.Subtitulo = "Cadastro de Usuário";
+    //if (alterando)
+    //    ViewBag.Subtitulo = "Alteração de Usuário";
+    //else
+         ViewData["Title"] = "Cadastro de usuário - ";
 }
 
 <div asp-validation-summary="ModelOnly" class="val-summary text-danger mb-3"></div>

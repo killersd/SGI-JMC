@@ -1,61 +1,29 @@
-﻿using iTextSharp.text;
-using iTextSharp.text.pdf;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PdfSharpCore.Drawing;
 using SGI_JMC.Models;
 using System;
-using System.Diagnostics;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace SGI_JMC.Controllers
 {
-    [Authorize(Roles = "usuario, administrador")]
-    public class HorarioProfessorController : Controller
+    public class HorarioApoioEscolar2Controller : Controller
     {
-
         private readonly Context _context;
-
-        public HorarioProfessorController(Context context)
+        public HorarioApoioEscolar2Controller(Context context)
         {
             _context = context;
         }
 
         [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
-        public IActionResult CreateHorarioProfessor()
+        public IActionResult CreateHorarioApoio2()
         {
             return View();
         }
 
         [Authorize(Roles = "usuario, administrador")]
-        [HttpPost]
-        public async Task<IActionResult> CreateHorario(HorarioProfessor hp)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(hp);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(CreateHorarioProfessor));
-            }
-            return View(hp);
-        }
-
-        [Authorize(Roles = "usuario, administrador")]
-        private bool verificaCpf(HorarioProfessor horarioProfessor)
-        {
-            CPFCNPJ.IMain verificaCpf = new CPFCNPJ.Main();
-            var resultCPF = verificaCpf.IsValidCPFCNPJ(horarioProfessor.CPF);
-            if (resultCPF)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        [Authorize(Roles = "usuario, administrador")]
-        private bool VerificarTurnoTarde(HorarioProfessor hp)
+        private bool VerificarTurnoTarde(HorarioApoioEscolar2 hp)
         {
             if (hp.ts01 == null && hp.ts02 == null && hp.ts03 == null && hp.ts04 == null && hp.ts05 == null
                && hp.tt01 == null && hp.tt02 == null && hp.tt03 == null && hp.tt04 == null && hp.tt05 == null
@@ -72,7 +40,7 @@ namespace SGI_JMC.Controllers
         }
 
         [Authorize(Roles = "usuario, administrador")]
-        private bool VerificarTurnoManha(HorarioProfessor hp)
+        private bool VerificarTurnoManha(HorarioApoioEscolar2 hp)
         {
             if (hp.s01 == null && hp.s02 == null && hp.s03 == null && hp.s04 == null && hp.s05 == null
                && hp.t01 == null && hp.t02 == null && hp.t03 == null && hp.t04 == null && hp.t05 == null
@@ -89,7 +57,7 @@ namespace SGI_JMC.Controllers
         }
 
         [Authorize(Roles = "usuario, administrador")]
-        public FileResult gerarHorario(HorarioProfessor horarioProfessor)
+        public FileResult gerarHorarioApoio2(HorarioApoioEscolar2 horarioApoioEscolar2)
         {
             using (var doc = new PdfSharpCore.Pdf.PdfDocument())
             {
@@ -137,15 +105,13 @@ namespace SGI_JMC.Controllers
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
                 textFomatter.DrawString("Dados do servidor(a)", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(5, 235, page.Width, page.Height));
                 textFomatter.DrawString("Nome: ", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(5, 250, page.Width, page.Height));
-                textFomatter.DrawString(horarioProfessor.Nome, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(50, 250, page.Width, page.Height));
+                textFomatter.DrawString(horarioApoioEscolar2.Nome, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(50, 250, page.Width, page.Height));
                 textFomatter.DrawString("CPF: ", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(5, 265, page.Width, page.Height));
-                textFomatter.DrawString(horarioProfessor.CPF, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(35, 265, page.Width, page.Height));
+                textFomatter.DrawString(horarioApoioEscolar2.CPF, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(35, 265, page.Width, page.Height));
                 textFomatter.DrawString("Cargo: ", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(5, 280, page.Width, page.Height));
-                textFomatter.DrawString(horarioProfessor.Cargo, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(50, 280, page.Width, page.Height));
-                textFomatter.DrawString("Disciplina: ", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(5, 295, page.Width, page.Height));
-                textFomatter.DrawString(horarioProfessor.Disciplina, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(70, 295, page.Width, page.Height));
-                textFomatter.DrawString("Carga horária semanal: ", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(5, 310, page.Width, page.Height));
-                textFomatter.DrawString(horarioProfessor.CargaHorariaSemanal + " horas/aula", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(145, 310, page.Width, page.Height));
+                textFomatter.DrawString(horarioApoioEscolar2.Cargo, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(50, 280, page.Width, page.Height));
+                textFomatter.DrawString("Carga horária mensal: ", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(5, 295, page.Width, page.Height));
+                textFomatter.DrawString(horarioApoioEscolar2.CargaHorariaMensal.ToString(), fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(140, 295, page.Width, page.Height));
                 //Tabela de horários
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 graphics.DrawRoundedRectangle(PdfSharpCore.Drawing.XPens.Black, PdfSharpCore.Drawing.XBrushes.Transparent, 0, 370, page.Width, 130, 10, 10);
@@ -178,530 +144,530 @@ namespace SGI_JMC.Controllers
                 detalhes.DrawString("4º ", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(15, 595, page.Width, page.Height));
                 detalhes.DrawString("5º ", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(15, 610, page.Width, page.Height));
 
-                if (VerificarTurnoTarde(horarioProfessor))
+                if (VerificarTurnoTarde(horarioApoioEscolar2))
                 {
                     detalhes.DrawString("Professor(a) não ministra aulas neste turno", fonteDesricao, corFontelerta, new PdfSharpCore.Drawing.XRect(200, 580, page.Width, page.Height));
                 }
 
-                if (VerificarTurnoManha(horarioProfessor))
+                if (VerificarTurnoManha(horarioApoioEscolar2))
                 {
                     detalhes.DrawString("Professor(a) não ministra aulas neste turno", fonteDesricao, corFontelerta, new PdfSharpCore.Drawing.XRect(200, 440, page.Width, page.Height));
                 }
 
                 //Horario da segunda
                 var qtdHoras = 0;
-                if (horarioProfessor.s01 == null)
+                if (horarioApoioEscolar2.s01 == null)
                 {
-                    horarioProfessor.s01 = "**********"; ;
+                    horarioApoioEscolar2.s01 = "**********"; ;
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.s01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 410, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.s01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 410, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.s02 == null)
+                if (horarioApoioEscolar2.s02 == null)
                 {
-                    horarioProfessor.s02 = "**********";
+                    horarioApoioEscolar2.s02 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.s02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 425, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.s02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 425, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.s03 == null)
+                if (horarioApoioEscolar2.s03 == null)
                 {
-                    horarioProfessor.s03 = "**********";
+                    horarioApoioEscolar2.s03 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.s03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 440, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.s03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 440, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.s04 == null)
+                if (horarioApoioEscolar2.s04 == null)
                 {
-                    horarioProfessor.s04 = "**********";
+                    horarioApoioEscolar2.s04 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.s04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 455, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.s04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 455, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.s05 == null)
+                if (horarioApoioEscolar2.s05 == null)
                 {
-                    horarioProfessor.s05 = "**********";
+                    horarioApoioEscolar2.s05 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.s05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 470, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.s05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 470, page.Width, page.Height));
                 }
 
                 //Horario terça
-                if (horarioProfessor.t01 == null)
+                if (horarioApoioEscolar2.t01 == null)
                 {
-                    horarioProfessor.t01 = "**********";
+                    horarioApoioEscolar2.t01 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.t01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 410, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.t01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 410, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.t02 == null)
+                if (horarioApoioEscolar2.t02 == null)
                 {
-                    horarioProfessor.t02 = "**********";
+                    horarioApoioEscolar2.t02 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.t02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 425, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.t02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 425, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.t03 == null)
+                if (horarioApoioEscolar2.t03 == null)
                 {
-                    horarioProfessor.t03 = "**********";
+                    horarioApoioEscolar2.t03 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.t03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 440, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.t03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 440, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.t04 == null)
+                if (horarioApoioEscolar2.t04 == null)
                 {
-                    horarioProfessor.t04 = "**********";
+                    horarioApoioEscolar2.t04 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.t04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 455, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.t04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 455, page.Width, page.Height));
                 }
-                if (horarioProfessor.t05 == null)
+                if (horarioApoioEscolar2.t05 == null)
                 {
-                    horarioProfessor.t05 = "**********";
+                    horarioApoioEscolar2.t05 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.t05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 470, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.t05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 470, page.Width, page.Height));
                 }
 
                 //Horario Quarta
-                if (horarioProfessor.q01 == null)
+                if (horarioApoioEscolar2.q01 == null)
                 {
-                    horarioProfessor.q01 = "**********";
+                    horarioApoioEscolar2.q01 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.q01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 410, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.q01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 410, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.q02 == null)
+                if (horarioApoioEscolar2.q02 == null)
                 {
-                    horarioProfessor.q02 = "**********";
+                    horarioApoioEscolar2.q02 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.q02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 425, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.q02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 425, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.q03 == null)
+                if (horarioApoioEscolar2.q03 == null)
                 {
-                    horarioProfessor.q03 = "**********";
+                    horarioApoioEscolar2.q03 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.q03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 440, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.q03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 440, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.q04 == null)
+                if (horarioApoioEscolar2.q04 == null)
                 {
-                    horarioProfessor.q04 = "**********";
+                    horarioApoioEscolar2.q04 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.q04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 455, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.q04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 455, page.Width, page.Height));
                 }
-                if (horarioProfessor.q05 == null)
+                if (horarioApoioEscolar2.q05 == null)
                 {
-                    horarioProfessor.q05 = "**********";
+                    horarioApoioEscolar2.q05 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.q05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 470, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.q05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 470, page.Width, page.Height));
                 }
 
                 //Horario quinta
-                if (horarioProfessor.qu01 == null)
+                if (horarioApoioEscolar2.qu01 == null)
                 {
-                    horarioProfessor.qu01 = "**********";
+                    horarioApoioEscolar2.qu01 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.qu01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 410, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.qu01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 410, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.qu02 == null)
+                if (horarioApoioEscolar2.qu02 == null)
                 {
-                    horarioProfessor.qu02 = "**********";
+                    horarioApoioEscolar2.qu02 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.qu02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 425, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.qu02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 425, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.qu03 == null)
+                if (horarioApoioEscolar2.qu03 == null)
                 {
-                    horarioProfessor.qu03 = "**********";
+                    horarioApoioEscolar2.qu03 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.qu03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 440, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.qu03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 440, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.qu04 == null)
+                if (horarioApoioEscolar2.qu04 == null)
                 {
-                    horarioProfessor.qu04 = "**********";
+                    horarioApoioEscolar2.qu04 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.qu04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 455, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.qu04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 455, page.Width, page.Height));
                 }
-                if (horarioProfessor.qu05 == null)
+                if (horarioApoioEscolar2.qu05 == null)
                 {
-                    horarioProfessor.qu05 = "**********";
+                    horarioApoioEscolar2.qu05 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.qu05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 470, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.qu05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 470, page.Width, page.Height));
                 }
 
                 //Horario sexta
-                if (horarioProfessor.se01 == null)
+                if (horarioApoioEscolar2.se01 == null)
                 {
-                    horarioProfessor.se01 = "**********";
+                    horarioApoioEscolar2.se01 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.se01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 410, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.se01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 410, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.se02 == null)
+                if (horarioApoioEscolar2.se02 == null)
                 {
-                    horarioProfessor.se02 = "**********";
+                    horarioApoioEscolar2.se02 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.se02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 425, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.se02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 425, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.se03 == null)
+                if (horarioApoioEscolar2.se03 == null)
                 {
-                    horarioProfessor.se03 = "**********";
+                    horarioApoioEscolar2.se03 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.se03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 440, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.se03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 440, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.se04 == null)
+                if (horarioApoioEscolar2.se04 == null)
                 {
-                    horarioProfessor.se04 = "**********";
+                    horarioApoioEscolar2.se04 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.se04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 455, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.se04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 455, page.Width, page.Height));
                 }
-                if (horarioProfessor.se05 == null)
+                if (horarioApoioEscolar2.se05 == null)
                 {
-                    horarioProfessor.se05 = "**********";
+                    horarioApoioEscolar2.se05 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.se05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 470, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.se05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 470, page.Width, page.Height));
                 }
 
                 //segunda vespertino
-                if (horarioProfessor.ts01 == null)
+                if (horarioApoioEscolar2.ts01 == null)
                 {
-                    horarioProfessor.ts01 = "**********"; ;
+                    horarioApoioEscolar2.ts01 = "**********"; ;
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.ts01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 550, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.ts01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 550, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.ts02 == null)
+                if (horarioApoioEscolar2.ts02 == null)
                 {
-                    horarioProfessor.ts02 = "**********";
+                    horarioApoioEscolar2.ts02 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.ts02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 565, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.ts02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 565, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.ts03 == null)
+                if (horarioApoioEscolar2.ts03 == null)
                 {
-                    horarioProfessor.ts03 = "**********";
+                    horarioApoioEscolar2.ts03 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.ts03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 580, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.ts03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 580, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.ts04 == null)
+                if (horarioApoioEscolar2.ts04 == null)
                 {
-                    horarioProfessor.ts04 = "**********";
+                    horarioApoioEscolar2.ts04 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.ts04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 595, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.ts04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 595, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.ts05 == null)
+                if (horarioApoioEscolar2.ts05 == null)
                 {
-                    horarioProfessor.ts05 = "**********";
+                    horarioApoioEscolar2.ts05 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.ts05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 610, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.ts05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(40, 610, page.Width, page.Height));
                 }
                 //terça vespertino
-                if (horarioProfessor.tt01 == null)
+                if (horarioApoioEscolar2.tt01 == null)
                 {
-                    horarioProfessor.tt01 = "**********"; ;
+                    horarioApoioEscolar2.tt01 = "**********"; ;
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tt01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 550, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tt01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 550, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.tt02 == null)
+                if (horarioApoioEscolar2.tt02 == null)
                 {
-                    horarioProfessor.tt02 = "**********";
+                    horarioApoioEscolar2.tt02 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tt02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 565, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tt02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 565, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.tt03 == null)
+                if (horarioApoioEscolar2.tt03 == null)
                 {
-                    horarioProfessor.tt03 = "**********";
+                    horarioApoioEscolar2.tt03 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tt03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 580, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tt03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 580, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.tt04 == null)
+                if (horarioApoioEscolar2.tt04 == null)
                 {
-                    horarioProfessor.tt04 = "**********";
+                    horarioApoioEscolar2.tt04 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tt04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 595, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tt04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 595, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.tt05 == null)
+                if (horarioApoioEscolar2.tt05 == null)
                 {
-                    horarioProfessor.tt05 = "**********";
+                    horarioApoioEscolar2.tt05 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tt05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 610, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tt05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(150, 610, page.Width, page.Height));
                 }
                 //quarta vespertino
-                if (horarioProfessor.tq01 == null)
+                if (horarioApoioEscolar2.tq01 == null)
                 {
-                    horarioProfessor.tq01 = "**********"; ;
+                    horarioApoioEscolar2.tq01 = "**********"; ;
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tq01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 550, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tq01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 550, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.tq02 == null)
+                if (horarioApoioEscolar2.tq02 == null)
                 {
-                    horarioProfessor.tq02 = "**********";
+                    horarioApoioEscolar2.tq02 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tq02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 565, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tq02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 565, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.tq03 == null)
+                if (horarioApoioEscolar2.tq03 == null)
                 {
-                    horarioProfessor.tq03 = "**********";
+                    horarioApoioEscolar2.tq03 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tq03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 580, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tq03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 580, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.tq04 == null)
+                if (horarioApoioEscolar2.tq04 == null)
                 {
-                    horarioProfessor.tq04 = "**********";
+                    horarioApoioEscolar2.tq04 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tq04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 595, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tq04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 595, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.tq05 == null)
+                if (horarioApoioEscolar2.tq05 == null)
                 {
-                    horarioProfessor.tq05 = "**********";
+                    horarioApoioEscolar2.tq05 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tq05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 610, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tq05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(250, 610, page.Width, page.Height));
                 }
                 //quinta vespertino
-                if (horarioProfessor.tqu01 == null)
+                if (horarioApoioEscolar2.tqu01 == null)
                 {
-                    horarioProfessor.tqu01 = "**********"; ;
+                    horarioApoioEscolar2.tqu01 = "**********"; ;
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tqu01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 550, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tqu01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 550, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.tqu02 == null)
+                if (horarioApoioEscolar2.tqu02 == null)
                 {
-                    horarioProfessor.tqu02 = "**********";
+                    horarioApoioEscolar2.tqu02 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tqu02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 565, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tqu02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 565, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.tqu03 == null)
+                if (horarioApoioEscolar2.tqu03 == null)
                 {
-                    horarioProfessor.tqu03 = "**********";
+                    horarioApoioEscolar2.tqu03 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tqu03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 580, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tqu03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 580, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.tqu04 == null)
+                if (horarioApoioEscolar2.tqu04 == null)
                 {
-                    horarioProfessor.tqu04 = "**********";
+                    horarioApoioEscolar2.tqu04 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tqu04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 595, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tqu04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 595, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.tqu05 == null)
+                if (horarioApoioEscolar2.tqu05 == null)
                 {
-                    horarioProfessor.tqu05 = "**********";
+                    horarioApoioEscolar2.tqu05 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tqu05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 610, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tqu05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 610, page.Width, page.Height));
                 }
                 //sexta vespertino
-                if (horarioProfessor.tse01 == null)
+                if (horarioApoioEscolar2.tse01 == null)
                 {
-                    horarioProfessor.tse01 = "**********"; ;
+                    horarioApoioEscolar2.tse01 = "**********"; ;
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tse01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 550, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tse01, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 550, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.tse02 == null)
+                if (horarioApoioEscolar2.tse02 == null)
                 {
-                    horarioProfessor.tse02 = "**********";
+                    horarioApoioEscolar2.tse02 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tse02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 565, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tse02, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 565, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.tse03 == null)
+                if (horarioApoioEscolar2.tse03 == null)
                 {
-                    horarioProfessor.tse03 = "**********";
+                    horarioApoioEscolar2.tse03 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tse03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 580, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tse03, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 580, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.tse04 == null)
+                if (horarioApoioEscolar2.tse04 == null)
                 {
-                    horarioProfessor.tse04 = "**********";
+                    horarioApoioEscolar2.tse04 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tse04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 595, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tse04, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(500, 595, page.Width, page.Height));
                 }
 
-                if (horarioProfessor.tse05 == null)
+                if (horarioApoioEscolar2.tse05 == null)
                 {
-                    horarioProfessor.tse05 = "**********";
+                    horarioApoioEscolar2.tse05 = "**********";
                 }
                 else
                 {
                     qtdHoras++;
-                    detalhes.DrawString(horarioProfessor.tse05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 610, page.Width, page.Height));
+                    detalhes.DrawString(horarioApoioEscolar2.tse05, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(370, 610, page.Width, page.Height));
                 }
 
 
-                if (qtdHoras < horarioProfessor.CargaHorariaSemanal)
-                {
-                    detalhes.DrawString("Total de aulas na semana: " + qtdHoras + " aulas.", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(15, 645, page.Width, page.Height));
-                    textFomatter.DrawString("Total de aulas inferior à carga horária semanal! ", fonteDetalhesDescricao, corFontelerta, new PdfSharpCore.Drawing.XRect(200, 645, page.Width, page.Height));
-                }
-                else if (qtdHoras > horarioProfessor.CargaHorariaSemanal)
-                {
-                    detalhes.DrawString("Total de aulas na semana: " + qtdHoras + " aulas.", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(15, 645, page.Width, page.Height));
-                    textFomatter.DrawString("Total de aulas SUPERIOR à carga horária semanal! ", fonteDetalhesDescricao, corFontelerta, new PdfSharpCore.Drawing.XRect(200, 645, page.Width, page.Height));
-                }
+                //if (qtdHoras < horarioApoioEscolar2.CargaHorariaMensal)
+                //{
+                //    detalhes.DrawString("Total de aulas na semana: " + qtdHoras + " aulas.", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(15, 645, page.Width, page.Height));
+                //    textFomatter.DrawString("Total de aulas inferior à carga horária semanal! ", fonteDetalhesDescricao, corFontelerta, new PdfSharpCore.Drawing.XRect(200, 645, page.Width, page.Height));
+                //}
+                //else if (qtdHoras > horarioApoioEscolar2.CargaHorariaMensal)
+                //{
+                //    detalhes.DrawString("Total de aulas na semana: " + qtdHoras + " aulas.", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(15, 645, page.Width, page.Height));
+                //    textFomatter.DrawString("Total de aulas SUPERIOR à carga horária semanal! ", fonteDetalhesDescricao, corFontelerta, new PdfSharpCore.Drawing.XRect(200, 645, page.Width, page.Height));
+                //}
                 {
                     detalhes.DrawString("Total de aulas na semana: " + qtdHoras + " aulas.", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(15, 645, page.Width, page.Height));
                 }
@@ -714,7 +680,7 @@ namespace SGI_JMC.Controllers
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 670, page.Width, page.Height));
-                textFomatter.DrawString("Professor(a)", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 680, page.Width, page.Height));
+                textFomatter.DrawString("Servidor(a)", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 680, page.Width, page.Height));
                 textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 720, page.Width, page.Height));
                 textFomatter.DrawString("Equipe Diretiva", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 730, page.Width, page.Height));
 
@@ -737,14 +703,13 @@ namespace SGI_JMC.Controllers
                 {
                     var contentType = "application/pdf";
                     doc.Save(stream, false);
-                    var nomeArquivo = "Horário " + horarioProfessor.Nome + ".pdf";
+                    var nomeArquivo = "Horário " + horarioApoioEscolar2.Nome + ".pdf";
                     //Salvando no banco
-                    _context.Add(horarioProfessor);
+                    _context.Add(horarioApoioEscolar2);
                     _context.SaveChangesAsync();
                     return File(stream.ToArray(), contentType, nomeArquivo);
                 }
             }
         }
-
     }
 }

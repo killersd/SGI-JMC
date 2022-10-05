@@ -33,6 +33,7 @@ namespace SGI_JMC
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            //Configuration.GetConnectionString("Server=sgi-eejmc.database.windows.net;Database=SGI-EEJMC; User Id=Alex;Password=@l3X96521414")));
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             //    .AddEntityFrameworkStores<ApplicationDbContext>()
             //    .AddDefaultTokenProviders();

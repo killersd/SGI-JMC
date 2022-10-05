@@ -72,11 +72,8 @@ namespace SGI_JMC.Controllers
                 var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
                 var fonteTituloGigante = new PdfSharpCore.Drawing.XFont("Calibri", 24, PdfSharpCore.Drawing.XFontStyle.Bold);
 
-
-
-                var brasao = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\BrasaoEstado.png";
-                var escudo = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\Escudo.jpg";
-
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
                 XImage imgBrasao = XImage.FromFile(brasao);
                 XImage imgEscudo = XImage.FromFile(escudo);
 
@@ -125,7 +122,7 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("______________________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 675, page.Width, page.Height));
                 textFomatter.DrawString("______________________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 700, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                string dataString = DateTime.Now.ToString();
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
                 textFomatter.DrawString("Advertência emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                 textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));

@@ -1,18 +1,18 @@
-﻿@model SGI_JMC.Models.HorarioProfessor
+﻿@model SGI_JMC.Models.HorarioApoioEscolar2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-    ViewData["Title"] = "Horário professor - ";
+    ViewData["Title"] = "Horário Apoio Escolar II - ";
 }
 
 <hr />
 <div class="container-fluid">
     <div class="card mb-3">
         <div class="card-header">
-            <h4><b>Horário do Professor(a)</b></h4>
+            <h4><b>Horário do Professor(a)- Apoio Escolar II</b></h4>
         </div>
         <div class="card-body">
-            <form asp-action="gerarHorario">
+            <form asp-action="gerarHorarioApoio2">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="row">
                     <div class="col-md-6">
@@ -31,23 +31,16 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label asp-for="CargaHorariaSemanal" class="control-label"></label>
-                            <input asp-for="CargaHorariaSemanal" class="form-control" MaxLength="4" />
-                            <span asp-validation-for="CargaHorariaSemanal" class="text-danger"></span>
+                            <label asp-for="CargaHorariaMensal" class="control-label"></label>
+                            <input asp-for="CargaHorariaMensal" class="form-control" MaxLength="4" />
+                            <span asp-validation-for="CargaHorariaMensal" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="Cargo" class="control-label"></label>
                             <input asp-for="Cargo" class="form-control" />
                             <span asp-validation-for="Cargo" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label asp-for="Disciplina" class="control-label"></label>
-                            <input asp-for="Disciplina" class="form-control" />
-                            <span asp-validation-for="Disciplina" class="text-danger"></span>
                         </div>
                     </div>
                     <hr />

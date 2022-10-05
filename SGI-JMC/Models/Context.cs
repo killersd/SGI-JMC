@@ -7,25 +7,28 @@ namespace SGI_JMC.Models
     {
         public Context(DbContextOptions<Context> options) : base(options)
         {
-
+            Database.EnsureCreated();
         }
         public DbSet<aluno> Alunos { get; set; }
-        public DbSet<SGI_JMC.Models.Declaracao> Declaracao { get; set; }
-        public DbSet<SGI_JMC.Models.DeclaracaoProSic> DeclaracaoProSic { get; set; }
-        public DbSet<SGI_JMC.Models.DeclaracaoTransferenciaRegular> DeclaracaoTransferenciaRegular { get; set; }
-        public DbSet<SGI_JMC.Models.DeclaracaoTransferenciaProSic> DeclaracaoTransferenciaProSic { get; set; }
-        public DbSet<SGI_JMC.Models.Advertencia> Advertencia { get; set; }
-        public DbSet<SGI_JMC.Models.DeclaracaoSabadoLetivo> DeclaracaoSabadoLetivo { get; set; }
-        public DbSet<SGI_JMC.Models.NotificacaoPendenciaDiario> NotificacaoPendenciaDiario { get; set; }
-        public DbSet<SGI_JMC.Models.OficioAssumiuFuncao> OficioAssumiuFuncao { get; set; }
-        public DbSet<SGI_JMC.Models.HorarioProfessor> HorarioProfessor { get; set; }
-        public DbSet<SGI_JMC.Models.HorarioServidor> HorarioServidor { get; set; }
-        public DbSet<SGI_JMC.Models.OficioAssumiuFuncaoServidor> OficioAssumiuFuncaoServidor { get; set; }
-        public DbSet<SGI_JMC.Models.OficioGeral> OficioGeral { get; set; }
-        public DbSet<SGI_JMC.Models.DeclaracaoExServidor> DeclaracaoExServidor { get; set; }
-        public DbSet<SGI_JMC.Models.DeclaracaoServidor> DeclaracaoServidor { get; set; }
-        public DbSet<SGI_JMC.Models.DeclaracaoConcludentesRegular> DeclaracaoConcludentesRegular { get; set; }
-        public DbSet<SGI_JMC.Models.DeclaracaoConcludentesProSic> DeclaracaoConcludentesProSic { get; set; }
+        public DbSet<Declaracao> Declaracao { get; set; }
+        public DbSet<DeclaracaoProSic> DeclaracaoProSic { get; set; }
+        public DbSet<DeclaracaoTransferenciaRegular> DeclaracaoTransferenciaRegular { get; set; }
+        public DbSet<DeclaracaoTransferenciaProSic> DeclaracaoTransferenciaProSic { get; set; }
+        public DbSet<Advertencia> Advertencia { get; set; }
+        public DbSet<DeclaracaoSabadoLetivo> DeclaracaoSabadoLetivo { get; set; }
+        public DbSet<NotificacaoPendenciaDiario> NotificacaoPendenciaDiario { get; set; }
+        public DbSet<OficioAssumiuFuncao> OficioAssumiuFuncao { get; set; }
+        public DbSet<HorarioProfessor> HorarioProfessor { get; set; }
+        public DbSet<HorarioServidor> HorarioServidor { get; set; }
+        public DbSet<OficioAssumiuFuncaoServidor> OficioAssumiuFuncaoServidor { get; set; }
+        public DbSet<OficioGeral> OficioGeral { get; set; }
+        public DbSet<DeclaracaoExServidor> DeclaracaoExServidor { get; set; }
+        public DbSet<DeclaracaoServidor> DeclaracaoServidor { get; set; }
+        public DbSet<DeclaracaoConcludentesRegular> DeclaracaoConcludentesRegular { get; set; }
+        public DbSet<DeclaracaoConcludentesProSic> DeclaracaoConcludentesProSic { get; set; }
+        public DbSet<OficioAssumiuFuncaoApoioEscolar2> OficioAssumiuFuncaoApoioEscolar2 { get; set; }
+        public DbSet<HorarioApoioEscolar2> HorarioApoioEscolar2 { get; set; }
+
 
     }
 }

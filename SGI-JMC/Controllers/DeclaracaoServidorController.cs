@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using iText.Kernel.Pdf;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PdfSharpCore.Drawing;
 using SGI_JMC.Models;
@@ -61,15 +62,12 @@ namespace SGI_JMC.Controllers
                 var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
                 var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
 
-
-                var brasao = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\BrasaoEstado.png";
-                var escudo = @"C:\Users\Alex e Grace\source\repos\SGI-JMC\SGI-JMC\wwwroot\Imagens\Escudo.jpg";
-
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
                 XImage imgBrasao = XImage.FromFile(brasao);
                 XImage imgEscudo = XImage.FromFile(escudo);
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                //graphics.DrawImage(imgBrasao, 275, 20, 50, 75);
                 graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
                 graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
 
@@ -83,7 +81,7 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("DECLARAÇÃO", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                 declaracaoServidor.DataEmissao = DateTime.Now;
-                textFomatter.DrawString("Declaro para os devidos fins que o servidor " + declaracaoServidor.Nome + ", CPF " + declaracaoServidor.CPF + ", vínculo " + declaracaoServidor.vinculo + ", exerce o cargo de " + declaracaoServidor.cargo + ", nesta Unidade de Ensino, com carga horária semanal de " + declaracaoServidor.CargaHoraria + " horas, desde o dia " + declaracaoServidor.DataInicioExercicio.ToShortDateString() + " até a presente data (" + declaracaoServidor.DataEmissao.ToShortDateString() + ").", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                textFomatter.DrawString("Declaro para os devidos fins que o servidor " + declaracaoServidor.Nome + ", CPF " + declaracaoServidor.CPF + ", vínculo " + declaracaoServidor.vinculo + ", exerce o cargo de " + declaracaoServidor.cargo + ", nesta Unidade de Ensino, com carga horária semanal de " + declaracaoServidor.CargaHoraria + " horas, desde o dia " + declaracaoServidor.DataInicioExercicio.ToString("dd/MM/yyyy") + " até a presente data (" + declaracaoServidor.DataEmissao.ToString("dd/MM/yyyy") + ").", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
                 textFomatter.DrawString("Atenciosamente, ", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 370, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
@@ -95,7 +93,7 @@ namespace SGI_JMC.Controllers
                     "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                string dataString = DateTime.Now.ToString();
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
                 textFomatter.DrawString("Declaração emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;

@@ -1,12 +1,16 @@
 ﻿@model SGI_JMC.Models.aluno
+@{
+    ViewData["Title"] = "Cadastrar aluno - ";
+}
 <partial name="_MensagemPartial" />
 
 <div asp-validation-summary="ModelOnly" class="val-summary text-danger my-3"></div>
 <div class="container-fluid">
     <div class="card mb-12">
         <div class="card-header">
-            <h4><b>Cadastrar aluno</b></h4>
-            <h6>Insira os dados do aluno e clique em salvar.</h6>
+            <h4>
+                <b>Cadastrar aluno</b>
+            </h4>
         </div>
         <div class="card-body">
             <form asp-action="CreateStudent">
