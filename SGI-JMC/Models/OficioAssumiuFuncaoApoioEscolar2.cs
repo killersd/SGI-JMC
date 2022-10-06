@@ -43,7 +43,7 @@ namespace SGI_JMC.Models
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
         public string CargaHorariaMensal { get; set; }
 
-        [Display(Name = "Disciplina")]
+        [Display(Name = "Cargo")]
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
         public string disciplina { get; set; }
 
@@ -51,5 +51,13 @@ namespace SGI_JMC.Models
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
         [DataType(DataType.Date)]
         public DateTime DataEmissao { get; set; }
+
+        [Display(Name = "Cidade do destinatário")]
+        [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
+        public string CidadeDestinatario { get; set; }
+
+        [Display(Name = "Cargo do destinatário")]
+        [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
+        public string CargoDestinatario { get; set; }
     }
 }

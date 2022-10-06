@@ -20,37 +20,30 @@
                             <input asp-for="NumeroOficio" class="form-control" />
                             <span asp-validation-for="NumeroOficio" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
-                            <label asp-for="Assunto" class="control-label"></label>
-                            <input asp-for="Assunto" class="form-control" />
-                            <span asp-validation-for="Assunto" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
+                        <div class="form-group" style="width:504px;height:62px;">
                             <label asp-for="destinatario" class="control-label"></label>
-                            <input asp-for="destinatario" placeholder="Para quem é o ofício?" class="form-control" />
+                            <fieldset>
+                                <div>
+                                    <input asp-for="destinatario" type="radio" id="" name="destinatario" value="Daniela Silva">
+                                    <label for="Daniela Silva">Daniela Silva</label>
+                                </div>
+                                <div>
+                                    <input asp-for="destinatario" type="radio" id="" name="destinatario" value="Kleber do Carmo">
+                                    <label for="Kleber do Carmo">Kleber do Carmo</label>
+                                </div>
+                            </fieldset>
                             <span asp-validation-for="destinatario" class="text-danger"></span>
                         </div>
+                        <div class="form-group">
+                            <label asp-for="CidadeDestinatario" class="control-label"></label>
+                            <input asp-for="CidadeDestinatario" class="form-control" />
+                            <span asp-validation-for="CidadeDestinatario" class="text-danger"></span>
+                        </div>
+
                         <div class="form-group">
                             <label asp-for="Name" class="control-label"></label>
                             <input asp-for="Name" class="form-control" />
                             <span asp-validation-for="Name" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="CPF" class="control-label"></label>
-                            <input asp-for="CPF" placeholder="Somente números" class="form-control" MaxLength="11" />
-                            <span asp-validation-for="CPF" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label asp-for="DataAssumiuFuncao" class="control-label"></label>
-                            <input asp-for="DataAssumiuFuncao" class="form-control" />
-                            <span asp-validation-for="DataAssumiuFuncao" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="CargaHoraria" class="control-label"></label>
-                            <input asp-for="CargaHoraria" placeholder="Carga horária semanal" class="form-control" />
-                            <span asp-validation-for="CargaHoraria" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="disciplina" class="control-label"></label>
@@ -58,18 +51,40 @@
                             <span asp-validation-for="disciplina" class="text-danger"></span>
                         </div>
                         <div class="form-group">
+                            <label asp-for="CargaHoraria" class="control-label"></label>
+                            <input asp-for="CargaHoraria" placeholder="carga horária SEMANAL" class="form-control" />
+                            <span asp-validation-for="CargaHoraria" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Assunto" class="control-label"></label>
+                            <input asp-for="Assunto" class="form-control" />
+                            <span asp-validation-for="Assunto" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CargoDestinatario" class="control-label"></label>
+                            <input asp-for="CargoDestinatario" class="form-control" />
+                            <span asp-validation-for="CargoDestinatario" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
                             <label asp-for="vinculo" class="control-label"></label>
-                            <input asp-for="vinculo" placeholder="Contratado ou efetivo" class="form-control" />
+                            <input asp-for="vinculo" class="form-control" placeholder="contratado, efetivo, comissionado, cedido..." />
                             <span asp-validation-for="vinculo" class="text-danger"></span>
                         </div>
-                        @*                 <div class="form-group">
-                        <label asp-for="qtdFaltas" class="control-label"></label>
-                        <input asp-for="qtdFaltas" class="form-control" MaxLength="4" />
-                        <span asp-validation-for="qtdFaltas" class="text-danger"></span>
-                        </div>*@
+                        <div class="form-group">
+                            <label asp-for="CPF" class="control-label"></label>
+                            <input asp-for="CPF" placeholder="apenas números" maxlength="11" class="form-control" />
+                            <span asp-validation-for="CPF" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="DataAssumiuFuncao" class="control-label"></label>
+                            <input asp-for="DataAssumiuFuncao" class="form-control"/>
+                            <span asp-validation-for="DataAssumiuFuncao" class="text-danger"></span>
+                        </div>
                     </div>
+                    <p></p>
                     <div class="col-md-12" style="text-align:center">
-                        @*<input type="submit" value="Baixar declaração" class="btn btn-primary" />*@
                         <button type="submit" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Baixar ofício</button>
                     </div>
                 </div>

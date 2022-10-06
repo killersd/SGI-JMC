@@ -31,6 +31,7 @@
             </div>
             <div class="modal-body">
                 <form asp-action="Login">
+                    <input type="hidden" name="ReturnUrl" id="ReturnUrl" value="@returnUrl"/>
                     <partial name="_MensagemPartial" />
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="row">
@@ -56,7 +57,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <button class="btn btn-primary" asp-action="Login" asp-controller="Usuario" type="submit">Entrar</button>
+                            <button class="btn btn-primary" style="width:466px;height:42px;" asp-action="Login" asp-controller="Usuario" type="submit">Entrar</button>
                         </div>
                     </div>
                 </form>

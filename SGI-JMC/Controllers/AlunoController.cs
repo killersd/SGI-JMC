@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SGI_JMC.Extensions;
 using SGI_JMC.Models;
 using System.Threading.Tasks;
 
@@ -35,6 +36,7 @@ namespace SGI_JMC.Controllers
             {
                 _contexto.Add(student);
                 await _contexto.SaveChangesAsync();
+                this.MostrarMensagem($"Aluno cadastrado com sucesso!");
                 return RedirectToAction(nameof(Index));
             }
             else

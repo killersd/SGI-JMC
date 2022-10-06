@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     @*<link rel="stylesheet" href="~/css/site.css" />*@
     <link rel="stylesheet" href="~/css/MyStyle.css" />
+    <link rel="stylesheet" href="/lib/limonte-sweetalert2/sweetalert2.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
@@ -36,6 +37,14 @@
             </button>
         </div>
         <div class="navbar-collapse collapse">
+
+@*            @if (!Context.User.Identity.IsAuthenticated)
+            {
+                <ul class="navbar-nav flex-sm-row-reverse flex-grow-1 text-primary">
+                    <a class="nav-link pe-0 text-primary" asp-controller="Usuario" asp-action="Cadastrar">Cadastre-se</a>
+                </ul>
+            }*@
+
             <ul class="navbar-nav flex-sm-row-reverse flex-grow-1 text-primary">
                 @if (Context.User.Identity.IsAuthenticated)
                 {
@@ -282,6 +291,7 @@
         </div>
     </nav>
     <div class="container">
+        <script src="~/lib/limonte-sweetalert2/sweetalert2.min.js" asp-append-version="true"></script>
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

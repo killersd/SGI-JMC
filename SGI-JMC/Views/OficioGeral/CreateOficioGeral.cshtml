@@ -16,6 +16,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
+                            <label asp-for="NumeroOficio" class="control-label"></label>
+                            <input asp-for="NumeroOficio" class="form-control" />
+                            <span asp-validation-for="NumeroOficio" class="text-danger"></span>
+                        </div>
+                        <div class="form-group" style="width:504px;height:62px;">
                             <label asp-for="Remetente" class="control-label"></label>
                             @* <input asp-for="Remetente" class="form-control" placeholder="Alex ou Queila" />*@
                             <fieldset>
@@ -23,7 +28,6 @@
                                     <input asp-for="Remetente" type="radio" id="" name="Remetente" value="Alex">
                                     <label for="Alex">Alex</label>
                                 </div>
-
                                 <div>
                                     <input asp-for="Remetente" type="radio" id="Queila" name="Remetente" value="Queila">
                                     <label for="Queila">Queila</label>
@@ -31,23 +35,10 @@
                             </fieldset>
                             <span asp-validation-for="Remetente" class="text-danger"></span>
                         </div>
-                    </div>
-                    <p></p>
-                    <div class="col-md-6">
                         <div class="form-group">
-                            <label asp-for="Cidade" class="control-label"></label>
-                            <input asp-for="Cidade" placeholder="Ex. Lagarto-Se, Aracaju-Se, Paripiranga-Ba" class="form-control" />
-                            <span asp-validation-for="Cidade" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="NumeroOficio" class="control-label"></label>
-                            <input asp-for="NumeroOficio" class="form-control" />
-                            <span asp-validation-for="NumeroOficio" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="destinatario" class="control-label"></label>
-                            <input asp-for="destinatario" placeholder="Para quem é o ofício?" class="form-control" />
-                            <span asp-validation-for="destinatario" class="text-danger"></span>
+                            <label asp-for="CargoDoDestinatario" class="control-label"></label>
+                            <input asp-for="CargoDoDestinatario" class="form-control" />
+                            <span asp-validation-for="CargoDoDestinatario" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -57,9 +48,14 @@
                             <span asp-validation-for="Assunto" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="CargoDoDestinatario" class="control-label"></label>
-                            <input asp-for="CargoDoDestinatario" class="form-control" />
-                            <span asp-validation-for="CargoDoDestinatario" class="text-danger"></span>
+                            <label asp-for="destinatario" class="control-label"></label>
+                            <input asp-for="destinatario" placeholder="Para quem é o ofício?" class="form-control" />
+                            <span asp-validation-for="destinatario" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Cidade" class="control-label"></label>
+                            <input asp-for="Cidade" placeholder="Ex. Lagarto-Se, Aracaju-Se, Paripiranga-Ba" class="form-control" />
+                            <span asp-validation-for="Cidade" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-12">

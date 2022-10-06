@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SGI_JMC.Models
 {
+    [Serializable]
     public class aluno
     {
         [Key]
