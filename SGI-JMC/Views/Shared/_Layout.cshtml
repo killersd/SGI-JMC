@@ -38,11 +38,11 @@
         </div>
         <div class="navbar-collapse collapse">
 
-@*            @if (!Context.User.Identity.IsAuthenticated)
+            @*            @if (!Context.User.Identity.IsAuthenticated)
             {
-                <ul class="navbar-nav flex-sm-row-reverse flex-grow-1 text-primary">
-                    <a class="nav-link pe-0 text-primary" asp-controller="Usuario" asp-action="Cadastrar">Cadastre-se</a>
-                </ul>
+            <ul class="navbar-nav flex-sm-row-reverse flex-grow-1 text-primary">
+            <a class="nav-link pe-0 text-primary" asp-controller="Usuario" asp-action="Cadastrar">Cadastre-se</a>
+            </ul>
             }*@
 
             <ul class="navbar-nav flex-sm-row-reverse flex-grow-1 text-primary">
@@ -117,6 +117,14 @@
                                     <li>
                                         <a class="dropdown-item" asp-controller="oficiogeral" asp-action="createoficiogeral" classes-if-active="disabled">
                                             Ofício (geral)
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="AlunoSemTransferencia" asp-action="Create" classes-if-active="disabled">
+                                            Alunos sem transferência
                                         </a>
                                     </li>
                                 </ul>
@@ -198,6 +206,11 @@
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="AlunoSemTransferencia" asp-action="Create" classes-if-active="disabled">
+                                            Alunos sem transferência
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         }
@@ -275,6 +288,11 @@
                                     </li>
                                     <li>
                                         <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="OficioGeral" asp-action="index" classes-if-active="disabled">
+                                            Ofícios (Gerais)
+                                        </a>
                                     </li>
                                 </ul>
                             </li>

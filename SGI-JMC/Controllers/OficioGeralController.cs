@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PdfSharpCore.Drawing;
 using SGI_JMC.Models;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace SGI_JMC.Controllers
 {
@@ -16,6 +18,14 @@ namespace SGI_JMC.Controllers
         {
             _context = context;
         }
+
+        [Authorize(Roles = "administrador")]
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.OficioGeral.ToListAsync());
+        }
+
 
         [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
@@ -69,7 +79,7 @@ namespace SGI_JMC.Controllers
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
                 textFomatter.DrawString("Ofício nº 00" + oficioGeral.NumeroOficio + "/2022", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
                 textFomatter.DrawString("Assunto: " + oficioGeral.Assunto + ".", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 165, page.Width, page.Height));
-                textFomatter.DrawString("Simão Dias - Se -  " + oficioGeral.DataEmissao.ToShortDateString(), fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
+                textFomatter.DrawString("Simão Dias - Se -  " + oficioGeral.DataEmissao.ToString("dd/MM/yyyy"), fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
                 //Corpo do ofício
                 textFomatter.DrawString("Senhor(a) "+oficioGeral.destinatario+",", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 280, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;

@@ -63,6 +63,39 @@ namespace SGI_JMC.Migrations
                     b.ToTable("Advertencia");
                 });
 
+            modelBuilder.Entity("SGI_JMC.Models.AlunoSemTransferencia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DataNasciimento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EscolaAnterior")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomeMae")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomePai")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TemPendencia")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AlunoSemTransferencia");
+                });
+
             modelBuilder.Entity("SGI_JMC.Models.Declaracao", b =>
                 {
                     b.Property<int>("Id")
@@ -997,11 +1030,22 @@ namespace SGI_JMC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CargoDestinatario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CidadeDestinatario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DataAssumiuFuncao")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataEmissao")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("FonteRecursos")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1044,6 +1088,14 @@ namespace SGI_JMC.Migrations
                         .HasMaxLength(11);
 
                     b.Property<string>("CargaHorariaMensal")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CargoDestinatario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CidadeDestinatario")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -1097,6 +1149,14 @@ namespace SGI_JMC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CargoDestinatario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CidadeDestinatario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DataAssumiuFuncao")
                         .HasColumnType("datetime2");
 
@@ -1140,6 +1200,9 @@ namespace SGI_JMC.Migrations
 
                     b.Property<string>("CargoDoDestinatario")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cidade")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CorpoDoOficio")
@@ -1192,7 +1255,7 @@ namespace SGI_JMC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Alunos");
+                    b.ToTable("AlunoSemTansferencia");
                 });
 #pragma warning restore 612, 618
         }

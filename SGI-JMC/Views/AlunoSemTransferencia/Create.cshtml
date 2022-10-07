@@ -1,0 +1,67 @@
+﻿@model SGI_JMC.Models.AlunoSemTransferencia
+<partial name="_MensagemPartial" />
+
+@{
+    ViewData["Title"] = "Cadastrar aluno sem transferência - ";
+}
+
+<div asp-validation-summary="ModelOnly" class="val-summary text-danger my-3"></div>
+<div class="container-fluid">
+    <div class="card mb-12">
+        <div class="card-header">
+            <h4>
+                <b>Cadastrar aluno sem transferência</b>
+            </h4>
+            @if (Context.User.IsInRole("administrador"))
+            {
+                <h6>
+                    <a href="../AlunoSemTransferencia/Index" class="btn btn-primary pull-right fa fa-eye"> Visualizar todos</a>
+                </h6>
+            }
+        </div>
+        <div class="card-body">
+            <form asp-action="Create">
+                <input type="hidden" asp-for="@Model.TemPendencia" value=1>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Nome" class="control-label"></label>
+                            <input asp-for="Nome" class="form-control" />
+                            <span asp-validation-for="Nome" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NomePai" class="control-label"></label>
+                            <input asp-for="NomePai" class="form-control" />
+                            <span asp-validation-for="NomePai" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NomeMae" class="control-label"></label>
+                            <input asp-for="NomeMae" class="form-control" />
+                            <span asp-validation-for="NomeMae" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="DataNasciimento" class="control-label"></label>
+                            <input asp-for="DataNasciimento" class="form-control" />
+                            <span asp-validation-for="DataNasciimento" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EscolaAnterior" class="control-label"></label>
+                            <input asp-for="EscolaAnterior" class="form-control" />
+                            <span asp-validation-for="EscolaAnterior" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12" style="text-align:center">
+                            <a href="../aluno/Index" class="btn btn-info"><i class="fa fa-ban" aria-hidden="true"></i> Cancelar</a>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

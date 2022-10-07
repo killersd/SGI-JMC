@@ -29,6 +29,8 @@ namespace SGI_JMC.Models
         public DbSet<OficioAssumiuFuncaoApoioEscolar2> OficioAssumiuFuncaoApoioEscolar2 { get; set; }
         public DbSet<HorarioApoioEscolar2> HorarioApoioEscolar2 { get; set; }
 
+        public DbSet<AlunoSemTransferencia> AlunoSemTransferencia { get; set; }
+
 
     }
 }

@@ -70,7 +70,7 @@ namespace SGI_JMC.Controllers
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
                 textFomatter.DrawString("Ofício nº 00" + oficioAssumiuFuncaoServidor.NumeroOficio + "/2022", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
                 textFomatter.DrawString("Assunto: " + oficioAssumiuFuncaoServidor.Assunto + ".", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 165, page.Width, page.Height));
-                textFomatter.DrawString("Simão Dias - Se -  " + oficioAssumiuFuncaoServidor.DataEmissao.ToShortDateString(), fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
+                textFomatter.DrawString("Simão Dias - Se -  " + oficioAssumiuFuncaoServidor.DataEmissao.ToString("dd/MM/yyyy"), fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
                 //Corpo do ofício
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                 textFomatter.DrawString("Comunicamos a Vossa Senhoria que " + oficioAssumiuFuncaoServidor.Name + ", CPF " + oficioAssumiuFuncaoServidor.CPF + ", vínculo " + oficioAssumiuFuncaoServidor.vinculo + ", ocupante do Cargo de " + oficioAssumiuFuncaoServidor.cargo + ", assumiu suas funções no dia " + oficioAssumiuFuncaoServidor.DataAssumiuFuncao.ToShortDateString() + " com carga horária de " + oficioAssumiuFuncaoServidor.CargaHoraria + " horas semanais, conforme horário anexo, atuando no  Ensino Fundamental FRC 13 (FRC: Fonte de Recursos do FUNDEB).", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 330, page.Width, page.Height));
