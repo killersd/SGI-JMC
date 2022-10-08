@@ -15,12 +15,11 @@
                     <input asp-for="@Model.Email" class="form-control" autofocus autocomplete="off">
                     <span asp-validation-for="@Model.Email" class="text-danger"></span>
                 </div>
-
+                <div class="col-12 mt-3">
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-info"><i class="fa fa-ban" aria-hidden="true"></i> Cancelar</a>
+                    <button type="submit" class="btn btn-success"><i class="fa fa-exchange" aria-hidden="true"></i> Solicitar Redefinição de Senha</button>
+                </div>
             </form>
-            <div class="col-12 mt-3">
-                <a asp-action="Index" asp-controller="Home" class="btn btn-info"><i class="fa fa-ban" aria-hidden="true"></i> Cancelar</a>
-                <button type="submit" class="btn btn-success"><i class="fa fa-exchange" aria-hidden="true"></i> Solicitar Redefinição de Senha</button>
-            </div>
         </div>
     </div>
 </div>

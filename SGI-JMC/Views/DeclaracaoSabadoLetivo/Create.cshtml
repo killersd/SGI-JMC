@@ -16,7 +16,7 @@
             <form asp-action="gerarDeclaracaoSabadoLetivo">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="row">
-                    <div class="col-md-12" >
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="Name" class="control-label"></label>
                             <input asp-for="Name" class="form-control" />
@@ -37,8 +37,45 @@
                             <input asp-for="anoLetivo" class="form-control" MaxLength="4" />
                             <span asp-validation-for="anoLetivo" class="text-danger"></span>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="TurnoDeTrabalho" class="control-label"></label>
+                                    <fieldset>
+                                        <div>
+                                            <input asp-for="TurnoDeTrabalho" type="radio" id="turnoID1" name="TurnoDeTrabalho" value="Matutino">
+                                            <label for="turnoID1">Matutino</label>
+                                        </div>
+                                        <div>
+                                            <input asp-for="TurnoDeTrabalho" type="radio" id="turnoID2" name="TurnoDeTrabalho" value="Vespertino">
+                                            <label for="turnoID2">Vespertino</label>
+                                        </div>
+                                        <div>
+                                            <input asp-for="TurnoDeTrabalho" type="radio" id="turnoID3" name="TurnoDeTrabalho" value="Matutino e Vespertino">
+                                            <label for="turnoID3">Ambos</label>
+                                        </div>
+                                    </fieldset>
+                                    <span asp-validation-for="TurnoDeTrabalho" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="CargoServidor" class="control-label"></label>
+                                    <fieldset>
+                                        <div>
+                                            <input asp-for="CargoServidor" type="radio" id="cargoID1" name="CargoServidor" value="Professor(a)">
+                                            <label for="cargoID1">Professor(a)</label>
+                                        </div>
+                                        <div>
+                                            <input asp-for="CargoServidor" type="radio" id="cargoID2" name="CargoServidor" value="Demais servidores">
+                                            <label for="cargoID2">Demais servidores</label>
+                                        </div>
+                                    </fieldset>
+                                    <span asp-validation-for="CargoServidor" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-12" style="text-align:center">
-                            @*<input type="submit" value="Baixar declaração" class="btn btn-primary" />*@
                             <button type="submit" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Baixar declaração</button>
                         </div>
                     </div>

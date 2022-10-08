@@ -384,7 +384,15 @@ namespace SGI_JMC.Migrations
                         .HasColumnType("nvarchar(11)")
                         .HasMaxLength(11);
 
+                    b.Property<string>("CargoServidor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TurnoDeTrabalho")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -1255,7 +1263,7 @@ namespace SGI_JMC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AlunoSemTansferencia");
+                    b.ToTable("Alunos");
                 });
 #pragma warning restore 612, 618
         }

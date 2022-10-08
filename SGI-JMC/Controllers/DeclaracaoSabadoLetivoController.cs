@@ -87,8 +87,21 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 textFomatter.DrawString("DECLARAÇÃO DE COMPARECIMENTO", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
-                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
-                textFomatter.DrawString("Declaro para os devidos fins que de acordo com o calendário letivo " + declaracaoSabadoLetivo.anoLetivo + ", aprovado por orgão competente, hoje, (" + declaracaoSabadoLetivo.dataSabado.ToString("dd/MM/yyyy") + "), foi sábado letivo nesta Unidade de Ensino. Informo ainda, que neste dia o(a) servidor(a) " + declaracaoSabadoLetivo.Name + ", CPF nº " + declaracaoSabadoLetivo.CPF + ", Professor(a) de Educação Básica, ministrou aulas nesta Unidade de Ensino.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                if (declaracaoSabadoLetivo.CargoServidor.Equals("Professor(a)") && !declaracaoSabadoLetivo.TurnoDeTrabalho.Equals("Matutino e Vespertino"))
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                    textFomatter.DrawString("Declaro para os devidos fins que de acordo com o calendário letivo " + declaracaoSabadoLetivo.anoLetivo + ", aprovado por orgão competente, dia (" + declaracaoSabadoLetivo.dataSabado.ToString("dd/MM/yyyy") + ") foi sábado letivo nesta Unidade de Ensino. Informo ainda, que neste dia o(a) servidor(a) " + declaracaoSabadoLetivo.Name + ", CPF nº " + declaracaoSabadoLetivo.CPF + ", Professor(a) de Educação Básica, ministrou suas aulas no período "+declaracaoSabadoLetivo.TurnoDeTrabalho+".", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                }
+                if (!declaracaoSabadoLetivo.CargoServidor.Equals("Professor(a)"))
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                    textFomatter.DrawString("Declaro para os devidos fins que de acordo com o calendário letivo " + declaracaoSabadoLetivo.anoLetivo + ", aprovado por orgão competente, dia (" + declaracaoSabadoLetivo.dataSabado.ToString("dd/MM/yyyy") + ") foi sábado letivo nesta Unidade de Ensino. Informo ainda, que neste dia o(a) servidor(a) " + declaracaoSabadoLetivo.Name + ", CPF nº " + declaracaoSabadoLetivo.CPF + ", compareceu à esta Unidade e exerceu suas atividades laborais no período "+declaracaoSabadoLetivo.TurnoDeTrabalho+".", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                }
+                if (declaracaoSabadoLetivo.CargoServidor.Equals("Professor(a)") && declaracaoSabadoLetivo.TurnoDeTrabalho.Equals("Matutino e Vespertino"))
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                    textFomatter.DrawString("Declaro para os devidos fins que de acordo com o calendário letivo " + declaracaoSabadoLetivo.anoLetivo + ", aprovado por orgão competente, dia (" + declaracaoSabadoLetivo.dataSabado.ToString("dd/MM/yyyy") + ") foi sábado letivo nesta Unidade de Ensino. Informo ainda, que neste dia o(a) servidor(a) " + declaracaoSabadoLetivo.Name + ", CPF nº " + declaracaoSabadoLetivo.CPF + ", Professor(a) de Educação Básica, ministrou aulas nos turnos " + declaracaoSabadoLetivo.TurnoDeTrabalho + ".", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                }
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
                 textFomatter.DrawString("Atenciosamente, ", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 370, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;

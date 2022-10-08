@@ -10,8 +10,8 @@ using SGI_JMC.Models;
 namespace SGI_JMC.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20221007011628_semtransfe")]
-    partial class semtransfe
+    [Migration("20221008002520_sabadoletivo")]
+    partial class sabadoletivo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -386,7 +386,15 @@ namespace SGI_JMC.Migrations
                         .HasColumnType("nvarchar(11)")
                         .HasMaxLength(11);
 
+                    b.Property<string>("CargoServidor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TurnoDeTrabalho")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -1257,7 +1265,7 @@ namespace SGI_JMC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AlunoSemTansferencia");
+                    b.ToTable("Alunos");
                 });
 #pragma warning restore 612, 618
         }

@@ -420,7 +420,10 @@ namespace SGI_JMC.Controllers
                     mensagem.Append("<p>Atenciosamente,<br>Equipe de Suporte do SGI-JMC</p>");
                     await _emailService.SendEmailAsync(usuario.Email,
                         "Redefinição de Senha", "", mensagem.ToString());
-                    return View(nameof(EmailRedefinicaoEnviado));
+                    //return View(nameof(EmailRedefinicaoEnviado));
+                    this.MostrarMensagem(
+                            $"E-mail de redefinição enviado para <b>{dados.Email}</b>.", false);
+                    return View(nameof(Login));
                 }
                 else
                 {
@@ -475,14 +478,13 @@ namespace SGI_JMC.Controllers
             }
         }
 
-        [Authorize(Roles = "usuario, administrador")]
-        [HttpGet, Authorize]
+        
+        [HttpGet]
         public IActionResult AlterarSenha()
         {
             return View();
         }
-
-        [Authorize(Roles = "usuario, administrador")]
+        
         [HttpPost]
         public async Task<IActionResult> AlterarSenha([FromForm] AlterarSenhaViewModel dados)
         {

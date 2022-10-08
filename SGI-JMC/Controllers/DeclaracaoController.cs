@@ -31,6 +31,14 @@ namespace SGI_JMC.Controllers
             return View(await _context.Declaracao.ToListAsync());
         }
 
+        [Authorize(Roles = "administrador")]
+        public async Task<IActionResult> IndexTransferenciaRegular()
+        {
+            return View(await _context.DeclaracaoTransferenciaRegular.ToListAsync());
+        }
+        
+
+
         //Métodos auxiliares
         [Authorize(Roles = "usuario, administrador")]
         private bool DeclaracaoExists(int id)
@@ -53,7 +61,7 @@ namespace SGI_JMC.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if ((_context.Declaracao.Any(u => u.codigoAutenticacao == verificar.CodigoDeVerificacao) &&
+                     if ((_context.Declaracao.Any(u => u.codigoAutenticacao == verificar.CodigoDeVerificacao) &&
                         (_context.Declaracao.Any(u => u.numeroDeclaracao == verificar.NumeroDeclaracao))))
                     {
                         this.MostrarMensagem("ESTE DOCUMENTO É VERDADEIRO E FOI GERADO PELO SGI-EEJMC.");
@@ -107,10 +115,10 @@ namespace SGI_JMC.Controllers
                         this.MostrarMensagem("ESTE DOCUMENTO É VERDADEIRO E FOI GERADO PELO SGI-EEJMC.");
                         return View(verificar);
                     }
-                    {
+                    
                         this.MostrarMensagem("ESTE DOCUMENTO É FALSO.", true);
                         return View(verificar);
-                    }
+                    
                 }
                 else
                 {
@@ -121,10 +129,6 @@ namespace SGI_JMC.Controllers
             {
                 return RedirectToAction("VerificarAutenticidade");
             }
-
-
-
-
         }
 
         [HttpGet, AllowAnonymous]

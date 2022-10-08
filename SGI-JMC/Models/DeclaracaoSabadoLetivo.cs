@@ -32,5 +32,15 @@ namespace SGI_JMC.Models
         [Display(Name = "Data do sábado letivo")]
         [DataType(DataType.Date)]
         public DateTime dataSabado { get; set; }
+
+        [Display(Name = "Cargo do servidor")]
+        [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
+        public string CargoServidor { get; set; }
+
+
+        [Display(Name = "Turno de trabalho")]
+        [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
+        public string TurnoDeTrabalho { get; set; }
+
     }
 }
