@@ -189,6 +189,12 @@
                                 <li>
                                     <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoConcludentesProSic">Concludente (ProSic)</a>
                                 </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="DeclaracaoExAluno" asp-action="CreateDeclaracaoExAluno">Ex - Aluno</a>
+                                </li>
                             </ul>
                         </li>
                         @if (!Context.User.IsInRole("administrador"))
@@ -335,6 +341,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+    <script src="~/lib/limonte-sweetalert2/sweetalert2.min.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

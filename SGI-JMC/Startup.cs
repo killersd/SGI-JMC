@@ -66,6 +66,7 @@ namespace SGI_JMC
             services.Configure<GmailSettings>(Configuration.GetSection(nameof(GmailSettings)));
             services.AddSingleton<IEmailService, GmailService>();
             //services.AddIdentityCore<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
             services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.Name = "AppControleUsuarios"; //AspNetCore.Cookies

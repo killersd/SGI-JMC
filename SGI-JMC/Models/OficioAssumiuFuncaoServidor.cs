@@ -59,5 +59,9 @@ namespace SGI_JMC.Models
         [Display(Name = "Cargo do destinatário")]
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
         public string CargoDestinatario { get; set; }
+
+        [Display(Name = "Fonte de recursos do FUNDEB (FRC)")]
+        [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
+        public int FRC { get; set; }
     }
 }

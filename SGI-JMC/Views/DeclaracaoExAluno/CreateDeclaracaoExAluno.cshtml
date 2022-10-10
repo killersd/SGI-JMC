@@ -1,0 +1,97 @@
+﻿@model SGI_JMC.Models.DeclaracaoExAluno
+
+@{
+    ViewData["Title"] = "Declaração Ex Aluno - ";
+}
+@*
+<h4>Criar nova declaracao</h4>*@
+<hr />
+<div class="container-fluid">
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4><b>Declaração Ex - Aluno</b></h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="gerarDeclaracaoExAluno">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Nome" class="control-label"></label>
+                            <input asp-for="Nome" class="form-control" />
+                            <span asp-validation-for="Nome" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NomePai" class="control-label"></label>
+                            <input asp-for="NomePai" class="form-control" />
+                            <span asp-validation-for="NomePai" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NomeMae" class="control-label"></label>
+                            <input asp-for="NomeMae" class="form-control" />
+                            <span asp-validation-for="NomeMae" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="DataNasimento" class="control-label"></label>
+                            <input asp-for="DataNasimento" class="form-control" />
+                            <span asp-validation-for="DataNasimento" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Serie" class="control-label"></label>
+                            <input asp-for="Serie" MaxLength="1" placeholder="1ª, 2ª, 3ª..." class="form-control" />
+                            <span asp-validation-for="Serie" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="AnoLetivo" class="control-label"></label>
+                            <input asp-for="AnoLetivo" class="form-control" MaxLength="4" />
+                            <span asp-validation-for="AnoLetivo" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Ano" class="control-label"></label>
+                            <input asp-for="Ano" MaxLength="1" placeholder="1º, 2º, 3º..." class="form-control" />
+                            <span asp-validation-for="Ano" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="width:504px;height:62px;">
+                        <label asp-for="ResultadoFinal" class="control-label"></label>
+                        @* <input asp-for="Remetente" class="form-control" placeholder="Alex ou Queila" />*@
+                        <fieldset>
+                            <div>
+                                <input asp-for="ResultadoFinal" type="radio" id="" name="ResultadoFinal" value="Aprovado">
+                                <label for="">Aprovado</label>
+                            </div>
+                            <div>
+                                <input asp-for="ResultadoFinal" type="radio" id="" name="ResultadoFinal" value="Reprovado">
+                                <label for="">Reprovado</label>
+                            </div>
+                            <div>
+                                <input asp-for="ResultadoFinal" type="radio" id="" name="ResultadoFinal" value="Desistente">
+                                <label for="">Desistente</label>
+                            </div>
+                        </fieldset>
+                        <span asp-validation-for="ResultadoFinal" class="text-danger"></span>
+                    </div>
+                </div>
+                <p></p>
+                <div class="col-md-12" style="text-align:center">
+                    <button type="submit" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Baixar declaração</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

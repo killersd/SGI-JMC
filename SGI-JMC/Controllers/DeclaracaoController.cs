@@ -115,8 +115,14 @@ namespace SGI_JMC.Controllers
                         this.MostrarMensagem("ESTE DOCUMENTO É VERDADEIRO E FOI GERADO PELO SGI-EEJMC.");
                         return View(verificar);
                     }
-                    
-                        this.MostrarMensagem("ESTE DOCUMENTO É FALSO.", true);
+                    else if ((_context.DeclaracaoExAluno.Any(u => u.CodigoAutenticacao == verificar.CodigoDeVerificacao) &&
+                        (_context.DeclaracaoExAluno.Any(u => u.NumeroDeclaracao == verificar.NumeroDeclaracao))))
+                    {
+                        this.MostrarMensagem("ESTE DOCUMENTO É VERDADEIRO E FOI GERADO PELO SGI-EEJMC.");
+                        return View(verificar);
+                    }
+
+                    this.MostrarMensagem("ESTE DOCUMENTO É FALSO.", true);
                         return View(verificar);
                     
                 }

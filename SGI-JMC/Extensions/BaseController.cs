@@ -14,9 +14,7 @@ namespace SGI_JMC.Extensions
     {
         public void BasicNotification(string msg, NotificationType type, string title = "")
         {
-            TempData["notification"] = $"Swal.fire('{title}, {msg}, {type.ToString().ToLower()}";
-
-            ;
+            TempData["notification"] = $"Swal.fire('{title}', '{msg}', '{type.ToString().ToLower()}'";
         }
     }
 }

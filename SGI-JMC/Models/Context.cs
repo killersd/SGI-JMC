@@ -31,6 +31,6 @@ namespace SGI_JMC.Models
 
         public DbSet<AlunoSemTransferencia> AlunoSemTransferencia { get; set; }
 
-
+        public DbSet<DeclaracaoExAluno> DeclaracaoExAluno { get; set; }
     }
 }
