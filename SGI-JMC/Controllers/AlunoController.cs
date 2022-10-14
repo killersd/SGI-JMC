@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SGI_JMC.Extensions;
 using SGI_JMC.Models;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace SGI_JMC.Controllers
@@ -69,7 +70,7 @@ namespace SGI_JMC.Controllers
                     await _contexto.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
-                else 
+                else
                 {
                     return View(student);
                 }
@@ -79,8 +80,8 @@ namespace SGI_JMC.Controllers
 
                 return NotFound();
         }
-        
-        [Authorize(Roles ="administrador")]
+
+        [Authorize(Roles = "administrador")]
         [HttpGet]
         public IActionResult DeleteStudent(int? id)
         {
@@ -92,7 +93,7 @@ namespace SGI_JMC.Controllers
             else
                 return View();
         }
-        
+
         [Authorize(Roles = "administrador")]
         [HttpPost]
         public async Task<IActionResult> DeleteStudent(int? id, aluno student)
@@ -102,6 +103,17 @@ namespace SGI_JMC.Controllers
                 _contexto.Remove(student);
                 await _contexto.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+            }
+            else
+                return NotFound();
+        }
+
+        public ActionResult Details(int? id)
+        {
+            if (id != null)
+            {
+                aluno student = _contexto.Alunos.Find(id);
+                return View(student);
             }
             else
                 return NotFound();

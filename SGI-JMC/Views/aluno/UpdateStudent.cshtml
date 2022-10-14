@@ -4,46 +4,51 @@
     ViewData["Title"] = "Atualizar aluno - ";
 }
 
-<h1>UpdateStudent</h1>
-
-<h4>aluno</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="UpdateStudent">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Father_name" class="control-label"></label>
-                <input asp-for="Father_name" class="form-control" />
-                <span asp-validation-for="Father_name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Mother_name" class="control-label"></label>
-                <input asp-for="Mother_name" class="form-control" />
-                <span asp-validation-for="Mother_name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Birth_date" class="control-label"></label>
-                <input asp-for="Birth_date" class="form-control" />
-                <span asp-validation-for="Birth_date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Year_folder" class="control-label"></label>
-                <input asp-for="Year_folder" class="form-control" />
-                <span asp-validation-for="Year_folder" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="container-fluid">
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4><b>Editar Aluno</b></h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="UpdateStudent">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Father_name" class="control-label"></label>
+                    <input asp-for="Father_name" class="form-control" />
+                    <span asp-validation-for="Father_name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mother_name" class="control-label"></label>
+                    <input asp-for="Mother_name" class="form-control" />
+                    <span asp-validation-for="Mother_name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Birth_date" class="control-label"></label>
+                    <input asp-for="Birth_date" class="form-control" />
+                    <span asp-validation-for="Birth_date" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Year_folder" class="control-label"></label>
+                    <input asp-for="Year_folder" class="form-control" />
+                    <span asp-validation-for="Year_folder" class="text-danger"></span>
+                </div>
+                <p></p>
+                <div class="col-md-12" style="text-align:center">
+                    <a href="../Index" class="btn btn-info"><i class="fa fa-ban" aria-hidden="true"></i> Cancelar</a>
+                    <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

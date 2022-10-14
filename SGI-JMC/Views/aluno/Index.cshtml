@@ -27,7 +27,7 @@
                             <th>Mãe</th>
                             <th>Data de nascimento</th>
                             <th>Ano da pasta</th>
-                            <th>Ação</th>
+                            <th>Ações (Editar/Excluir)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,17 +40,17 @@
                                 <td>@item.Mother_name</td>
                                 <td>@item.Birth_date</td>
                                 <td>@item.Year_folder</td>
-                                @*                                <td>
-                            @Html.ActionLink("Editar", "UpdateStudent", new { id = item.Id })|@Html.ActionLink("Excluir", "DeleteStudent", new { id = item.Id })
-                            </td>*@
-                                <td>
+                                <td style="align-content:center">
+                                    <a asp-action="Details" asp-route-id=@item.Id>
+                                        <i class="btn btn-outline-info fa fa-eye"
+                                       title="Ver"></i>
+                                    </a>
                                     <a asp-action="UpdateStudent" asp-route-id=@item.Id>
-                                        <i class="fa fa-pencil"
+                                        <i class="btn btn-outline-primary fa fa-pencil"
                                        title="Editar"></i>
                                     </a>
-                                    |
                                     <a asp-action="DeleteStudent" asp-route-id=@item.Id>
-                                        <i class="fa fa-trash"
+                                        <i class="btn btn-outline-danger fa fa-trash"
                                        title="Excluir"></i>
                                     </a>
                                 </td>
