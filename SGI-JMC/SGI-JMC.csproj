@@ -38,6 +38,8 @@
     <Compile Remove="Migrations\20221003191648_apoioEsc.Designer.cs" />
     <Compile Remove="Migrations\20221003204603_v2.cs" />
     <Compile Remove="Migrations\20221003204603_v2.Designer.cs" />
+    <Compile Remove="Migrations\20221014200005_comunicado.cs" />
+    <Compile Remove="Migrations\20221014200005_comunicado.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

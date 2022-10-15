@@ -9,6 +9,9 @@ namespace SGI_JMC.Models
         {
             Database.EnsureCreated();
         }
+
+
+        public DbSet<Comunicado> Comunicado { get; set; }
         public DbSet<aluno> Alunos { get; set; }
         public DbSet<Declaracao> Declaracao { get; set; }
         public DbSet<DeclaracaoProSic> DeclaracaoProSic { get; set; }
@@ -32,5 +35,6 @@ namespace SGI_JMC.Models
         public DbSet<AlunoSemTransferencia> AlunoSemTransferencia { get; set; }
 
         public DbSet<DeclaracaoExAluno> DeclaracaoExAluno { get; set; }
+
     }
 }
