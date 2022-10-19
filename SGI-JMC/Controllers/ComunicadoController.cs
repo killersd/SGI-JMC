@@ -51,7 +51,6 @@ namespace SGI_JMC.Controllers
                 XImage imgEscudo = XImage.FromFile(escudo);
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                //graphics.DrawImage(imgBrasao, 275, 20, 50, 75);
                 graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
                 graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
 
@@ -61,12 +60,6 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
                 textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
                 textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
-
-                //textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
-                //textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO, DO ESPORTE E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 115, page.Width, page.Height));
-                //textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 130, page.Width, page.Height));
-                //textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 145, page.Width, page.Height));
-                //textFomatter.DrawString("SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 160, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 textFomatter.DrawString("COMUNICADO IMPORTANTE", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
 
@@ -85,7 +78,7 @@ namespace SGI_JMC.Controllers
                 }
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
-                textFomatter.DrawString("Senhor(a) responsável pelo aluno " + comunicado.NomeAluno + ", matriculado no " + comunicado.AnoSerie + "º ano, turma " + comunicado.Turma + ", turno " + comunicado.Turno + ". Solicitamos que acompanhe seu filho(a) à escola no dia " + comunicado.DataComparecimento.ToShortDateString() + " para que possamos conversar a respeito da vida escolar e comportamento do discente em questão. Nosso objetivo " +
+                textFomatter.DrawString("Senhor(a) responsável pelo aluno " + comunicado.NomeAluno + ", matriculado na turma \"" + comunicado.Turma + "\", turno " + comunicado.Turno + ". Solicitamos que acompanhe seu filho(a) à escola no dia " + comunicado.DataComparecimento.ToString("dd/MM/yyyy") + " para que possamos conversar a respeito da vida escolar e comportamento do discente em questão. Nosso objetivo " +
                     "é atender da melhor maneira possível. Buscamos sempre o seu crescimento pessoal em todos os níveis, mas, só, juntos, família e escola, esse objetivo será alcançado. Gratos pela atenção. ", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
 
 

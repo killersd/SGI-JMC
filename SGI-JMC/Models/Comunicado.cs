@@ -15,12 +15,7 @@ namespace SGI_JMC.Models
 
 
         [Display(Name = "Informações adicionais")]
-        public string Observacao { get; set; }
-
-
-        [Display(Name = "Ano/Série")]
-        [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
-        public string AnoSerie { get; set; }
+        public string Observacao { get; set; }        
 
         [Display(Name = "Turno")]
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
