@@ -17,6 +17,7 @@
                             <th>Assunto</th>
                             <th>Destinatário</th>
                             <th>Data de Emissão</th>
+                            <th>Ação</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,6 +29,12 @@
                                 <td>@item.Assunto</td>
                                 <td>@item.destinatario</td>
                                 <td>@item.DataEmissao</td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id=@item.Id>
+                                        <i class="btn btn-outline-info fa fa-eye"
+                                       title="Ver"></i>
+                                    </a>
+                                </td>
                             </tr>
                             count++;
                         }

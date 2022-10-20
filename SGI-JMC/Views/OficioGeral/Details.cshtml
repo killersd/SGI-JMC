@@ -1,0 +1,50 @@
+﻿@model OficioGeral
+
+<div class="container-fluid">
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4><b>Detalhes do Ofício</b></h4>
+        </div>
+        <div class="card-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.NumeroOficio)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.NumeroOficio)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Assunto)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Assunto)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Remetente)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Remetente)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.destinatario)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.destinatario)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CorpoDoOficio)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CorpoDoOficio)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-12" style="text-align:center">
+            <a href="../Index" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar</a>
+        </div>
+        <p></p>
+    </div>
+</div>

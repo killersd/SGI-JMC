@@ -24,7 +24,7 @@
                             <th>Mãe</th>
                             <th>Data de nascimento</th>
                             <th>Escola anterior</th>
-                            <th>Ação</th>
+                            @*<th>Ação</th>*@
                         </tr>
                     </thead>
                     <tbody>
@@ -36,7 +36,7 @@
                                 <td>@item.NomeMae</td>
                                 <td>@item.DataNasciimento</td>
                                 <td>@item.EscolaAnterior</td>
-                                <td>
+@*                                <td>
                                     @if (@item.TemPendencia == 0)
                                     {
                                         <a asp-action="AdicionarPendencia" class="btn btn-sm btn-success" asp-route-id=@item.Id>
@@ -51,7 +51,7 @@
                                        title="Remover pendência"></i>
                                         </a>
                                     }
-                                </td>
+                                </td>*@
                             </tr>
                         }
                     </tbody>

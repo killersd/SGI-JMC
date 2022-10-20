@@ -12,12 +12,11 @@
             <h4>
                 <b>Cadastrar aluno sem transferência</b>
             </h4>
-            @if (Context.User.IsInRole("administrador"))
-            {
-                <h6>
-                    <a href="../AlunoSemTransferencia/Index" class="btn btn-primary pull-right fa fa-eye"> Visualizar todos</a>
-                </h6>
-            }
+
+            <h6>
+                <a href="../AlunoSemTransferencia/Index" class="btn btn-primary pull-right fa fa-eye"> Visualizar todos</a>
+            </h6>
+
         </div>
         <div class="card-body">
             <form asp-action="Create">

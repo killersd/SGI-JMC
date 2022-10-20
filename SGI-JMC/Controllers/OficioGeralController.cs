@@ -25,7 +25,16 @@ namespace SGI_JMC.Controllers
         {
             return View(await _context.OficioGeral.ToListAsync());
         }
-
+        public ActionResult Details(int? id)
+        {
+            if (id != null)
+            {
+                OficioGeral oficio = _context.OficioGeral.Find(id);
+                return View(oficio);
+            }
+            else
+                return NotFound();
+        }
 
         [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
