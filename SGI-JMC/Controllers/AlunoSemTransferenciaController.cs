@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SGI_JMC.Extensions;
@@ -44,5 +45,53 @@ namespace SGI_JMC.Controllers
 
                 return View(alunoSemTransferencia);
         }
+
+        public async Task<IActionResult> RemoverPendencia(int id)
+        {
+            AlunoSemTransferencia alunoSemTransferencia;
+            if (id != 0)
+            {
+                alunoSemTransferencia = _contexto.AlunoSemTransferencia.Find(id);
+                if (ModelState.IsValid)
+                {
+                    alunoSemTransferencia.TemPendencia = 0;
+                    _contexto.Update(alunoSemTransferencia);
+                    await _contexto.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return View(alunoSemTransferencia);
+                }
+
+            }
+            else
+                return NotFound();
+
+        }
+        public async Task<IActionResult> AdicionarPendencia(int id)
+        {
+            AlunoSemTransferencia alunoSemTransferencia;
+            if (id != 0)
+            {
+                alunoSemTransferencia = _contexto.AlunoSemTransferencia.Find(id);
+                if (ModelState.IsValid)
+                {
+                    alunoSemTransferencia.TemPendencia = 1;
+                    _contexto.Update(alunoSemTransferencia);
+                    await _contexto.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return View(alunoSemTransferencia);
+                }
+
+            }
+            else
+                return NotFound();
+
+        }
+
     }
 }
