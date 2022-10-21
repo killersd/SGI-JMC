@@ -56,6 +56,7 @@ namespace SGI_JMC.Controllers
                 {
                     alunoSemTransferencia.TemPendencia = 0;
                     _contexto.Update(alunoSemTransferencia);
+                    this.MostrarMensagem($"Pendência removida com sucesso!");
                     await _contexto.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
@@ -79,6 +80,7 @@ namespace SGI_JMC.Controllers
                 {
                     alunoSemTransferencia.TemPendencia = 1;
                     _contexto.Update(alunoSemTransferencia);
+                    this.MostrarMensagem($"Pendência adicionada com sucesso!");
                     await _contexto.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
@@ -91,6 +93,19 @@ namespace SGI_JMC.Controllers
             else
                 return NotFound();
 
+        }
+
+        public async Task<IActionResult> DeletarPendencia(int? id, AlunoSemTransferencia student)
+        {
+            if (id != null)
+            {
+                _contexto.Remove(student);
+                await _contexto.SaveChangesAsync();
+                this.MostrarMensagem($"Registro removido com sucesso!");
+                return RedirectToAction(nameof(Index));
+            }
+            else
+                return NotFound();
         }
 
     }

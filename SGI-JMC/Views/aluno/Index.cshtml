@@ -38,7 +38,7 @@
                                 <td>@item.Name</td>
                                 <td>@item.Father_name</td>
                                 <td>@item.Mother_name</td>
-                                <td>@item.Birth_date</td>
+                                <td>@item.Birth_date.ToString("dd/MM/yyyy")</td>
                                 <td>@item.Year_folder</td>
                                 <td style="align-content:center">
                                     <a asp-action="Details" asp-route-id=@item.Id>

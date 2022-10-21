@@ -24,7 +24,10 @@
                             <th>Mãe</th>
                             <th>Data de nascimento</th>
                             <th>Escola anterior</th>
-                            <th>Ação</th>
+                            @if (Context.User.IsInRole("administrador"))
+                            {
+                                <th>Operações</th>
+                            }
                         </tr>
                     </thead>
                     <tbody>
@@ -34,24 +37,34 @@
                                 <td>@item.Nome</td>
                                 <td>@item.NomePai</td>
                                 <td>@item.NomeMae</td>
-                                <td>@item.DataNasciimento</td>
+                                <td>@item.DataNasciimento.ToString("dd/MM/yyyy")</td>
                                 <td>@item.EscolaAnterior</td>
-                                <td>
-                                    @if (@item.TemPendencia == 0)
-                                    {
-                                        <a asp-action="AdicionarPendencia" class="btn btn-sm btn-success" asp-route-id=@item.Id>
-                                            <i class="fa fa-plus"
+
+                                @if (Context.User.IsInRole("administrador"))
+                                {
+                                    <td>
+                                        @if (@item.TemPendencia == 0)
+                                        {
+                                            <a asp-action="AdicionarPendencia" asp-route-id=@item.Id>
+                                                <i class="btn btn-sm btn-outline-success fa fa-plus"
                                        title="Adicionar Pendência"></i>
-                                        </a>
-                                    }
-                                    else
-                                    {
-                                        <a asp-action="RemoverPendencia" class="btn btn-sm btn-danger" asp-route-id=@item.Id>
-                                            <i class="fa fa-minus"
+                                            </a>
+
+                                            <a asp-action="DeletarPendencia" asp-route-id=@item.Id>
+                                                <i class="btn btn-sm btn-outline-danger fa fa-trash"
+                                       title="Excluir registro"></i>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-action="RemoverPendencia" asp-route-id=@item.Id>
+                                                <i class="btn btn-sm btn-outline-danger fa fa-minus"
                                        title="Remover pendência"></i>
-                                        </a>
-                                    }
-                                </td>
+                                            </a>
+                                        }
+                                    </td>
+
+                                }
                             </tr>
                         }
                     </tbody>

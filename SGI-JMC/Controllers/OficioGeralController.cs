@@ -25,6 +25,8 @@ namespace SGI_JMC.Controllers
         {
             return View(await _context.OficioGeral.ToListAsync());
         }
+
+        [Authorize(Roles = "administrador")]
         public ActionResult Details(int? id)
         {
             if (id != null)
