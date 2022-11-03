@@ -108,5 +108,42 @@ namespace SGI_JMC.Controllers
                 return NotFound();
         }
 
+
+
+        [Authorize(Roles = "usuario, administrador")]
+        [HttpGet]
+        public IActionResult Update(int? id)
+        {
+            if (id != null)
+            {
+                AlunoSemTransferencia student = _contexto.AlunoSemTransferencia.Find(id);
+                return View(student);
+            }
+            else
+                return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(int? id, AlunoSemTransferencia student)
+        {
+            if (id != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    _contexto.Update(student);
+                    await _contexto.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return View(student);
+                }
+
+            }
+            else
+
+                return NotFound();
+        }
+
     }
 }

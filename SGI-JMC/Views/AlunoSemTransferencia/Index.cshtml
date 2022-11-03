@@ -26,7 +26,7 @@
                             <th>Escola anterior</th>
                             @if (Context.User.IsInRole("administrador"))
                             {
-                                <th>Operações</th>
+                                <th>Operações disponíveis</th>
                             }
                         </tr>
                     </thead>
@@ -49,7 +49,10 @@
                                                 <i class="btn btn-sm btn-outline-success fa fa-plus"
                                        title="Adicionar Pendência"></i>
                                             </a>
-
+                                            <a asp-action="Update" asp-route-id=@item.Id>
+                                                <i class="btn btn-sm btn-outline-primary fa fa-pencil"
+                                       title="Editar pendência"></i>
+                                            </a>
                                             <a asp-action="DeletarPendencia" asp-route-id=@item.Id>
                                                 <i class="btn btn-sm btn-outline-danger fa fa-trash"
                                        title="Excluir registro"></i>
@@ -71,7 +74,7 @@
                 </table>
                 @section Scripts{
                     <script>
-                        $(document).ready(function() {
+                        $(document).ready(function () {
                             $('#dataTable').DataTable({
                                 language: {
                                     url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/pt-BR.json'
