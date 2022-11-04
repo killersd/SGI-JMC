@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PdfSharpCore.Drawing;
 using SGI_JMC.Models;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace SGI_JMC.Controllers
 {
@@ -17,6 +19,13 @@ namespace SGI_JMC.Controllers
         }
 
 
+
+        [Authorize(Roles = "administrador")]
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Comunicado.ToListAsync());
+        }
 
         [HttpGet]
         public IActionResult Create()

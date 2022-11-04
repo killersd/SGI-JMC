@@ -1,0 +1,54 @@
+﻿@model IEnumerable<SGI_JMC.Models.Comunicado>
+@{
+    ViewData["Title"] = "Comunicados expedidos - ";
+}
+
+<div class="container-fluid">
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4><b>Comunicados expedidos</b></h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nome aluno</th>
+                            <th>Turma</th>
+                            <th>Turno</th>
+                            <th>Data de Emissão</th>
+                            <th>Data comparecimento</th>
+                            <th>Observação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            int count = 1;
+                            <tr>
+                                <td>@item.NomeAluno</td>
+                                <td>@item.Turma</td>
+                                <td>@item.Turno</td>
+                                <td>@item.DataEmissao.ToString("dd/MM/yyyy")</td>
+                                <td>@item.DataComparecimento.ToString("dd/MM/yyyy")</td>
+                                <td>@item.Observacao</td>
+                            </tr>
+                            count++;
+                        }
+                    </tbody>
+                </table>
+                @section Scripts{
+                    <script>
+                        $(document).ready(function () {
+                            $('#dataTable').DataTable({
+                                language: {
+                                    url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/pt-BR.json'
+                                }
+                            });
+                        });
+                    </script>
+                }
+                </div>
+            </div>
+        </div>
+    </div>
