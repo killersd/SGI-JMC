@@ -1,0 +1,36 @@
+﻿@model SGI_JMC.Models.DeclaracaoGenerica
+
+@{
+    ViewData["Title"] = "Declaração genérica - ";
+}
+<hr />
+<div class="container-fluid">
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4><b>Declaração Genérica</b></h4>
+            <h6>Modelo de declaração genérica</h6>
+        </div>
+        <div class="card-body">
+            <form asp-action="gerarDeclaracaoGenerica">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label asp-for="CorpoDaDeclaracao" class="control-label"></label>
+                        <textarea style="resize:none" placeholder="digite aqui o conteúdo da declaração..." MaxLength="5000" asp-for="CorpoDaDeclaracao" class="form-control"></textarea>
+                        <span asp-validation-for="CorpoDaDeclaracao" class="text-danger"></span>
+                    </div>
+                    <p></p>
+                </div>
+                <p></p>
+                <div class="col-md-12" style="text-align:center">
+                    <button type="submit" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Baixar declaração</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

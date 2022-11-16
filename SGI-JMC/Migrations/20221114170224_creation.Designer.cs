@@ -10,8 +10,8 @@ using SGI_JMC.Models;
 namespace SGI_JMC.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20221014200858_comunicado2")]
-    partial class comunicado2
+    [Migration("20221114170224_creation")]
+    partial class creation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -105,10 +105,6 @@ namespace SGI_JMC.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AnoSerie")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("DataComparecimento")
                         .HasColumnType("datetime2");
 
@@ -121,6 +117,9 @@ namespace SGI_JMC.Migrations
 
                     b.Property<string>("NomeAluno")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Observacao")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Turma")

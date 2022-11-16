@@ -8,41 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20220920030644_decTransf.cs" />
-    <Compile Remove="Migrations\20220920030644_decTransf.Designer.cs" />
-    <Compile Remove="Migrations\20220920030833_decTransf.cs" />
-    <Compile Remove="Migrations\20220920030833_decTransf.Designer.cs" />
-    <Compile Remove="Migrations\20220925013345_HorarioProfessor.cs" />
-    <Compile Remove="Migrations\20220925013345_HorarioProfessor.Designer.cs" />
-    <Compile Remove="Migrations\20220930004146_atualizacaodeusuarios.cs" />
-    <Compile Remove="Migrations\20220930004146_atualizacaodeusuarios.Designer.cs" />
-    <Compile Remove="Migrations\20220930004441_atualizacaodeusuarios.cs" />
-    <Compile Remove="Migrations\20220930004441_atualizacaodeusuarios.Designer.cs" />
-    <Compile Remove="Migrations\20220930004557_atualizacaodeusuarios.cs" />
-    <Compile Remove="Migrations\20220930004557_atualizacaodeusuarios.Designer.cs" />
-    <Compile Remove="Migrations\20220930011925_atualizacaodeusuarios3.cs" />
-    <Compile Remove="Migrations\20220930011925_atualizacaodeusuarios3.Designer.cs" />
-    <Compile Remove="Migrations\20221002154150_declaracaoExServidor.cs" />
-    <Compile Remove="Migrations\20221002154150_declaracaoExServidor.Designer.cs" />
-    <Compile Remove="Migrations\20221002164600_declaracaoExServidor3.cs" />
-    <Compile Remove="Migrations\20221002164600_declaracaoExServidor3.Designer.cs" />
-    <Compile Remove="Migrations\20221003003900_declaracaoservidorativo.cs" />
-    <Compile Remove="Migrations\20221003003900_declaracaoservidorativo.Designer.cs" />
-    <Compile Remove="Migrations\20221003003939_declaracaoservidorativo.cs" />
-    <Compile Remove="Migrations\20221003003939_declaracaoservidorativo.Designer.cs" />
-    <Compile Remove="Migrations\20221003185628_apoio2.cs" />
-    <Compile Remove="Migrations\20221003185628_apoio2.Designer.cs" />
-    <Compile Remove="Migrations\20221003190124_apoio.cs" />
-    <Compile Remove="Migrations\20221003190124_apoio.Designer.cs" />
-    <Compile Remove="Migrations\20221003191648_apoioEsc.cs" />
-    <Compile Remove="Migrations\20221003191648_apoioEsc.Designer.cs" />
-    <Compile Remove="Migrations\20221003204603_v2.cs" />
-    <Compile Remove="Migrations\20221003204603_v2.Designer.cs" />
-    <Compile Remove="Migrations\20221014200005_comunicado.cs" />
-    <Compile Remove="Migrations\20221014200005_comunicado.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Imagens\BrasaoEstado.png" />
     <None Remove="Imagens\Escudo.jpg" />
   </ItemGroup>
