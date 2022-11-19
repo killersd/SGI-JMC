@@ -59,6 +59,7 @@ namespace SGI_JMC.Controllers
                 return View();
         }
 
+        [Authorize(Roles = "usuario, administrador")]
         [HttpPost]
         public async Task<IActionResult> UpdateStudent(int? id, aluno student)
         {
@@ -108,6 +109,7 @@ namespace SGI_JMC.Controllers
                 return NotFound();
         }
 
+        [Authorize(Roles = "usuario, administrador")]
         public ActionResult Details(int? id)
         {
             if (id != null)

@@ -121,6 +121,19 @@ namespace SGI_JMC.Controllers
                         this.MostrarMensagem("ESTE DOCUMENTO É VERDADEIRO E FOI GERADO PELO SGI-EEJMC.");
                         return View(verificar);
                     }
+                    else if ((_context.DeclaracaoDistanciaInteriorizacao.Any(u => u.CodigoAutenticacaoDeclaracaoInteriorizacao == verificar.CodigoDeVerificacao) &&
+                      (_context.DeclaracaoDistanciaInteriorizacao.Any(u => u.NumeroDeclaracaoDistanciaInteriorizacao == verificar.NumeroDeclaracao))))
+                    {
+                        this.MostrarMensagem("ESTE DOCUMENTO É VERDADEIRO E FOI GERADO PELO SGI-EEJMC.");
+                        return View(verificar);
+                    }
+                    else if ((_context.DeclaracaoResidencia.Any(u => u.CodigoAutenticacaoDeclaracaoResidencia == verificar.CodigoDeVerificacao) &&
+                     (_context.DeclaracaoResidencia.Any(u => u.NumeroDeclaracaoResidencia == verificar.NumeroDeclaracao))))
+                    {
+                        this.MostrarMensagem("ESTE DOCUMENTO É VERDADEIRO E FOI GERADO PELO SGI-EEJMC.");
+                        return View(verificar);
+                    }
+
 
                     this.MostrarMensagem("ESTE DOCUMENTO É FALSO.", true);
                         return View(verificar);

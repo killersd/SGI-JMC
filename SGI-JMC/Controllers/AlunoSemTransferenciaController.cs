@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace SGI_JMC.Controllers
 {
+    [Authorize(Roles = "usuario, administrador")]
     public class AlunoSemTransferenciaController : Controller
     {
         private readonly Context _contexto;
@@ -31,6 +32,7 @@ namespace SGI_JMC.Controllers
             return View();
         }
 
+        [Authorize(Roles = "usuario, administrador")]
         [HttpPost]
         public async Task<IActionResult> Create(AlunoSemTransferencia alunoSemTransferencia)
         {
@@ -46,6 +48,7 @@ namespace SGI_JMC.Controllers
                 return View(alunoSemTransferencia);
         }
 
+        [Authorize(Roles = "administrador")]
         public async Task<IActionResult> RemoverPendencia(int id)
         {
             AlunoSemTransferencia alunoSemTransferencia;
@@ -70,6 +73,8 @@ namespace SGI_JMC.Controllers
                 return NotFound();
 
         }
+
+        [Authorize(Roles = "administrador")]
         public async Task<IActionResult> AdicionarPendencia(int id)
         {
             AlunoSemTransferencia alunoSemTransferencia;
@@ -95,6 +100,7 @@ namespace SGI_JMC.Controllers
 
         }
 
+        [Authorize(Roles = "administrador")]
         public async Task<IActionResult> DeletarPendencia(int? id, AlunoSemTransferencia student)
         {
             if (id != null)
@@ -110,7 +116,7 @@ namespace SGI_JMC.Controllers
 
 
 
-        [Authorize(Roles = "usuario, administrador")]
+        [Authorize(Roles = "administrador")]
         [HttpGet]
         public IActionResult Update(int? id)
         {
@@ -123,6 +129,7 @@ namespace SGI_JMC.Controllers
                 return View();
         }
 
+        [Authorize(Roles = "administrador")]
         [HttpPost]
         public async Task<IActionResult> Update(int? id, AlunoSemTransferencia student)
         {

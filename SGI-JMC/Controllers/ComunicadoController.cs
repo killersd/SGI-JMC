@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace SGI_JMC.Controllers
 {
+    [Authorize(Roles = "usuario, administrador")]
     public class ComunicadoController : Controller
     {
         private readonly Context _context;
@@ -27,6 +28,7 @@ namespace SGI_JMC.Controllers
             return View(await _context.Comunicado.ToListAsync());
         }
 
+        [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
         public IActionResult Create()
         {

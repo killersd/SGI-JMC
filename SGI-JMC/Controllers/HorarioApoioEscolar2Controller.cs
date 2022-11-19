@@ -7,6 +7,7 @@ using System.IO;
 
 namespace SGI_JMC.Controllers
 {
+    [Authorize(Roles = "usuario, administrador")]
     public class HorarioApoioEscolar2Controller : Controller
     {
         private readonly Context _context;

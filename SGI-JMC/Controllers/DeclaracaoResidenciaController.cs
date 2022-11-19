@@ -24,19 +24,19 @@ namespace SGI_JMC.Controllers
         {
             return View();
         }
-        //[Authorize(Roles = "usuario, administrador")]
-        //[HttpPost]
-        //public async Task<IActionResult> CreateDeclaracaoDistanciaInteriorizacao(DeclaracaoDistanciaInteriorizacao declaracaoDistanciaInteriorizacao)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        declaracaoDistanciaInteriorizacao.DataDeEmissao = DateTime.Now;
-        //        _context.Add(declaracaoDistanciaInteriorizacao);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(declaracaoDistanciaInteriorizacao);
-        //}
+        [Authorize(Roles = "usuario, administrador")]
+        [HttpPost]
+        public async Task<IActionResult> CreateDeclaracaoResidencia(DeclaracaoResidencia declaracaoResidencia)
+        {
+            if (ModelState.IsValid)
+            {
+                declaracaoResidencia.DataDeEmissao = DateTime.Now;
+                _context.Add(declaracaoResidencia);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(declaracaoResidencia);
+        }
 
         [Authorize(Roles = "usuario, administrador")]
         public FileResult gerarDeclaracaoResidencia(DeclaracaoResidencia declaracaoResidencia)
@@ -138,9 +138,9 @@ namespace SGI_JMC.Controllers
                     doc.Save(stream, false);
                     var nomeArquivo = "Declaração de residência " + declaracaoResidencia.Nome + ".pdf";
                     //Salvando no banco
-                    //declaracaoDistanciaInteriorizacao.DataDeEmissao = DateTime.Now;
-                    //_context.Add(declaracaoDistanciaInteriorizacao);
-                    //_context.SaveChangesAsync();
+                    declaracaoResidencia.DataDeEmissao = DateTime.Now;
+                    _context.Add(declaracaoResidencia);
+                    _context.SaveChangesAsync();
                     return File(stream.ToArray(), contentType, nomeArquivo);
                 }
 

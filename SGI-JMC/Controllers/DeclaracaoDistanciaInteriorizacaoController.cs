@@ -9,6 +9,7 @@ using System;
 
 namespace SGI_JMC.Controllers
 {
+    [Authorize(Roles = "usuario, administrador")]
     public class DeclaracaoDistanciaInteriorizacaoController : Controller
     {
 
@@ -20,25 +21,26 @@ namespace SGI_JMC.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "administrador")]
         public IActionResult CreateDeclaracaoDistanciaInteriorizacao()
         {
             return View();
         }
-        //[Authorize(Roles = "usuario, administrador")]
-        //[HttpPost]
-        //public async Task<IActionResult> CreateDeclaracaoDistanciaInteriorizacao(DeclaracaoDistanciaInteriorizacao declaracaoDistanciaInteriorizacao)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        declaracaoDistanciaInteriorizacao.DataDeEmissao = DateTime.Now;
-        //        _context.Add(declaracaoDistanciaInteriorizacao);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(declaracaoDistanciaInteriorizacao);
-        //}
+        [Authorize(Roles = "administrador")]
+        [HttpPost]
+        public async Task<IActionResult> CreateDeclaracaoDistanciaInteriorizacao(DeclaracaoDistanciaInteriorizacao declaracaoDistanciaInteriorizacao)
+        {
+            if (ModelState.IsValid)
+            {
+                declaracaoDistanciaInteriorizacao.DataDeEmissao = DateTime.Now;
+                _context.Add(declaracaoDistanciaInteriorizacao);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(declaracaoDistanciaInteriorizacao);
+        }
 
-        [Authorize(Roles = "usuario, administrador")]
+        [Authorize(Roles = "administrador")]
         public FileResult gerarDeclaracaoDistanciaInteriorizacao(DeclaracaoDistanciaInteriorizacao declaracaoDistanciaInteriorizacao)
         {
             declaracaoDistanciaInteriorizacao.NumeroDeclaracaoDistanciaInteriorizacao = GerarNumeroDeclaracaoDistanciaInteriorizacao(declaracaoDistanciaInteriorizacao);
@@ -114,16 +116,16 @@ namespace SGI_JMC.Controllers
                     doc.Save(stream, false);
                     var nomeArquivo = "Declaração de distância" + declaracaoDistanciaInteriorizacao.Nome + ".pdf";
                     //Salvando no banco
-                    //declaracaoDistanciaInteriorizacao.DataDeEmissao = DateTime.Now;
-                    //_context.Add(declaracaoDistanciaInteriorizacao);
-                    //_context.SaveChangesAsync();
+                    declaracaoDistanciaInteriorizacao.DataDeEmissao = DateTime.Now;
+                    _context.Add(declaracaoDistanciaInteriorizacao);
+                    _context.SaveChangesAsync();
                     return File(stream.ToArray(), contentType, nomeArquivo);
                 }
 
             }
         }
 
-        [Authorize(Roles = "usuario, administrador")]
+        [Authorize(Roles = "administrador")]
         public int GerarNumeroDeclaracaoDistanciaInteriorizacao(DeclaracaoDistanciaInteriorizacao declaracaoDistanciaInteriorizacao)
         {
             int numeroDeclaracaoDistanciaInteriorizacaoGerado;
@@ -134,7 +136,7 @@ namespace SGI_JMC.Controllers
             return numeroDeclaracaoDistanciaInteriorizacaoGerado;
         }
 
-        [Authorize(Roles = "usuario, administrador")]
+        [Authorize(Roles = "administrador")]
         public string GerarCodigoDeAutenticacaoDistanciaInteriorizacao(DeclaracaoDistanciaInteriorizacao declaracaoDistanciaInteriorizacao)
         {
             string codigoAutenticacaoServidor = GerarNumeroDeclaracaoDistanciaInteriorizacao(declaracaoDistanciaInteriorizacao).ToString("x");

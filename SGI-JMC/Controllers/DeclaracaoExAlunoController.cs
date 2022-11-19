@@ -7,6 +7,7 @@ using System.IO;
 
 namespace SGI_JMC.Controllers
 {
+    [Authorize(Roles = "usuario, administrador")]
     public class DeclaracaoExAlunoController : Controller
     {
         private readonly Context _context;
@@ -16,6 +17,7 @@ namespace SGI_JMC.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
         public IActionResult CreateDeclaracaoExAluno()
         {
@@ -43,6 +45,7 @@ namespace SGI_JMC.Controllers
             return codigoAutenticacaoDeclaracaoExAluno;
         }
 
+        [Authorize(Roles = "usuario, administrador")]
         public FileResult gerarDeclaracaoExAluno(DeclaracaoExAluno declaracaoExAluno)
         {
             declaracaoExAluno.CodigoAutenticacao = GerarCodigoDeAutenticacaoDeclaracaoExAluno(declaracaoExAluno);

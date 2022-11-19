@@ -9,7 +9,7 @@ using System;
 
 namespace SGI_JMC.Controllers
 {
-    //[Authorize(Roles = "usuario, administrador")]
+    [Authorize(Roles = "usuario, administrador")]
     public class DeclaracaoGenericaController : Controller
     {
 
@@ -20,15 +20,14 @@ namespace SGI_JMC.Controllers
             _context = context;
         }
 
-        //Métodos para declaração de frequência de aluno ProSic
-       // [Authorize(Roles = "usuario, administrador")]
+        [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
         public IActionResult CreateDeclaracaoGenerica()
         {
             return View();
         }
 
-       // [Authorize(Roles = "usuario, administrador")]
+        [Authorize(Roles = "usuario, administrador")]
         [HttpPost]
         public async Task<IActionResult> CreateDeclaracaoGenerica(DeclaracaoGenerica declaracaoGenerica)
         {
@@ -42,7 +41,7 @@ namespace SGI_JMC.Controllers
             return View(declaracaoGenerica);
         }
 
-       // [Authorize(Roles = "usuario, administrador")]
+        [Authorize(Roles = "usuario, administrador")]
         public FileResult gerarDeclaracaoGenerica(DeclaracaoGenerica declaracaoGenerica)
         {
             declaracaoGenerica.codigoAutenticacaoDeclaracaoGenerica = GerarCodigoDeAutenticacaoGnerica(declaracaoGenerica);
@@ -99,7 +98,7 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("Código de verificação: " + declaracaoGenerica.codigoAutenticacaoDeclaracaoGenerica, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 string dataString = DateTime.Now.ToString("dd/MM/yyyy");
-                
+
                 textFomatter.DrawString("Declaração emitida em " + DateTime.Now, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
@@ -128,7 +127,7 @@ namespace SGI_JMC.Controllers
             }
         }
 
-       // [Authorize(Roles = "usuario, administrador")]
+        [Authorize(Roles = "usuario, administrador")]
         public int GerarNumeroDeclaracaoGenerica(DeclaracaoGenerica declaracaoGenerica)
         {
             int numeroDeclaracaoGerado;
@@ -140,7 +139,7 @@ namespace SGI_JMC.Controllers
             return numeroDeclaracaoGerado;
         }
 
-       // [Authorize(Roles = "usuario, administrador")]
+        [Authorize(Roles = "usuario, administrador")]
         public string GerarCodigoDeAutenticacaoGnerica(DeclaracaoGenerica declaracaoGenerica)
         {
             string codigoAutenticacao = GerarNumeroDeclaracaoGenerica(declaracaoGenerica).ToString("x");
