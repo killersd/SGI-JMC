@@ -81,12 +81,33 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("DECLARAÇÃO", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                 declaracaoDistanciaInteriorizacao.DataDeEmissao = DateTime.Now;
-                textFomatter.DrawString("Declaro para os devidos fins que o(a) servidor(a) " + declaracaoDistanciaInteriorizacao.Nome + ", CPF " + declaracaoDistanciaInteriorizacao.CPF + ", " +
-                    "RG nº  " + declaracaoDistanciaInteriorizacao.RG + " "+ declaracaoDistanciaInteriorizacao.OrgaoExpedidor + ", exerce a função de " +
-                    "PROFESSOR(A) DE EDUCAÇÃO BÁSICA nesta Unidade de Ensino, desde o dia "+ declaracaoDistanciaInteriorizacao.InicioExercicio.ToString("dd/MM/yyyy") + " com " +
-                    "carga horária semanal de " + declaracaoDistanciaInteriorizacao.CargaHorariaSemanal + " horas, conforme horário em anexo. Outrossim, informamos que a distância entre a cidade de "+ declaracaoDistanciaInteriorizacao.Origem+" - "+declaracaoDistanciaInteriorizacao.Destino+"/"+declaracaoDistanciaInteriorizacao.Destino+" - "+declaracaoDistanciaInteriorizacao.Origem+" é de "+declaracaoDistanciaInteriorizacao.Distancia+" quilômetros.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                if (declaracaoDistanciaInteriorizacao.EstadoResidencia == null && (declaracaoDistanciaInteriorizacao.CidadeEntrada == null))
+                {
+                    textFomatter.DrawString("Declaro para os devidos fins que o(a) servidor(a) " + declaracaoDistanciaInteriorizacao.Nome + ", CPF " + declaracaoDistanciaInteriorizacao.CPF + ", " +
+                    "RG nº  " + declaracaoDistanciaInteriorizacao.RG + " " + declaracaoDistanciaInteriorizacao.OrgaoExpedidor + ", exerce a função de " +
+                    "PROFESSOR(A) DE EDUCAÇÃO BÁSICA nesta Unidade de Ensino, desde o dia " + declaracaoDistanciaInteriorizacao.InicioExercicio.ToString("dd/MM/yyyy") + " com " +
+                    "carga horária semanal de " + declaracaoDistanciaInteriorizacao.CargaHorariaSemanal + " horas, lecionando nas turmas: " + declaracaoDistanciaInteriorizacao.Turmas + ",conforme " +
+                    "horário em anexo. Outrossim, informamos que a distância entre a cidade de " + declaracaoDistanciaInteriorizacao.Origem + " - " + declaracaoDistanciaInteriorizacao.Destino + "/" + declaracaoDistanciaInteriorizacao.Destino + " - " + declaracaoDistanciaInteriorizacao.Origem + " é de " +
+                    "" + declaracaoDistanciaInteriorizacao.Distancia + " quilômetros.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                }
+
+                if (!(declaracaoDistanciaInteriorizacao.EstadoResidencia == null) && (!(declaracaoDistanciaInteriorizacao.CidadeEntrada == null)))
+                {
+                    textFomatter.DrawString("Declaro para os devidos fins que o(a) servidor(a) " + declaracaoDistanciaInteriorizacao.Nome + ", CPF " + declaracaoDistanciaInteriorizacao.CPF + ", " +
+                    "RG nº  " + declaracaoDistanciaInteriorizacao.RG + " " + declaracaoDistanciaInteriorizacao.OrgaoExpedidor + ", exerce a função de " +
+                    "PROFESSOR(A) DE EDUCAÇÃO BÁSICA nesta Unidade de Ensino, desde o dia " + declaracaoDistanciaInteriorizacao.InicioExercicio.ToString("dd/MM/yyyy") + " com " +
+                    "carga horária semanal de " + declaracaoDistanciaInteriorizacao.CargaHorariaSemanal + " horas, lecionando nas turmas: " + declaracaoDistanciaInteriorizacao.Turmas + ",conforme " +
+                    "horário em anexo. Outrossim, informamos que o(a) servidor(a) reside no estado da " + declaracaoDistanciaInteriorizacao.EstadoResidencia + " e utiliza como cidade de entrada " +
+                    "ao estado de sergipe, o município de " + declaracaoDistanciaInteriorizacao.CidadeEntrada + ". Dessa forma, a distância entre " + declaracaoDistanciaInteriorizacao.Origem + " - " + declaracaoDistanciaInteriorizacao.Destino + "/" + declaracaoDistanciaInteriorizacao.Destino + " - " + declaracaoDistanciaInteriorizacao.Origem + ", via " + declaracaoDistanciaInteriorizacao.CidadeEntrada + " é de " +
+                    "" + declaracaoDistanciaInteriorizacao.Distancia + " quilômetros.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                }
+                if (((declaracaoDistanciaInteriorizacao.EstadoResidencia != null) && (declaracaoDistanciaInteriorizacao.CidadeEntrada == null)) || ((declaracaoDistanciaInteriorizacao.EstadoResidencia == null) && (declaracaoDistanciaInteriorizacao.CidadeEntrada != null)))
+                {
+                    textFomatter.DrawString("VERIFIQUE OS DADOS E REFAÇA A DECLARAÇÃO!, ", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                }
+
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                textFomatter.DrawString("Atenciosamente, ", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 370, page.Width, page.Height));
+                textFomatter.DrawString("Atenciosamente, ", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 400, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 445, page.Width, page.Height));
                 textFomatter.DrawString("Equipe Diretiva", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 460, page.Width, page.Height));

@@ -34,6 +34,16 @@
                             <input asp-for="OrgaoExpedidor" class="form-control" />
                             <span asp-validation-for="OrgaoExpedidor" class="text-danger"></span>
                         </div>
+                        <div class="form-group">
+                            <label asp-for="InicioExercicio" class="control-label"></label>
+                            <input asp-for="InicioExercicio" class="form-control" />
+                            <span asp-validation-for="InicioExercicio" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EstadoResidencia" class="control-label"></label>
+                            <input asp-for="EstadoResidencia" placeholder="preencha somente se o servidor(a) residir em outro estado" class="form-control" />
+                            <span asp-validation-for="EstadoResidencia" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
@@ -56,12 +66,15 @@
                             <input asp-for="Distancia" class="form-control" maxlength="3" />
                             <span asp-validation-for="Distancia" class="text-danger"></span>
                         </div>
-                    </div>
-                    <div class="col-md-12">
                         <div class="form-group">
-                            <label asp-for="InicioExercicio" class="control-label"></label>
-                            <input asp-for="InicioExercicio" class="form-control" />
-                            <span asp-validation-for="InicioExercicio" class="text-danger"></span>
+                            <label asp-for="Turmas" class="control-label"></label>
+                            <input asp-for="Turmas" class="form-control" />
+                            <span asp-validation-for="Turmas" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CidadeEntrada" class="control-label"></label>
+                            <input asp-for="CidadeEntrada" placeholder="preencha somente se o servidor(a) residir em outro estado" class="form-control" />
+                            <span asp-validation-for="CidadeEntrada" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-12" style="text-align:center">

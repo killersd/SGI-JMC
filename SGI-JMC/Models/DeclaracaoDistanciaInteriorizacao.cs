@@ -45,6 +45,16 @@ namespace SGI_JMC.Models
         [Required(ErrorMessage = "Este campo é obrigatório")]
         public string Destino { get; set; }
 
+        [Display(Name = "Turmas nas quais leciona")]
+        [Required(ErrorMessage = "Este campo é obrigatório")]
+        public string Turmas { get; set; }
+
+        [Display(Name = "Cidade de entrada")]
+        public string CidadeEntrada { get; set; }
+
+        [Display(Name = "Estado qual reside")]
+        public string EstadoResidencia { get; set; }
+
         [Display(Name = "Data de emissão")]
         [DataType(DataType.Date)]
         public DateTime DataDeEmissao { get; set; }
