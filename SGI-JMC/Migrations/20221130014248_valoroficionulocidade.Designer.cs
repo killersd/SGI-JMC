@@ -10,8 +10,8 @@ using SGI_JMC.Models;
 namespace SGI_JMC.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20221119021921_decResDis")]
-    partial class decResDis
+    [Migration("20221130014248_valoroficionulocidade")]
+    partial class valoroficionulocidade
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -324,6 +324,9 @@ namespace SGI_JMC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CidadeEntrada")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CodigoAutenticacaoDeclaracaoInteriorizacao")
                         .HasColumnType("nvarchar(max)");
 
@@ -336,6 +339,9 @@ namespace SGI_JMC.Migrations
 
                     b.Property<string>("Distancia")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EstadoResidencia")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("InicioExercicio")
@@ -357,6 +363,10 @@ namespace SGI_JMC.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RG")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Turmas")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -1390,6 +1400,7 @@ namespace SGI_JMC.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Cidade")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CorpoDoOficio")

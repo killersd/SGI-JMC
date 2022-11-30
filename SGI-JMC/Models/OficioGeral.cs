@@ -40,6 +40,7 @@ namespace SGI_JMC.Models
         public DateTime DataEmissao { get; set; }
 
         [Display(Name = "Cidade do DESTINATÁRIO")]
+        [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
         public string Cidade { get; set; }
     }
 }

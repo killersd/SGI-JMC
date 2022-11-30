@@ -6,6 +6,8 @@ using System.Data;
 using System.IO;
 using System.Threading.Tasks;
 using System;
+using Microsoft.EntityFrameworkCore;
+using iText.Commons.Actions.Contexts;
 
 namespace SGI_JMC.Controllers
 {
@@ -19,6 +21,65 @@ namespace SGI_JMC.Controllers
         {
             _context = context;
         }
+
+        [Authorize(Roles = "administrador")]
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.DeclaracaoDistanciaInteriorizacao.ToListAsync());
+        }
+
+
+        [Authorize(Roles = "usuario, administrador")]
+        [HttpGet]
+        public IActionResult ConferirDadosReimprimirDeclaracao(int? id)
+        {
+            if (id != null)
+            {
+                DeclaracaoDistanciaInteriorizacao declaracao = _context.DeclaracaoDistanciaInteriorizacao.Find(id);
+                return View(declaracao);
+            }
+            else
+                return View();
+        }
+
+        [Authorize(Roles = "usuario, administrador")]
+        [HttpGet]
+        public IActionResult AtualizarDeclaracao(int? id)
+        {
+            if (id != null)
+            {
+                DeclaracaoDistanciaInteriorizacao declaracao = _context.DeclaracaoDistanciaInteriorizacao.Find(id);
+                return View(declaracao);
+            }
+            else
+                return View();
+        }
+
+
+        [Authorize(Roles = "usuario, administrador")]
+        [HttpPost]
+        public async Task<IActionResult> AtualizarDeclaracao(int? id, DeclaracaoDistanciaInteriorizacao declaracao)
+        {
+            if (id != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    _context.Update(declaracao);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return View(declaracao);
+                }
+
+            }
+            else
+
+                return NotFound();
+        }
+
 
         [HttpGet]
         [Authorize(Roles = "administrador")]
@@ -113,8 +174,8 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("Equipe Diretiva", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 460, page.Width, page.Height));
                 textFomatter.DrawString("Número do documento: " + declaracaoDistanciaInteriorizacao.NumeroDeclaracaoDistanciaInteriorizacao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
                 textFomatter.DrawString("Código de verificação: " + declaracaoDistanciaInteriorizacao.CodigoAutenticacaoDeclaracaoInteriorizacao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
-                //textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://sgi-eejmc.azurewebsites.net/Declaracao/VerificarAutenticidade, preencha os dados " +
-                //    "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://killersd.bsite.net/Declaracao/VerificarAutenticidade, preencha os dados " +
+                    "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 string dataString = DateTime.Now.ToString("dd/MM/yyyy HH:mm");

@@ -97,25 +97,30 @@ namespace SGI_JMC.Controllers
                 graphics.DrawRoundedRectangle(PdfSharpCore.Drawing.XPens.Black, PdfSharpCore.Drawing.XBrushes.Transparent, 75, 500, 200, 150, 10, 10);
                 graphics.DrawRoundedRectangle(PdfSharpCore.Drawing.XPens.Black, PdfSharpCore.Drawing.XBrushes.Transparent, 326, 500, 200, 150, 10, 10);
 
-                textFomatter.DrawString("Para uso da Diretoria Regional", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(76, 505, 200, page.Height));
+                textFomatter.DrawString("Para uso da Unidade de Ensino", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(76, 505, 200, page.Height));
                 textFomatter.DrawString("Dou fé que as informações acima são verdadeiras.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(76, 525, 200, page.Height));
-                textFomatter.DrawString("Ciente em ____/____/________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(76, 570, 200, page.Height));
+                textFomatter.DrawString("Data ____/____/________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(76, 570, 200, page.Height));
                 textFomatter.DrawString("_______________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(76, 590, 200, page.Height));
                 textFomatter.DrawString("Diretor(a)", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(76, 610, 200, page.Height));
                 textFomatter.DrawString("carimbo", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(76, 625, 200, page.Height));
 
 
-                textFomatter.DrawString("Para uso da Unidade de Ensino", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(327, 505, 200, page.Height));
-                textFomatter.DrawString("Dou fé que as informações acima são verdadeiras.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(327, 525, 200, page.Height));
-                textFomatter.DrawString("Ciente em ____/____/________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(327, 570, 200, page.Height));
+                textFomatter.DrawString("Para uso da Diretoria Regional", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(327, 505, 200, page.Height));
+                graphics.DrawRoundedRectangle(PdfSharpCore.Drawing.XPens.Black, PdfSharpCore.Drawing.XBrushes.Transparent, 335, 543, 20, 20, 10, 10);
+                textFomatter.DrawString("Nada a opor", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(327, 545, 140, page.Height));
+
+                graphics.DrawRoundedRectangle(PdfSharpCore.Drawing.XPens.Black, PdfSharpCore.Drawing.XBrushes.Transparent, 445, 543, 20, 20, 10, 10);
+                textFomatter.DrawString("Discordo", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(425, 545, 140, page.Height));
+
+                textFomatter.DrawString("Data ____/____/________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(327, 570, 200, page.Height));
                 textFomatter.DrawString("_______________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(327, 590, 200, page.Height));
                 textFomatter.DrawString("Diretor(a)", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(327, 610, 200, page.Height));
                 textFomatter.DrawString("carimbo", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(327, 625, 200, page.Height));
 
-                textFomatter.DrawString("Número do documento: " + declaracaoResidencia.NumeroDeclaracaoResidencia, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 700, page.Width, page.Height));
-                textFomatter.DrawString("Código de verificação: " + declaracaoResidencia.CodigoAutenticacaoDeclaracaoResidencia, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 713, page.Width, page.Height));
-                //textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://sgi-eejmc.azurewebsites.net/Declaracao/VerificarAutenticidade, preencha os dados " +
-                //    "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
+                textFomatter.DrawString("Número do documento: " + declaracaoResidencia.NumeroDeclaracaoResidencia, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 680, page.Width, page.Height));
+                textFomatter.DrawString("Código de verificação: " + declaracaoResidencia.CodigoAutenticacaoDeclaracaoResidencia, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 693, page.Width, page.Height));
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://killersd.bsite.net/Declaracao/VerificarAutenticidade, preencha os dados " +
+                    "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 710, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 string dataString = DateTime.Now.ToString("dd/MM/yyyy HH:mm");

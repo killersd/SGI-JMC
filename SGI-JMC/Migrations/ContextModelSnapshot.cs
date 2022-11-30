@@ -1398,6 +1398,7 @@ namespace SGI_JMC.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Cidade")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CorpoDoOficio")

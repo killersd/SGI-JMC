@@ -36,7 +36,7 @@ namespace SGI_JMC.Controllers
         {
             return View(await _context.DeclaracaoTransferenciaRegular.ToListAsync());
         }
-        
+
 
 
         //Métodos auxiliares
@@ -61,8 +61,8 @@ namespace SGI_JMC.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                     if ((_context.Declaracao.Any(u => u.codigoAutenticacao == verificar.CodigoDeVerificacao) &&
-                        (_context.Declaracao.Any(u => u.numeroDeclaracao == verificar.NumeroDeclaracao))))
+                    if ((_context.Declaracao.Any(u => u.codigoAutenticacao == verificar.CodigoDeVerificacao) &&
+                       (_context.Declaracao.Any(u => u.numeroDeclaracao == verificar.NumeroDeclaracao))))
                     {
                         this.MostrarMensagem("ESTE DOCUMENTO É VERDADEIRO E FOI GERADO PELO SGI-EEJMC.");
                         return View(verificar);
@@ -128,7 +128,7 @@ namespace SGI_JMC.Controllers
                         return View(verificar);
                     }
                     else if ((_context.DeclaracaoResidencia.Any(u => u.CodigoAutenticacaoDeclaracaoResidencia == verificar.CodigoDeVerificacao) &&
-                     (_context.DeclaracaoResidencia.Any(u => u.NumeroDeclaracaoResidencia == verificar.NumeroDeclaracao))))
+                      (_context.DeclaracaoResidencia.Any(u => u.NumeroDeclaracaoResidencia == verificar.NumeroDeclaracao))))
                     {
                         this.MostrarMensagem("ESTE DOCUMENTO É VERDADEIRO E FOI GERADO PELO SGI-EEJMC.");
                         return View(verificar);
@@ -136,8 +136,8 @@ namespace SGI_JMC.Controllers
 
 
                     this.MostrarMensagem("ESTE DOCUMENTO É FALSO.", true);
-                        return View(verificar);
-                    
+                    return View(verificar);
+
                 }
                 else
                 {
@@ -146,7 +146,9 @@ namespace SGI_JMC.Controllers
             }
             catch (Exception)
             {
-                return RedirectToAction("VerificarAutenticidade");
+                this.MostrarMensagem("ESTE DOCUMENTO É FALSO.", true);
+                return View(verificar);
+                //return RedirectToAction("VerificarAutenticidade");
             }
         }
 
@@ -200,7 +202,7 @@ namespace SGI_JMC.Controllers
                 var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
                 var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
                 var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
-                
+
                 var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
                 var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
                 XImage imgBrasao = XImage.FromFile(brasao);
@@ -261,7 +263,7 @@ namespace SGI_JMC.Controllers
 
                 textFomatter.DrawString("Número do documento: " + declaracao.numeroDeclaracao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
                 textFomatter.DrawString("Código de verificação: " + declaracao.codigoAutenticacao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
-                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://sgi-eejmc.azurewebsites.net/Declaracao/VerificarAutenticidade, preencha os dados " +
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://killersd.bsite.net/Declaracao/VerificarAutenticidade, preencha os dados " +
                     "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
@@ -425,7 +427,7 @@ namespace SGI_JMC.Controllers
 
                 textFomatter.DrawString("Número do documento: " + declaracaoProSic.numeroDeclaracao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
                 textFomatter.DrawString("Código de verificação: " + declaracaoProSic.codigoAutenticacao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
-                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://sgi-eejmc.azurewebsites.net/Declaracao/VerificarAutenticidade, preencha os dados " +
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://killersd.bsite.net/Declaracao/VerificarAutenticidade, preencha os dados " +
                     "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
@@ -530,7 +532,7 @@ namespace SGI_JMC.Controllers
                 var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
                 var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
                 var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, PdfSharpCore.Drawing.XFontStyle.Bold);
-                
+
                 var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
                 var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
                 XImage imgBrasao = XImage.FromFile(brasao);
@@ -593,7 +595,7 @@ namespace SGI_JMC.Controllers
 
                 textFomatter.DrawString("Número do documento: " + declaracaoTransferenciaRegular.numeroDeclaracao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
                 textFomatter.DrawString("Código de verificação: " + declaracaoTransferenciaRegular.codigoAutenticacao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
-                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://sgi-eejmc.azurewebsites.net/Declaracao/VerificarAutenticidade, preencha os dados " +
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://killersd.bsite.net/Declaracao/VerificarAutenticidade, preencha os dados " +
                     "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
@@ -752,7 +754,7 @@ namespace SGI_JMC.Controllers
 
                 textFomatter.DrawString("Número do documento: " + declaracaoTransferenciaProSic.numeroDeclaracao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
                 textFomatter.DrawString("Código de verificação: " + declaracaoTransferenciaProSic.codigoAutenticacao, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
-                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://sgi-eejmc.azurewebsites.net/Declaracao/VerificarAutenticidade, preencha os dados " +
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://killersd.bsite.net/Declaracao/VerificarAutenticidade, preencha os dados " +
                     "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
@@ -939,7 +941,7 @@ namespace SGI_JMC.Controllers
 
                 textFomatter.DrawString("Número do documento: " + declaracaoConcludentesProSic.numeroDeclaracaoConcludenteProSic, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
                 textFomatter.DrawString("Código de verificação: " + declaracaoConcludentesProSic.codigoAutenticacaoConcludenteProSic, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
-                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://sgi-eejmc.azurewebsites.net/Declaracao/VerificarAutenticidade, preencha os dados " +
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://killersd.bsite.net/Declaracao/VerificarAutenticidade, preencha os dados " +
                     "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
@@ -1127,7 +1129,7 @@ namespace SGI_JMC.Controllers
 
                 textFomatter.DrawString("Número do documento: " + declaracaoConcludentesRegular.numeroDeclaracaoConcludente, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
                 textFomatter.DrawString("Código de verificação: " + declaracaoConcludentesRegular.codigoAutenticacaoConcludente, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
-                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://sgi-eejmc.azurewebsites.net/Declaracao/VerificarAutenticidade, preencha os dados " +
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://killersd.bsite.net/Declaracao/VerificarAutenticidade, preencha os dados " +
                     "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
