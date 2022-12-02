@@ -23,7 +23,28 @@ namespace SGI_JMC.Controllers
         public OficioAssumiuFuncaoController(Context context)
         {
             _context = context;
+        }      
+
+
+        [Authorize(Roles = "administrador")]
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.OficioAssumiuFuncao.ToListAsync());
         }
+
+        [Authorize(Roles = "administrador")]
+        public ActionResult Details(int? id)
+        {
+            if (id != null)
+            {
+                OficioAssumiuFuncao oficio = _context.OficioAssumiuFuncao.Find(id);
+                return View(oficio);
+            }
+            else
+                return NotFound();
+        }
+
 
         [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
@@ -102,7 +123,7 @@ namespace SGI_JMC.Controllers
                 }
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
-                textFomatter.DrawString("Comunicamos a Vossa Senhoria que " + oficioAssumiuFuncao.Name + ", CPF " + oficioAssumiuFuncao.CPF + ", vínculo " + oficioAssumiuFuncao.vinculo + ", ocupante do Cargo de Professor de Educação Básica, assumiu suas funções em regência de classe no dia " + oficioAssumiuFuncao.DataAssumiuFuncao.ToShortDateString() + " com carga horária de " + oficioAssumiuFuncao.CargaHoraria + " horas semanais, na disciplina ," + oficioAssumiuFuncao.disciplina + " conforme horário anexo, atuando no  Ensino Fundamental FRC "+oficioAssumiuFuncao.FonteRecursos+" (FRC: Fonte de Recursos do FUNDEB).", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 330, page.Width, page.Height));
+                textFomatter.DrawString("Comunicamos a Vossa Senhoria que " + oficioAssumiuFuncao.Name + ", CPF " + oficioAssumiuFuncao.CPF + ", vínculo " + oficioAssumiuFuncao.vinculo + ", ocupante do Cargo de Professor de Educação Básica, assumiu suas funções em regência de classe no dia " + oficioAssumiuFuncao.DataAssumiuFuncao.ToString("dd/MM/yyyy") + " com carga horária de " + oficioAssumiuFuncao.CargaHoraria + " horas semanais, na disciplina, " + oficioAssumiuFuncao.disciplina + " conforme horário anexo, atuando no  Ensino Fundamental FRC "+oficioAssumiuFuncao.FonteRecursos+" (FRC: Fonte de Recursos do FUNDEB).", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 330, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 500, page.Width, page.Height));
                 textFomatter.DrawString("Queilanc Borges Batista de Souza", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 510, page.Width, page.Height));
