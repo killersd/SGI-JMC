@@ -23,7 +23,7 @@ namespace SGI_JMC.Controllers
         public OficioAssumiuFuncaoController(Context context)
         {
             _context = context;
-        }      
+        }
 
 
         [Authorize(Roles = "administrador")]
@@ -100,7 +100,7 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("Assunto: " + oficioAssumiuFuncao.Assunto + ".", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 165, page.Width, page.Height));
                 textFomatter.DrawString("Simão Dias - Se -  " + oficioAssumiuFuncao.DataEmissao.ToString("dd/MM/yyyy"), fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
                 //Corpo do ofício
-                if (oficioAssumiuFuncao.destinatario.Equals("Daniela Silva")) 
+                if (oficioAssumiuFuncao.destinatario.Equals("Daniela Silva"))
                 {
                     textFomatter.DrawString("Senhora Diretora,", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 280, page.Width, page.Height));
                     //Destinatário
@@ -122,8 +122,18 @@ namespace SGI_JMC.Controllers
 
                 }
 
+                string ch = null;
+
+                if (oficioAssumiuFuncao.CargaHoraria > 50)
+                {
+                    ch = "mensais";
+                }
+                else
+                {
+                    ch = "semanais";
+                }
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
-                textFomatter.DrawString("Comunicamos a Vossa Senhoria que " + oficioAssumiuFuncao.Name + ", CPF " + oficioAssumiuFuncao.CPF + ", vínculo " + oficioAssumiuFuncao.vinculo + ", ocupante do Cargo de Professor de Educação Básica, assumiu suas funções em regência de classe no dia " + oficioAssumiuFuncao.DataAssumiuFuncao.ToString("dd/MM/yyyy") + " com carga horária de " + oficioAssumiuFuncao.CargaHoraria + " horas semanais, na disciplina, " + oficioAssumiuFuncao.disciplina + " conforme horário anexo, atuando no  Ensino Fundamental FRC "+oficioAssumiuFuncao.FonteRecursos+" (FRC: Fonte de Recursos do FUNDEB).", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 330, page.Width, page.Height));
+                textFomatter.DrawString("Comunicamos a Vossa Senhoria que " + oficioAssumiuFuncao.Name + ", CPF " + oficioAssumiuFuncao.CPF + ", vínculo " + oficioAssumiuFuncao.vinculo + ", ocupante do Cargo de Professor de Educação Básica, assumiu suas funções em regência de classe no dia " + oficioAssumiuFuncao.DataAssumiuFuncao.ToString("dd/MM/yyyy") + " com carga horária de " + oficioAssumiuFuncao.CargaHoraria + " horas " + ch + ", na disciplina, " + oficioAssumiuFuncao.disciplina + " conforme horário anexo, atuando no  Ensino Fundamental FRC " + oficioAssumiuFuncao.FonteRecursos + " (FRC: Fonte de Recursos do FUNDEB).", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 330, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 500, page.Width, page.Height));
                 textFomatter.DrawString("Queilanc Borges Batista de Souza", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 510, page.Width, page.Height));
@@ -145,8 +155,8 @@ namespace SGI_JMC.Controllers
                     var nomeArquivo = "Ofício " + oficioAssumiuFuncao.Name + ".pdf";
                     //Salvando no banco
                     oficioAssumiuFuncao.DataEmissao = DateTime.Now;
-                    _context.Add(oficioAssumiuFuncao);
-                    _context.SaveChangesAsync();
+                    //_context.Add(oficioAssumiuFuncao);
+                    //_context.SaveChangesAsync();
                     return File(stream.ToArray(), contentType, nomeArquivo);
                 }
             }

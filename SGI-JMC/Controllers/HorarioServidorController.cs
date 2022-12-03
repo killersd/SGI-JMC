@@ -78,8 +78,23 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString(horarioServidor.Nome, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(80, 265, page.Width, page.Height));
                 textFomatter.DrawString("Cargo: ", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(5, 280, page.Width, page.Height));
                 textFomatter.DrawString(horarioServidor.Cargo.ToString(), fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(50, 280, page.Width, page.Height));
-                textFomatter.DrawString("Carga horária semanal: ", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(5, 295, page.Width, page.Height));
+
+
+                string ch = null;
+
+                if (horarioServidor.CargaHorariaSemanal > 44)
+                {
+                    ch = "mensal";
+                }
+                else
+                {
+                    ch = "semanal";
+                }
+
+                textFomatter.DrawString("Carga horária "+ch+": ", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(5, 295, page.Width, page.Height));
                 textFomatter.DrawString(horarioServidor.CargaHorariaSemanal.ToString() + " horas", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(145, 295, page.Width, page.Height));
+               
+                
                 textFomatter.DrawString("Vínculo: ", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(5, 310, page.Width, page.Height));
                 textFomatter.DrawString(horarioServidor.Vinculo, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(60, 310, page.Width, page.Height));
                 textFomatter.DrawString("Turno: ", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(5, 325, page.Width, page.Height));

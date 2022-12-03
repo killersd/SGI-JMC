@@ -41,7 +41,7 @@ namespace SGI_JMC.Models
 
         [Display(Name = "Carga horária")]
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
-        public string CargaHoraria { get; set; }
+        public int CargaHoraria { get; set; }
 
         [Display(Name = "Disciplina")]
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]

@@ -144,7 +144,21 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString(horarioProfessor.Cargo, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(50, 280, page.Width, page.Height));
                 textFomatter.DrawString("Disciplina: ", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(5, 295, page.Width, page.Height));
                 textFomatter.DrawString(horarioProfessor.Disciplina, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(70, 295, page.Width, page.Height));
-                textFomatter.DrawString("Carga horária semanal: ", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(5, 310, page.Width, page.Height));
+
+                string ch = null;
+
+                if (horarioProfessor.CargaHorariaSemanal > 50)
+                {
+                    ch = "mensal";
+                }
+                else
+                {
+                    ch = "semanal";
+                }
+
+
+
+                textFomatter.DrawString("Carga horária " + ch + ": ", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(5, 310, page.Width, page.Height));
                 textFomatter.DrawString(horarioProfessor.CargaHorariaSemanal + " horas/aula", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(145, 310, page.Width, page.Height));
                 //Tabela de horários
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
