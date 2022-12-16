@@ -1,0 +1,49 @@
+﻿@model SGI_JMC.Models.GuiaDeTransferencia
+
+@{
+    ViewData["Title"] = "Guia de Transferênciaa - ";
+}
+<hr />
+<div class="container-fluid">
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4><b>Guia de Transferência</b></h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="gerarGuiaDeTransferencia">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-12">
+
+                    </div>
+                    <p></p>
+                </div>
+                <p></p>
+                <div class="col-md-12" style="text-align:center">
+                    <button type="submit" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Baixar Guia de Transferência</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="card-body">
+            <form asp-action="gerarGuiaDeTransferenciaFundo">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                    </div>
+                    <p></p>
+                </div>
+                <p></p>
+                <div class="col-md-12" style="text-align:center">
+                    <button type="submit" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Baixar Guia de Transferência Fundo</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
