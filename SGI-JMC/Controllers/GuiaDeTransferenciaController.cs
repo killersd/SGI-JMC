@@ -179,12 +179,100 @@ namespace SGI_JMC.Controllers
 
                 int v1 = 65, v2 = 90;
 
-                for (int i = 0; i < 1; i++)
+                for (int i = 0; i < 13; i++)
                 {
-                    XGraphics gfxRotate = XGraphics.FromPdfPage(page);
-                    gfxRotate.RotateAtTransform(-90, new XPoint(v1, 480));
-                    gfxRotate.DrawString("Português", fonteDetalhesDescricao, XBrushes.Black, new XPoint(v2, 480));
-                    gfxRotate.Dispose();
+
+                    if (i == 0)
+                    {
+                        XGraphics gfxRotate = XGraphics.FromPdfPage(page);
+                        gfxRotate.RotateAtTransform(-90, new XPoint(v1, 480));
+                        gfxRotate.DrawString("Português", fonteDetalhesDescricao, XBrushes.Black, new XPoint(v2, 480));
+                        gfxRotate.Dispose();
+                    }
+                    if (i == 1)
+                    {
+                        XGraphics gfxRotate = XGraphics.FromPdfPage(page);
+                        gfxRotate.RotateAtTransform(-90, new XPoint(v1, 480));
+                        gfxRotate.DrawString("Matemática", fonteDetalhesDescricao, XBrushes.Black, new XPoint(v2, 480));
+                        gfxRotate.Dispose();
+                    }
+                    if (i == 2)
+                    {
+                        XGraphics gfxRotate = XGraphics.FromPdfPage(page);
+                        gfxRotate.RotateAtTransform(-90, new XPoint(v1, 480));
+                        gfxRotate.DrawString("Ciências", fonteDetalhesDescricao, XBrushes.Black, new XPoint(v2, 480));
+                        gfxRotate.Dispose();
+                    }
+                    if (i == 3)
+                    {
+                        XGraphics gfxRotate = XGraphics.FromPdfPage(page);
+                        gfxRotate.RotateAtTransform(-90, new XPoint(v1, 480));
+                        gfxRotate.DrawString("História", fonteDetalhesDescricao, XBrushes.Black, new XPoint(v2, 480));
+                        gfxRotate.Dispose();
+                    }
+                    if (i == 4)
+                    {
+                        XGraphics gfxRotate = XGraphics.FromPdfPage(page);
+                        gfxRotate.RotateAtTransform(-90, new XPoint(v1, 480));
+                        gfxRotate.DrawString("Geografia", fonteDetalhesDescricao, XBrushes.Black, new XPoint(v2, 480));
+                        gfxRotate.Dispose();
+                    }
+                    if (i == 5)
+                    {
+                        XGraphics gfxRotate = XGraphics.FromPdfPage(page);
+                        gfxRotate.RotateAtTransform(-90, new XPoint(v1, 480));
+                        gfxRotate.DrawString("Artes", fonteDetalhesDescricao, XBrushes.Black, new XPoint(v2, 480));
+                        gfxRotate.Dispose();
+                    }
+                    if (i == 6)
+                    {
+                        XGraphics gfxRotate = XGraphics.FromPdfPage(page);
+                        gfxRotate.RotateAtTransform(-90, new XPoint(v1, 480));
+                        gfxRotate.DrawString("Inglês", fonteDetalhesDescricao, XBrushes.Black, new XPoint(v2, 480));
+                        gfxRotate.Dispose();
+                    }
+                    if (i == 7)
+                    {
+                        XGraphics gfxRotate = XGraphics.FromPdfPage(page);
+                        gfxRotate.RotateAtTransform(-90, new XPoint(v1, 480));
+                        gfxRotate.DrawString("Educação Física", fonteDetalhesDescricao, XBrushes.Black, new XPoint(v2, 480));
+                        gfxRotate.Dispose();
+                    }
+                    if (i == 8)
+                    {
+                        XGraphics gfxRotate = XGraphics.FromPdfPage(page);
+                        gfxRotate.RotateAtTransform(-90, new XPoint(v1, 480));
+                        gfxRotate.DrawString("Ensino Religioso", fonteDetalhesDescricao, XBrushes.Black, new XPoint(v2, 480));
+                        gfxRotate.Dispose();
+                    }
+                    if (i == 9)
+                    {
+                        XGraphics gfxRotate = XGraphics.FromPdfPage(page);
+                        gfxRotate.RotateAtTransform(-90, new XPoint(v1, 480));
+                        gfxRotate.DrawString("Proj. Vida", fonteDetalhesDescricao, XBrushes.Black, new XPoint(v2, 480));
+                        gfxRotate.Dispose();
+                    }
+                    if (i == 10)
+                    {
+                        XGraphics gfxRotate = XGraphics.FromPdfPage(page);
+                        gfxRotate.RotateAtTransform(-90, new XPoint(v1, 480));
+                        gfxRotate.DrawString("Lab. Prod. Texto", fonteDetalhesDescricao, XBrushes.Black, new XPoint(v2, 480));
+                        gfxRotate.Dispose();
+                    }
+                    if (i == 11)
+                    {
+                        XGraphics gfxRotate = XGraphics.FromPdfPage(page);
+                        gfxRotate.RotateAtTransform(-90, new XPoint(v1, 480));
+                        gfxRotate.DrawString("Of. Letramento", fonteDetalhesDescricao, XBrushes.Black, new XPoint(v2, 480));
+                        gfxRotate.Dispose();
+                    }
+                    if (i == 12)
+                    {
+                        XGraphics gfxRotate = XGraphics.FromPdfPage(page);
+                        gfxRotate.RotateAtTransform(-90, new XPoint(v1, 480));
+                        gfxRotate.DrawString("Of. Numeramento", fonteDetalhesDescricao, XBrushes.Black, new XPoint(v2, 480));
+                        gfxRotate.Dispose();
+                    }
                     v1 = v1 + 15;
                     v2 = v2 + 15;
                 }
@@ -200,13 +288,6 @@ namespace SGI_JMC.Controllers
                 //string dataString = DateTime.Now.ToString("dd/MM/yyyy");
 
                 //textFomatter.DrawString("Declaração emitida em " + DateTime.Now.ToString("dd/MM/yyyy"), fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
-
-
-                var page2 = doc.AddPage();
-                page2.Size = PdfSharpCore.PageSize.A4;
-                page2.TrimMargins.Right = 50;
-                page2.TrimMargins.Left = 50;
-                page2.Orientation = PdfSharpCore.PageOrientation.Portrait;
 
 
                 using (MemoryStream stream = new MemoryStream())
@@ -258,23 +339,24 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("ENSINO FUNDAMENTAL", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 70, page.Width, page.Height));
                 textFomatter.DrawString("Aprroveitamento", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 85, page.Width, page.Height));
                 textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 90, page.Width, page.Height));
+
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
                 textFomatter.DrawString("DISCIPLINAS", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(70, 130, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                              
-                
-                textFomatter.DrawString("NOTAS", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(100, 150, page.Width, page.Height));
+
+
+                textFomatter.DrawString("NOTAS", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(100, 140, page.Width, page.Height));
 
                 int inicio = 165;
 
                 for (int i = 0; i < 24; i++)
                 {
-                    textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, inicio, page.Width, page.Height));
+                    textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, inicio, page.Width, page.Height));
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
                     textFomatter.DrawString("", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(5, inicio + 1, page.Width, page.Height));
                     inicio = inicio + 15;
                 }
-                                                                                        //1º parametro margem esquerda/2º altura(eixo Y)/3ºLargura/4ºaltura                                             
+                //1º parametro margem esquerda (eixo X)/2º altura(eixo Y)/3ºLargura/4ºaltura                                             
                 graphics.DrawRoundedRectangle(PdfSharpCore.Drawing.XPens.Black, PdfSharpCore.Drawing.XBrushes.Transparent, 0, 105, 200, 435, 0, 0);
 
                 double largura = 200;
@@ -284,7 +366,19 @@ namespace SGI_JMC.Controllers
                     graphics.DrawRoundedRectangle(PdfSharpCore.Drawing.XPens.Black, PdfSharpCore.Drawing.XBrushes.Transparent, 0, 165, largura, 375, 0, 0);
                     largura = largura + 43.9;
                 }
+                double larg2 = 43.9;
+                for (int i = 0; i < 9; i++)
+                {
+                    graphics.DrawRoundedRectangle(PdfSharpCore.Drawing.XPens.Black, PdfSharpCore.Drawing.XBrushes.Transparent, 200, 105, larg2, 15, 0, 0);
+                    larg2 = larg2 + 43.9;
+                }
+
+                textFomatter.DrawString("_________________________________________________________", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(200, 120, 10, page.Height));
+
                 textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 550, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("ESCOLA DE ORIGEM", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 545, page.Width, page.Height));
+
 
                 //textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 445, page.Width, page.Height));
                 //textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
