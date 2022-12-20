@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 using System;
 using iText.Layout.Element;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
 
 namespace SGI_JMC.Controllers
 {
     public class GuiaDeTransferenciaController : Controller
     {
         private readonly Context _context;
-
         public GuiaDeTransferenciaController(Context context)
         {
             _context = context;
