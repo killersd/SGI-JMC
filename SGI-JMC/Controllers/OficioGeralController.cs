@@ -88,7 +88,7 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
                 //Início              
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                textFomatter.DrawString("Ofício nº 00" + oficioGeral.NumeroOficio + "/2022", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
+                textFomatter.DrawString("Ofício nº 00" + oficioGeral.NumeroOficio + "/"+DateTime.Now.Year, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
                 textFomatter.DrawString("Assunto: " + oficioGeral.Assunto + ".", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 165, page.Width, page.Height));
                 textFomatter.DrawString("Simão Dias - Se -  " + oficioGeral.DataEmissao.ToString("dd/MM/yyyy"), fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
                 //Corpo do ofício

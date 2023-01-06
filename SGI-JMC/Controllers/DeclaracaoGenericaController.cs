@@ -96,6 +96,11 @@ namespace SGI_JMC.Controllers
 
                 textFomatter.DrawString("Número do documento: " + declaracaoGenerica.numeroDeclaracaoGenerica, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 600, page.Width, page.Height));
                 textFomatter.DrawString("Código de verificação: " + declaracaoGenerica.codigoAutenticacaoDeclaracaoGenerica, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 613, page.Width, page.Height));
+
+                textFomatter.DrawString("Para verificar a autenticidade deste documento acesse: https://killersd.bsite.net/Declaracao/VerificarAutenticidade, preencha os dados " +
+    "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
+
+
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 string dataString = DateTime.Now.ToString("dd/MM/yyyy");
 
@@ -110,7 +115,7 @@ namespace SGI_JMC.Controllers
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
                 textFomatter.DrawString("SGI-Sistema de Gestão Interna - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
-                textFomatter.DrawString("Usuário: Alex.Oliveira" + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
 
                 using (MemoryStream stream = new MemoryStream())
                 {
@@ -119,8 +124,8 @@ namespace SGI_JMC.Controllers
                     var nomeArquivo = "Declaração Genérica.pdf";
                     //Salvando no banco
                     declaracaoGenerica.DataEmissao = DateTime.Now;
-                    //_context.Add(declaracaoGenerica);
-                    //_context.SaveChangesAsync();
+                    _context.Add(declaracaoGenerica);
+                    _context.SaveChangesAsync();
                     return File(stream.ToArray(), contentType, nomeArquivo);
                 }
 

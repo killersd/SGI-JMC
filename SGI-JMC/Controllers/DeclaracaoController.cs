@@ -133,7 +133,12 @@ namespace SGI_JMC.Controllers
                         this.MostrarMensagem("ESTE DOCUMENTO É VERDADEIRO E FOI GERADO PELO SGI-EEJMC.");
                         return View(verificar);
                     }
-
+                    else if ((_context.DeclaracaoGenerica.Any(u => u.codigoAutenticacaoDeclaracaoGenerica == verificar.CodigoDeVerificacao) &&
+                      (_context.DeclaracaoGenerica.Any(u => u.numeroDeclaracaoGenerica == verificar.NumeroDeclaracao))))
+                    {
+                        this.MostrarMensagem("ESTE DOCUMENTO É VERDADEIRO E FOI GERADO PELO SGI-EEJMC.");
+                        return View(verificar);
+                    }
 
                     this.MostrarMensagem("ESTE DOCUMENTO É FALSO.", true);
                     return View(verificar);

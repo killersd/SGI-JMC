@@ -37,7 +37,7 @@ namespace SGI_JMC.Models
         public DbSet<DeclaracaoExAluno> DeclaracaoExAluno { get; set; }
         public DbSet<DeclaracaoDistanciaInteriorizacao> DeclaracaoDistanciaInteriorizacao { get; set; }
         public DbSet<DeclaracaoResidencia> DeclaracaoResidencia { get; set; }
-
+        public DbSet<DeclaracaoGenerica> DeclaracaoGenerica { get; set; }
 
     }
 }
