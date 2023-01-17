@@ -9,7 +9,7 @@
 <div class="container-fluid">
     <div class="card mb-3">
         <div class="card-header">
-            <h4><b>Declaração Ex - Aluno</b></h4>
+            <h4><b>Declaração Situação Final</b></h4>
         </div>
         <div class="card-body">
             <form asp-action="gerarDeclaracaoExAluno">
@@ -39,13 +39,29 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label asp-for="Serie" class="control-label"></label>
-                            <input asp-for="Serie" MaxLength="1" placeholder="1ª, 2ª, 3ª..." class="form-control" />
-                            <span asp-validation-for="Serie" class="text-danger"></span>
+
+                    @if (Context.User.IsInRole("administrador") && (Context.User.IsInRole("usuario")))
+                    {
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Serie" class="control-label"></label>
+                                <input asp-for="Serie" MaxLength="1" placeholder="1ª, 2, 3ª..." class="form-control" />
+                                <span asp-validation-for="Serie" class="text-danger"></span>
+                            </div>
                         </div>
-                    </div>
+                    }
+
+                    @if (Context.User.IsInRole("usuario") && (!Context.User.IsInRole("administrador")))
+                    {
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Serie" class="control-label"></label>
+                                <input asp-for="Serie" MaxLength="1" placeholder="campo desabilitado" class="form-control" disabled />
+                                <span asp-validation-for="Serie" class="text-danger"></span>
+                            </div>
+                        </div>
+                    }
+
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="AnoLetivo" class="control-label"></label>

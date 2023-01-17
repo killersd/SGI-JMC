@@ -12,6 +12,7 @@ namespace SGI_JMC.Controllers
     {
         private readonly Context _context;
 
+
         public DeclaracaoExAlunoController(Context context)
         {
             _context = context;
@@ -48,6 +49,11 @@ namespace SGI_JMC.Controllers
         [Authorize(Roles = "usuario, administrador")]
         public FileResult gerarDeclaracaoExAluno(DeclaracaoExAluno declaracaoExAluno)
         {
+
+            if (!User.IsInRole("administrador"))
+            {
+                declaracaoExAluno.Serie = 0;
+            }
             declaracaoExAluno.CodigoAutenticacao = GerarCodigoDeAutenticacaoDeclaracaoExAluno(declaracaoExAluno);
             using (var doc = new PdfSharpCore.Pdf.PdfDocument())
             {
@@ -92,13 +98,13 @@ namespace SGI_JMC.Controllers
                     {
                         textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                         textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracaoExAluno.Nome.ToUpper() + ", nascido(a) em " + declaracaoExAluno.DataNasimento.ToString("dd/MM/yyy") + ", filho(a) de " + declaracaoExAluno.NomeMae.ToUpper() + " e " + declaracaoExAluno.NomePai.ToUpper() + ", " +
-                            "no ano letivo de " + declaracaoExAluno.AnoLetivo + ", foi matriculado(a) nesta Unidade de Ensino no " + declaracaoExAluno.Ano + "º ano do Ensino Fundamental e ao final do ano foi considerado " + declaracaoExAluno.ResultadoFinal, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                            "no ano letivo de " + declaracaoExAluno.AnoLetivo + ", foi matriculado(a) nesta Unidade de Ensino no " + declaracaoExAluno.Ano + "º ano do Ensino Fundamental e ao final do ano foi considerado(a) " + declaracaoExAluno.ResultadoFinal + "(a).", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
                     }
                     else
                     {
                         textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                         textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracaoExAluno.Nome.ToUpper() + ", nascido(a) em " + declaracaoExAluno.DataNasimento.ToString("dd/MM/yyy") + ", filho(a) de " + declaracaoExAluno.NomeMae.ToUpper() + " e " + declaracaoExAluno.NomePai.ToUpper() + ", " +
-                            "no ano letivo de " + declaracaoExAluno.AnoLetivo + ", foi matriculado(a) nesta Unidade de Ensino na " + declaracaoExAluno.Serie + "ª Serie, atualmente correspondente ao " + declaracaoExAluno.Ano + "º ano do Ensino Fundamental e ao final do ano foi considerado " + declaracaoExAluno.ResultadoFinal, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                            "no ano letivo de " + declaracaoExAluno.AnoLetivo + ", foi matriculado(a) nesta Unidade de Ensino na " + declaracaoExAluno.Serie + "ª Serie, atualmente correspondente ao " + declaracaoExAluno.Ano + "º ano do Ensino Fundamental e ao final do ano foi considerado(a) " + declaracaoExAluno.ResultadoFinal + "(a).", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
                     }
 
                 }
@@ -108,13 +114,13 @@ namespace SGI_JMC.Controllers
                     {
                         textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                         textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracaoExAluno.Nome.ToUpper() + ", nascido(a) em " + declaracaoExAluno.DataNasimento.ToString("dd/MM/yyy") + ", filho(a) de " + declaracaoExAluno.NomeMae.ToUpper() + ", " +
-                            "no ano letivo de " + declaracaoExAluno.AnoLetivo + ", foi matriculado(a) nesta Unidade de Ensino no " + declaracaoExAluno.Ano + "º ano do Ensino Fundamental e ao final do ano foi considerado " + declaracaoExAluno.ResultadoFinal, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                            "no ano letivo de " + declaracaoExAluno.AnoLetivo + ", foi matriculado(a) nesta Unidade de Ensino no " + declaracaoExAluno.Ano + "º ano do Ensino Fundamental e ao final do ano foi considerado(a) " + declaracaoExAluno.ResultadoFinal + "(a).", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
                     }
                     else
                     {
                         textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                         textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracaoExAluno.Nome.ToUpper() + ", nascido(a) em " + declaracaoExAluno.DataNasimento.ToString("dd/MM/yyy") + ", filho(a) de " + declaracaoExAluno.NomeMae.ToUpper() + ", " +
-                            "no ano letivo de " + declaracaoExAluno.AnoLetivo + ", foi matriculado(a) nesta Unidade de Ensino na " + declaracaoExAluno.Serie + "ª Serie, atualmente correspondente ao " + declaracaoExAluno.Ano + "º ano do Ensino Fundamental e ao final do ano foi considerado " + declaracaoExAluno.ResultadoFinal, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                            "no ano letivo de " + declaracaoExAluno.AnoLetivo + ", foi matriculado(a) nesta Unidade de Ensino na " + declaracaoExAluno.Serie + "ª Serie, atualmente correspondente ao " + declaracaoExAluno.Ano + "º ano do Ensino Fundamental e ao final do ano foi considerado(a) " + declaracaoExAluno.ResultadoFinal + "(a).", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
                     }
                 }
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
