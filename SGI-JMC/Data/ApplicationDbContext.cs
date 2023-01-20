@@ -37,7 +37,8 @@ namespace SGI_JMC.Data
         public DbSet<DeclaracaoConcludentesRegular> DeclaracaoConcludentesRegular { get; set; }
         public DbSet<DeclaracaoConcludentesProSic> DeclaracaoConcludentesProSic { get; set; }
         public DbSet<OficioAssumiuFuncaoApoioEscolar2> OficioAssumiuFuncaoApoioEscolar2 { get; set; }
-        public DbSet<HorarioApoioEscolar2> HorarioApoioEscolar2 { get; set; }  
+        public DbSet<HorarioApoioEscolar2> HorarioApoioEscolar2 { get; set; }
+        public DbSet<DeclaracaoTransferenciaRegularAnoFinalizado> DeclaracaoTransferenciaRegularAnoFinalizado { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,0 +1,64 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System;
+
+namespace SGI_JMC.Models
+{
+    public class DeclaracaoTransferenciaRegularAnoFinalizado
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [Display(Name = "Nome do aluno")]
+        [Required(ErrorMessage = "Este campo é obrigatório")]
+        public string Name { get; set; }
+
+        [Display(Name = "Nome do pai")]
+        public string Father_name { get; set; }
+
+        [Display(Name = "Nome da mãe")]
+        [Required(ErrorMessage = "Este campo é obrigatório")]
+        public string Mother_name { get; set; }
+
+        [Display(Name = "Data de nascimento")]
+        [Required(ErrorMessage = "Este campo é obrigatório")]
+        [DataType(DataType.Date)]
+        public DateTime Birth_date { get; set; }
+
+        [Display(Name = "Ano letivo")]
+        [Required(ErrorMessage = "Este campo é obrigatório")]
+        public int anoLetivo { get; set; }
+
+        [Display(Name = "Ano/Série")]
+        [Required(ErrorMessage = "Este campo é obrigatório")]
+        [Range(1, 8, ErrorMessage = "Para alunos de 9º ano utilize a declaração de concludente")]
+        public int anoSerie { get; set; }
+
+        [Display(Name = "Turma")]
+        [Required(ErrorMessage = "Este campo é obrigatório")]
+        public char turma { get; set; }
+
+        [Display(Name = "Número do NIS")]
+        public string numeroDoNis { get; set; }
+
+        [Display(Name = "Matrícula SIAE")]
+        [Required(ErrorMessage = "Este campo é obrigatório")]
+        public string codigoSeed { get; set; }
+
+        [Display(Name = "Data de emissão")]
+        public DateTime dataDeEmissao { get; set; }
+
+        [Display(Name = "Resultado final")]
+        [Required(ErrorMessage = "Este campo é obrigatório")]
+        public string ResultadoFinal { get; set; }
+
+        public int SerieSeguinte { get; set; }
+
+
+        [Required(ErrorMessage = "Este campo é obrigatório")]
+        [Display(Name = "Data da solicitação")]
+        public DateTime DataSolicitacao { get; set; }
+        public int numeroDeclaracao { get; set; }
+        public string codigoAutenticacao { get; set; }
+    }
+
+}

@@ -160,14 +160,14 @@
                                             Comunicado de comparecimento
                                         </a>
                                     </li>
-@*                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="GuiaDeTransferencia" asp-action="CreateGuiaTransferencia" classes-if-active="disabled">
-                                            Guia de transferência "Manual"
-                                        </a>
-                                    </li>*@
+                                    @*                                    <li>
+                        <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                        <a class="dropdown-item" asp-controller="GuiaDeTransferencia" asp-action="CreateGuiaTransferencia" classes-if-active="disabled">
+                        Guia de transferência "Manual"
+                        </a>
+                        </li>*@
                                 </ul>
                             </li>
                         }
@@ -199,6 +199,18 @@
                                 </li>
                                 <li>
                                     <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaProSic">Transferência - Ano em Curso (ProSic) </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaRegularFinalizado">Transferência - Ano Finalizado (Regular) </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaProSicFinalizado">Transferência - Ano Finalizado (ProSic) </a>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider">
