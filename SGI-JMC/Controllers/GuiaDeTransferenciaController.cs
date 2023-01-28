@@ -284,48 +284,13 @@ namespace SGI_JMC.Controllers
                 var graphics2 = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page2);
                 var textFomatter2 = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics2);
 
-                graphics2.DrawRoundedRectangle(PdfSharpCore.Drawing.XPens.Black, PdfSharpCore.Drawing.XBrushes.Transparent, 0, 50, page2.Width, 700, 10, 10);
+                graphics2.DrawRoundedRectangle(PdfSharpCore.Drawing.XPens.Black, PdfSharpCore.Drawing.XBrushes.Transparent, 0, 50, page2.Width, 695, 10, 10);
                 textFomatter2.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 textFomatter2.DrawString("HISTÓRICO ESCOLAR", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 50, page2.Width, page2.Height));
                 textFomatter2.DrawString("_____________________________________________________________________________________", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 55, page2.Width, page2.Height));
                 textFomatter2.DrawString("ENSINO FUNDAMENTAL", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 70, page2.Width, page2.Height));
                 textFomatter2.DrawString("Aprroveitamento", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 85, page2.Width, page2.Height));
                 textFomatter2.DrawString("_____________________________________________________________________________________", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 90, page2.Width, page2.Height));
-                textFomatter2.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                textFomatter2.DrawString("DISCIPLINAS", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(70, 130, page2.Width, page2.Height));
-                textFomatter2.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                textFomatter2.DrawString("NOTAS", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(100, 140, page2.Width, page2.Height));
-
-                int inicio2 = 165;
-
-                for (int i = 0; i < 24; i++)
-                {
-                    textFomatter2.DrawString("_____________________________________________________________________________________", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, inicio2, page2.Width, page2.Height));
-                    textFomatter2.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter2.DrawString("", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(5, inicio2 + 1, page2.Width, page2.Height));
-                    inicio2 = inicio2 + 15;
-                }
-                //1º parametro margem esquerda (eixo X)/2º altura(eixo Y)/3ºLargura/4ºaltura                                             
-                graphics2.DrawRoundedRectangle(PdfSharpCore.Drawing.XPens.Black, PdfSharpCore.Drawing.XBrushes.Transparent, 0, 105, 200, 435, 0, 0);
-
-                double largura = 200;
-
-                for (int i = 0; i < 10; i++)
-                {
-                    graphics2.DrawRoundedRectangle(PdfSharpCore.Drawing.XPens.Black, PdfSharpCore.Drawing.XBrushes.Transparent, 0, 165, largura, 375, 0, 0);
-                    largura = largura + 43.9;
-                }
-                double larg2 = 43.9;
-                for (int i = 0; i < 9; i++)
-                {
-                    graphics2.DrawRoundedRectangle(PdfSharpCore.Drawing.XPens.Black, PdfSharpCore.Drawing.XBrushes.Transparent, 200, 105, larg2, 15, 0, 0);
-                    larg2 = larg2 + 43.9;
-                }
-
-                textFomatter2.DrawString("_________________________________________________________", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(200, 120, 10, page2.Height));
-                textFomatter2.DrawString("_____________________________________________________________________________________", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 550, page2.Width, page2.Height));
-                textFomatter2.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                textFomatter2.DrawString("ESCOLA DE ORIGEM", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 545, page2.Width, page2.Height));
                 textFomatter2.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
                 textFomatter2.DrawString("Simão Dias - Se, " + DateTime.Now.ToString("dd/MM/yyyy"), fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 760, page2.Width, page2.Height));
                 textFomatter2.DrawString("_________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 760, page2.Width, page2.Height));
@@ -352,7 +317,37 @@ namespace SGI_JMC.Controllers
                 //textFomatter2.DrawString("Para verificar a autenticidade deste documento acesse: https://killersd.bsite.net/Declaracao/VerificarAutenticidade, preencha os dados " +
                 //    "\"Número do documento\" e \"Código de verificação\" com os códigos acima depois clique no botão \"Verificar autenticidade\" ", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 725, page2.Width, page2.Height));
 
+                int inicioaltura = 225;
+                int alt = 240;
+                for (int i = 0; i < 9; i++)
+                {
+                    int inicio22 = 55;
+
+                    for (int j = 0; j < 19; j++)
+                    {
+                        graphics2.DrawRoundedRectangle(PdfSharpCore.Drawing.XPens.Black, PdfSharpCore.Drawing.XBrushes.Transparent, 0, alt, inicio22, 20, 0, 0);
+                        inicio22 = inicio22 + 30;
+                    }
+                    alt = alt + 56;
+                    textFomatter2.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                    textFomatter2.DrawString(i + 1 + "º ANO", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(8, inicioaltura + 15, page2.Width, page2.Height));
+                    inicioaltura = inicioaltura + 56;
+                }
+
+                int inicio2 = 55;
+
+                for (int i = 0; i < 19; i++)
+                {
+                    graphics2.DrawRoundedRectangle(PdfSharpCore.Drawing.XPens.Black, PdfSharpCore.Drawing.XBrushes.Transparent, 0, 105, inicio2, 135, 0, 0);
+                    inicio2 = inicio2 + 30;
+                }
+
                 graphics2.Dispose();
+
+                XGraphics gfxRotate2 = XGraphics.FromPdfPage(page2);
+                gfxRotate2.RotateAtTransform(-90, new XPoint(34, 210));
+                gfxRotate2.DrawString("DISCIPLINAS", fonteDesricaoBold, XBrushes.Black, new XPoint(34, 210));
+                gfxRotate2.Dispose();
 
                 using (MemoryStream stream = new MemoryStream())
                 {

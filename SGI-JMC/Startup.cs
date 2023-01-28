@@ -71,7 +71,7 @@ namespace SGI_JMC
             {
                 options.Cookie.Name = "AppControleUsuarios"; //AspNetCore.Cookies
                 options.Cookie.HttpOnly = true; //true
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(10); //14 dias
+                options.ExpireTimeSpan = TimeSpan.FromDays(2); //14 dias
                 options.LoginPath = "/Usuario/Login"; // /Account/Login
                 options.LogoutPath = "/Home/Index";  // /Account/Logout
                 options.AccessDeniedPath = "/Usuario/AcessoRestrito"; // /Account/AccessDenied
