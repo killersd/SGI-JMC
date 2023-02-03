@@ -39,7 +39,7 @@ namespace SGI_JMC.Models
         [Display(Name = "Número do NIS")]
         public string numeroDoNis { get; set; }
 
-        [Display(Name = "Matrícula SIAE")]
+        [Display(Name = "Código do aluno")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
         public string codigoSeed { get; set; }
 

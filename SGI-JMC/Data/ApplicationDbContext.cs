@@ -40,6 +40,8 @@ namespace SGI_JMC.Data
         public DbSet<HorarioApoioEscolar2> HorarioApoioEscolar2 { get; set; }
         public DbSet<DeclaracaoTransferenciaRegularAnoFinalizado> DeclaracaoTransferenciaRegularAnoFinalizado { get; set; }
 
+        public DbSet<DeclaracaoTransferenciaProSicAnoFinalizado> DeclaracaoTransferenciaProSicAnoFinalizado { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

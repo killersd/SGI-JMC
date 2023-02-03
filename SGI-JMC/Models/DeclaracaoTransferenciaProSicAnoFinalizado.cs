@@ -1,10 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace SGI_JMC.Models
 {
-    [Serializable]
-    public class DeclaracaoProSic
+    public class DeclaracaoTransferenciaProSicAnoFinalizado
     {
         [Key]
         public int Id { get; set; }
@@ -29,13 +28,15 @@ namespace SGI_JMC.Models
         [Required(ErrorMessage = "Este campo é obrigatório")]
         public int anoLetivo { get; set; }
 
-        [Display(Name = "Fase do ProSic")]
+        [Display(Name = "Fase ProSic")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
-        public int faseProSic { get; set; }
+        [Range(3, 4, ErrorMessage = "fase deve ser 3 ou 4 - 3 para 6º e 7º anos e 4 para 8º e 9º")]
+        public int faseProsic { get; set; }
 
-        [Display(Name = "Série de Origem")]
+        [Display(Name = "Série de origem")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
-        public int serieOrigem { get; set; }
+        [Range(6, 9, ErrorMessage = "este campo deve estar entre 6º e 9º ano")]
+        public int turmaOrigem { get; set; }
 
         [Display(Name = "Número do NIS")]
         public string numeroDoNis { get; set; }
@@ -47,12 +48,21 @@ namespace SGI_JMC.Models
         [Display(Name = "Data de emissão")]
         public DateTime dataDeEmissao { get; set; }
 
+        [Display(Name = "Resultado final")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
-        [Display(Name = "Quantidade de faltas")]
-        public int qtdFaltas { get; set; }
+        public string ResultadoFinal { get; set; }
 
+        [Display(Name = "Obervação")]
+        public string Observacao { get; set; }   
+
+        public int SerieSeguinte { get; set; }
+
+
+        [Required(ErrorMessage = "Este campo é obrigatório")]
+        [Display(Name = "Data da solicitação")]
+        public DateTime DataSolicitacao { get; set; }
         public int numeroDeclaracao { get; set; }
         public string codigoAutenticacao { get; set; }
     }
-}
 
+}

@@ -30,7 +30,7 @@ namespace SGI_JMC.Models
 
         [Display(Name = "Ano/Série")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
-        [Range(1, 8, ErrorMessage = "Para alunos de 9º ano utilize a declaração de concludente")]
+        [Range(1, 9, ErrorMessage = "ano deve estar entre 1 e 9")]
         public int anoSerie { get; set; }
 
         [Display(Name = "Turma")]
@@ -40,7 +40,7 @@ namespace SGI_JMC.Models
         [Display(Name = "Número do NIS")]
         public string numeroDoNis { get; set; }
 
-        [Display(Name = "Matrícula SIAE")]
+        [Display(Name = "Código do aluno")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
         public string codigoSeed { get; set; }
 

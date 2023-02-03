@@ -8,7 +8,7 @@
     <div class="card mb-3">
         <div class="card-header">
             <h4><b>Declaração para Transferência - Ano Finalizado (Regular)</b></h4>
-            <h6>Preencha os dados e clique em baixar declaração, o download iniciará automaticamente</h6>
+            <h6><b><font color="red">Para alunos de 9º ano APROVADOS, utilizar a declaração de CONCLUDENTES!</font></b></h6>
         </div>
         <div class="card-body">
             <form asp-action="gerarDeclaracaoTransferenciaAlunoRegularFinalizado">
@@ -44,7 +44,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="anoSerie" class="control-label"></label>
-                            <input asp-for="anoSerie" MaxLength="1" placeholder="7º, 8º..." class="form-control" />
+                            <input asp-for="anoSerie" MaxLength="1" placeholder="7º, 8º, 9º..." class="form-control" />
                             <span asp-validation-for="anoSerie" class="text-danger"></span>
                         </div>
                         <div class="form-group">

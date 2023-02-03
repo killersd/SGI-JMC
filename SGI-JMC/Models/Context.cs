@@ -40,6 +40,7 @@ namespace SGI_JMC.Models
         public DbSet<DeclaracaoGenerica> DeclaracaoGenerica { get; set; }
         public DbSet<DeclaracaoTransferenciaRegularAnoFinalizado> DeclaracaoTransferenciaRegularAnoFinalizado { get; set; }
 
+        public DbSet<DeclaracaoTransferenciaProSicAnoFinalizado> DeclaracaoTransferenciaProSicAnoFinalizado { get; set; }
 
 
     }

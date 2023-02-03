@@ -94,14 +94,15 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("Res. Nº :166/CEE, de 21/06/2012 ", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(285, 225, page.Width, page.Height));
                 textFomatter.DrawString("Reconhecimento: ", fonteOrganizacaoBold, corFonte, new PdfSharpCore.Drawing.XRect(450, 225, page.Width, page.Height));
                 textFomatter.DrawString("Concedemos a pressente Guia de Transferência do(a) aluno(a) ", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(10, 238, page.Width, page.Height));
+                //dados pessoais
                 textFomatter.DrawString("Alex de Oliveira Souza", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(10, 250, page.Width, page.Height));
                 textFomatter.DrawString("Data de Nascimento: 27/09/1987", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(300, 250, page.Width, page.Height));
                 textFomatter.DrawString("Nome da mãe: Josefa de Oliveira Souza", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(10, 265, page.Width, page.Height));
                 textFomatter.DrawString("Nome do pai: José Domingos Dias de Souza", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(10, 280, page.Width, page.Height));
                 textFomatter.DrawString("Matriculado(a) no(a): 9º Ano do Ensino Fundamental", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(10, 295, page.Width, page.Height));
                 textFomatter.DrawString("Ano: " + DateTime.Now.Year, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(400, 295, page.Width, page.Height));
-                textFomatter.DrawString("Conforme rendimento obtido abaixo e/ou no verso desta Guia ", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(10, 312, page.Width, page.Height));
 
+                textFomatter.DrawString("Conforme rendimento obtido abaixo e/ou no verso desta Guia ", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(10, 312, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 textFomatter.DrawString("Transferência por atividade ou disciplina", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(10, 335, page.Width, page.Height));
                 graphics.DrawRoundedRectangle(PdfSharpCore.Drawing.XPens.Black, PdfSharpCore.Drawing.XBrushes.Transparent, 0, 360, page.Width, 205, 10, 10);

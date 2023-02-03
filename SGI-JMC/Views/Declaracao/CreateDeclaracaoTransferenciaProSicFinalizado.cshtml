@@ -1,4 +1,4 @@
-﻿<div class="container-fluid">
+﻿@*<div class="container-fluid">
     <div class="card mb-3">
         <div class="card-header">
             <h4><b>Página em desenvolvimento</b></h4>
@@ -9,6 +9,110 @@
             <img src="~/Imagens/loading.gif" width="800px;" height="300px;" />
         </div>
         <a asp-action="Index" asp-controller="Home" class="btn btn-success mt-3">Voltar à Página Principal</a>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }*@
+
+
+@model SGI_JMC.Models.DeclaracaoTransferenciaProSicAnoFinalizado
+
+@{
+    ViewData["Title"] = "Declaração transferência - Ano Finalizado (ProSic) - ";
+}
+<hr />
+<div class="container-fluid">
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4><b>Declaração para Transferência - Ano Finalizado (ProSic)</b></h4>
+            <h6><b><font color="red">Para alunos de turma de origem 9º ano APROVADOS, ou alunos com turma de origem 8º ano ACELERADOS, utilizar a declaração de CONCLUDENTES (ProSic)!</font></b></h6>
+        </div>
+        <div class="card-body">
+            <form asp-action="gerarDeclaracaoTransferenciaAlunoProSicFinalizado">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Father_name" class="control-label"></label>
+                            <input asp-for="Father_name" class="form-control" />
+                            <span asp-validation-for="Father_name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Mother_name" class="control-label"></label>
+                            <input asp-for="Mother_name" class="form-control" />
+                            <span asp-validation-for="Mother_name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Birth_date" class="control-label"></label>
+                            <input asp-for="Birth_date" class="form-control" />
+                            <span asp-validation-for="Birth_date" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="anoLetivo" class="control-label"></label>
+                            <input asp-for="anoLetivo" class="form-control" MaxLength="4" />
+                            <span asp-validation-for="anoLetivo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="faseProsic" class="control-label"></label>
+                            <input asp-for="faseProsic" MaxLength="1" placeholder="3 ou 4" class="form-control" />
+                            <span asp-validation-for="faseProsic" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="turmaOrigem" class="control-label"></label>
+                            <input asp-for="turmaOrigem" MaxLength="1" placeholder="6º, 7º, 8º ou 9º ano" class="form-control" />
+                            <span asp-validation-for="turmaOrigem" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="numeroDoNis" class="control-label"></label>
+                            <input asp-for="numeroDoNis" placeholder="Somente números" MaxLength="11" class="form-control" />
+                            <span asp-validation-for="numeroDoNis" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="codigoSeed" class="control-label"></label>
+                            <input asp-for="codigoSeed" MaxLength="10" class="form-control" />
+                            <span asp-validation-for="codigoSeed" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ResultadoFinal" class="control-label"></label>
+                            <fieldset>
+                                <div class="col-3">
+                                    <div>
+                                        <input asp-for="ResultadoFinal" type="radio" id="Aprovado" name="ResultadoFinal" value="Aprovado">
+                                        <label for="Aprovado">Aprovado</label>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div>
+                                        <input asp-for="ResultadoFinal" type="radio" id="Acelerado" name="ResultadoFinal" value="Acelerado">
+                                        <label for="Acelerado">Acelerado</label>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div>
+                                        <input asp-for="ResultadoFinal" type="radio" id="Reprovado" name="ResultadoFinal" value="Reprovado">
+                                        <label for="Reprovado">Reprovado</label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <span asp-validation-for="ResultadoFinal" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="text-align:center">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i> Baixar declaração</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 @section Scripts {
