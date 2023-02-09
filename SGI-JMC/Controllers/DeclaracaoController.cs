@@ -588,13 +588,13 @@ namespace SGI_JMC.Controllers
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                     textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracaoTransferenciaRegular.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + declaracaoTransferenciaRegular.Mother_name.ToUpper() + " e " + declaracaoTransferenciaRegular.Father_name.ToUpper() + ", " +
-                        "no ano letivo de " + declaracaoTransferenciaRegular.anoLetivo + ", encontra-se matriculado(a) nesta Unidade de Ensino no " + declaracaoTransferenciaRegular.anoSerie + "º ano, turma \"" + turmaString.ToUpper() + "\" e nesta data (" + DateTime.Now.ToShortDateString() + ") seu responsável legal solicitou transferência do discente para outra Unidade de Ensino.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                        "no ano letivo de " + declaracaoTransferenciaRegular.anoLetivo + ", encontra-se matriculado(a) nesta Unidade de Ensino no " + declaracaoTransferenciaRegular.anoSerie + "º ano, turma \"" + turmaString.ToUpper() + "\" e nesta data (" + DateTime.Now.ToString("dd/MM/yyyy") + ") seu responsável legal solicitou transferência do discente para outra Unidade de Ensino.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
                 }
                 else
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                     textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracaoTransferenciaRegular.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + declaracaoTransferenciaRegular.Mother_name.ToUpper() + ", no ano letivo " +
-                        " de " + declaracaoTransferenciaRegular.anoLetivo + ", encontra-se matriculado(a) nesta Unidade de Ensino no " + declaracaoTransferenciaRegular.anoSerie + "º ano, turma \"" + turmaString.ToUpper() + "\" e nesta data (" + DateTime.Now.ToShortDateString() + ") seu responsável legal solicitou transferência do discente para outra Unidade de Ensino.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                        " de " + declaracaoTransferenciaRegular.anoLetivo + ", encontra-se matriculado(a) nesta Unidade de Ensino no " + declaracaoTransferenciaRegular.anoSerie + "º ano, turma \"" + turmaString.ToUpper() + "\" e nesta data (" + DateTime.Now.ToString("dd/MM/yyyy") + ") seu responsável legal solicitou transferência do discente para outra Unidade de Ensino.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
                 }
 
 
@@ -747,13 +747,13 @@ namespace SGI_JMC.Controllers
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                     textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracaoTransferenciaProSic.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + declaracaoTransferenciaProSic.Mother_name.ToUpper() + " e " + declaracaoTransferenciaProSic.Father_name.ToUpper() + ", " +
                         "no ano letivo de " + declaracaoTransferenciaProSic.anoLetivo + ", encontra-se matriculado(a) nesta Unidade de Ensino, na turma de correção de fluxo, fase " + declaracaoTransferenciaProSic.faseProSic + ", do programa " +
-                        "Sergipe na Idade Certa, tendo como turma de origem " + declaracaoTransferenciaProSic.serieOrigem + "º ano,  e nesta data (" + DateTime.Now.ToShortDateString() + ") seu responsável legal solicitou transferência do discente para outra Unidade de Ensino.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                        "Sergipe na Idade Certa, tendo como turma de origem " + declaracaoTransferenciaProSic.serieOrigem + "º ano,  e nesta data (" + DateTime.Now.ToString("dd/MM/yyyy") + ") seu responsável legal solicitou transferência do discente para outra Unidade de Ensino.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
                 }
                 else
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                     textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + declaracaoTransferenciaProSic.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + declaracaoTransferenciaProSic.Mother_name.ToUpper() + " e no ano letivo de " + declaracaoTransferenciaProSic.anoLetivo + ", encontra-se matriculado(a) nesta Unidade de Ensino, na " +
-                        "turma de correção de fluxo, fase " + declaracaoTransferenciaProSic.faseProSic + ", do programa Sergipe na Idade Certa, tendo como turma de origem " + declaracaoTransferenciaProSic.serieOrigem + "º ano,  e nesta data (" + DateTime.Now.ToShortDateString() + ") seu responsável legal solicitou transferência do discente para outra Unidade de Ensino.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                        "turma de correção de fluxo, fase " + declaracaoTransferenciaProSic.faseProSic + ", do programa Sergipe na Idade Certa, tendo como turma de origem " + declaracaoTransferenciaProSic.serieOrigem + "º ano,  e nesta data (" + DateTime.Now.ToString("dd/MM/yyyy") + ") seu responsável legal solicitou transferência do discente para outra Unidade de Ensino.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
                 }
 
 
