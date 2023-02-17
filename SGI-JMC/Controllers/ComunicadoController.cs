@@ -77,10 +77,10 @@ namespace SGI_JMC.Controllers
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 450, page.Width, page.Height));
-                if (comunicado.MembroEquipeDiretiva.Equals("Queila"))
+                if (comunicado.MembroEquipeDiretiva.Equals("Vera"))
                 {
-                    textFomatter.DrawString("Queilanc Borges Batista de Souza", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 460, page.Width, page.Height));
-                    textFomatter.DrawString("Diretora - Port. 7469/2019", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 475, page.Width, page.Height));
+                    textFomatter.DrawString("Vera Cristina Carvalho Oliveira", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 460, page.Width, page.Height));
+                    textFomatter.DrawString("Diretora - Port. 0314/2023", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 475, page.Width, page.Height));
                 }
                 else
                 {

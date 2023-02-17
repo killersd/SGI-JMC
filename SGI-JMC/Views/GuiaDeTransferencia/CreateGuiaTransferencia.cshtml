@@ -12,11 +12,98 @@
         <div class="card-body">
             <form asp-action="gerarGuiaDeTransferencia">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="row">
-                    <div class="col-md-12">
-
+                <div class="container-fluid">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h4>Dados pessoais</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label asp-for="NomeAluno" class="control-label"></label>
+                                                <input asp-for="NomeAluno" class="form-control" />
+                                                <span asp-validation-for="NomeAluno" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label asp-for="DataDeNascimento" class="control-label"></label>
+                                                <input asp-for="DataDeNascimento" class="form-control" />
+                                                <span asp-validation-for="DataDeNascimento" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="NomePai" class="control-label"></label>
+                                                <input asp-for="NomePai" class="form-control" />
+                                                <span asp-validation-for="NomePai" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="NomeMae" class="control-label"></label>
+                                                <input asp-for="NomeMae" class="form-control" />
+                                                <span asp-validation-for="NomeMae" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="AnoLetivo" class="control-label"></label>
+                                            <input asp-for="AnoLetivo" class="form-control" />
+                                            <span asp-validation-for="AnoLetivo" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="AnoSerie" class="control-label"></label>
+                                            <input asp-for="AnoSerie" class="form-control" />
+                                            <span asp-validation-for="AnoSerie" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <p></p>
+                </div>
+                <p></p>
+                <div class="container-fluid">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h4>Dados acadêmicos</h4>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="AnoSerie" class="control-label"></label>
+                                    <input asp-for="AnoSerie" class="form-control" />
+                                    <span asp-validation-for="AnoSerie" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p></p>
+                <div class="container-fluid">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h4>Histórico de instituições</h4>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="AnoSerie" class="control-label"></label>
+                                    <input asp-for="AnoSerie" class="form-control" />
+                                    <span asp-validation-for="AnoSerie" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <p></p>
                 <div class="col-md-12" style="text-align:center">
@@ -24,22 +111,16 @@
                 </div>
             </form>
         </div>
-
-        <div class="card-body">
-            <form asp-action="gerarGuiaDeTransferenciaFundo">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="row">
-                    <div class="col-md-12">
-                    </div>
-                    <p></p>
-                </div>
-            </form>
-        </div>
-
     </div>
 </div>
+<p></p>
+
+</div>
+</div>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     }
+

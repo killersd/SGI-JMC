@@ -75,8 +75,8 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("Comunicamos a Vossa Senhoria que " + oficioAssumiuFuncaoApoioEscolar2.Name + ", CPF " + oficioAssumiuFuncaoApoioEscolar2.CPF + ", vínculo " + oficioAssumiuFuncaoApoioEscolar2.vinculo + "(a), ocupante do Cargo de Apoio Escolar II, assumiu suas funções no dia " + oficioAssumiuFuncaoApoioEscolar2.DataAssumiuFuncao.ToString("dd/MM/yyyy") + " com carga horária de " + oficioAssumiuFuncaoApoioEscolar2.CargaHorariaMensal + " horas mensais,  conforme horário anexo, atuando no  Ensino Fundamental FRC "+oficioAssumiuFuncaoApoioEscolar2.FRC+" (FRC: Fonte de Recursos do FUNDEB).", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 330, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 500, page.Width, page.Height));
-                textFomatter.DrawString("Queilanc Borges Batista de Souza", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 510, page.Width, page.Height));
-                textFomatter.DrawString("Diretora - Port. 7469/2019", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 525, page.Width, page.Height));
+                textFomatter.DrawString("Vera Cristina Carvalho Oliveira", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 510, page.Width, page.Height));
+                textFomatter.DrawString("Diretora - Port. 0314/2023", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 525, page.Width, page.Height));
                 if (oficioAssumiuFuncaoApoioEscolar2.destinatario.Equals("Daniela Silva"))
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;

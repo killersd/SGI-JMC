@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SGI_JMC.Data;
 
 namespace SGI_JMC.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230217031807_mig2")]
+    partial class mig2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1339,9 +1341,6 @@ namespace SGI_JMC.Migrations.ApplicationDb
 
                     b.Property<DateTime>("DataEmissao")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("FonteRecursos")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()

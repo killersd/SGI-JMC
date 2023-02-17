@@ -88,8 +88,8 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("Atenciosamente, ", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 370, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 450, page.Width, page.Height));
-                textFomatter.DrawString("Queilanc Borges Batista de Souza", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 460, page.Width, page.Height));
-                textFomatter.DrawString("Diretora - Port. 7469/2019", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 480, page.Width, page.Height));
+                textFomatter.DrawString("Vera Cristina Carvalho Oliveira", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 460, page.Width, page.Height));
+                textFomatter.DrawString("Diretora - Port. 0314/2023", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 480, page.Width, page.Height));
                 textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 540, page.Width, page.Height));
                 textFomatter.DrawString(notificacaoPendenciaDiario.Name, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 550, page.Width, page.Height));
                 textFomatter.DrawString("Professor(a)", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 570, page.Width, page.Height));

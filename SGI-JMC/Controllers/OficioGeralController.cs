@@ -97,10 +97,10 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString(oficioGeral.CorpoDoOficio, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 275, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 625, page.Width, page.Height));
-                if (oficioGeral.Remetente.Equals("Queila"))
+                if (oficioGeral.Remetente.Equals("Vera"))
                 {
-                    textFomatter.DrawString("Queilanc Borges Batista de Souza", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
-                    textFomatter.DrawString("Diretora - Port. 7469/2019", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 650, page.Width, page.Height));
+                    textFomatter.DrawString("Vera Cristina Carvalho Oliveira", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
+                    textFomatter.DrawString("Diretora - Port. 0314/2023", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 650, page.Width, page.Height));
                 }
                 else {
                     textFomatter.DrawString("Alex de Oliveira Souza", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 635, page.Width, page.Height));
