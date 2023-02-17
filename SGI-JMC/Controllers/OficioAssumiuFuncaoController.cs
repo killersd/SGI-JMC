@@ -134,8 +134,8 @@ namespace SGI_JMC.Controllers
                 {
                     ch = "semanais";
                 }
-
-                if (oficioAssumiuFuncao.FonteRecursos.Equals(null))
+                oficioAssumiuFuncao.FonteRecursos = 0;
+                if (oficioAssumiuFuncao.FonteRecursos.Equals(0))
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                     textFomatter.DrawString("Comunicamos a Vossa Senhoria que " + oficioAssumiuFuncao.Name + ", CPF " + oficioAssumiuFuncao.CPF + ", vínculo " + oficioAssumiuFuncao.vinculo + ", ocupante do Cargo de Professor de Educação Básica, assumiu suas funções em regência de classe no dia " + oficioAssumiuFuncao.DataAssumiuFuncao.ToString("dd/MM/yyyy") + " com carga horária de " + oficioAssumiuFuncao.CargaHoraria + " horas " + ch + ", na disciplina, " + oficioAssumiuFuncao.disciplina + " conforme horário anexo.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 330, page.Width, page.Height));

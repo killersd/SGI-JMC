@@ -43,8 +43,8 @@ namespace SGI_JMC
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = true; //false
-                options.User.AllowedUserNameCharacters =
-                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+"; //idem
+                //options.User.AllowedUserNameCharacters =
+                //    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+"; //idem
                 options.Password.RequireNonAlphanumeric = false; //true
                 options.Password.RequireUppercase = false; //true;
                 options.Password.RequireLowercase = false; //true;
