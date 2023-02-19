@@ -1,0 +1,40 @@
+﻿@model SGI_JMC.Models.Frequencia
+
+@{
+    ViewData["Title"] = "Calcular frequência - ";
+}
+
+<partial name="_MensagemPartial" />
+
+@*<div asp-validation-summary="ModelOnly" class="val-summary text-danger my-3"></div>*@
+<hr />
+<div class="container-fluid">
+    <div class="card mb-6">
+        <div class="card-header">
+            <h4><b>Calcular frequência</b></h4>
+            <h6>Calcular percentual de frequência</h6>
+        </div>
+        <div class="card-body">
+            <form asp-action="gerarDeclaracao">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="QuantidadeFaltas" class="control-label"></label>
+                            <input asp-for="QuantidadeFaltas" class="form-control" />
+                            <span asp-validation-for="QuantidadeFaltas" class="text-danger"></span>
+                        </div>        
+                    </div>
+                    <div class="col-md-12" style="text-align:center">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-calculator" aria-hidden="true"></i> Calcular Frequência</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
