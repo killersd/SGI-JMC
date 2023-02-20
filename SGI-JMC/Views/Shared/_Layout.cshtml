@@ -73,6 +73,26 @@
                             </li>
                             <li class="nav-link dropdown">
                                 <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown">
+                                    <i class="fa fa-download" aria-hidden="true"></i> Download Modelos
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="nav-link pe-0 text-primary" asp-controller="DownloadModeloDeclaracaoFrequencia" asp-action="gerarDeclaracao">
+                                            Declaração de frequência (regular)
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="nav-link pe-0 text-primary" asp-controller="DownloadModeloDeclaracaoFrequencia" asp-action="gerarDeclaracaoFrequenciaProSic">
+                                            Declaração de frequência (ProSic)
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-link dropdown">
+                                <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown">
                                     <i class="fa fa-sort" aria-hidden="true"></i> Outros
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -119,6 +139,14 @@
                                     <li>
                                         <a class="dropdown-item" asp-controller="GuiaDeTransferencia" asp-action="CreateGuiaTransferencia" classes-if-active="disabled">
                                             Guia de transferência "Manual"
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Frequencia" asp-action="Index" classes-if-active="disabled">
+                                            Calculadora de Frequência
                                         </a>
                                     </li>
                                 </ul>
@@ -180,9 +208,17 @@
                                             Comunicado de comparecimento
                                         </a>
                                     </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Frequencia" asp-action="Index" classes-if-active="disabled">
+                                            Calculadora de Frequência
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
-                        }
+                        }                        
                         <li class="nav-link dropdown">
                             <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown">
                                 <i class="fa fa-file-text" aria-hidden="true"></i> Declarações
@@ -279,7 +315,6 @@
                                 </li>
                             </ul>
                         </li>
-
                         <li class="nav-link dropdown">
                             <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown">
                                 <i class="fa fa-archive" aria-hidden="true"></i> Arquivo Morto
@@ -341,7 +376,7 @@
                             </ul>
                         </li>
                         if (Context.User.IsInRole("administrador"))
-                        {
+                        {           
                             <li class="nav-link dropdown">
                                 <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown">
                                     <i class="fa fa-eye" aria-hidden="true"></i> Documentos Expedidos

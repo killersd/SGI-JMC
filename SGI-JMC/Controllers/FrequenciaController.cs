@@ -8,16 +8,26 @@ namespace SGI_JMC.Controllers
 {
     public class FrequenciaController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
 
         public float CalcularFrequencia(Frequencia frequencia)
         {
             float pctFaltas;
             pctFaltas = (frequencia.QuantidadeFaltas * 100) / 1000;
             return pctFaltas;
+            ViewData["resultado"] = pctFaltas;
+        }
+
+        public IActionResult Index(Frequencia frequencia)
+        {
+            float pctFaltas;
+            pctFaltas = (frequencia.QuantidadeFaltas * 100) / 1000;
+            float porcentagemDeFaltas = 100 - CalcularFrequencia(frequencia);
+            ViewData["resultado"] = porcentagemDeFaltas;
+            return View();
         }
 
 
