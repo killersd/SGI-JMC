@@ -71,35 +71,75 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("Assunto: " + oficioAssumiuFuncaoApoioEscolar2.Assunto + ".", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 165, page.Width, page.Height));
                 textFomatter.DrawString("Simão Dias - Se -  " + oficioAssumiuFuncaoApoioEscolar2.DataEmissao.ToString("dd/MM/yyyy"), fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
                 //Corpo do ofício
-                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
-                textFomatter.DrawString("Comunicamos a Vossa Senhoria que " + oficioAssumiuFuncaoApoioEscolar2.Name + ", CPF " + oficioAssumiuFuncaoApoioEscolar2.CPF + ", vínculo " + oficioAssumiuFuncaoApoioEscolar2.vinculo + "(a), ocupante do Cargo de Apoio Escolar II, assumiu suas funções no dia " + oficioAssumiuFuncaoApoioEscolar2.DataAssumiuFuncao.ToString("dd/MM/yyyy") + " com carga horária de " + oficioAssumiuFuncaoApoioEscolar2.CargaHorariaMensal + " horas mensais,  conforme horário anexo, atuando no  Ensino Fundamental FRC "+oficioAssumiuFuncaoApoioEscolar2.FRC+" (FRC: Fonte de Recursos do FUNDEB).", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 330, page.Width, page.Height));
-                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 500, page.Width, page.Height));
-                textFomatter.DrawString("Vera Cristina Carvalho Oliveira", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 510, page.Width, page.Height));
-                textFomatter.DrawString("Diretora - Port. 0314/2023", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 525, page.Width, page.Height));
-                if (oficioAssumiuFuncaoApoioEscolar2.destinatario.Equals("Daniela Silva"))
-                {
-                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter.DrawString("Senhora Diretora,", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 280, page.Width, page.Height));
-                    //Destinatário
-                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter.DrawString("Illma Senhora,", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 670, page.Width, page.Height));
-                    textFomatter.DrawString(oficioAssumiuFuncaoApoioEscolar2.destinatario, fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 682, page.Width, page.Height));
-                    textFomatter.DrawString(oficioAssumiuFuncaoApoioEscolar2.CargoDestinatario, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 694, page.Width, page.Height));
-                    textFomatter.DrawString(oficioAssumiuFuncaoApoioEscolar2.CidadeDestinatario, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 706, page.Width, page.Height));
-                                    }
-                if (oficioAssumiuFuncaoApoioEscolar2.destinatario.Equals("Kleber do Carmo"))
-                {
-                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter.DrawString("Senhor Diretor,", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 280, page.Width, page.Height));
-                    //Destinatário
-                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter.DrawString("Illmº Senhor,", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 670, page.Width, page.Height));
-                    textFomatter.DrawString(oficioAssumiuFuncaoApoioEscolar2.destinatario, fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 682, page.Width, page.Height));
-                    textFomatter.DrawString(oficioAssumiuFuncaoApoioEscolar2.CargoDestinatario, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 694, page.Width, page.Height));
-                    textFomatter.DrawString(oficioAssumiuFuncaoApoioEscolar2.CidadeDestinatario, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 706, page.Width, page.Height));
 
+                oficioAssumiuFuncaoApoioEscolar2.FRC = "0";
+
+                if (oficioAssumiuFuncaoApoioEscolar2.FRC.Equals("0"))
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                    textFomatter.DrawString("Comunicamos a Vossa Senhoria que " + oficioAssumiuFuncaoApoioEscolar2.Name + ", CPF " + oficioAssumiuFuncaoApoioEscolar2.CPF + ", vínculo " + oficioAssumiuFuncaoApoioEscolar2.vinculo + "(a), ocupante do Cargo de Apoio Escolar II, assumiu suas funções no dia " + oficioAssumiuFuncaoApoioEscolar2.DataAssumiuFuncao.ToString("dd/MM/yyyy") + " com carga horária de " + oficioAssumiuFuncaoApoioEscolar2.CargaHorariaMensal + " horas mensais,  conforme horário anexo.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 330, page.Width, page.Height));
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                    textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 500, page.Width, page.Height));
+                    textFomatter.DrawString("Vera Cristina Carvalho Oliveira", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 510, page.Width, page.Height));
+                    textFomatter.DrawString("Diretora - Port. 0314/2023", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 525, page.Width, page.Height));
+                    if (oficioAssumiuFuncaoApoioEscolar2.destinatario.Equals("Daniela Silva"))
+                    {
+                        textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                        textFomatter.DrawString("Senhora Diretora,", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 280, page.Width, page.Height));
+                        //Destinatário
+                        textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                        textFomatter.DrawString("Illma Senhora,", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 670, page.Width, page.Height));
+                        textFomatter.DrawString(oficioAssumiuFuncaoApoioEscolar2.destinatario, fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 682, page.Width, page.Height));
+                        textFomatter.DrawString(oficioAssumiuFuncaoApoioEscolar2.CargoDestinatario, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 694, page.Width, page.Height));
+                        textFomatter.DrawString(oficioAssumiuFuncaoApoioEscolar2.CidadeDestinatario, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 706, page.Width, page.Height));
+                    }
+                    if (oficioAssumiuFuncaoApoioEscolar2.destinatario.Equals("Kleber do Carmo"))
+                    {
+                        textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                        textFomatter.DrawString("Senhor Diretor,", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 280, page.Width, page.Height));
+                        //Destinatário
+                        textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                        textFomatter.DrawString("Illmº Senhor,", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 670, page.Width, page.Height));
+                        textFomatter.DrawString(oficioAssumiuFuncaoApoioEscolar2.destinatario, fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 682, page.Width, page.Height));
+                        textFomatter.DrawString(oficioAssumiuFuncaoApoioEscolar2.CargoDestinatario, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 694, page.Width, page.Height));
+                        textFomatter.DrawString(oficioAssumiuFuncaoApoioEscolar2.CidadeDestinatario, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 706, page.Width, page.Height));
+
+                    }
                 }
+                else 
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                    textFomatter.DrawString("Comunicamos a Vossa Senhoria que " + oficioAssumiuFuncaoApoioEscolar2.Name + ", CPF " + oficioAssumiuFuncaoApoioEscolar2.CPF + ", vínculo " + oficioAssumiuFuncaoApoioEscolar2.vinculo + "(a), ocupante do Cargo de Apoio Escolar II, assumiu suas funções no dia " + oficioAssumiuFuncaoApoioEscolar2.DataAssumiuFuncao.ToString("dd/MM/yyyy") + " com carga horária de " + oficioAssumiuFuncaoApoioEscolar2.CargaHorariaMensal + " horas mensais,  conforme horário anexo.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 330, page.Width, page.Height));
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                    textFomatter.DrawString("__________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 500, page.Width, page.Height));
+                    textFomatter.DrawString("Vera Cristina Carvalho Oliveira", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 510, page.Width, page.Height));
+                    textFomatter.DrawString("Diretora - Port. 0314/2023", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 525, page.Width, page.Height));
+                    if (oficioAssumiuFuncaoApoioEscolar2.destinatario.Equals("Daniela Silva"))
+                    {
+                        textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                        textFomatter.DrawString("Senhora Diretora,", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 280, page.Width, page.Height));
+                        //Destinatário
+                        textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                        textFomatter.DrawString("Illma Senhora,", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 670, page.Width, page.Height));
+                        textFomatter.DrawString(oficioAssumiuFuncaoApoioEscolar2.destinatario, fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 682, page.Width, page.Height));
+                        textFomatter.DrawString(oficioAssumiuFuncaoApoioEscolar2.CargoDestinatario, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 694, page.Width, page.Height));
+                        textFomatter.DrawString(oficioAssumiuFuncaoApoioEscolar2.CidadeDestinatario, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 706, page.Width, page.Height));
+                    }
+                    if (oficioAssumiuFuncaoApoioEscolar2.destinatario.Equals("Kleber do Carmo"))
+                    {
+                        textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                        textFomatter.DrawString("Senhor Diretor,", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 280, page.Width, page.Height));
+                        //Destinatário
+                        textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                        textFomatter.DrawString("Illmº Senhor,", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 670, page.Width, page.Height));
+                        textFomatter.DrawString(oficioAssumiuFuncaoApoioEscolar2.destinatario, fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 682, page.Width, page.Height));
+                        textFomatter.DrawString(oficioAssumiuFuncaoApoioEscolar2.CargoDestinatario, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 694, page.Width, page.Height));
+                        textFomatter.DrawString(oficioAssumiuFuncaoApoioEscolar2.CidadeDestinatario, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 706, page.Width, page.Height));
+
+                    }
+                }
+
+                
                 //Rodapé
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 string dataString = DateTime.Now.ToString("dd/MM/yyyy");
