@@ -1,0 +1,134 @@
+﻿@model SGI_JMC.Models.ProfessorHorarios
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Horários Professores - ";
+}
+
+<hr />
+<div class="container-fluid">
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4><b>Horários - Professores(as)</b></h4>
+            <h6>Clique em seu nome e o download do seus horários iniciará automaticamente</h6>
+        </div>
+        <div class="card-body">
+            <form asp-action="">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-2" style="text-align:center;">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Adailza</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Diógenes</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Jailza</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Márcia Bispo</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Isabella Cristina</button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2" style="text-align:center;">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Isabela Marília</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Sérgio</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Jordana</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Deise</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Cleiton</button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2" style="text-align:center;">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Márcia Adriana</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Isa Cristina</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Luzia Renata</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Geisielle</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Alessandro</button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2" style="text-align:center;">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Magna</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Solon</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Osmar</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Vitor</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Edivânia</button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2" style="text-align:center;">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Andréia</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Léia</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Alexandre</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Ana Santos</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Gardênia</button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2" style="text-align:center;">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Professor 01</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Professor 02</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Professor 03</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Professor 04</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-sm btn-block"> Professor 05</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }

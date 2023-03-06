@@ -1,0 +1,18 @@
+﻿<div class="container-fluid">
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4><b>Página em desenvolvimento</b></h4>
+            <h6>Logo em breve esta funcionalidade estará dispponível para melhor atendê-lo</h6>
+        </div>
+        <div class="card-body mt-3" style="text-align:center">
+            <h4> Clique no botão para voltar à página principal.</h4>
+            <img src="~/Imagens/loading.gif" width="800px;" height="300px;" />
+        </div>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-success mt-3">Voltar à Página Principal</a>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

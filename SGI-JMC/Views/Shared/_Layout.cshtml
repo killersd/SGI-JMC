@@ -219,7 +219,7 @@
                                     </li>
                                 </ul>
                             </li>
-                        }                        
+                        }
                         <li class="nav-link dropdown">
                             <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown">
                                 <i class="fa fa-file-text" aria-hidden="true"></i> Declarações
@@ -377,7 +377,7 @@
                             </ul>
                         </li>
                         if (Context.User.IsInRole("administrador"))
-                        {           
+                        {
                             <li class="nav-link dropdown">
                                 <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown">
                                     <i class="fa fa-eye" aria-hidden="true"></i> Documentos Expedidos
@@ -436,27 +436,11 @@
                 else
                 {
                     <a class="nav-link pe-0 text-primary" asp-controller="Usuario" asp-action="Login"><i class="fa fa-sign-in" aria-hidden="true"></i> Entrar</a>
-                    <a class="nav-link pe-0 text-primary" asp-controller="Frequencia" asp-action="Index"><i class="fa fa-calculator" aria-hidden="true"></i> Frequência</a>
-                    <a class="nav-link pe-0 text-primary" asp-controller="DownloadHorarios" asp-action="Horario2023"><i class="fa fa-clock-o" aria-hidden="true"></i> Horário 2023</a>
-
-                    @*<li class="nav-link dropdown">
-                        <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown"><i class="fa fa-clock" aria-hidden="true"></i> Horários</a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                                <a class="dropdown-item" asp-controller="DownloadHorarios" asp-action="HorarioManha" classes-if-active="disabled">
-                                    Matutino
-                                </a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <a class="dropdown-item" asp-controller="DownloadHorarios" asp-action="HorarioTarde">Vespertino</a>
-                            </li>
-                        </ul>
-                    </li>*@
+                    <a class="nav-link pe-0 text-primary" asp-controller="Frequencia" asp-action="Index" title="Calculadora de frequência"><i class="fa fa-calculator" aria-hidden="true"></i> Calcular frequência</a>
+                    <a class="nav-link pe-0 text-primary" asp-controller="DownloadHorarios" asp-action="Horario2023" title="Horário completo 2023"><i class="fa fa-clock-o" aria-hidden="true"></i> Horário 2023</a>
+                    <a class="nav-link pe-0 text-primary" asp-controller="ProfessorHorario" asp-action="Index" title="Horários individuais"><i class="fa fa-file-text-o" aria-hidden="true"></i> Horários individuais</a>
                 }
-             </ul>
+            </ul>
         </div>
     </nav>
     <div class="container">

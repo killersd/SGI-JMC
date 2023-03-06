@@ -100,16 +100,45 @@ namespace SGI_JMC.Controllers
 
                 if (advertencia.Father_name != null)
                 {
-                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
-                    textFomatter.DrawString("Venho através desta notificação informar que o aluno(a) " + advertencia.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + advertencia.Mother_name.ToUpper() + " e " + advertencia.Father_name.ToUpper() + ", " +
-                        " matriculado no " + advertencia.anoSerie + "º ano, turma \"" + advertencia.turma + "\" no turno " + advertencia.turno + ", está sendo advertido por violar as normas do Regimento desta Unidade de Ensino. Informo ainda " +
-                        "que é necessária a presença do responsável legal pelo aluno para dialogar com a equipe diretiva sobre a vida escolar do referido discente.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
-                    textFomatter.DrawString("Descrição do fato:", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(10, 400, page.Width, page.Height));
-                    textFomatter.DrawString(advertencia.descricaoDoFato, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(10, 420, 575, page.Height));
+                    if ((advertencia.anoSerie.Equals("F3")) || (advertencia.anoSerie.Equals("F4")))
+                    {
+                        textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                        textFomatter.DrawString("Venho através desta notificação informar que o aluno(a) " + advertencia.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + advertencia.Mother_name.ToUpper() + " e " + advertencia.Father_name.ToUpper() + ", " +
+                            " matriculado no(a) " + advertencia.anoSerie.ToUpper() + ", turma \"" + advertencia.turma.ToUpper() + "\" no turno " + advertencia.turno + ", está sendo advertido por violar as normas do Regimento desta Unidade de Ensino. Informo ainda " +
+                            "que é necessária a presença do responsável legal pelo aluno para dialogar com a equipe diretiva sobre a vida escolar do referido discente.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                        textFomatter.DrawString("Descrição do fato:", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(10, 400, page.Width, page.Height));
+                        textFomatter.DrawString(advertencia.descricaoDoFato, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(10, 420, 575, page.Height));
+                    }
+                    else
+                    {
+                        textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                        textFomatter.DrawString("Venho através desta notificação informar que o aluno(a) " + advertencia.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + advertencia.Mother_name.ToUpper() + " e " + advertencia.Father_name.ToUpper() + ", " +
+                            " matriculado no(a) " + advertencia.anoSerie.ToUpper() + "º ano, turma \"" + advertencia.turma.ToUpper() + "\" no turno " + advertencia.turno + ", está sendo advertido por violar as normas do Regimento desta Unidade de Ensino. Informo ainda " +
+                            "que é necessária a presença do responsável legal pelo aluno para dialogar com a equipe diretiva sobre a vida escolar do referido discente.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                        textFomatter.DrawString("Descrição do fato:", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(10, 400, page.Width, page.Height));
+                        textFomatter.DrawString(advertencia.descricaoDoFato, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(10, 420, 575, page.Height));
+                    }
                 }
                 else
                 {
-
+                    if ((advertencia.anoSerie.Equals("F3")) || (advertencia.anoSerie.Equals("F4")))
+                    {
+                        textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                        textFomatter.DrawString("Venho através desta notificação informar que o aluno(a) " + advertencia.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + advertencia.Mother_name.ToUpper() + ", " +
+                            " matriculado no(a) " + advertencia.anoSerie.ToUpper() + ", turma \"" + advertencia.turma.ToUpper() + "\" no turno " + advertencia.turno + ", está sendo advertido por violar as normas do Regimento desta Unidade de Ensino. Informo ainda " +
+                            "que é necessária a presença do responsável legal pelo aluno para dialogar com a equipe diretiva sobre a vida escolar do referido discente.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                        textFomatter.DrawString("Descrição do fato:", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(10, 400, page.Width, page.Height));
+                        textFomatter.DrawString(advertencia.descricaoDoFato, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(10, 420, 575, page.Height));
+                    }
+                    else
+                    {
+                        textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                        textFomatter.DrawString("Venho através desta notificação informar que o aluno(a) " + advertencia.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + advertencia.Mother_name.ToUpper() + ", " +
+                            " matriculado no(a) " + advertencia.anoSerie.ToUpper() + "º ano, turma \"" + advertencia.turma.ToUpper() + "\" no turno " + advertencia.turno + ", está sendo advertido por violar as normas do Regimento desta Unidade de Ensino. Informo ainda " +
+                            "que é necessária a presença do responsável legal pelo aluno para dialogar com a equipe diretiva sobre a vida escolar do referido discente.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                        textFomatter.DrawString("Descrição do fato:", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(10, 400, page.Width, page.Height));
+                        textFomatter.DrawString(advertencia.descricaoDoFato, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(10, 420, 575, page.Height));
+                    }
                 }
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;

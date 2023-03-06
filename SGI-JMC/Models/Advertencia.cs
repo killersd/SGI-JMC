@@ -26,13 +26,13 @@ namespace SGI_JMC.Models
         [DataType(DataType.Date)]
         public DateTime Birth_date { get; set; }        
 
-        [Display(Name = "Ano/Série")]
+        [Display(Name = "Ano/Série/Fase")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
-        public int anoSerie { get; set; }
+        public string anoSerie { get; set; }
 
         [Display(Name = "Turma")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
-        public char turma { get; set; }
+        public string turma { get; set; }
 
         [Display(Name = "Data de emissão")]
         public DateTime dataDeEmissao { get; set; }
