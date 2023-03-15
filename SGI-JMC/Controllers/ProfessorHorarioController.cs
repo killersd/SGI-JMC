@@ -6,8 +6,7 @@ namespace SGI_JMC.Controllers
     {
         public IActionResult Index()
         {
-            return View("PaginaEmDesenvolvimento");
+            return View();
         }
-
     }
 }

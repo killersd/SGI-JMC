@@ -41,6 +41,8 @@ namespace SGI_JMC.Data
         public DbSet<DeclaracaoTransferenciaRegularAnoFinalizado> DeclaracaoTransferenciaRegularAnoFinalizado { get; set; }
 
         public DbSet<DeclaracaoTransferenciaProSicAnoFinalizado> DeclaracaoTransferenciaProSicAnoFinalizado { get; set; }
+        public DbSet<AlunoAtual> AlunoAtual { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

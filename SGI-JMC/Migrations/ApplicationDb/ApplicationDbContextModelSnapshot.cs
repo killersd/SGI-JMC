@@ -260,6 +260,65 @@ namespace SGI_JMC.Migrations.ApplicationDb
                     b.ToTable("Advertencia");
                 });
 
+            modelBuilder.Entity("SGI_JMC.Models.AlunoAtual", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DataNascimento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Endereco")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Mae")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pai")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Telefone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("anoLetivo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("anoSerie")
+                        .HasColumnType("int");
+
+                    b.Property<string>("codigoAutenticacao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("codigoSeed")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("dataDeEmissao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("numeroDeclaracao")
+                        .HasColumnType("int");
+
+                    b.Property<string>("numeroDoNis")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("turma")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AlunoAtual");
+                });
+
             modelBuilder.Entity("SGI_JMC.Models.Declaracao", b =>
                 {
                     b.Property<int>("Id")
@@ -1110,6 +1169,21 @@ namespace SGI_JMC.Migrations.ApplicationDb
                     b.Property<string>("s05")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("sab01")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("sab02")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("sab03")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("sab04")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("sab05")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("se01")
                         .HasColumnType("nvarchar(max)");
 
@@ -1183,6 +1257,21 @@ namespace SGI_JMC.Migrations.ApplicationDb
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ts05")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("tsab01")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("tsab02")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("tsab03")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("tsab04")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("tsab05")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("tse01")

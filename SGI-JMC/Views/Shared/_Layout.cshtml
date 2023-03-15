@@ -150,6 +150,18 @@
                                             Calculadora de Frequência
                                         </a>
                                     </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="ProfessorHorario" asp-action="Index" classes-if-active="disabled">Horários 2023</a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="AlunoAtual" asp-action="Index" classes-if-active="disabled">Alunos Matriculados</a>
+                                    </li>
                                 </ul>
                             </li>
                         }
@@ -437,9 +449,10 @@
                 {
                     <a class="nav-link pe-0 text-primary" asp-controller="Usuario" asp-action="Login"><i class="fa fa-sign-in" aria-hidden="true"></i> Entrar</a>
                     <a class="nav-link pe-0 text-primary" asp-controller="Frequencia" asp-action="Index" title="Calculadora de frequência"><i class="fa fa-calculator" aria-hidden="true"></i> Calcular frequência</a>
-                    <a class="nav-link pe-0 text-primary" asp-controller="DownloadHorarios" asp-action="Horario2023" title="Horário completo 2023"><i class="fa fa-clock-o" aria-hidden="true"></i> Horário 2023</a>
-                    <a class="nav-link pe-0 text-primary" asp-controller="ProfessorHorario" asp-action="Index" title="Horários individuais"><i class="fa fa-file-text-o" aria-hidden="true"></i> Horários individuais</a>
-                }
+                    @*                    <a class="nav-link pe-0 text-primary" asp-controller="DownloadHorarios" asp-action="Horario2023" title="Horário completo 2023"><i class="fa fa-clock-o" aria-hidden="true"></i> Horário 2023</a>
+                *@
+                    @*                    <a class="nav-link pe-0 text-primary" asp-controller="ProfessorHorario" asp-action="Index" title="Horários 2023"><i class="fa fa-clock-o" aria-hidden="true"></i> Horários 2023</a>
+                *@                }
             </ul>
         </div>
     </nav>
@@ -452,10 +465,12 @@
 
     <footer class="border-top footer text-muted">
         <div class="text-dark bg-light p-1 fixed-bottom text-center">
-            SGI-JMC - @DateTime.Now.Year.ToString() -
-            &copy;Todos os direitos reservados
+            SGI-JMC - @DateTime.Now.Year.ToString() - &copy;Todos os direitos reservados
+            <a href="https://www.facebook.com/escolajoaocarvalho" target="_blank"><i class="fa fa-facebook-square"></i></a>
+            <a href="https://www.instagram.com/_eejmc/" target="_blank"><i class="fa fa-instagram"></i></a>
         </div>
     </footer>
+
     <script src="~/lib/CustomJS.js"></script>
     <script src="~/lib/bootstrap5/dist/js/bootstrap.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

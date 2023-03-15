@@ -9,8 +9,6 @@ namespace SGI_JMC.Models
         {
             Database.EnsureCreated();
         }
-
-
         public DbSet<Comunicado> Comunicado { get; set; }
         public DbSet<aluno> Alunos { get; set; }
         public DbSet<Declaracao> Declaracao { get; set; }
@@ -31,17 +29,14 @@ namespace SGI_JMC.Models
         public DbSet<DeclaracaoConcludentesProSic> DeclaracaoConcludentesProSic { get; set; }
         public DbSet<OficioAssumiuFuncaoApoioEscolar2> OficioAssumiuFuncaoApoioEscolar2 { get; set; }
         public DbSet<HorarioApoioEscolar2> HorarioApoioEscolar2 { get; set; }
-
         public DbSet<AlunoSemTransferencia> AlunoSemTransferencia { get; set; }
-
         public DbSet<DeclaracaoExAluno> DeclaracaoExAluno { get; set; }
         public DbSet<DeclaracaoDistanciaInteriorizacao> DeclaracaoDistanciaInteriorizacao { get; set; }
         public DbSet<DeclaracaoResidencia> DeclaracaoResidencia { get; set; }
         public DbSet<DeclaracaoGenerica> DeclaracaoGenerica { get; set; }
         public DbSet<DeclaracaoTransferenciaRegularAnoFinalizado> DeclaracaoTransferenciaRegularAnoFinalizado { get; set; }
-
         public DbSet<DeclaracaoTransferenciaProSicAnoFinalizado> DeclaracaoTransferenciaProSicAnoFinalizado { get; set; }
-
+        public DbSet<AlunoAtual> AlunoAtual { get; set; }
 
     }
 }

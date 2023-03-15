@@ -65,6 +65,12 @@ namespace SGI_JMC.Models
         public string se04 { get; set; }
         public string se05 { get; set; }
 
+        //Horários sábado
+        public string sab01 { get; set; }
+        public string sab02 { get; set; }
+        public string sab03 { get; set; }
+        public string sab04 { get; set; }
+        public string sab05 { get; set; }
 
         //Horários segunda
         public string ts01 { get; set; }
@@ -100,6 +106,13 @@ namespace SGI_JMC.Models
         public string tse03 { get; set; }
         public string tse04 { get; set; }
         public string tse05 { get; set; }
+
+        //Horários sábado
+        public string tsab01 { get; set; }
+        public string tsab02 { get; set; }
+        public string tsab03 { get; set; }
+        public string tsab04 { get; set; }
+        public string tsab05 { get; set; }
 
     }
 }
