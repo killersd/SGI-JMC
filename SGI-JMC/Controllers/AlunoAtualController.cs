@@ -26,6 +26,8 @@ namespace SGI_JMC.Controllers
         }
 
 
+
+        //ADICIONAR
         [Authorize(Roles = "administrador")]
         [HttpGet]
         public IActionResult AdicionarAluno()
@@ -33,11 +35,17 @@ namespace SGI_JMC.Controllers
             return View();
         }
 
+        [Authorize(Roles = "administrador")]
         [HttpPost]
         public async Task<IActionResult> AdicionarAluno(AlunoAtual student)
         {
             if (ModelState.IsValid)
             {
+                student.Nome.ToUpper();
+                student.Pai.ToUpper();
+                student.Mae.ToUpper();
+                student.Endereco.ToUpper();
+
                 _contexto.Add(student);
                 await _contexto.SaveChangesAsync();
                 this.MostrarMensagem($"Aluno cadastrado com sucesso!");
@@ -50,10 +58,7 @@ namespace SGI_JMC.Controllers
         }
 
 
-
-
-
-
+        //VISUALISAR
         [Authorize(Roles = "usuario, administrador")]
         public ActionResult VisualizarAluno(int? id)
         {
@@ -64,20 +69,93 @@ namespace SGI_JMC.Controllers
                 {
                     allunoAtual.Telefone = "Não encontrado nos nossos registros";
                 }
+                if (allunoAtual.numeroDoNis == null)
+                {
+                    allunoAtual.numeroDoNis = "Não encontrado nos nossos registros";
+                }
                 return View(allunoAtual);
             }
             else
                 return NotFound();
         }
 
+
+        //EDITAR
+        [Authorize(Roles = "administrador")]
+        [HttpGet]
+        public IActionResult EditarAluno(int? id)
+        {
+            if (id != null)
+            {
+                AlunoAtual student = _contexto.AlunoAtual.Find(id);
+                return View(student);
+            }
+            else
+                return View();
+        }
+
+        [Authorize(Roles = "administrador")]
+        [HttpPost]
+        public async Task<IActionResult> EditarAluno(int? id, AlunoAtual student)
+        {
+            if (id != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    _contexto.Update(student);
+                    await _contexto.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return View(student);
+                }
+
+            }
+            else
+
+                return NotFound();
+        }
+
+
+        //APRAGAR
+        [Authorize(Roles = "administrador")]
+        [HttpGet]
+        public IActionResult ExcluirAluno(int? id)
+        {
+            if (id != null)
+            {
+                AlunoAtual student = _contexto.AlunoAtual.Find(id);
+                return View(student);
+            }
+            else
+                return View();
+        }
+
+        [Authorize(Roles = "administrador")]
+        [HttpPost]
+        public async Task<IActionResult> ExcluirAluno(int? id, AlunoAtual student)
+        {
+            if (id != null)
+            {
+                _contexto.Remove(student);
+                await _contexto.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            else
+                return NotFound();
+        }
+
+
+
+
+        //PREENCHER DECLARAÇÃO DE ALUNO REGULAR
+
         [Authorize(Roles = "usuario, administrador")]
         public FileResult PreencherDeclaracao(AlunoAtual alunoAtual)
         {
 
-
             alunoAtual = _contexto.AlunoAtual.Find(alunoAtual.Id);
-
-
 
             alunoAtual.codigoAutenticacao = GerarCodigoDeAutenticacaoAlunoAtual(alunoAtual);
             using (var doc = new PdfSharpCore.Pdf.PdfDocument())

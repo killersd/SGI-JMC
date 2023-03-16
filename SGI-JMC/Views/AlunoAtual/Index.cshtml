@@ -32,19 +32,20 @@
                             <tr>
                                 <td>@item.Nome</td>
                                 <td>@item.DataNascimento.ToString("dd/MM/yyyy")</td>
-                                <td>@item.anoSerie</td>
+                                <td>@item.anoSerie º @item.turma</td>
                                 <td>@item.Telefone</td>
-
                                 <td style="align-content:center">
                                     <a asp-action="VisualizarAluno" asp-route-id=@item.Id>
                                         <i class="btn btn-outline-info fa fa-eye"
                                        title="Ver ficha completa"></i>
                                     </a>
-                                    <a asp-action="Editar" asp-route-id=@item.Id>
-                                        <i class="btn btn-outline-primary fa fa-pencil"
+                                    @if (User.IsInRole("administrador"))
+                                    {
+                                        <a asp-action="EditarAluno" asp-route-id=@item.Id>
+                                            <i class="btn btn-outline-primary fa fa-pencil"
                                        title="Editar"></i>
-                                    </a>
-
+                                        </a>
+                                    }
                                     @if (@item.CorrecaoDeFluxo.Equals("Não"))
                                     {
                                         <a asp-action="PreencherDeclaracao" asp-route-id=@item.Id>
@@ -59,16 +60,17 @@
                                        title="Declaração de Frequência ProSic"></i>
                                         </a>
                                     }
-
-
                                     <a asp-action="DeclaracaoTransferencia" asp-route-id=@item.Id>
                                         <i class="btn btn-outline-warning fa fa-file"
                                        title="Declaração de Transferência"></i>
                                     </a>
-                                    <a asp-action="Apagar" asp-route-id=@item.Id>
-                                        <i class="btn btn-outline-danger fa fa-trash"
-                                       title="Excluir"></i>
-                                    </a>
+                                    @if (User.IsInRole("administrador"))
+                                    {
+                                        <a asp-action="ExcluirAluno" asp-route-id=@item.Id>
+                                            <i class="btn btn-outline-danger fa fa-trash"
+                                       title="ExcluirAluno"></i>
+                                        </a>
+                                    }
                                 </td>
                             </tr>
                             count++;

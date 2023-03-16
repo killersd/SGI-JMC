@@ -7,58 +7,101 @@
             <h4><b>Detalhes do Aluno</b></h4>
         </div>
         <div class="card-body">
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.Nome)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Nome)
-                </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Pai)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Pai)
-                </dd>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Nome)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Nome)
+                            </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Mae)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Mae)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.DataNascimento)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.DataNascimento)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Endereco)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Endereco)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Telefone)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Telefone)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.anoSerie)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.anoSerie)
-                </dd>
-    @*            <dt>
-                    @Html.DisplayNameFor(model => model.SerieOrigem)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.SerieOrigem)
-                </dd>*@
-            </dl>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Pai)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Pai)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Mae)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Mae)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.DataNascimento)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.DataNascimento)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <dl>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Endereco)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Endereco)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Telefone)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Telefone)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.anoSerie)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.anoSerie)º
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.turma)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.turma)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <dl>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.anoLetivo)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.anoLetivo)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.codigoSeed)
+                            </dt>
+                            <dd style="color:red">
+                                <b>@Html.DisplayFor(model => model.codigoSeed)</b>
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.numeroDoNis)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.numeroDoNis)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.CorrecaoDeFluxo)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.CorrecaoDeFluxo)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-md-12" style="text-align:center">
             <a href="../Index" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar</a>
