@@ -43,7 +43,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="AnoSerie" class="control-label"></label>
-                            <input asp-for="AnoSerie" MaxLength="1" placeholder="7º, 8º, 9º, etc" class="form-control" />
+                            <input asp-for="AnoSerie" MaxLength="1" value="9" class="form-control" disabled/>
                             <span asp-validation-for="AnoSerie" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="col-3">
                                     <div>
-                                        <input asp-for="ResultadoFinal" type="radio" id="Reprovado" name="ResultadoFinal" value="Reprovado">
+                                        <input asp-for="ResultadoFinal" type="radio" id="Reprovado" name="ResultadoFinal" value="Reprovado" disabled>
                                         <label for="Reprovado">Reprovado</label>
                                     </div>
                                 </div>

@@ -78,9 +78,7 @@ namespace SGI_JMC.Controllers
                 XImage imgBrasao = XImage.FromFile(brasao);
                 XImage imgEscudo = XImage.FromFile(escudo);
                 XImage imgLogo = XImage.FromFile(logo);
-
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                //graphics.DrawImage(imgBrasao, 275, 20, 50, 75);
                 graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
                 graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;

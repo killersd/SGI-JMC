@@ -30,6 +30,7 @@ namespace SGI_JMC.Models
 
         [Display(Name = "Ano/Série")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
+        [Range(9, 9, ErrorMessage = "Aluno não é concludente, este campo deve ser 9º ano")]
         public int AnoSerie { get; set; }
 
         [Display(Name = "Turma")]

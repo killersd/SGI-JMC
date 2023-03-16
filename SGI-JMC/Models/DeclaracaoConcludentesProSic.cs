@@ -31,10 +31,12 @@ namespace SGI_JMC.Models
 
         [Display(Name = "Fase ProSic")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
+        [Range(3, 4, ErrorMessage = "fase deve ser 3 ou 4 - 3 para 6º e 7º anos e 4 para 8º e 9º")]
         public string FaseProSic { get; set; }
 
         [Display(Name = "Série de origem")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
+        [Range(8, 9, ErrorMessage = "Aluno não é concludente, este campo deve estar entre 8º e 9º ano")]
         public string SerieDeOrigem { get; set; }
 
         [Display(Name = "Número do NIS")]

@@ -399,13 +399,16 @@ namespace SGI_JMC.Controllers
 
                 var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
                 var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
                 XImage imgBrasao = XImage.FromFile(brasao);
                 XImage imgEscudo = XImage.FromFile(escudo);
-
+                XImage imgLogo = XImage.FromFile(logo);
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                //graphics.DrawImage(imgBrasao, 275, 20, 50, 75);
                 graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
                 graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
 
                 textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
                 textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
@@ -564,13 +567,16 @@ namespace SGI_JMC.Controllers
 
                 var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
                 var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
                 XImage imgBrasao = XImage.FromFile(brasao);
                 XImage imgEscudo = XImage.FromFile(escudo);
-
+                XImage imgLogo = XImage.FromFile(logo);
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                //graphics.DrawImage(imgBrasao, 275, 20, 50, 75);
                 graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
                 graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
 
                 textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
                 textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
@@ -724,13 +730,16 @@ namespace SGI_JMC.Controllers
 
                 var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
                 var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
                 XImage imgBrasao = XImage.FromFile(brasao);
                 XImage imgEscudo = XImage.FromFile(escudo);
-
+                XImage imgLogo = XImage.FromFile(logo);
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                //graphics.DrawImage(imgBrasao, 275, 20, 50, 75);
                 graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
                 graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
 
                 textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
                 textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
@@ -891,13 +900,16 @@ namespace SGI_JMC.Controllers
 
                 var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
                 var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
                 XImage imgBrasao = XImage.FromFile(brasao);
                 XImage imgEscudo = XImage.FromFile(escudo);
-
+                XImage imgLogo = XImage.FromFile(logo);
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                //graphics.DrawImage(imgBrasao, 275, 20, 50, 75);
                 graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
                 graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
 
                 textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
                 textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
@@ -909,6 +921,7 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("DECLARAÇÃO DE CONCLUSÃO", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
 
                 string dataNascString = declaracaoConcludentesProSic.DataNascimento.ToString("dd/MM/yyyy");
+                declaracaoConcludentesProSic.FaseProSic = "4";
 
                 if (declaracaoConcludentesProSic.NumeroDoNis == null)
                 {
@@ -1032,7 +1045,6 @@ namespace SGI_JMC.Controllers
             return View();
         }
 
-
         [Authorize(Roles = "usuario, administrador")]
         public FileResult gerarDeclaracaoTransferenciaAlunoProSicFinalizado(DeclaracaoTransferenciaProSicAnoFinalizado declaracaoTransferenciaProSicAnoFinalizado)
         {
@@ -1057,13 +1069,16 @@ namespace SGI_JMC.Controllers
 
                 var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
                 var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
                 XImage imgBrasao = XImage.FromFile(brasao);
                 XImage imgEscudo = XImage.FromFile(escudo);
-
+                XImage imgLogo = XImage.FromFile(logo);
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                //graphics.DrawImage(imgBrasao, 275, 20, 50, 75);
                 graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
                 graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
 
                 textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
                 textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
@@ -1286,13 +1301,16 @@ namespace SGI_JMC.Controllers
 
                 var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
                 var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
                 XImage imgBrasao = XImage.FromFile(brasao);
                 XImage imgEscudo = XImage.FromFile(escudo);
-
+                XImage imgLogo = XImage.FromFile(logo);
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                //graphics.DrawImage(imgBrasao, 275, 20, 50, 75);
                 graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
                 graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
 
                 textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
                 textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
@@ -1479,13 +1497,16 @@ namespace SGI_JMC.Controllers
 
                 var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
                 var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
                 XImage imgBrasao = XImage.FromFile(brasao);
                 XImage imgEscudo = XImage.FromFile(escudo);
-
+                XImage imgLogo = XImage.FromFile(logo);
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                //graphics.DrawImage(imgBrasao, 275, 20, 50, 75);
                 graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
                 graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
 
                 textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
                 textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
@@ -1505,6 +1526,7 @@ namespace SGI_JMC.Controllers
                 //melhorar isso aqui
                 string turmaString = declaracaoConcludentesRegular.Turma.ToString();
                 string dataNascString = declaracaoConcludentesRegular.DataNascimento.ToString("dd/MM/yyyy");
+                declaracaoConcludentesRegular.AnoSerie = 9;
 
                 if (declaracaoConcludentesRegular.NumeroDoNis == null)
                 {

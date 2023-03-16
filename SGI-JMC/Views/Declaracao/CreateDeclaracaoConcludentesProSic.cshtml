@@ -42,7 +42,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="FaseProSic" class="control-label"></label>
-                            <input asp-for="FaseProSic" MaxLength="1" placeholder="3 ou 4" class="form-control" />
+                            <input asp-for="FaseProSic" MaxLength="1" value="4" class="form-control" disabled/>
                             <span asp-validation-for="FaseProSic" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -77,7 +77,7 @@
                                 </div>
                                 <div class="col-3">
                                     <div>
-                                        <input asp-for="ResultadoFinal" type="radio" id="Reprovado" name="ResultadoFinal" value="Reprovado">
+                                        <input asp-for="ResultadoFinal" type="radio" id="Reprovado" name="ResultadoFinal" value="Reprovado" disabled>
                                         <label for="Reprovado">Reprovado</label>
                                     </div>
                                 </div>
