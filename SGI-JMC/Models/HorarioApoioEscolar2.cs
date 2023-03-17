@@ -9,7 +9,7 @@ namespace SGI_JMC.Models
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
-        [StringLength(11, ErrorMessage = "O campo {0} deve possuir {1} caracteres!")]
+        [StringLength(14, ErrorMessage = "O campo {0} deve possuir {1} caracteres!")]
         public string CPF { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
