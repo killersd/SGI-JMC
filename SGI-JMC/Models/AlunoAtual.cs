@@ -29,6 +29,8 @@ namespace SGI_JMC.Models
         public string Endereco { get; set; }
 
         [Display(Name = "Telefone")]
+        [StringLength(15, ErrorMessage = "O campo {0} deve ter {1} dígitos.")]
+
         public string Telefone { get; set; }
 
         public int numeroDeclaracao { get; set; }

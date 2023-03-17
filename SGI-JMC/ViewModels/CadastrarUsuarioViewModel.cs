@@ -12,7 +12,7 @@ namespace SGI_JMC.ViewModels
 
         [DataType(DataType.PhoneNumber)]
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório.")]
-        [StringLength(11, ErrorMessage = "O campo {0} deve ter {1} dígitos.")]
+        [StringLength(15, ErrorMessage = "O campo {0} deve ter {1} dígitos.")]
         public string Telefone { get; set; }
 
         [Display(Name = "E-mail")]

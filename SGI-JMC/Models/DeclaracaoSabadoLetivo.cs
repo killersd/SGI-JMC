@@ -15,7 +15,7 @@ namespace SGI_JMC.Models
 
         [Display(Name = "CPF")]
         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório!")]
-        [StringLength(11, ErrorMessage = "O campo {0} deve ter {1} dígitos.")]
+        //[StringLength(11, ErrorMessage = "O campo {0} deve ter {1} dígitos.")]
         public string CPF { get; set; }
 
         [Display(Name = "Data de emissão")]
