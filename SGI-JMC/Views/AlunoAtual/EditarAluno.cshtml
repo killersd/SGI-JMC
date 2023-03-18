@@ -7,98 +7,194 @@
 <div class="container-fluid">
     <div class="card mb-3">
         <div class="card-header">
-            <h4><b>Editar Aluno</b></h4>
+            <h4><b>Editar aluno</b></h4>
         </div>
         <div class="card-body">
             <form asp-action="EditarAluno">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Id" />
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label asp-for="Nome" class="control-label"></label>
-                            <input asp-for="Nome" class="form-control" />
-                            <span asp-validation-for="Nome" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Pai" class="control-label"></label>
-                            <input asp-for="Pai" class="form-control" />
-                            <span asp-validation-for="Pai" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Mae" class="control-label"></label>
-                            <input asp-for="Mae" class="form-control" />
-                            <span asp-validation-for="Mae" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="DataNascimento" class="control-label"></label>
-                            <input asp-for="DataNascimento" class="form-control" />
-                            <span asp-validation-for="DataNascimento" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Endereco" class="control-label"></label>
-                            <input asp-for="Endereco" class="form-control" />
-                            <span asp-validation-for="Endereco" class="text-danger"></span>
-                        </div>
-
-
-
-                        <div class="form-group">
-                            <label asp-for="Telefone" class="control-label"></label>
-                            <input asp-for="Telefone" class="form-control" />
-                            <span asp-validation-for="Telefone" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="codigoSeed" class="control-label"></label>
-                            <input asp-for="codigoSeed" class="form-control" />
-                            <span asp-validation-for="codigoSeed" class="text-danger"></span>
-                        </div>                        <div class="form-group">
-                            <label asp-for="anoLetivo" class="control-label"></label>
-                            <input asp-for="anoLetivo" class="form-control" />
-                            <span asp-validation-for="anoLetivo" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="anoSerie" class="control-label"></label>
-                            <input asp-for="anoSerie" class="form-control" />
-                            <span asp-validation-for="anoSerie" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="turma" class="control-label"></label>
-                            <input asp-for="turma" class="form-control" />
-                            <span asp-validation-for="turma" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="numeroDoNis" class="control-label"></label>
-                            <input asp-for="numeroDoNis" class="form-control" maxlength="11" />
-                            <span asp-validation-for="numeroDoNis" class="text-danger"></span>
-                        </div>
-                        <div class="form-group" style="width:504px;height:62px;">
-                            <label asp-for="CorrecaoDeFluxo" class="control-label"></label>
-                            <fieldset>
-                                <div>
-                                    <input asp-for="CorrecaoDeFluxo" type="radio" id="" name="CorrecaoDeFluxo" value="Sim">
-                                    <label for="Sim">Sim</label>
+                <div class="container-fluid">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h4>Dados pessoais</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label asp-for="Nome" class="control-label"></label>
+                                                <input asp-for="Nome" class="form-control" />
+                                                <span asp-validation-for="Nome" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label asp-for="DataNascimento" class="control-label"></label>
+                                                <input asp-for="DataNascimento" class="form-control" />
+                                                <span asp-validation-for="DataNascimento" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <input asp-for="CorrecaoDeFluxo" type="radio" id="Não" name="CorrecaoDeFluxo" value="Não">
-                                    <label for="Não">Não</label>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Pai" class="control-label"></label>
+                                                <input asp-for="Pai" class="form-control" />
+                                                <span asp-validation-for="Pai" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Mae" class="control-label"></label>
+                                                <input asp-for="Mae" class="form-control" />
+                                                <span asp-validation-for="Mae" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </fieldset>
-                            <span asp-validation-for="CorrecaoDeFluxo" class="text-danger"></span>
-                        </div>
-
-                        <div class="col-md-12" style="text-align:center">
-                            <a href="../Index" class="btn btn-info"><i class="fa fa-ban" aria-hidden="true"></i> Cancelar</a>
-                            <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar</button>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Endereco" class="control-label"></label>
+                                                <input asp-for="Endereco" class="form-control" />
+                                                <span asp-validation-for="Endereco" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label asp-for="Telefone" class="control-label"></label>
+                                                <input asp-for="Telefone" class="form-control" maxlength="15" />
+                                                <span asp-validation-for="Telefone" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label asp-for="NumeroDoNis" class="control-label"></label>
+                                                <input asp-for="NumeroDoNis" class="form-control" maxlength="14" />
+                                                <span asp-validation-for="NumeroDoNis" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <p></p>
+                <div class="container-fluid">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h4>Dados acadêmicos</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label asp-for="anoLetivo" class="control-label"></label>
+                                                <input asp-for="anoLetivo" class="form-control" />
+                                                <span asp-validation-for="anoLetivo" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label asp-for="anoSerie" class="control-label"></label>
+                                                <input asp-for="anoSerie" class="form-control" />
+                                                <span asp-validation-for="anoSerie" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label asp-for="turma" class="control-label"></label>
+                                                <input asp-for="turma" class="form-control" />
+                                                <span asp-validation-for="turma" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label asp-for="codigoSeed" class="control-label"></label>
+                                                <input asp-for="codigoSeed" class="form-control" />
+                                                <span asp-validation-for="codigoSeed" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p></p>
+                <div class="container-fluid">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h4>Dados ProSic</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label asp-for="FaseProSic" class="control-label"></label>
+                                                <input asp-for="FaseProSic" class="form-control" maxlength="1" />
+                                                <span asp-validation-for="FaseProSic" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label asp-for="SerieOrigem" class="control-label"></label>
+                                                <input asp-for="SerieOrigem" class="form-control" maxlength="1" />
+                                                <span asp-validation-for="SerieOrigem" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group" style="width:504px;height:62px;">
+                                                <label asp-for="CorrecaoDeFluxo" class="control-label"></label>
+                                                <fieldset>
+                                                    <div>
+                                                        <input asp-for="CorrecaoDeFluxo" type="radio" id="" name="CorrecaoDeFluxo" value="Sim">
+                                                        <label for="Sim">Sim</label>
+                                                    </div>
+                                                    <div>
+                                                        <input asp-for="CorrecaoDeFluxo" type="radio" id="Não" name="CorrecaoDeFluxo" value="Não">
+                                                        <label for="Não">Não</label>
+                                                    </div>
+                                                </fieldset>
+                                                <span asp-validation-for="CorrecaoDeFluxo" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12" style="text-align:center">
+                    <a href="../AlunoAtual/Index" class="btn btn-info"><i class="fa fa-ban" aria-hidden="true"></i> Cancelar</a>
+                    <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<p></p>
 @section Scripts {
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var Telefone = $("#Telefone");
+            Telefone.mask('(00)0-0000-0000', { reverse: false });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var NumeroDoNis = $("#NumeroDoNis");
+            NumeroDoNis.mask('00.00000.00-0', { reverse: false });
+        });
+    </script>
+
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }

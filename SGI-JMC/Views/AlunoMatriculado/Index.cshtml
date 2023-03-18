@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SGI_JMC.Models.AlunoAtual>
+﻿@model IEnumerable<SGI_JMC.Models.AlunoMatriculado>
 <partial name="_MensagemPartial" />
 @{
     ViewData["Title"] = "Alunos - " + " " + DateTime.Now.Year.ToString() + " - ";
@@ -32,19 +32,7 @@
                             <tr>
                                 <td>@item.Nome</td>
                                 <td>@item.DataNascimento.ToString("dd/MM/yyyy")</td>
-
-                                @if (@item.CorrecaoDeFluxo.Equals("Sim"))
-                                {
-                                    <td>Fase @item.FaseProSic - @item.SerieOrigem º </td>
-
-                                }
-                                else
-                                {
-                                    <td>@item.anoSerie º @item.turma</td>
-
-                                }
-
-
+                                <td>@item.anoSerie º @item.turma</td>
                                 <td>@item.Telefone</td>
                                 <td style="align-content:center">
                                     <a asp-action="VisualizarAluno" asp-route-id=@item.Id>
@@ -64,22 +52,17 @@
                                             <i class="btn btn-outline-success fa fa-file-pdf-o"
                                        title="Declaração de Frequência"></i>
                                         </a>
-                                        <a asp-action="DeclaracaoTransferencia" asp-route-id=@item.Id>
-                                            <i class="btn btn-outline-warning fa fa-exclamation"
-                                       title="Declaração de Transferência"></i>
-                                        </a>
                                     }
                                     @if (@item.CorrecaoDeFluxo.Equals("Sim"))
                                     {
                                         <a asp-action="PreencherDeclaracaoProSic" asp-route-id=@item.Id>
-                                            <i class="btn btn-outline-dark fa fa-file-pdf-o"
+                                            <i class="btn btn-outline-success fa fa-file-pdf-o"
                                        title="Declaração de Frequência ProSic"></i>
                                         </a>
-                                        <a asp-action="DeclaracaoTransferenciaProSic" asp-route-id=@item.Id>
-                                            <i class="btn btn-outline-warning fa fa-exclamation" title="Declaração de Transferência ProSic"></i>
-                                        </a>
                                     }
-
+                                    <a asp-action="DeclaracaoTransferencia" asp-route-id=@item.Id>
+                                        <i class="btn btn-outline-warning fa fa-exclamation" title="Declaração de Transferência"></i>
+                                    </a>
                                     @if (User.IsInRole("administrador"))
                                     {
                                         <a asp-action="ExcluirAluno" asp-route-id=@item.Id>

@@ -1,4 +1,4 @@
-﻿@model SGI_JMC.Models.AlunoAtual
+﻿@model SGI_JMC.Models.AlunoMatriculado
 
 @{
     ViewData["Title"] = "Deletar aluno - ";
@@ -70,12 +70,6 @@
                             <dd>
                                 @Html.DisplayFor(model => model.turma)
                             </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.FaseProSic)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.FaseProSic)
-                            </dd>
                         </dl>
                     </div>
                 </div>
@@ -105,12 +99,6 @@
                             </dt>
                             <dd>
                                 @Html.DisplayFor(model => model.CorrecaoDeFluxo)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.SerieOrigem)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.SerieOrigem)
                             </dd>
                         </dl>
                     </div>

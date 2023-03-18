@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SGI_JMC.Models;
 
 namespace SGI_JMC.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230317200920_alunosAtuaisNovo")]
+    partial class alunosAtuaisNovo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +84,7 @@ namespace SGI_JMC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FaseProSic")
+                    b.Property<int>("FaseProSic")
                         .HasColumnType("int");
 
                     b.Property<string>("Mae")
@@ -93,13 +95,10 @@ namespace SGI_JMC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NumeroDoNis")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Pai")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SerieOrigem")
+                    b.Property<int>("SerieDeOrigem")
                         .HasColumnType("int");
 
                     b.Property<string>("Telefone")
@@ -112,7 +111,7 @@ namespace SGI_JMC.Migrations
                     b.Property<int>("anoLetivo")
                         .HasColumnType("int");
 
-                    b.Property<int?>("anoSerie")
+                    b.Property<int>("anoSerie")
                         .HasColumnType("int");
 
                     b.Property<string>("codigoAutenticacao")
@@ -128,84 +127,16 @@ namespace SGI_JMC.Migrations
                     b.Property<int>("numeroDeclaracao")
                         .HasColumnType("int");
 
+                    b.Property<string>("numeroDoNis")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("turma")
+                        .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
                     b.HasKey("Id");
 
                     b.ToTable("AlunoAtual");
-                });
-
-            modelBuilder.Entity("SGI_JMC.Models.AlunoMatriculado", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CorrecaoDeFluxo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Endereco")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("FaseProSic")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Mae")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NumeroDoNis")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Pai")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("SerieOrigem")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Telefone")
-                        .HasColumnType("nvarchar(15)")
-                        .HasMaxLength(15);
-
-                    b.Property<bool>("Transferido")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("anoLetivo")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("anoSerie")
-                        .HasColumnType("int");
-
-                    b.Property<string>("codigoAutenticacao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("codigoSeed")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("dataDeEmissao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("numeroDeclaracao")
-                        .HasColumnType("int");
-
-                    b.Property<string>("turma")
-                        .HasColumnType("nvarchar(1)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AlunoMatriculado");
                 });
 
             modelBuilder.Entity("SGI_JMC.Models.AlunoSemTransferencia", b =>

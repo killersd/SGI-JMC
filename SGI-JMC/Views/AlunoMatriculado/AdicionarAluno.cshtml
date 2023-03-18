@@ -1,4 +1,4 @@
-﻿@model SGI_JMC.Models.AlunoAtual
+﻿@model SGI_JMC.Models.AlunoMatriculado
 <partial name="_MensagemPartial" />
 
 @{
@@ -137,7 +137,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label asp-for="FaseProSic" class="control-label"></label>
-                                                <input asp-for="FaseProSic" class="form-control" maxlength="1" />
+                                                <input asp-for="FaseProSic" class="form-control" maxlength="1"/>
                                                 <span asp-validation-for="FaseProSic" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -165,7 +165,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>                                
                             </div>
                         </div>
                     </div>
@@ -192,8 +192,8 @@
 
     <script>
         $(document).ready(function () {
-            var NumeroDoNis = $("#NumeroDoNis");
-            NumeroDoNis.mask('00.00000.00-0', { reverse: false });
+            var numeroDoNis = $("#numeroDoNis");
+            numeroDoNis.mask('00.00000.00-0', { reverse: false });
         });
     </script>
 

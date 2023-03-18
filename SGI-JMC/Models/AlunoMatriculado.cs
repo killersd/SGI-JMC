@@ -3,7 +3,7 @@ using System;
 
 namespace SGI_JMC.Models
 {
-    public class AlunoAtual
+    public class AlunoMatriculado
     {
         [Key]
         public int Id { get; set; }
@@ -66,7 +66,5 @@ namespace SGI_JMC.Models
         public string CorrecaoDeFluxo { get; set; }
 
         public bool Transferido { get; set; }
-
-
     }
 }
