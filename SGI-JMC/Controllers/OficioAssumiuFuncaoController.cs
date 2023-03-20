@@ -45,7 +45,6 @@ namespace SGI_JMC.Controllers
                 return NotFound();
         }
 
-
         [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
         public IActionResult CreateOficio()

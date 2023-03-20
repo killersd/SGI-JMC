@@ -1,12 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
 using PdfSharpCore.Drawing;
 using SGI_JMC.Extensions;
 using SGI_JMC.Models;
+using SGI_JMC.Services;
+using SGI_JMC.ViewModels;
 using System;
 using System.Data;
 using System.IO;
+using System.Linq;
+using System.Security.Policy;
+using System.Text;
 using System.Threading.Tasks;
 using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
@@ -15,11 +22,28 @@ namespace SGI_JMC.Controllers
     public class AlunoAtualController : Controller
     {
         private readonly Context _contexto;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IEmailService _emailService;
 
-        public AlunoAtualController(Context context)
+        public AlunoAtualController(UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
+            IEmailService emailService, Context context)
         {
+            this._userManager = userManager;
+            this._signInManager = signInManager;
+            this._roleManager = roleManager;
+            this._emailService = emailService;
             _contexto = context;
+
         }
+
+        //public AlunoAtualController(Context context)
+        //{
+        //    _contexto = context;
+        //}
         [Authorize(Roles = "usuario, administrador")]
         public async Task<IActionResult> Index()
         {
@@ -40,7 +64,11 @@ namespace SGI_JMC.Controllers
             if (ModelState.IsValid)
             {
                 student.Nome.ToUpper();
-                student.Pai.ToUpper();
+                if (student.Pai!= null)
+                {
+                    student.Pai.ToUpper();
+
+                }
                 student.Mae.ToUpper();
                 student.Endereco.ToUpper();
                 student.Transferido = false;
@@ -139,7 +167,6 @@ namespace SGI_JMC.Controllers
             else
                 return NotFound();
         }
-
 
         [Authorize(Roles = "usuario, administrador")]
         public int GerarNumeroDeclaracaoAlunoAtual(AlunoAtual alunoAtual)
@@ -342,7 +369,7 @@ namespace SGI_JMC.Controllers
                 if (alunoAtual.Pai != null)
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
-                    textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + alunoAtual.Nome.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + alunoAtual.Mae.ToUpper() + " e " + alunoAtual.Pai.ToUpper()  +
+                    textFomatter.DrawString("Declaro para os devidos fins que o aluno(a) " + alunoAtual.Nome.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + alunoAtual.Mae.ToUpper() + " e " + alunoAtual.Pai.ToUpper() +
                         ", no ano letivo de " + alunoAtual.anoLetivo + ", encontra-se matriculado(a) nesta Unidade de Ensino em turma de Fase " + alunoAtual.FaseProSic + " do Programa Sergipe na Idade Certa, tendo como sua turma de origem o " + alunoAtual.SerieOrigem + "º ano, e possui frequência regular até esta data. ", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
                 }
                 else
@@ -506,6 +533,7 @@ namespace SGI_JMC.Controllers
 
                 using (MemoryStream stream = new MemoryStream())
                 {
+                    EnviarConfirmacaoTransferenciaRegular(alunoAtual);
                     var contentType = "application/pdf";
                     doc.Save(stream, false);
                     var nomeArquivo = "Declaração " + alunoAtual.Nome + ".pdf";
@@ -581,7 +609,7 @@ namespace SGI_JMC.Controllers
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                     textFomatter.DrawString("Declaro para os devidos fins que o(a) aluno(a) " + alunoAtual.Nome.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + alunoAtual.Mae.ToUpper() + " e " + alunoAtual.Pai.ToUpper() + ", " +
                         " no ano letivo " +
-                        "de " + alunoAtual.anoLetivo + ", encontra-se matriculado(a) nesta Unidade de Ensino em turma de Correção de Fluxo, Fase " + alunoAtual.FaseProSic + " do Programa Sergipe na Idade Certa, tendo como turma de origem o " + alunoAtual.SerieOrigem+ "º ano, e nesta data (" + DateTime.Now.ToString("dd/MM/yyyy") + ") seu responsável legal solicitou transferência do(a) discente para outra Unidade de Ensino.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
+                        "de " + alunoAtual.anoLetivo + ", encontra-se matriculado(a) nesta Unidade de Ensino em turma de Correção de Fluxo, Fase " + alunoAtual.FaseProSic + " do Programa Sergipe na Idade Certa, tendo como turma de origem o " + alunoAtual.SerieOrigem + "º ano, e nesta data (" + DateTime.Now.ToString("dd/MM/yyyy") + ") seu responsável legal solicitou transferência do(a) discente para outra Unidade de Ensino.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
                 }
                 else
                 {
@@ -624,8 +652,11 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("SGI-Sistema de Gerenciamento Interno - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
                 textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
 
+
                 using (MemoryStream stream = new MemoryStream())
                 {
+                    EnviarConfirmacaoTransferenciaProSic(alunoAtual);
+
                     var contentType = "application/pdf";
                     doc.Save(stream, false);
                     var nomeArquivo = "Declaração " + alunoAtual.Nome + ".pdf";
@@ -639,6 +670,59 @@ namespace SGI_JMC.Controllers
             }
         }
 
+        public async Task<IActionResult> EnviarConfirmacaoTransferenciaProSic(AlunoAtual aluno)
+        {
+            var usuario = User.Identity.Name;
+            var mensagem = new StringBuilder();
+            mensagem.Append($"<p>Olá!</p>");
+            mensagem.Append("<p> O(a) Usuário(a)<b> " + usuario + "</b> acaba de emitir uma declaração de transferência para" +
+                " o(a) aluno(a) cujos dados estão discriminados abaixo:</p>");
+            mensagem.Append("<p><b>Ano letivo:</b> " + aluno.anoLetivo + "</p>");
+            mensagem.Append("<p><b>Código:</b> " + aluno.codigoSeed + "</p>");
+            mensagem.Append("<p><b>Nome:</b> " + aluno.Nome+"</p>");
+            mensagem.Append("<p><b>Mãe:</b> " + aluno.Mae + "</p>");
+            mensagem.Append("<p><b>Pai:</b> " + aluno.Pai + "</p>");
+            mensagem.Append("<p><b>Data de Nascimento: </b>" + aluno.DataNascimento + "</p>");
+            mensagem.Append("<p><b>Endereço:</b> " + aluno.Endereco + "</p>");
+            mensagem.Append("<p><b>Número do NIS:</b> " + aluno.NumeroDoNis + "</p>");
+            mensagem.Append("<p><b>Fase do ProSic:</b> " + aluno.FaseProSic + "</p>");
+            mensagem.Append("<p><b>Série de origem:</b> " + aluno.SerieOrigem + "º ano do Ensino Fundamental</p>");
+            mensagem.Append("<p></p>");
+            mensagem.Append("<p>Favor verificar para o caso da declaração ter sido emitida por engano pelo usuário mencionado anteriormente!</p>");
+            mensagem.Append("<p></p>");
+            mensagem.Append("<p></p>");
+            mensagem.Append("<p>Atenciosamente,<br>Equipe de Suporte do SGI-JMC</p>");
+            await _emailService.SendEmailAsync("alex_underline@hotmail.com",
+                "Transferência de aluno", "", mensagem.ToString());
+            return View(nameof(Index));
 
+        }
+        public async Task<IActionResult> EnviarConfirmacaoTransferenciaRegular(AlunoAtual aluno)
+        {
+            var usuario = User.Identity.Name;
+            var mensagem = new StringBuilder();
+            mensagem.Append($"<p>Olá!</p>");
+            mensagem.Append("<p> O(a) Usuário(a)<b> " + usuario + "</b> acaba de emitir uma declaração de transferência para" +
+                " o(a) aluno(a) cujos dados estão discriminados abaixo:</p>");
+            mensagem.Append("<p><b>Ano letivo:</b> " + aluno.anoLetivo + "</p>");
+            mensagem.Append("<p><b>Código:</b> " + aluno.codigoSeed + "</p>");
+            mensagem.Append("<p><b>Nome:</b> " + aluno.Nome + "</p>");
+            mensagem.Append("<p><b>Mãe:</b> " + aluno.Mae + "</p>");
+            mensagem.Append("<p><b>Pai:</b> " + aluno.Pai + "</p>");
+            mensagem.Append("<p><b>Data de Nascimento: </b>" + aluno.DataNascimento + "</p>");
+            mensagem.Append("<p><b>Endereço:</b> " + aluno.Endereco + "</p>");
+            mensagem.Append("<p><b>Número do NIS:</b> " + aluno.NumeroDoNis + "</p>");
+            mensagem.Append("<p><b>Ano/Série:</b> " + aluno.anoSerie + "º ano do Ensino Fundamental</p>");
+            mensagem.Append("<p><b>Turma:</b> " + aluno.turma + "</p>");
+            mensagem.Append("<p></p>");
+            mensagem.Append("<p>Favor verificar para o caso da declaração ter sido emitida por engano pelo usuário mencionado anteriormente!</p>");
+            mensagem.Append("<p></p>");
+            mensagem.Append("<p></p>");
+            mensagem.Append("<p>Atenciosamente,<br>Equipe de Suporte do SGI-JMC</p>");
+            await _emailService.SendEmailAsync("alex_underline@hotmail.com",
+                "Transferência de aluno", "", mensagem.ToString());
+            return View(nameof(Index));
+
+        }
     }
 }
