@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System;
+using Microsoft.AspNetCore.Http;
 
 namespace SGI_JMC.Models
 {
@@ -66,7 +67,6 @@ namespace SGI_JMC.Models
         public string CorrecaoDeFluxo { get; set; }
 
         public bool Transferido { get; set; }
-
 
     }
 }

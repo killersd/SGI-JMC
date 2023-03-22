@@ -9,7 +9,13 @@
         <div class="card-body">
 
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <img src="~/Imagens/SemFoto.jpg" class="image-thumbnail" asp-append-version="true"
+                             style="max-height:200px;max-width:150px;border:solid 1px blue;border-radius:5px">
+                    </div>
+                </div>
+                <div class="col-md-3">
                     <div class="form-group">
                         <dl class="dl-horizontal">
                             <dt>
@@ -38,10 +44,16 @@
                             <dd>
                                 @Html.DisplayFor(model => model.DataNascimento)
                             </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.CorrecaoDeFluxo)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.CorrecaoDeFluxo)
+                            </dd>
                         </dl>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <dl>
                             <dt>
@@ -68,16 +80,10 @@
                             <dd>
                                 @Html.DisplayFor(model => model.turma)
                             </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.FaseProSic)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.FaseProSic)
-                            </dd>
                         </dl>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <dl>
                             <dt>
@@ -99,10 +105,10 @@
                                 @Html.DisplayFor(model => model.NumeroDoNis)
                             </dd>
                             <dt>
-                                @Html.DisplayNameFor(model => model.CorrecaoDeFluxo)
+                                @Html.DisplayNameFor(model => model.FaseProSic)
                             </dt>
                             <dd>
-                                @Html.DisplayFor(model => model.CorrecaoDeFluxo)
+                                @Html.DisplayFor(model => model.FaseProSic)
                             </dd>
                             <dt>
                                 @Html.DisplayNameFor(model => model.SerieOrigem)
@@ -115,8 +121,15 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12" style="text-align:center">
-            <a href="../Index" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar</a>
+        <div class="row">
+            <div class="col-md-3" style="text-align:center">
+                <a href="../Index" class="btn btn-info btn-sm btn-block"><i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar</a>
+            </div>
+            <div class="col-md-9" style="text-align:center">
+                <h6>
+                    <b>Todos os dados aqui mostrados foram extraídos da pasta do(a) aluno no corrente ano!</b>
+                </h6>
+            </div>
         </div>
         <p></p>
     </div>

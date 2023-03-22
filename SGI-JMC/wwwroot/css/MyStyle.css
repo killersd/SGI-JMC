@@ -1,7 +1,12 @@
-﻿@import url(font-awesome.css);
-@import url(https://fonts.gogleapis.com/css?family=Roboto+Condensed:400,700,300);
+﻿/*@import url(font-awesome.css);*/
+/*@import url(https://fonts.gogleapis.com/css?family=Roboto+Condensed:400,700,300);*/
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css);
 
+
+img {
+text-align:center;
+
+}
 
 .textarea {
     resize: none;
