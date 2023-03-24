@@ -16,6 +16,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
+using Microsoft.AspNetCore.Hosting;
 
 namespace SGI_JMC.Controllers
 {
@@ -26,18 +27,19 @@ namespace SGI_JMC.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailService _emailService;
+        private readonly IWebHostEnvironment _webHostEnvironment;   
 
         public AlunoAtualController(UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             RoleManager<IdentityRole> roleManager,
-            IEmailService emailService, Context context)
+            IEmailService emailService, Context context, IWebHostEnvironment webHostEnvironment)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
             this._roleManager = roleManager;
             this._emailService = emailService;
             _contexto = context;
-
+            _webHostEnvironment = webHostEnvironment;   
         }
 
         //public AlunoAtualController(Context context)
@@ -73,6 +75,11 @@ namespace SGI_JMC.Controllers
                 student.Endereco.ToUpper();
                 student.Transferido = false;
 
+
+                string uniqueFileName = UploadImagem(student);  
+                student.UrlFoto = uniqueFileName;
+                _contexto.Attach(student);
+                _contexto.Entry(student).State = EntityState.Added;
                 _contexto.Add(student);
                 await _contexto.SaveChangesAsync();
                 this.MostrarMensagem($"Aluno cadastrado com sucesso!");
@@ -118,6 +125,7 @@ namespace SGI_JMC.Controllers
             else
                 return View();
         }
+        
         [Authorize(Roles = "administrador")]
         [HttpPost]
         public async Task<IActionResult> EditarAluno(int? id, AlunoAtual student)
@@ -126,6 +134,11 @@ namespace SGI_JMC.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    string uniqueFileName = UploadImagem(student);
+                    student.UrlFoto = uniqueFileName;
+                    _contexto.Attach(student);
+                    _contexto.Entry(student).State = EntityState.Added;
+                    _contexto.Add(student);
                     _contexto.Update(student);
                     await _contexto.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -167,6 +180,25 @@ namespace SGI_JMC.Controllers
             else
                 return NotFound();
         }
+
+
+        private string UploadImagem(AlunoAtual alunoAtual)
+        {
+            string uniqueFileName = null;
+            if (alunoAtual.FotoDoAluno != null)
+            {
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath,"Imagens");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + alunoAtual.FotoDoAluno.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    alunoAtual.FotoDoAluno.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;  
+        }
+
+
 
         [Authorize(Roles = "usuario, administrador")]
         public int GerarNumeroDeclaracaoAlunoAtual(AlunoAtual alunoAtual)

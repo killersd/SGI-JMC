@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System;
 using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SGI_JMC.Models
 {
@@ -65,8 +66,13 @@ namespace SGI_JMC.Models
         [Display(Name = "Correção de Fluxo?")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
         public string CorrecaoDeFluxo { get; set; }
-
         public bool Transferido { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Foto")]
+        public IFormFile FotoDoAluno { get; set; }
+        
+        public string UrlFoto { get; set; }
 
     }
 }

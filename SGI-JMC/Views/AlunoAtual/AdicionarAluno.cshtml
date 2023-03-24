@@ -12,7 +12,7 @@
             <h4><b>Cadastrar aluno</b></h4>
         </div>
         <div class="card-body">
-            <form asp-action="AdicionarAluno">
+            <form enctype="multipart/form-data" asp-action="AdicionarAluno">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="container-fluid">
                     <div class="card mb-3">
@@ -165,6 +165,12 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3">
+                                            <label asp-for="FotoDoAluno" class="control-label"></label>
+                                            <div class="custom-file">
+                                                <input asp-for="FotoDoAluno" class="custom-file-input" id="foto"
+                                                       onchange="document.getElementById('fotoAluno').src = window.URL.createObjectURL(this.files[0])" />
+                                                <label class="custom-file-label" for="foto">Procurar</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -173,6 +179,10 @@
                     </div>
                 </div>
 
+                <div class="col-md-12" style="text-align:center">
+                    <img id="fotoAluno" src="" alt="Foto do aluno" width="150" height="200" style="border:1px" />
+                </div>
+                <p></p>
                 <div class="col-md-12" style="text-align:center">
                     <a href="../AlunoAtual/Index" class="btn btn-info"><i class="fa fa-ban" aria-hidden="true"></i> Cancelar</a>
                     <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar</button>
@@ -196,6 +206,14 @@
         $(document).ready(function () {
             var NumeroDoNis = $("#NumeroDoNis");
             NumeroDoNis.mask('000.00000.00-0', { reverse: false });
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        $(".custom-file-input").on("change",function(){
+        var nomeDoArquivo = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(nomeDoArquivo);
         });
     </script>
 

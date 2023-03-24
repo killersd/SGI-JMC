@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SGI_JMC.Models;
 
 namespace SGI_JMC.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230323024852_foto")]
+    partial class foto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,9 +110,6 @@ namespace SGI_JMC.Migrations
 
                     b.Property<bool>("Transferido")
                         .HasColumnType("bit");
-
-                    b.Property<string>("UrlFoto")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("anoLetivo")
                         .HasColumnType("int");
