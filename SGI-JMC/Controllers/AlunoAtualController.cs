@@ -71,6 +71,7 @@ namespace SGI_JMC.Controllers
                     student.Pai.ToUpper();
 
                 }
+
                 student.Mae.ToUpper();
                 student.Endereco.ToUpper();
                 student.Transferido = false;

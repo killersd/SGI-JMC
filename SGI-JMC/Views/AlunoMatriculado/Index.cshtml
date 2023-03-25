@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
 
-    <div class="card mb-3">
+    <div class="card border-primary mb-3">
         <div class="card-header">
             <h4><b>Alunos Matriculados</b></h4>
             <h6>
@@ -56,7 +56,7 @@
                                     @if (@item.CorrecaoDeFluxo.Equals("Sim"))
                                     {
                                         <a asp-action="PreencherDeclaracaoProSic" asp-route-id=@item.Id>
-                                            <i class="btn btn-outline-success fa fa-file-pdf-o"
+                                            <i class="btn btn-outline-dark fa fa-file-pdf-o"
                                        title="Declaração de Frequência ProSic"></i>
                                         </a>
                                     }

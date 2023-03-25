@@ -1,22 +1,52 @@
 ﻿@model AlunoAtual
 
 <div class="container-fluid">
-
-    <div class="card mb-3">
+    <div class="card border-primary mb-3">
         <div class="card-header">
-            <h4><b>Detalhes do Aluno</b></h4>
+            <div class="row">
+                <div class="col-md-9">
+                    <h4><b>Detalhes do aluno</b></h4>
+                </div>
+                <div class="col-md-3">
+                    @if (User.IsInRole("administrador"))
+                    {
+                        <a asp-action="EditarAluno" asp-route-id=@Model.Id>
+                            <i class="btn btn-outline-primary btn-sm fa fa-pencil"
+                           title="Editar"></i>
+                        </a>
+                    }
+                    @if (@Model.CorrecaoDeFluxo.Equals("Não"))
+                    {
+                        <a asp-action="PreencherDeclaracao" asp-route-id=@Model.Id>
+                            <i class="btn btn-outline-success btn-sm fa fa-file-pdf-o"
+                           title="Declaração de Frequência"></i>
+                        </a>
+                    }
+                    @if (@Model.CorrecaoDeFluxo.Equals("Sim"))
+                    {
+                        <a asp-action="PreencherDeclaracaoProSic" asp-route-id=@Model.Id>
+                            <i class="btn btn-outline-dark btn-sm fa fa-file-pdf-o"
+                           title="Declaração de Frequência ProSic"></i>
+                        </a>
+                    }
+                    <a asp-action="DeclaracaoTransferencia" asp-route-id=@Model.Id>
+                        <i class="btn btn-outline-warning fa fa-exclamation" title="Declaração de Transferência"></i>
+                    </a>
+                </div>
+            </div>
         </div>
         <div class="card-body">
 
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3" style="text-align:center">
                     <div class="form-group">
                         @if (Model.UrlFoto == null)
                         {
-                            <img src="~/Imagens/SemFoto.jpg" width="150px"height="200px"/>
-                        }else
+                            <img src="~/Imagens/SemFoto.jpg" width="150px" height="200px" alt="Foto do aluno" width="150" height="200" style="border: 2px solid #009;" />
+                        }
+                        else
                         {
-                            <img src="~/Imagens/@Url.Content(Model.UrlFoto)">
+                            <img src="~/Imagens/@Url.Content(Model.UrlFoto)" width="150px" height="200px" alt="Foto do aluno" width="150" height="200" style="border: 2px solid #009;" />
                         }
                     </div>
                 </div>
@@ -73,18 +103,21 @@
                             <dd>
                                 @Html.DisplayFor(model => model.Telefone)
                             </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.anoSerie)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.anoSerie)º
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.turma)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.turma)
-                            </dd>
+                            @if ((Model.anoSerie != null) && (Model.turma != null))
+                            {
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.anoSerie)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.anoSerie)º Ano
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.turma)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.turma)
+                                </dd>
+                            }
                         </dl>
                     </div>
                 </div>
@@ -92,16 +125,16 @@
                     <div class="form-group">
                         <dl>
                             <dt>
-                                @Html.DisplayNameFor(model => model.anoLetivo)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.anoLetivo)
-                            </dd>
-                            <dt>
                                 @Html.DisplayNameFor(model => model.codigoSeed)
                             </dt>
                             <dd style="color:red">
                                 <b>@Html.DisplayFor(model => model.codigoSeed)</b>
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.anoLetivo)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.anoLetivo)
                             </dd>
                             <dt>
                                 @Html.DisplayNameFor(model => model.NumeroDoNis)
@@ -109,31 +142,36 @@
                             <dd>
                                 @Html.DisplayFor(model => model.NumeroDoNis)
                             </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.FaseProSic)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.FaseProSic)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.SerieOrigem)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(model => model.SerieOrigem)
-                            </dd>
+
+                            @if ((Model.turma == null) && (Model.anoSerie == null))
+                            {
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.FaseProSic)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.FaseProSic)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.SerieOrigem)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.SerieOrigem)º Ano
+                                </dd>
+                            }
+
                         </dl>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3" style="text-align:center">
-                <a href="../Index" class="btn btn-info btn-sm btn-block"><i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar</a>
-            </div>
-            <div class="col-md-9" style="text-align:center">
-                <h6>
-                    <b>Todos os dados aqui mostrados foram extraídos da pasta do(a) aluno no corrente ano!</b>
-                </h6>
+            <div class="row">
+                <div class="col-md-3" style="text-align:center">
+                    <a href="../Index" class="btn btn-info btn-sm btn-block"><i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar</a>
+                </div>
+                <div class="col-md-9" style="text-align:center">
+                    <h6>
+                        <b>Todos os dados aqui mostrados foram extraídos da pasta do(a) aluno no corrente ano!</b>
+                    </h6>
+                </div>
             </div>
         </div>
         <p></p>
