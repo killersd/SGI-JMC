@@ -1,18 +1,36 @@
-﻿var button = document.getElementById("idbutton");
+﻿
 
-button.addEventListener("click", function () {
+var el = document.getElementById('idfrc');
 
-    var container = document.getElementById("idfrc");
+if (el) {
+    window.onload = function () {
+        var button = document.getElementById("idbutton");
 
-    if (container.style.display === "none") {
-        container.style.display = "block";
+        button.addEventListener("click", function () {
+
+            var container = document.getElementById("idfrc");
+
+            if (container.style.display === "none") {
+                container.style.display = "block";
+            }
+            else {
+                container.style.display = "none";
+            }
+
+        });
     }
-    else
-    {
-        container.style.display = "none";
-    }
+} else
+{
 
-});
+}
+
+
+
+
+
+
+
+
 
 
 
