@@ -4,6 +4,9 @@
     ViewData["Title"] = "Ofício assumiu função - Professores - ";
 }
 <hr />
+
+<script src="~/js/script.js"></script>
+
 <div class="container-fluid">
     <div class="card border-primary mb-3">
         <div class="card-header">
@@ -81,10 +84,19 @@
                             <input asp-for="DataAssumiuFuncao" class="form-control" />
                             <span asp-validation-for="DataAssumiuFuncao" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
-                            <label asp-for="FonteRecursos" class="control-label"></label>
-                            <input asp-for="FonteRecursos" class="form-control" placeholder="Campo em desuso" disabled />
-                            <span asp-validation-for="FonteRecursos" class="text-danger"></span>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group" id="idfrc" style="display:none">
+                                    <label asp-for="FonteRecursos" class="control-label"></label>
+                                    <input asp-for="FonteRecursos" class="form-control" />
+                                    <span asp-validation-for="FonteRecursos" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-success btn-sm" value="Adicionar fonte de recursos" id="idbutton"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <p></p>
@@ -104,6 +116,30 @@
             $CPF.mask('000.000.000-00', { reverse: true });
         });
     </script>
+    @*    <script>
+        function TestaCPF(strCPF) {
+            var Soma;
+            var Resto;
+            Soma = 0;
+            if (strCPF == "00000000000") return false;
+
+            for (i = 1; i <= 9; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+            Resto = (Soma * 10) % 11;
+
+            if ((Resto == 10) || (Resto == 11)) Resto = 0;
+            if (Resto != parseInt(strCPF.substring(9, 10))) return false;
+
+            Soma = 0;
+            for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+            Resto = (Soma * 10) % 11;
+
+            if ((Resto == 10) || (Resto == 11)) Resto = 0;
+            if (Resto != parseInt(strCPF.substring(10, 11))) return false;
+            return true;
+        }
+        strCPF = "#CPF";
+        alert(TestaCPF(strCPF));
+    </script>*@
 
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

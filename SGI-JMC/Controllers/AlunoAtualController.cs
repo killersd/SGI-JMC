@@ -52,6 +52,12 @@ namespace SGI_JMC.Controllers
             return View(await _contexto.AlunoAtual.ToListAsync());
         }
 
+        [Authorize(Roles = "administrador")]
+        public async Task<IActionResult> AlunosTransferidos()
+        {
+            return View(await _contexto.AlunoAtual.ToListAsync());
+        }
+
         //CRIAR
         [Authorize(Roles = "administrador")]
         [HttpGet]

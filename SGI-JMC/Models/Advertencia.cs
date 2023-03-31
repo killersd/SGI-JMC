@@ -27,6 +27,7 @@ namespace SGI_JMC.Models
         public DateTime Birth_date { get; set; }        
 
         [Display(Name = "Ano/Série/Fase")]
+        [MaxLength(2)]
         [Required(ErrorMessage = "Este campo é obrigatório")]
         public string anoSerie { get; set; }
 

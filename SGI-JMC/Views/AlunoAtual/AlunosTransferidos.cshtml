@@ -1,17 +1,14 @@
 ﻿@model IEnumerable<SGI_JMC.Models.AlunoAtual>
 <partial name="_MensagemPartial" />
 @{
-    ViewData["Title"] = "Alunos - " + " " + DateTime.Now.Year.ToString() + " - ";
+    ViewData["Title"] = "Alunos transferidos - " + " " + DateTime.Now.Year.ToString() + " - ";
 }
 
 <div class="container-fluid">
 
     <div class="card border-primary mb-3">
         <div class="card-header">
-            <h4><b>Alunos Matriculados</b></h4>
-            <h6>
-                <a href="../AlunoAtual/AdicionarAluno" class="btn btn-primary pull-right fa fa-user-plus"> Adicionar</a>
-            </h6>
+            <h4><b>Alunos Transferidos</b></h4>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -28,7 +25,8 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            if (!item.Transferido)
+
+                            if (item.Transferido)
                             {
                                 int count = 1;
                                 <tr>
@@ -46,60 +44,52 @@
 
                                     }
 
-
                                     <td>@item.Telefone</td>
                                     <td style="align-content:center">
                                         <a asp-action="VisualizarAluno" asp-route-id=@item.Id>
-                                            <i class="btn btn-outline-info btn-sm fa fa-eye"
+                                            <i class="btn btn-outline-info fa fa-eye"
                                        title="Ver ficha completa"></i>
                                         </a>
                                         @if (User.IsInRole("administrador"))
                                         {
                                             <a asp-action="EditarAluno" asp-route-id=@item.Id>
-                                                <i class="btn btn-outline-primary btn-sm fa fa-pencil"
+                                                <i class="btn btn-outline-primary fa fa-pencil"
                                        title="Editar"></i>
                                             </a>
                                         }
                                         @if (@item.CorrecaoDeFluxo.Equals("Não"))
                                         {
                                             <a asp-action="PreencherDeclaracao" asp-route-id=@item.Id>
-                                                <i class="btn btn-outline-success btn-sm fa fa-file-pdf-o"
+                                                <i class="btn btn-outline-success fa fa-file-pdf-o"
                                        title="Declaração de Frequência"></i>
-                                            </a>
-                                            <a asp-action="DeclaracaoTransferencia" asp-route-id=@item.Id>
-                                                <i class="btn btn-outline-warning btn-sm fa fa-exclamation"
-                                       title="Declaração de Transferência"></i>
                                             </a>
                                         }
                                         @if (@item.CorrecaoDeFluxo.Equals("Sim"))
                                         {
                                             <a asp-action="PreencherDeclaracaoProSic" asp-route-id=@item.Id>
-                                                <i class="btn btn-outline-dark btn-sm fa fa-file-pdf-o"
+                                                <i class="btn btn-outline-dark fa fa-file-pdf-o"
                                        title="Declaração de Frequência ProSic"></i>
                                             </a>
-                                            <a asp-action="DeclaracaoTransferenciaProSic" asp-route-id=@item.Id>
-                                                <i class="btn btn-outline-dark btn-sm fa fa-exclamation" title="Declaração de Transferência ProSic"></i>
-                                            </a>
                                         }
-
+                                        <a asp-action="DeclaracaoTransferenciaProSic" asp-route-id=@item.Id>
+                                            <i class="btn btn-outline-dark fa fa-exclamation" title="Declaração de Transferência"></i>
+                                        </a>
                                         @if (User.IsInRole("administrador"))
                                         {
                                             <a asp-action="ExcluirAluno" asp-route-id=@item.Id>
-                                                <i class="btn btn-outline-danger btn-sm fa fa-trash"
+                                                <i class="btn btn-outline-danger fa fa-trash"
                                        title="ExcluirAluno"></i>
                                             </a>
-                                            @*                                        <a asp-action="ReprovarAluno" asp-route-id=@item.Id>
-                                <i class="btn btn-outline-danger btn-sm fa fa-user-times"
-                                title="ReprovarAluno"></i>
-                                </a>*@
+                                            <a asp-action="ReverterTransferencia" asp-route-id=@item.Id>
+                                                <i class="btn btn-outline-success fa fa-undo"
+                                       title="Reverter transferência"></i>
+                                            </a>
                                         }
-
                                     </td>
                                 </tr>
                                 count++;
-
                             }
-
+                            
                         }
                     </tbody>
                 </table>

@@ -133,7 +133,7 @@ namespace SGI_JMC.Controllers
                 {
                     ch = "semanais";
                 }
-                oficioAssumiuFuncao.FonteRecursos = 0;
+                
                 if (oficioAssumiuFuncao.FonteRecursos.Equals(0))
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
