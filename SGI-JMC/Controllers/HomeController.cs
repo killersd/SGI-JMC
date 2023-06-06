@@ -25,6 +25,12 @@ namespace SGI_JMC.Controllers
             return View();
         }
 
+        public IActionResult Index1()
+        {
+            BasicNotification("Notificação", NotificationType.Success, "Notificação");
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

@@ -15,8 +15,7 @@
     <nav class="navbar navbar-expand-lg border-bottom shadow-sm mb-3 navbar-light">
         <div class="container">
             <div class="logo">
-                <h1><a href="/Home/Index">SGI <span> - EEJMC</span></a> </h1>
-                Sistema de Gerenciamento Interno
+                <a href="/Home/Index"><img src="~/Imagens/SGI.png" style="width:200px;height:75px" /></a>
             </div>
             <button class="navbar-toggler alert-primary" type="button" data-toggle="collapse"
                     data-target=".navbar-collapse">
@@ -256,31 +255,43 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a class="dropdown-item" asp-controller="Declaracao" asp-action="Create" classes-if-active="disabled">
-                                        Frequência (Regular)
-                                    </a>
+                                    <a class="dropdown-item" asp-controller="AlunoAtual" asp-action="Index" classes-if-active="disabled">Alunos Matriculados</a>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateProSic" classes-if-active="disabled">Frequência (ProSic)</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaRegular">Transferência - Ano em Curso (Regular) </a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaProSic">Transferência - Ano em Curso (ProSic) </a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
+
+                                @if (Context.User.IsInRole("administrador") && Context.User.IsInRole("usuario"))
+                                {
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Declaracao" asp-action="Create" classes-if-active="disabled">
+                                            Frequência (Regular)
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateProSic" classes-if-active="disabled">Frequência (ProSic)</a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaRegular">Transferência - Ano em Curso (Regular) </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaProSic">Transferência - Ano em Curso (ProSic) </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                }
+
+
                                 <li>
                                     <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaRegularFinalizado">Transferência - Ano Finalizado (Regular) </a>
                                 </li>

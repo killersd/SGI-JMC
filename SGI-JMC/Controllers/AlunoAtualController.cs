@@ -27,7 +27,7 @@ namespace SGI_JMC.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailService _emailService;
-        private readonly IWebHostEnvironment _webHostEnvironment;   
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         public AlunoAtualController(UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
@@ -39,7 +39,7 @@ namespace SGI_JMC.Controllers
             this._roleManager = roleManager;
             this._emailService = emailService;
             _contexto = context;
-            _webHostEnvironment = webHostEnvironment;   
+            _webHostEnvironment = webHostEnvironment;
         }
 
         //public AlunoAtualController(Context context)
@@ -72,7 +72,7 @@ namespace SGI_JMC.Controllers
             if (ModelState.IsValid)
             {
                 student.Nome.ToUpper();
-                if (student.Pai!= null)
+                if (student.Pai != null)
                 {
                     student.Pai.ToUpper();
 
@@ -83,7 +83,7 @@ namespace SGI_JMC.Controllers
                 student.Transferido = false;
 
 
-                string uniqueFileName = UploadImagem(student);  
+                string uniqueFileName = UploadImagem(student);
                 student.UrlFoto = uniqueFileName;
                 _contexto.Attach(student);
                 _contexto.Entry(student).State = EntityState.Added;
@@ -132,7 +132,7 @@ namespace SGI_JMC.Controllers
             else
                 return View();
         }
-        
+
         [Authorize(Roles = "administrador")]
         [HttpPost]
         public async Task<IActionResult> EditarAluno(int? id, AlunoAtual student)
@@ -188,13 +188,12 @@ namespace SGI_JMC.Controllers
                 return NotFound();
         }
 
-
         private string UploadImagem(AlunoAtual alunoAtual)
         {
             string uniqueFileName = null;
             if (alunoAtual.FotoDoAluno != null)
             {
-                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath,"Imagens");
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "Imagens");
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + alunoAtual.FotoDoAluno.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
@@ -202,10 +201,8 @@ namespace SGI_JMC.Controllers
                     alunoAtual.FotoDoAluno.CopyTo(fileStream);
                 }
             }
-            return uniqueFileName;  
+            return uniqueFileName;
         }
-
-
 
         [Authorize(Roles = "usuario, administrador")]
         public int GerarNumeroDeclaracaoAlunoAtual(AlunoAtual alunoAtual)
@@ -351,10 +348,9 @@ namespace SGI_JMC.Controllers
         [Authorize(Roles = "usuario, administrador")]
         public FileResult PreencherDeclaracaoProSic(AlunoAtual alunoAtual)
         {
-
             alunoAtual = _contexto.AlunoAtual.Find(alunoAtual.Id);
-
             alunoAtual.codigoAutenticacao = GerarCodigoDeAutenticacaoAlunoAtual(alunoAtual);
+
             using (var doc = new PdfSharpCore.Pdf.PdfDocument())
             {
                 var page = doc.AddPage();
@@ -470,10 +466,9 @@ namespace SGI_JMC.Controllers
         public FileResult DeclaracaoTransferencia(AlunoAtual alunoAtual)
         {
             alunoAtual = _contexto.AlunoAtual.Find(alunoAtual.Id);
-
             alunoAtual.Transferido = true;
-
             alunoAtual.codigoAutenticacao = GerarCodigoDeAutenticacaoAlunoAtual(alunoAtual);
+
             using (var doc = new PdfSharpCore.Pdf.PdfDocument())
             {
                 var page = doc.AddPage();
@@ -584,7 +579,7 @@ namespace SGI_JMC.Controllers
                 }
 
             }
-        }
+        }        
 
         //PREENCHER DECLARAÇÃO DE TRANSFERÊNCIA ALUNO PROSIC
         [Authorize(Roles = "usuario, administrador")]
@@ -592,8 +587,8 @@ namespace SGI_JMC.Controllers
         {
             alunoAtual = _contexto.AlunoAtual.Find(alunoAtual.Id);
             alunoAtual.Transferido = true;
-
             alunoAtual.codigoAutenticacao = GerarCodigoDeAutenticacaoAlunoAtual(alunoAtual);
+
             using (var doc = new PdfSharpCore.Pdf.PdfDocument())
             {
                 var page = doc.AddPage();
@@ -709,7 +704,16 @@ namespace SGI_JMC.Controllers
             }
         }
 
-        public async Task<IActionResult> EnviarConfirmacaoTransferenciaProSic(AlunoAtual aluno)
+        [Authorize(Roles = "administrador")]
+        public async Task<IActionResult> ReverterTransferencia(AlunoAtual alunoAtual, int Id)
+        {
+            alunoAtual = await _contexto.AlunoAtual.FindAsync(Id);
+            alunoAtual.Transferido = false;
+            _contexto.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult EnviarConfirmacaoTransferenciaProSic(AlunoAtual aluno)
         {
             var usuario = User.Identity.Name;
             var mensagem = new StringBuilder();
@@ -718,7 +722,7 @@ namespace SGI_JMC.Controllers
                 " o(a) aluno(a) cujos dados estão discriminados abaixo:</p>");
             mensagem.Append("<p><b>Ano letivo:</b> " + aluno.anoLetivo + "</p>");
             mensagem.Append("<p><b>Código:</b> " + aluno.codigoSeed + "</p>");
-            mensagem.Append("<p><b>Nome:</b> " + aluno.Nome+"</p>");
+            mensagem.Append("<p><b>Nome:</b> " + aluno.Nome + "</p>");
             mensagem.Append("<p><b>Mãe:</b> " + aluno.Mae + "</p>");
             mensagem.Append("<p><b>Pai:</b> " + aluno.Pai + "</p>");
             mensagem.Append("<p><b>Data de Nascimento: </b>" + aluno.DataNascimento + "</p>");
@@ -731,12 +735,12 @@ namespace SGI_JMC.Controllers
             mensagem.Append("<p></p>");
             mensagem.Append("<p></p>");
             mensagem.Append("<p>Atenciosamente,<br>Equipe de Suporte do SGI-JMC</p>");
-            await _emailService.SendEmailAsync("alex_underline@hotmail.com",
-                "Transferência de aluno", "", mensagem.ToString());
+            _emailService.SendEmailAsync("alex_underline@hotmail.com",
+               "Transferência de aluno", "", mensagem.ToString()).Wait();
             return View(nameof(Index));
-
         }
-        public async Task<IActionResult> EnviarConfirmacaoTransferenciaRegular(AlunoAtual aluno)
+
+        public IActionResult EnviarConfirmacaoTransferenciaRegular(AlunoAtual aluno)
         {
             var usuario = User.Identity.Name;
             var mensagem = new StringBuilder();
@@ -758,8 +762,8 @@ namespace SGI_JMC.Controllers
             mensagem.Append("<p></p>");
             mensagem.Append("<p></p>");
             mensagem.Append("<p>Atenciosamente,<br>Equipe de Suporte do SGI-JMC</p>");
-            await _emailService.SendEmailAsync("alex_underline@hotmail.com",
-                "Transferência de aluno", "", mensagem.ToString());
+            _emailService.SendEmailAsync("alex_underline@hotmail.com",
+                "Transferência de aluno", "", mensagem.ToString()).Wait();
             return View(nameof(Index));
 
         }
