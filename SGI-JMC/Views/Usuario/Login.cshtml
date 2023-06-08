@@ -7,83 +7,56 @@
         returnUrl = Context.Request.Query["returnUrl"].ToString();
     }
 }
-<div class="text-center">
-    <h1 class="display-4">Sistema de Gerenciamento Interno</h1>
-    <h4 class="display-6">Escola Estadual João de Mattos Carvalho</h4>
-    <p></p>
-    <div>
-        <a href="../Declaracao/VerificarAutenticidade" class="btn btn-primary">Verificar autenticidade de documento</a>
-    </div>
-    <p></p>
-    <div class="container">
-        <img src="~/Imagens/SemTransparencia.png" width="350px" />
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header" style="background:lightsteelblue">
-                <h3>Login</h3>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form asp-action="Login">
-                    <input type="hidden" name="ReturnUrl" id="ReturnUrl" value="@returnUrl"/>
-                    <partial name="_MensagemPartial" />
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label asp-for="@Model.Usuario"></label><br>
-                                <input asp-for="@Model.Usuario" class="form-control" autofocus autocomplete="off">
-                                <span asp-validation-for="@Model.Usuario" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-group mb-6">
-                                    <label asp-for="@Model.Senha"></label><br>
-                                    <input asp-for="@Model.Senha" class="form-control">
-                                    <span asp-validation-for="@Model.Senha" class="text-danger"></span>
-                                </div>
-                            </div>
-@*                            <div class="form-group">
-                                <div class="form-check">
-                                    <input asp-for="@Model.Lembrar" class="form-check-input">
-                                    <label asp-for="@Model.Lembrar" class="form-check-label"></label><br>
-                                    <span asp-validation-for="@Model.Lembrar" class="text-danger"></span>
-                                </div>
-                            </div>*@
-                        </div>
-                        <div class="col-md-12 col-6">
-                            <button class="btn btn-primary" style="width:466px;height:42px;" asp-action="Login" asp-controller="Usuario" type="submit">Entrar</button>
-                        </div>
+<!DOCTYPE html>
+<html>
+<body>
+    <div class="container h-100">
+        <div class="d-flex justify-content-center h-100">
+            <div class="user_card">
+                <div class="d-flex justify-content-center">
+                    <div class="brand_logo_container">
+                        <img src="~/escudojmc.jpg" class="brand_logo" alt="Logo">
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <p>
-                    Ainda não é cadastrado? <a asp-action="Cadastrar">Clique aqui</a> para se cadastrar.
-                </p>
-                <p>
-                    Esqueceu sua senha? <a asp-action="EsqueciSenha">Clique aqui</a> para redefini-la.
-                </p>
+                </div>
+                <div class="d-flex justify-content-center form_container">
+                    <form asp-action="Login">
+                        <input type="hidden" name="ReturnUrl" id="ReturnUrl" value="@returnUrl" />
+                        <partial name="_MensagemPartial" />
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                            </div>
+                            <input asp-for="@Model.Usuario" class="form-control input_user" placeholder="usuário">                            
+                        </div>
+                        <span asp-validation-for="@Model.Usuario" class="text-danger"></span>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fa fa-key"></i></span>
+                            </div>
+                            <input asp-for="@Model.Senha" class="form-control input_pass" placeholder="senha">                            
+                        </div>
+                        <span asp-validation-for="@Model.Senha" class="text-danger"></span>
+                        <div class="d-flex justify-content-center mt-3 login_container">
+                            <button type="submit" asp-action="Login" asp-controller="Usuario" name="button" class="btn login_btn">Entrar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="mt-4">
+                    <div class="d-flex justify-content-center links">
+                        <a style="color:white" asp-action="Cadastrar">Cadastrar</a>.
+                    </div>
+                    <p></p>
+                    <div class="d-flex justify-content-center links">
+                        <a style="color:white" asp-action="EsqueciSenha">Esqueceu a senha?</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</body>
+</html>
 
-<!-- jquery -->
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<!-- bootstrap -->
-<script type="text/javascript" src="js/bootstrap.js"></script>
-<!-- chamada da função -->
-<script type="text/javascript">
-    $(window).load(function() {
-        $('#myModal').modal('show');
-    });
-</script>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

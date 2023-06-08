@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using SGI_JMC.Data
+@inject ApplicationDbContext app
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="utf-8" />
@@ -7,486 +9,337 @@
     <link rel="shortcut icon" href="/Imagens/favicon-32x32.ico" type="image/x-icon" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/MyStyle.css" />
+    <link href="~/css/sidenav.css" rel="stylesheet" />
+    <link href="~/css/loginform.css" rel="stylesheet" />
     <link rel="stylesheet" href="/lib/limonte-sweetalert2/sweetalert2.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body style="min-width:372px;">
-    <nav class="navbar navbar-expand-lg border-bottom shadow-sm mb-3 navbar-light">
-        <div class="container">
-            <div class="logo">
-                <a href="/Home/Index"><img src="~/Imagens/SGI.png" style="width:200px;height:75px" /></a>
-            </div>
-            <button class="navbar-toggler alert-primary" type="button" data-toggle="collapse"
-                    data-target=".navbar-collapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="navbar-nav flex-sm-row-reverse flex-grow-1 text-primary">
-                @if (Context.User.Identity.IsAuthenticated)
-                {
-                    <li class="nav-link dropdown">
-                        <a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                            Olá, <b>@Context.User.Identity.Name</b>!
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                                <a class="dropdown-item" asp-controller="Usuario" asp-action="AlterarSenha" classes-if-active="disabled">
-                                    Alterar Senha
-                                </a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <a class="dropdown-item" asp-controller="Usuario" asp-action="Logout">Sair <i class="fa fa-sign-out" aria-hidden="true"></i></a>
-                            </li>
-                        </ul>
-                    </li>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        @if (User.Identity.IsAuthenticated)
+        {
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <a href="/Home/Index"><img src="~/Imagens/SGI.png" style="width:200px;height:75px" /></a>
+                </div>
 
-                    @if (!Context.User.IsInRole("administrador") && !Context.User.IsInRole("usuario"))
+                <ul class="list-unstyled components">
+                    @if (User.IsInRole("administrador"))
                     {
-                        //Não mostrar nenhum menu
-                    }
-                    else
-                    {
-                        @if (Context.User.IsInRole("administrador"))
-                        {
-                            <li class="nav-link dropdown">
-                                <a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                    <i class="fa fa-users" aria-hidden="true"></i> Usuários
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Usuario" asp-action="IndexUsuarios" classes-if-active="disabled">
-                                            Todos
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Usuario" asp-action="Cadastrar">Novo</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-link dropdown">
-                                <a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                    <i class="fa fa-download" aria-hidden="true"></i> Download Modelos
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a class="nav-link pe-0 text-primary" asp-controller="DownloadModeloDeclaracaoFrequencia" asp-action="gerarDeclaracao">
-                                            Declaração de frequência (regular)
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="nav-link pe-0 text-primary" asp-controller="DownloadModeloDeclaracaoFrequencia" asp-action="gerarDeclaracaoFrequenciaProSic">
-                                            Declaração de frequência (ProSic)
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-link dropdown">
-                                <a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                    <i class="fa fa-sort" aria-hidden="true"></i> Outros
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Advertencia" asp-action="Create" classes-if-active="disabled">
-                                            Advertência
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Notificacao" asp-action="Create" classes-if-active="disabled">
-                                            Notificação Diário
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="oficiogeral" asp-action="createoficiogeral" classes-if-active="disabled">
-                                            Ofício (geral)
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="AlunoSemTransferencia" asp-action="Create" classes-if-active="disabled">
-                                            Alunos sem transferência
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Comunicado" asp-action="Create" classes-if-active="disabled">
-                                            Comunicado de comparecimento
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="GuiaDeTransferencia" asp-action="CreateGuiaTransferencia" classes-if-active="disabled">
-                                            Guia de transferência "Manual"
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Frequencia" asp-action="Index" classes-if-active="disabled">
-                                            Calculadora de Frequência
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="ProfessorHorario" asp-action="Index" classes-if-active="disabled">Horários 2023</a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="AlunoAtual" asp-action="Index" classes-if-active="disabled">Alunos Matriculados</a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="AlunoAtual" asp-action="AlunosTransferidos" classes-if-active="disabled">Alunos Transferidos</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        }
-                        @if (!Context.User.IsInRole("administrador") && Context.User.IsInRole("usuario"))
-                        {
-                            <li class="nav-link dropdown">
-                                <a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                    <i class="fa fa-download" aria-hidden="true"></i> Download Modelos
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a class="nav-link pe-0 text-primary" asp-controller="DownloadModeloDeclaracaoFrequencia" asp-action="gerarDeclaracao">
-                                            Declaração de frequência (regular)
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="nav-link pe-0 text-primary" asp-controller="DownloadModeloDeclaracaoFrequencia" asp-action="gerarDeclaracaoFrequenciaProSic">
-                                            Declaração de frequência (ProSic)
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-link dropdown">
-                                <a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                    <i class="fa fa-sort" aria-hidden="true"></i> Outros
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Advertencia" asp-action="Create" classes-if-active="disabled">
-                                            Advertência
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="AlunoSemTransferencia" asp-action="Create" classes-if-active="disabled">
-                                            Alunos sem transferência
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="OficioGeral" asp-action="createoficiogeral" classes-if-active="disabled">
-                                            Ofícios (Gerais)
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Comunicado" asp-action="Create" classes-if-active="disabled">
-                                            Comunicado de comparecimento
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Frequencia" asp-action="Index" classes-if-active="disabled">
-                                            Calculadora de Frequência
-                                        </a>
-                                    </li>
-                                    @*                                    <li>
-                        <hr class="dropdown-divider">
-                        </li>
                         <li>
-                        <a class="dropdown-item" asp-controller="ProfessorHorario" asp-action="Index" classes-if-active="disabled">Horários 2023</a>
-                        </li>*@
-                                    @*                                    <li>
-                        <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                        <a class="dropdown-item" asp-controller="AlunoAtual" asp-action="Index" classes-if-active="disabled">Alunos Matriculados</a>
-                        </li>*@
-                                </ul>
-                            </li>
-                        }
-                        <li class="nav-link dropdown">
-                            <a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                <i class="fa fa-file-text" aria-hidden="true"></i> Declarações
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
+                            <a href="#usuariosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i style="color:#fbc45f" class="fa fa-users" aria-hidden="true"></i> Usuários</a>
+                            <ul class="collapse list-unstyled" id="usuariosSubmenu">
                                 <li>
-                                    <a class="dropdown-item" asp-controller="AlunoAtual" asp-action="Index" classes-if-active="disabled">Alunos Matriculados</a>
+                                    <a asp-controller="Usuario" asp-action="IndexUsuarios">Todos</a>
                                 </li>
                                 <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-
-                                @if (Context.User.IsInRole("administrador") && Context.User.IsInRole("usuario"))
-                                {
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Declaracao" asp-action="Create" classes-if-active="disabled">
-                                            Frequência (Regular)
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateProSic" classes-if-active="disabled">Frequência (ProSic)</a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaRegular">Transferência - Ano em Curso (Regular) </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaProSic">Transferência - Ano em Curso (ProSic) </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                }
-
-
-                                <li>
-                                    <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaRegularFinalizado">Transferência - Ano Finalizado (Regular) </a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaProSicFinalizado">Transferência - Ano Finalizado (ProSic) </a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="DeclaracaoSabadoLetivo" asp-action="Create">Sábado letivo</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="DeclaracaoExServidor" asp-action="CreateDeclaracaoExServidor">Servidor (Inativo)</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="DeclaracaoServidor" asp-action="CreateDeclaracaoServidor">Servidor (Ativo)</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoConcludentesRegular">Concludente (Regular)</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="Declaracao" asp-action="CreateDeclaracaoConcludentesProSic">Concludente (ProSic)</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="DeclaracaoExAluno" asp-action="CreateDeclaracaoExAluno">Situação Final do Aluno</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="DeclaracaoGenerica" asp-action="CreateDeclaracaoGenerica">Modelo Genérico</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="DeclaracaoDistanciaInteriorizacao" asp-action="CreateDeclaracaoDistanciaInteriorizacao">Distância para interiorização</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="DeclaracaoResidencia" asp-action="CreateDeclaracaoResidencia">Residência para interiorização</a>
+                                    <a asp-controller="Usuario" asp-action="Cadastrar">Novo</a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-link dropdown">
-                            <a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                <i class="fa fa-archive" aria-hidden="true"></i> Arquivo Morto
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a href="#outrosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i style="color:#fbc45f" class="fa fa-sort" aria-hidden="true"></i> Outros</a>
+                            <ul class="collapse list-unstyled" id="outrosSubmenu">
                                 <li>
-                                    <a class="dropdown-item" asp-controller="Aluno" asp-action="Index" classes-if-active="disabled">
+                                    <a asp-controller="Advertencia" asp-action="Create">
+                                        Advertência
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Notificacao" asp-action="Create">
+                                        Notificação Diário
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="oficiogeral" asp-action="createoficiogeral">
+                                        Ofício (geral)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="AlunoSemTransferencia" asp-action="Create">
+                                        Alunos sem transferência
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Comunicado" asp-action="Create">
+                                        Convocação
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="GuiaDeTransferencia" asp-action="CreateGuiaTransferencia">
+                                        Transferência "Manual"
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Frequencia" asp-action="Index">
+                                        Calculadora de Frequência
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="ProfessorHorario" asp-action="Index">Horários 2023</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="AlunoAtual" asp-action="Index">Alunos Matriculados</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="AlunoAtual" asp-action="AlunosTransferidos">Alunos Transferidos</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#docExpedidosSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i style="color:#fbc45f" class="fa fa-eye" aria-hidden="true"></i> Expedidos</a>
+                            <ul class="collapse list-unstyled" id="docExpedidosSubMenu">
+                                <li>
+                                    <a asp-controller="advertencia" asp-action="index">
+                                        Advertências
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="OficioGeral" asp-action="index">
+                                        Ofícios (Gerais)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Declaracao" asp-action="IndexTransferenciaRegular">
+                                        Declarações Transferências (Regular)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Comunicado" asp-action="Index">
+                                        Comunicados
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="DeclaracaoDistanciaInteriorizacao" asp-action="Index">
+                                        Declarações de Distância para interiorização
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="OficioAssumiuFuncao" asp-action="Index">
+                                        Ofícios (Assumiu função - Professor)
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+
+                    @if (!Context.User.IsInRole("administrador") && Context.User.IsInRole("usuario"))
+                    {
+                        <li>
+                            <a href="#outrosSubmenuUser" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i style="color:#fbc45f" class="fa fa-sort" aria-hidden="true"></i> Outros</a>
+                            <ul class="collapse list-unstyled" id="outrosSubmenuUser">
+                                <li>
+                                    <a asp-controller="Advertencia" asp-action="Create">
+                                        Advertência
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="AlunoSemTransferencia" asp-action="Create">
+                                        Alunos sem transferência
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="OficioGeral" asp-action="createoficiogeral">
+                                        Ofícios (Gerais)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Comunicado" asp-action="Create">
+                                        Comunicado de comparecimento
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Frequencia" asp-action="Index">
+                                        Calculadora de Frequência
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+
+                    @if (Context.User.IsInRole("administrador") || Context.User.IsInRole("usuario"))
+                    {
+                        <!--Declarações-->
+                        <li>
+                            <a href="#decSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> <i style="color:#fbc45f" class="fa fa-file-text" aria-hidden="true"></i> Declarações</a>
+
+                            @if (Context.User.IsInRole("administrador") && Context.User.IsInRole("usuario"))
+                            {
+                                <ul class="collapse list-unstyled" id="decSubmenu">
+                                    <li>
+                                        <a asp-controller="Declaracao" asp-action="Create">Frequência (Regular)</a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Declaracao" asp-action="CreateProSic">Frequência (ProSic)</a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaRegular">Transferência - Ano em Curso (Regular) </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaProSic">Transferência - Ano em Curso (ProSic) </a>
+                                    </li>
+                                </ul>
+                            }
+                            <ul class="collapse list-unstyled" id="decSubmenu">
+                                <li>
+                                    <a asp-controller="AlunoAtual" asp-action="Index">Alunos Matriculados</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaRegularFinalizado">Transferência - Ano Finalizado (Regular) </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Declaracao" asp-action="CreateDeclaracaoTransferenciaProSicFinalizado">Transferência - Ano Finalizado (ProSic) </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="DeclaracaoSabadoLetivo" asp-action="Create">Sábado letivo</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="DeclaracaoExServidor" asp-action="CreateDeclaracaoExServidor">Servidor (Inativo)</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="DeclaracaoServidor" asp-action="CreateDeclaracaoServidor">Servidor (Ativo)</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Declaracao" asp-action="CreateDeclaracaoConcludentesRegular">Concludente (Regular)</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Declaracao" asp-action="CreateDeclaracaoConcludentesProSic">Concludente (ProSic)</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="DeclaracaoExAluno" asp-action="CreateDeclaracaoExAluno">Situação Final do Aluno</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="DeclaracaoGenerica" asp-action="CreateDeclaracaoGenerica">Modelo Genérico</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="DeclaracaoDistanciaInteriorizacao" asp-action="CreateDeclaracaoDistanciaInteriorizacao">Distância para interiorização</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="DeclaracaoResidencia" asp-action="CreateDeclaracaoResidencia">Residência para interiorização</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--Arquivo morto-->
+                        <li>
+                            <a href="#arquivoMortoSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i style="color:#fbc45f" class="fa fa-archive" aria-hidden="true"></i>  Arquivo morto</a>
+                            <ul class="collapse list-unstyled" id="arquivoMortoSubmenu">
+                                <li>
+                                    <a asp-controller="Aluno" asp-action="Index">
                                         Consultar
                                     </a>
                                 </li>
                                 <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="Aluno" asp-action="CreateStudent">Cadastrar</a>
+                                    <a asp-controller="Aluno" asp-action="CreateStudent">Cadastrar</a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-link dropdown">
-                            <a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                <i class="fa fa-check" aria-hidden="true"></i> Assumiu função
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
+                        <!--Assumiu Função-->
+                        <li>
+                            <a href="#assFuncSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i style="color:#fbc45f" class="fa fa-check" aria-hidden="true"></i> Assumiu função</a>
+                            <ul class="collapse list-unstyled" id="assFuncSubmenu">
                                 <li>
-                                    <a class="dropdown-item" asp-controller="OficioAssumiuFuncao" asp-action="CreateOficio" classes-if-active="disabled">
-                                        Ofício (Professor)
-                                    </a>
+                                    <a asp-controller="OficioAssumiuFuncao" asp-action="CreateOficio">Ofício (Professor)</a>
                                 </li>
                                 <li>
-                                    <hr class="dropdown-divider">
+                                    <a asp-controller="HorarioProfessor" asp-action="CreateHorarioProfessor">Horário (Professor)</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" asp-controller="HorarioProfessor" asp-action="CreateHorarioProfessor">Horário (Professor)</a>
+                                    <a asp-controller="OficioAssumiuFuncaoServidor" asp-action="CreateOficioServidor">Ofício (Servidor)</a>
                                 </li>
                                 <li>
-                                    <hr class="dropdown-divider">
+                                    <a asp-controller="HorarioServidor" asp-action="CreateHorarioServidor">Horário (Servidor)</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" asp-controller="OficioAssumiuFuncaoServidor" asp-action="CreateOficioServidor">Ofício (Servidor)</a>
+                                    <a asp-controller="OficioAssumiuFuncaoApoioEscolar2" asp-action="CreateOficioAssumiuFuncaoApoioEscolar2">Ofício (Apoio II)</a>
                                 </li>
                                 <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="HorarioServidor" asp-action="CreateHorarioServidor">Horário (Servidor)</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="OficioAssumiuFuncaoApoioEscolar2" asp-action="CreateOficioAssumiuFuncaoApoioEscolar2">Ofício (Apoio II)</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="HorarioApoioEscolar2" asp-action="CreateHorarioApoio2">Horário (Apoio II)</a>
+                                    <a asp-controller="HorarioApoioEscolar2" asp-action="CreateHorarioApoio2">Horário (Apoio II)</a>
                                 </li>
                             </ul>
                         </li>
-                        if (Context.User.IsInRole("administrador"))
-                        {
-                            <li class="nav-link dropdown">
-                                <a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                    <i class="fa fa-eye" aria-hidden="true"></i> Documentos Expedidos
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="advertencia" asp-action="index" classes-if-active="disabled">
-                                            Advertências
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="OficioGeral" asp-action="index" classes-if-active="disabled">
-                                            Ofícios (Gerais)
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Declaracao" asp-action="IndexTransferenciaRegular" classes-if-active="disabled">
-                                            Declarações Transferências (Regular)
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Comunicado" asp-action="Index" classes-if-active="disabled">
-                                            Comunicados
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="DeclaracaoDistanciaInteriorizacao" asp-action="Index" classes-if-active="disabled">
-                                            Declarações de Distância para interiorização
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="OficioAssumiuFuncao" asp-action="Index" classes-if-active="disabled">
-                                            Ofícios (Assumiu função - Professor)
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        }
                     }
-                }
-                else
-                {
-                    <a class="nav-link pe-0 text-primary" asp-controller="Usuario" asp-action="Login"><i class="fa fa-sign-in" aria-hidden="true"></i> Entrar</a>
-                    <a class="nav-link pe-0 text-primary" asp-controller="Frequencia" asp-action="Index" title="Calculadora de frequência"><i class="fa fa-calculator" aria-hidden="true"></i> Calcular frequência</a>
-                }
-            </ul>
+
+                    <li>
+                        <a href="#senhaSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i style="color:#fbc45f" class="fa fa-key" aria-hidden="true"></i> Alterar senha</a>
+                        <ul class="collapse list-unstyled" id="senhaSubmenu">
+                            <li>
+                                <a asp-controller="Usuario" asp-action="AlterarSenha">Alterar</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </nav>
+        }
+        else
+        {
+
+        }
+        <!-- Page Content  -->
+        <div id="content">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div style="padding-right:10px">
+                            <button type="button" id="sidebarCollapse" class="btn btn-primary btn-sm">
+                                <i class="fa fa-align-left"></i>
+                                <span>Mostrar/Esconder menu</span>
+                            </button>
+                        </div>
+                        <div style="vertical-align:central;padding-right:10px">
+                            Alunos matriculados: <b>@app.AlunoAtual.Where(n => n.Transferido==false).Count()</b>
+                            |
+                            Alunos transferidos: <b>@app.AlunoAtual.Where(n => n.Transferido==true).Count()</b>
+                        </div>
+                        <div style="padding-right:10px">
+                            <ul class="nav navbar-nav ml-auto">
+                                <li class="nav-link" style="color:#fbc45f">
+                                    <strong id="time"></strong>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav ml-auto">
+                                <li class="nav-link" style="color:black">
+                                    Olá, <b>@Context.User.Identity.Name</b>!
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" style="color:red" asp-controller="Usuario" asp-action="Logout"><i class="fa fa-sign-in" aria-hidden="true"></i> Sair</a>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <div style="text-align:center">
+                                <a href="/Home/Index"><img src="~/Imagens/SGI.png" style="width:200px;height:75px" /></a>
+                            </div>
+                            <ul class="nav navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" style="color:blue" asp-controller="Declaracao" asp-action="VerificarAutenticidade"><i class="fa fa-check-square-o" aria-hidden="true"></i> Verificar autenticidade</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" style="color:blue" asp-controller="Usuario" asp-action="Login"><i class="fa fa-sign-in" aria-hidden="true"></i> Entrar</a>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                    <button class="btn btn-sm btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fa fa-align-justify"></i>
+                    </button>
+                </div>
+            </nav>
+            <div class="container">
+                <script src="~/lib/limonte-sweetalert2/sweetalert2.min.js" asp-append-version="true"></script>
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
         </div>
-    </nav>
-    <div class="container">
-        <script src="~/lib/limonte-sweetalert2/sweetalert2.min.js" asp-append-version="true"></script>
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
     </div>
 
     <footer class="border-top footer text-muted">
@@ -497,6 +350,22 @@
         </div>
     </footer>
 
+    <script>
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+    <script>
+        var timeDisplay = document.getElementById("time");
+        function refreshTime() {
+            var dateString = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+            var formattedString = dateString.replace(", ", " - ");
+            timeDisplay.innerHTML = formattedString;
+        }
+        setInterval(refreshTime, 1000);
+    </script>
     <script src="~/lib/CustomJS.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

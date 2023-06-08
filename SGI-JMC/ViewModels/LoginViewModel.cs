@@ -5,11 +5,11 @@ namespace SGI_JMC.ViewModels
     public class LoginViewModel
     {
         [Display(Name = "Usuário")]
-         [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório.")]
+        [Required(ErrorMessage = "Campo obrigatório.")]
         public string Usuario { get; set; }
 
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "O campo {0} é de preenchimento obrigatório.")]
+        [Required(ErrorMessage = "Campo obrigatório.")]
         public string Senha { get; set; }
 
         [Required]
