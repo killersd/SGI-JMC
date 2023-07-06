@@ -10,8 +10,6 @@
   <ItemGroup>
     <Compile Remove="Migrations\20230317202222_alunosAtuaisNovo5.cs" />
     <Compile Remove="Migrations\20230317202222_alunosAtuaisNovo5.Designer.cs" />
-    <Compile Remove="Migrations\ApplicationDb\20230317202241_alunosAtuaisNovo5.cs" />
-    <Compile Remove="Migrations\ApplicationDb\20230317202241_alunosAtuaisNovo5.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

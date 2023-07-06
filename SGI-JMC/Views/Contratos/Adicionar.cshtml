@@ -1,0 +1,107 @@
+﻿@model SGI_JMC.Models.Contratos
+
+@{
+    ViewData["Title"] = "Adicionar servidor contratado(a) - ";
+}
+<hr />
+
+<script src="~/js/site.js"></script>
+
+<div class="container-fluid">
+    <div class="card border-primary mb-3">
+        <div class="card-header">
+            <h4><b>Adicionar servidor contratado</b></h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Adicionar">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Nome" class="control-label"></label>
+                            <input asp-for="Nome" class="form-control" />
+                            <span asp-validation-for="Nome" class="text-danger"></span>
+                        </div>
+                        <div class="form-group" style="width:504px;height:62px;">
+                            <label asp-for="TempoDeContrato" class="control-label"></label>
+                            <fieldset>
+                                <div>
+                                    <input asp-for="TempoDeContrato" type="radio" id="" name="tempoContrato" value=1>
+                                    <label for="1">1 ano</label>
+                                </div>
+                                <div>
+                                    <input asp-for="TempoDeContrato" type="radio" id="" name="tempoContrato" value=2>
+                                    <label for="2">2 anos</label>
+                                </div>
+                            </fieldset>
+                            <span asp-validation-for="TempoDeContrato" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="InicioContrato" class="control-label"></label>
+                            <input asp-for="InicioContrato" class="form-control" />
+                            <span asp-validation-for="InicioContrato" class="text-danger"></span>
+                        </div>                       
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="CPF" class="control-label"></label>
+                            <input asp-for="CPF" class="form-control" />
+                            <span asp-validation-for="CPF" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Cargo" class="control-label"></label>
+                            <input asp-for="Cargo" class="form-control" />
+                            <span asp-validation-for="Cargo" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="FimContrato" class="control-label"></label>
+                            <input asp-for="FimContrato" class="form-control" />
+                            <span asp-validation-for="FimContrato" class="text-danger"></span>
+                        </div>                        
+                    </div>
+                    <p></p>
+                    <div class="col-md-12" style="text-align:center">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-save" aria-hidden="true"></i> Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+    <script>
+        $(document).ready(function () {
+            var $CPF = $("#CPF");
+            $CPF.mask('000.000.000-00', { reverse: true });
+        });
+    </script>
+    @*    <script>
+        function TestaCPF(strCPF) {
+            var Soma;
+            var Resto;
+            Soma = 0;
+            if (strCPF == "00000000000") return false;
+
+            for (i = 1; i <= 9; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+            Resto = (Soma * 10) % 11;
+
+            if ((Resto == 10) || (Resto == 11)) Resto = 0;
+            if (Resto != parseInt(strCPF.substring(9, 10))) return false;
+
+            Soma = 0;
+            for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+            Resto = (Soma * 10) % 11;
+
+            if ((Resto == 10) || (Resto == 11)) Resto = 0;
+            if (Resto != parseInt(strCPF.substring(10, 11))) return false;
+            return true;
+        }
+        strCPF = "#CPF";
+        alert(TestaCPF(strCPF));
+    </script>*@
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

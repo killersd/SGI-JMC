@@ -38,7 +38,9 @@ namespace SGI_JMC.Models
         public DbSet<DeclaracaoTransferenciaProSicAnoFinalizado> DeclaracaoTransferenciaProSicAnoFinalizado { get; set; }
         public DbSet<AlunoAtual> AlunoAtual { get; set; }
         public DbSet<AlunoMatriculado> AlunoMatriculado { get; set; }
-        
+
+        public DbSet<Contratos> Contratos { get; set; }
+
 
     }
 }

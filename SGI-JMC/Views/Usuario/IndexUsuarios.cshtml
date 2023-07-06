@@ -37,7 +37,7 @@
                             <td>@(usuarios.Contains(usuario.UserName) ? "Sim" : "Não")</td>
                             <td>@(administradores.Contains(usuario.UserName) ? "Sim" : "Não")</td>
                             <td>
-                                <a asp-action="Cadastrar" asp-route-id="@usuario.Id" class="btn btn-sm btn-primary">
+                                <a style="color:#fbc45f" asp-action="Cadastrar" asp-route-id="@usuario.Id" class="btn btn-sm btn-default">
                                     <i class="fa fa-pencil" title="Alterar"></i>
                                 </a>
                                 @if (administradores.Contains(usuario.UserName))
@@ -60,7 +60,7 @@
                                 }
                                 else
                                 {
-                                    <a asp-action="AddPerfilUsuario" asp-route-id="@usuario.Id" class="btn btn-sm btn-primary">
+                                    <a asp-action="AddPerfilUsuario" asp-route-id="@usuario.Id" class="btn btn-sm btn-success">
                                         <i class="fa fa-user-plus" title="Adicionar perfil usuário"></i>
                                     </a>
                                 }

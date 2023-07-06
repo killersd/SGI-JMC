@@ -10,6 +10,27 @@ text-align:center;
     resize: none;
 }
 
+
+.btn-default {
+    background-color: #33437f;
+    
+}
+
+    .btn-default:hover {
+        background-color: #04218f;
+        color: #fbc45f;
+    }
+
+.btn-warning {
+    background-color: #fbc45f;
+}
+
+    .btn-warning:hover {
+        background-color: #faa302;
+        color: #33437f;
+    }
+
+
 body {
     margin: 0;
     padding-bottom: 20px;

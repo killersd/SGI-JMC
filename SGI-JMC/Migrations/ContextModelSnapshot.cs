@@ -42,7 +42,8 @@ namespace SGI_JMC.Migrations
 
                     b.Property<string>("anoSerie")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(2)")
+                        .HasMaxLength(2);
 
                     b.Property<DateTime>("dataDeEmissao")
                         .HasColumnType("datetime2");
@@ -279,6 +280,42 @@ namespace SGI_JMC.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Comunicado");
+                });
+
+            modelBuilder.Entity("SGI_JMC.Models.Contratos", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CPF")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cargo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FimContrato")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("InicioContrato")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TempoDeContrato")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("renovado")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contratos");
                 });
 
             modelBuilder.Entity("SGI_JMC.Models.Declaracao", b =>

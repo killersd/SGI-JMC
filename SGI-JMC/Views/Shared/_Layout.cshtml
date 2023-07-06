@@ -40,6 +40,28 @@
                             </ul>
                         </li>
                         <li>
+                            <a href="#contratadosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i style="color:#fbc45f" class="fa fa-user" aria-hidden="true"></i> Servidores</a>
+                            <ul class="collapse list-unstyled" id="contratadosSubmenu">
+                                <li>
+                                    <a asp-controller="Contratos" asp-action="Index">Consultar</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Contratos" asp-action="Adicionar">Novo</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#alunosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i style="color:#fbc45f" class="fa fa-graduation-cap" aria-hidden="true"></i> Alunos</a>
+                            <ul class="collapse list-unstyled" id="alunosSubmenu">
+                                <li>
+                                    <a asp-controller="AlunoAtual" asp-action="Index">Matriculados</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="AlunoAtual" asp-action="AlunosTransferidos">Transferidos</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
                             <a href="#outrosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i style="color:#fbc45f" class="fa fa-sort" aria-hidden="true"></i> Outros</a>
                             <ul class="collapse list-unstyled" id="outrosSubmenu">
                                 <li>
@@ -79,12 +101,6 @@
                                 </li>
                                 <li>
                                     <a asp-controller="ProfessorHorario" asp-action="Index">Horários 2023</a>
-                                </li>
-                                <li>
-                                    <a asp-controller="AlunoAtual" asp-action="Index">Alunos Matriculados</a>
-                                </li>
-                                <li>
-                                    <a asp-controller="AlunoAtual" asp-action="AlunosTransferidos">Alunos Transferidos</a>
                                 </li>
                             </ul>
                         </li>
@@ -284,9 +300,9 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <div style="padding-right:10px">
-                            <button type="button" id="sidebarCollapse" class="btn btn-primary btn-sm">
-                                <i class="fa fa-align-left"></i>
-                                <span>Mostrar/Esconder menu</span>
+                            <button type="button" id="sidebarCollapse" class="btn btn-default btn-sm">
+                                <i style="color:#fbc45f" class="fa fa-align-left"></i>
+                                <span style="color:#fbc45f">Mostrar/Esconder menu</span>
                             </button>
                         </div>
                         <div style="vertical-align:central;padding-right:10px">
@@ -320,10 +336,10 @@
                             </div>
                             <ul class="nav navbar-nav ml-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" style="color:blue" asp-controller="Declaracao" asp-action="VerificarAutenticidade"><i class="fa fa-check-square-o" aria-hidden="true"></i> Verificar autenticidade</a>
+                                    <a class="nav-link" style="color:#33437f" asp-controller="Declaracao" asp-action="VerificarAutenticidade"><i style="color:#33437f   " class="fa fa-check-square-o" aria-hidden="true"></i> Verificar autenticidade</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" style="color:blue" asp-controller="Usuario" asp-action="Login"><i class="fa fa-sign-in" aria-hidden="true"></i> Entrar</a>
+                                    <a class="nav-link" style="color:#33437f" asp-controller="Usuario" asp-action="Login"><i style="color:#33437f" class="fa fa-sign-in" aria-hidden="true"></i> Entrar</a>
                                 </li>
                             </ul>
                         </div>
