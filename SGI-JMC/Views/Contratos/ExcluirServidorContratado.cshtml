@@ -1,0 +1,66 @@
+﻿@model SGI_JMC.Models.Contratos
+
+@{
+    ViewData["Title"] = "Deletar servidor contratado - ";
+}
+
+<div class="container-fluid">
+    <div class="card border-primary mb-3">
+        <div class="card-header">
+            <h4><b>Deletar servidor contratado</b></h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Nome)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Nome)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.CPF)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.CPF)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Cargo)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Cargo)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.TempoDeContrato)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.TempoDeContrato)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.InicioContrato)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.InicioContrato)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.FimContrato)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.FimContrato)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>               
+            </div>
+            <div class="col-md-12" style="text-align:center">
+                <form asp-action="ExcluirServidorContratado">
+                    <input type="hidden" asp-for="Id" />
+                    <a href="../Index" class="btn btn-info"><i class="fa fa-ban" aria-hidden="true"></i> Cancelar</a>
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i> Apagar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

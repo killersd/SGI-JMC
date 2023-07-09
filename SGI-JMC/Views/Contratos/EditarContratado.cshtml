@@ -1,0 +1,83 @@
+﻿@model SGI_JMC.Models.Contratos
+
+@{
+    ViewData["Title"] = "Atualizar servidor contratado - ";
+    var servidor = ViewBag.servidor;
+}
+
+<div class="container-fluid">
+    <div class="card border-primary mb-3">
+        <div class="card-header">
+            <h4><b>Editar informações do contrato</b></h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="EditarContratado">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="renovado" value="@servidor.renovado" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Nome" class="control-label"></label>
+                            <input asp-for="Nome" class="form-control" />
+                            <span asp-validation-for="Nome" class="text-danger"></span>
+                        </div>
+                        <div class="form-group" style="width:504px;height:62px;">
+                            <label asp-for="TempoDeContrato" class="control-label"></label>
+                            <fieldset>
+                                <div>
+                                    <input asp-for="TempoDeContrato" type="radio" value=1>
+                                    <label>1 ano</label>
+                                </div>
+                                <div>
+                                    <input asp-for="TempoDeContrato" type="radio" value=2>
+                                    <label>2 anos</label>
+                                </div>
+                            </fieldset>
+                            <span asp-validation-for="TempoDeContrato" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="InicioContrato" class="control-label"></label>
+                            <input asp-for="InicioContrato" class="form-control" />
+                            <span asp-validation-for="InicioContrato" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="CPF" class="control-label"></label>
+                            <input asp-for="CPF" class="form-control" />
+                            <span asp-validation-for="CPF" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Cargo" class="control-label"></label>
+                            <input asp-for="Cargo" class="form-control" />
+                            <span asp-validation-for="Cargo" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="FimContrato" class="control-label"></label>
+                            <input asp-for="FimContrato" class="form-control" />
+                            <span asp-validation-for="FimContrato" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <p></p>
+                    <div class="col-md-12" style="text-align:center">
+                        <a href="../Index" class="btn btn-info"><i class="fa fa-ban" aria-hidden="true"></i> Cancelar</a>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-save" aria-hidden="true"></i> Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<p></p>
+@section Scripts {
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+    <script>
+        $(document).ready(function () {
+            var $CPF = $("#CPF");
+            $CPF.mask('000.000.000-00', { reverse: true });
+        });
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

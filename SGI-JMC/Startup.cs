@@ -108,7 +108,7 @@ namespace SGI_JMC
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+            pattern: "{controller=AlunoAtual}/{action=MostrarMatriculas}/{id?}");
                 endpoints.MapRazorPages();
             });
             Inicializador.InicializarIdentity(userManager, roleManager);

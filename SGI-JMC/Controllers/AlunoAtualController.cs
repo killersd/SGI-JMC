@@ -17,6 +17,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 using Microsoft.AspNetCore.Hosting;
+using System.Security.Cryptography.Xml;
 
 namespace SGI_JMC.Controllers
 {
@@ -50,6 +51,53 @@ namespace SGI_JMC.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _contexto.AlunoAtual.ToListAsync());
+        }
+
+        [Authorize(Roles = "usuario, administrador")]
+        public async Task<IActionResult> AlunosSextoAnoA()
+        {
+            var alunos = await _contexto.AlunoAtual.Where(p => p.anoSerie == 6 && p.turma.Equals('A')).ToListAsync();
+            return View(alunos);
+        }
+
+        public async Task<IActionResult> MostrarMatriculas()
+        {
+            var segundoU = await _contexto.AlunoAtual.Where(p => p.anoSerie == 2 && p.turma.Equals('U') && p.Transferido==false).ToListAsync();
+            ViewBag.segundoU = segundoU.Count;
+            var terceiroU = await _contexto.AlunoAtual.Where(p => p.anoSerie == 3 && p.turma.Equals('U') && p.Transferido == false).ToListAsync();
+            ViewBag.terceiroU = terceiroU.Count;
+            var quartoU = await _contexto.AlunoAtual.Where(p => p.anoSerie == 4 && p.turma.Equals('U') && p.Transferido == false).ToListAsync();
+            ViewBag.quartoU = quartoU.Count;
+            var quintoU = await _contexto.AlunoAtual.Where(p => p.anoSerie == 5 && p.turma.Equals('U') && p.Transferido == false).ToListAsync();
+            ViewBag.quintoU = quintoU.Count;
+
+            var sextoA = await _contexto.AlunoAtual.Where(p => p.anoSerie == 6 && p.turma.Equals('A') && p.Transferido == false).ToListAsync();
+            ViewBag.SextoAnoA = sextoA.Count;
+            var sextoB = await _contexto.AlunoAtual.Where(p => p.anoSerie == 6 && p.turma.Equals('B') && p.Transferido == false).ToListAsync();
+            ViewBag.SextoAnoB = sextoB.Count;
+
+            var setimoU = await _contexto.AlunoAtual.Where(p => p.anoSerie == 7 && p.turma.Equals('U') && p.Transferido == false).ToListAsync();
+            ViewBag.setimoU = setimoU.Count;
+
+            var oitavoA = await _contexto.AlunoAtual.Where(p => p.anoSerie == 8 && p.turma.Equals('A') && p.Transferido == false).ToListAsync();
+            ViewBag.oitavoA = oitavoA.Count;
+            var oitavoB = await _contexto.AlunoAtual.Where(p => p.anoSerie == 8 && p.turma.Equals('B') && p.Transferido == false).ToListAsync();
+            ViewBag.oitavoB = oitavoB.Count;
+
+            var nonoA = await _contexto.AlunoAtual.Where(p => p.anoSerie == 9 && p.turma.Equals('A') && p.Transferido == false).ToListAsync();
+            ViewBag.nonoA = nonoA.Count;
+            var nonoB = await _contexto.AlunoAtual.Where(p => p.anoSerie == 9 && p.turma.Equals('B') && p.Transferido == false).ToListAsync();
+            ViewBag.nonoB = nonoB.Count;
+
+            var fase3 = await _contexto.AlunoAtual.Where(p => p.CorrecaoDeFluxo.Equals("Sim") && p.FaseProSic==3 && p.Transferido == false).ToListAsync();
+            ViewBag.fase3 = fase3.Count;
+
+            var fase4A = await _contexto.AlunoAtual.Where(p => p.FaseProSic == 4 && p.turma.Equals('A') && p.Transferido == false).ToListAsync();
+            ViewBag.fase4A = fase4A.Count;
+            var fase4B = await _contexto.AlunoAtual.Where(p => p.FaseProSic == 4 && p.turma.Equals('B') && p.Transferido == false).ToListAsync();
+            ViewBag.fase4B = fase4B.Count;
+
+            return View();
         }
 
         [Authorize(Roles = "administrador")]
@@ -579,7 +627,7 @@ namespace SGI_JMC.Controllers
                 }
 
             }
-        }        
+        }
 
         //PREENCHER DECLARAÇÃO DE TRANSFERÊNCIA ALUNO PROSIC
         [Authorize(Roles = "usuario, administrador")]

@@ -1,0 +1,141 @@
+﻿@{
+    ViewData["Title"] = "Página Inicial - ";
+    var segundoU = ViewBag.segundoU;
+    var terceiroU = ViewBag.terceiroU;
+    var quartoU = ViewBag.quartoU;
+    var quintoU = ViewBag.quintoU;
+    var sextoA = ViewBag.SextoAnoA;
+    var sextoB = ViewBag.SextoAnoB;
+    var setimoU = ViewBag.setimoU;
+    var oitavoA = ViewBag.oitavoA;
+    var oitavoB = ViewBag.oitavoB;
+    var nonoA = ViewBag.nonoA;
+    var nonoB = ViewBag.nonoB;
+    var fase3 = ViewBag.fase3;
+    var fase4A = ViewBag.fase4A;
+    var fase4B = ViewBag.fase4B;
+}
+<!DOCTYPE html>
+<html>
+<div class="text-center">
+    <p></p>
+    <head>
+        <style>
+            #customers {
+                font-family: Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+                #customers td, #customers th {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                }
+
+                #customers tr:nth-child(even) {
+                    background-color: #f2f2f2;
+                }
+
+                #customers tr:hover {
+                    background-color: #fbc45f;
+                }
+
+                #customers th {
+                    padding-top: 12px;
+                    padding-bottom: 12px;
+                    text-align: left;
+                    background-color: #33437f;
+                    color: white;
+                }
+        </style>
+    </head>
+    <body>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <h1 class="display-4">Sistema de Gerenciamento Interno</h1>
+            <h4 class="display-6">Escola Estadual João de Mattos Carvalho</h4>
+            <table id="customers">
+                <tr>
+                    <th>Turma</th>
+                    <th>Matrículas</th>
+                </tr>
+                <tr>
+                    <td>2º Ano "U"</td>
+                    <td>@segundoU </td>
+                </tr>
+                <tr>
+                    <td>3º Ano "U"</td>
+                    <td>@terceiroU </td>
+                </tr>
+                <tr>
+                    <td>4º Ano "U"</td>
+                    <td>@quartoU </td>
+                </tr>
+                <tr>
+                    <td>5º Ano "U"</td>
+                    <td> @quintoU</td>
+                </tr>
+                <tr>
+                    <td>6º Ano "A"</td>
+                    <td>@sextoA </td>
+                </tr>
+                <tr>
+                    <td>6º Ano "B"</td>
+                    <td>@sextoB </td>
+                <tr>
+                    <td>7º Ano "U"</td>
+                    <td>@setimoU </td>
+                </tr>
+                <tr>
+                    <td>8º Ano "A"</td>
+                    <td>@oitavoA </td>
+                </tr>
+                <tr>
+                    <td>8º Ano "B"</td>
+                    <td> @oitavoB</td>
+                </tr>
+                <tr>
+                    <td>9º Ano "A"</td>
+                    <td> @nonoA</td>
+                </tr>
+                <tr>
+                    <td>9º Ano "B"</td>
+                    <td> @nonoB</td>
+                </tr>
+                <tr>
+                    <td>Fase 03 "U"</td>
+                    <td>@fase3 </td>
+                </tr>
+                <tr>
+                    <td>Fase 04 "A"</td>
+                    <td> @fase4A</td>
+                </tr>
+                <tr>
+                    <td>Fase 04 "B"</td>
+                    <td> @fase4B</td>
+                </tr>
+            </table>
+        }
+        else
+        {
+            <div class="text-center">
+                <h1 class="display-4">Sistema de Gerenciamento Interno</h1>
+                <h4 class="display-6">Escola Estadual João de Mattos Carvalho</h4>
+                <p></p>
+                <div>
+                    <a style="color:#fbc45f" href="../Declaracao/VerificarAutenticidade" class="btn btn-default btn-sm">Verificar autenticidade de documento</a>
+                </div>
+                <p></p>
+                <div class="container">
+                    <img src="~/Imagens/SemTransparencia.png" width="350px" />
+                </div>
+            </div>
+        }
+
+    </body>
+</html>
+
+
+
+</div>
+<partial name="_NotificationPartial" />

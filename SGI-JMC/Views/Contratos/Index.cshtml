@@ -10,7 +10,7 @@
         <div class="card-header">
             <h4><b>Servidores contratados</b></h4>
             <h6>
-                <a href="../Contratos/Adicionar" class="btn btn-default pull-right fa fa-user-plus" style="color:#fbc45f"> Adicionar</a>
+                <a href="../Contratos/AdicionarGet" class="btn btn-default pull-right fa fa-user-plus" style="color:#fbc45f"> Adicionar</a>
             </h6>
         </div>
         <div class="card-body">
@@ -44,25 +44,28 @@
                                     <td>Não renovado</td>
                                 }
                                 <td style="align-content:center">
-                                    <a asp-action="" asp-route-id=@item.Id>
+                                    <a asp-action="EditarContratado" asp-route-id=@item.Id>
                                         <i class="btn btn-outline-primary fa fa-pencil"
                                        title="Editar"></i>
                                     </a>
                                     @if (item.renovado)
                                     {
-                                        <a asp-action="" asp-route-id=@item.Id>
-                                            <i class="btn btn-success fa fa-check"
-                                       title="indicar renovação contrato"></i>
+                                        <a asp-action="DesfazerRenovacao" asp-route-id=@item.Id>
+                                            <i class="btn btn-outline-warning fa fa-undo"
+                                       title="desfazer renovação contrato"></i>
                                         </a>
                                     }
                                     else
                                     {
-                                        <a asp-action="" asp-route-id=@item.Id>
+                                        <a asp-action="RenovarContrato" asp-route-id=@item.Id>
                                             <i class="btn btn-outline-success fa fa-check"
                                        title="indicar renovação contrato"></i>
                                         </a>
                                     }
-
+                                    <a asp-action="ExcluirServidorContratado" asp-route-id=@item.Id>
+                                        <i class="btn btn-outline-danger fa fa-trash"
+                                       title="Excluir"></i>
+                                    </a>
                                 </td>
                             </tr>
                             count++;
