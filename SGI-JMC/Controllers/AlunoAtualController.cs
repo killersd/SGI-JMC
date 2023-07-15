@@ -21,6 +21,7 @@ using System.Security.Cryptography.Xml;
 
 namespace SGI_JMC.Controllers
 {
+    [Authorize]
     public class AlunoAtualController : Controller
     {
         private readonly Context _contexto;
@@ -60,9 +61,10 @@ namespace SGI_JMC.Controllers
             return View(alunos);
         }
 
+        [Authorize]
         public async Task<IActionResult> MostrarMatriculas()
         {
-            var segundoU = await _contexto.AlunoAtual.Where(p => p.anoSerie == 2 && p.turma.Equals('U') && p.Transferido==false).ToListAsync();
+            var segundoU = await _contexto.AlunoAtual.Where(p => p.anoSerie == 2 && p.turma.Equals('U') && p.Transferido == false).ToListAsync();
             ViewBag.segundoU = segundoU.Count;
             var terceiroU = await _contexto.AlunoAtual.Where(p => p.anoSerie == 3 && p.turma.Equals('U') && p.Transferido == false).ToListAsync();
             ViewBag.terceiroU = terceiroU.Count;
@@ -89,7 +91,7 @@ namespace SGI_JMC.Controllers
             var nonoB = await _contexto.AlunoAtual.Where(p => p.anoSerie == 9 && p.turma.Equals('B') && p.Transferido == false).ToListAsync();
             ViewBag.nonoB = nonoB.Count;
 
-            var fase3 = await _contexto.AlunoAtual.Where(p => p.CorrecaoDeFluxo.Equals("Sim") && p.FaseProSic==3 && p.Transferido == false).ToListAsync();
+            var fase3 = await _contexto.AlunoAtual.Where(p => p.CorrecaoDeFluxo.Equals("Sim") && p.FaseProSic == 3 && p.Transferido == false).ToListAsync();
             ViewBag.fase3 = fase3.Count;
 
             var fase4A = await _contexto.AlunoAtual.Where(p => p.FaseProSic == 4 && p.turma.Equals('A') && p.Transferido == false).ToListAsync();
@@ -98,6 +100,1141 @@ namespace SGI_JMC.Controllers
             ViewBag.fase4B = fase4B.Count;
 
             return View();
+        }
+
+
+        public FileResult listaTurma2U(AlunoAtual aluno)
+        {
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.TrimMargins.Right = 50;
+                page.TrimMargins.Left = 50;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFomatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteOrganizacaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 10, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 14);
+                var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
+                var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
+                var fonteTituloGigante = new PdfSharpCore.Drawing.XFont("Calibri", 24, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
+                XImage imgBrasao = XImage.FromFile(brasao);
+                XImage imgEscudo = XImage.FromFile(escudo);
+                XImage imgLogo = XImage.FromFile(logo);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
+                graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                var alunos = _contexto.AlunoAtual.Where(p => p.anoSerie == 2 && p.turma.Equals('U') && p.Transferido == false).OrderBy(q => q.Nome);
+
+                textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
+                textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
+                textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 60, page.Width, page.Height));
+                textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
+                textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("LISTA DE ALUNOS - 2º ano U", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
+                textFomatter.DrawString(+alunos.Count() + " alunos nesta turma", fonteOrganizacaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 170, page.Width, page.Height));
+
+                var inicio = 225;
+                var passo = 15;
+                var cont = 1;
+
+                foreach (var item in alunos)
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
+                    inicio = inicio + passo;
+                    cont++;
+                }
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
+                textFomatter.DrawString("Lista emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
+                textFomatter.DrawString("Esta lista foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("SGI-Sistema de Gerenciamento Interno - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+                    doc.Save(stream, false);
+                    var nomeArquivo = "Lista 2º ano U.pdf";
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+            }
+        }
+
+        public FileResult listaTurma3U(AlunoAtual aluno)
+        {
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.TrimMargins.Right = 50;
+                page.TrimMargins.Left = 50;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFomatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteOrganizacaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 10, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 14);
+                var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
+                var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
+                var fonteTituloGigante = new PdfSharpCore.Drawing.XFont("Calibri", 24, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
+                XImage imgBrasao = XImage.FromFile(brasao);
+                XImage imgEscudo = XImage.FromFile(escudo);
+                XImage imgLogo = XImage.FromFile(logo);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
+                graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                var alunos = _contexto.AlunoAtual.Where(p => p.anoSerie == 3 && p.turma.Equals('U') && p.Transferido == false).OrderBy(q => q.Nome);
+
+                textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
+                textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
+                textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 60, page.Width, page.Height));
+                textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
+                textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("LISTA DE ALUNOS - 3º ano U", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
+                textFomatter.DrawString(+alunos.Count() + " alunos nesta turma", fonteOrganizacaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 170, page.Width, page.Height));
+
+                var inicio = 225;
+                var passo = 15;
+                var cont = 1;
+
+                foreach (var item in alunos)
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
+                    inicio = inicio + passo;
+                    cont++;
+                }
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
+                textFomatter.DrawString("Lista emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
+                textFomatter.DrawString("Esta lista foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("SGI-Sistema de Gerenciamento Interno - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+                    doc.Save(stream, false);
+                    var nomeArquivo = "Lista 3º ano U.pdf";
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+            }
+        }
+
+        public FileResult listaTurma4U(AlunoAtual aluno)
+        {
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.TrimMargins.Right = 50;
+                page.TrimMargins.Left = 50;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFomatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteOrganizacaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 10, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 14);
+                var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
+                var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
+                var fonteTituloGigante = new PdfSharpCore.Drawing.XFont("Calibri", 24, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
+                XImage imgBrasao = XImage.FromFile(brasao);
+                XImage imgEscudo = XImage.FromFile(escudo);
+                XImage imgLogo = XImage.FromFile(logo);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
+                graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                var alunos = _contexto.AlunoAtual.Where(p => p.anoSerie == 4 && p.turma.Equals('U') && p.Transferido == false).OrderBy(q => q.Nome);
+
+                textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
+                textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
+                textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 60, page.Width, page.Height));
+                textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
+                textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("LISTA DE ALUNOS - 4º ano U", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
+                textFomatter.DrawString(+alunos.Count() + " alunos nesta turma", fonteOrganizacaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 170, page.Width, page.Height));
+
+                var inicio = 225;
+                var passo = 15;
+                var cont = 1;
+
+                foreach (var item in alunos)
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
+                    inicio = inicio + passo;
+                    cont++;
+                }
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
+                textFomatter.DrawString("Lista emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
+                textFomatter.DrawString("Esta lista foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("SGI-Sistema de Gerenciamento Interno - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+                    doc.Save(stream, false);
+                    var nomeArquivo = "Lista 4º ano U.pdf";
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+            }
+        }
+
+        public FileResult listaTurma5U(AlunoAtual aluno)
+        {
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.TrimMargins.Right = 50;
+                page.TrimMargins.Left = 50;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFomatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteOrganizacaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 10, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 14);
+                var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
+                var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
+                var fonteTituloGigante = new PdfSharpCore.Drawing.XFont("Calibri", 24, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
+                XImage imgBrasao = XImage.FromFile(brasao);
+                XImage imgEscudo = XImage.FromFile(escudo);
+                XImage imgLogo = XImage.FromFile(logo);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
+                graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                var alunos = _contexto.AlunoAtual.Where(p => p.anoSerie == 5 && p.turma.Equals('U') && p.Transferido == false).OrderBy(q => q.Nome);
+
+                textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
+                textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
+                textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 60, page.Width, page.Height));
+                textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
+                textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("LISTA DE ALUNOS - 5º ano U", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
+                textFomatter.DrawString(+alunos.Count() + " alunos nesta turma", fonteOrganizacaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 170, page.Width, page.Height));
+
+                var inicio = 225;
+                var passo = 15;
+                var cont = 1;
+
+                foreach (var item in alunos)
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
+                    inicio = inicio + passo;
+                    cont++;
+                }
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
+                textFomatter.DrawString("Lista emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
+                textFomatter.DrawString("Esta lista foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("SGI-Sistema de Gerenciamento Interno - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+                    doc.Save(stream, false);
+                    var nomeArquivo = "Lista 5º ano U.pdf";
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+            }
+        }
+
+        public FileResult listaTurma6A(AlunoAtual aluno)
+        {
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.TrimMargins.Right = 50;
+                page.TrimMargins.Left = 50;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFomatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteOrganizacaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 10, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 14);
+                var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
+                var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
+                var fonteTituloGigante = new PdfSharpCore.Drawing.XFont("Calibri", 24, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
+                XImage imgBrasao = XImage.FromFile(brasao);
+                XImage imgEscudo = XImage.FromFile(escudo);
+                XImage imgLogo = XImage.FromFile(logo);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
+                graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                var alunos = _contexto.AlunoAtual.Where(p => p.anoSerie == 6 && p.turma.Equals('A') && p.Transferido == false).OrderBy(q => q.Nome);
+
+                textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
+                textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
+                textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 60, page.Width, page.Height));
+                textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
+                textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("LISTA DE ALUNOS - 6º ano A", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
+                textFomatter.DrawString(+alunos.Count() + " alunos nesta turma", fonteOrganizacaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 170, page.Width, page.Height));
+
+                var inicio = 225;
+                var passo = 15;
+                var cont = 1;
+
+                foreach (var item in alunos)
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
+                    inicio = inicio + passo;
+                    cont++;
+                }
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
+                textFomatter.DrawString("Lista emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
+                textFomatter.DrawString("Esta lista foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("SGI-Sistema de Gerenciamento Interno - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+                    doc.Save(stream, false);
+                    var nomeArquivo = "Lista 6º ano A.pdf";
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+            }
+        }
+
+        public FileResult listaTurma6B(AlunoAtual aluno)
+        {
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.TrimMargins.Right = 50;
+                page.TrimMargins.Left = 50;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFomatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteOrganizacaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 10, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 14);
+                var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
+                var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
+                var fonteTituloGigante = new PdfSharpCore.Drawing.XFont("Calibri", 24, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
+                XImage imgBrasao = XImage.FromFile(brasao);
+                XImage imgEscudo = XImage.FromFile(escudo);
+                XImage imgLogo = XImage.FromFile(logo);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
+                graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                var alunos = _contexto.AlunoAtual.Where(p => p.anoSerie == 6 && p.turma.Equals('B') && p.Transferido == false).OrderBy(q => q.Nome);
+
+                textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
+                textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
+                textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 60, page.Width, page.Height));
+                textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
+                textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("LISTA DE ALUNOS - 6º ano B", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
+                textFomatter.DrawString(+alunos.Count() + " alunos nesta turma", fonteOrganizacaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 170, page.Width, page.Height));
+
+                var inicio = 225;
+                var passo = 15;
+                var cont = 1;
+
+                foreach (var item in alunos)
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
+                    inicio = inicio + passo;
+                    cont++;
+                }
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
+                textFomatter.DrawString("Lista emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
+                textFomatter.DrawString("Esta lista foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("SGI-Sistema de Gerenciamento Interno - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+                    doc.Save(stream, false);
+                    var nomeArquivo = "Lista 6º ano B.pdf";
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+            }
+        }
+
+        public FileResult listaTurma7U(AlunoAtual aluno)
+        {
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.TrimMargins.Right = 50;
+                page.TrimMargins.Left = 50;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFomatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteOrganizacaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 10, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 14);
+                var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
+                var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
+                var fonteTituloGigante = new PdfSharpCore.Drawing.XFont("Calibri", 24, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
+                XImage imgBrasao = XImage.FromFile(brasao);
+                XImage imgEscudo = XImage.FromFile(escudo);
+                XImage imgLogo = XImage.FromFile(logo);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
+                graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                var alunos = _contexto.AlunoAtual.Where(p => p.anoSerie == 7 && p.turma.Equals('U') && p.Transferido == false).OrderBy(q => q.Nome);
+
+                textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
+                textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
+                textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 60, page.Width, page.Height));
+                textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
+                textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("LISTA DE ALUNOS - 7º ano U", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
+                textFomatter.DrawString(+alunos.Count() + " alunos nesta turma", fonteOrganizacaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 170, page.Width, page.Height));
+
+                var inicio = 225;
+                var passo = 15;
+                var cont = 1;
+
+                foreach (var item in alunos)
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
+                    inicio = inicio + passo;
+                    cont++;
+                }
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
+                textFomatter.DrawString("Lista emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
+                textFomatter.DrawString("Esta lista foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("SGI-Sistema de Gerenciamento Interno - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+                    doc.Save(stream, false);
+                    var nomeArquivo = "Lista 7º ano U.pdf";
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+            }
+        }
+
+        public FileResult listaTurma8A(AlunoAtual aluno)
+        {
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.TrimMargins.Right = 50;
+                page.TrimMargins.Left = 50;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFomatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteOrganizacaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 10, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 14);
+                var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
+                var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
+                var fonteTituloGigante = new PdfSharpCore.Drawing.XFont("Calibri", 24, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
+                XImage imgBrasao = XImage.FromFile(brasao);
+                XImage imgEscudo = XImage.FromFile(escudo);
+                XImage imgLogo = XImage.FromFile(logo);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
+                graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                var alunos = _contexto.AlunoAtual.Where(p => p.anoSerie == 8 && p.turma.Equals('A') && p.Transferido == false).OrderBy(q => q.Nome);
+
+                textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
+                textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
+                textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 60, page.Width, page.Height));
+                textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
+                textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("LISTA DE ALUNOS - 8º ano A", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
+                textFomatter.DrawString(+alunos.Count() + " alunos nesta turma", fonteOrganizacaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 170, page.Width, page.Height));
+
+                var inicio = 225;
+                var passo = 15;
+                var cont = 1;
+
+                foreach (var item in alunos)
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
+                    inicio = inicio + passo;
+                    cont++;
+                }
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
+                textFomatter.DrawString("Lista emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
+                textFomatter.DrawString("Esta lista foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("SGI-Sistema de Gerenciamento Interno - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+                    doc.Save(stream, false);
+                    var nomeArquivo = "Lista 8º ano A.pdf";
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+            }
+        }
+
+        public FileResult listaTurma8B(AlunoAtual aluno)
+        {
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.TrimMargins.Right = 50;
+                page.TrimMargins.Left = 50;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFomatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteOrganizacaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 10, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 14);
+                var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
+                var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
+                var fonteTituloGigante = new PdfSharpCore.Drawing.XFont("Calibri", 24, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
+                XImage imgBrasao = XImage.FromFile(brasao);
+                XImage imgEscudo = XImage.FromFile(escudo);
+                XImage imgLogo = XImage.FromFile(logo);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
+                graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                var alunos = _contexto.AlunoAtual.Where(p => p.anoSerie == 8 && p.turma.Equals('B') && p.Transferido == false).OrderBy(q => q.Nome);
+
+                textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
+                textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
+                textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 60, page.Width, page.Height));
+                textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
+                textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("LISTA DE ALUNOS - 8º ano B", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
+                textFomatter.DrawString(+alunos.Count() + " alunos nesta turma", fonteOrganizacaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 170, page.Width, page.Height));
+
+                var inicio = 225;
+                var passo = 15;
+                var cont = 1;
+
+                foreach (var item in alunos)
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
+                    inicio = inicio + passo;
+                    cont++;
+                }
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
+                textFomatter.DrawString("Lista emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
+                textFomatter.DrawString("Esta lista foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("SGI-Sistema de Gerenciamento Interno - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+                    doc.Save(stream, false);
+                    var nomeArquivo = "Lista 8º ano B.pdf";
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+            }
+        }
+
+        public FileResult listaTurma9A(AlunoAtual aluno)
+        {
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.TrimMargins.Right = 50;
+                page.TrimMargins.Left = 50;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFomatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteOrganizacaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 10, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 14);
+                var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
+                var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
+                var fonteTituloGigante = new PdfSharpCore.Drawing.XFont("Calibri", 24, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
+                XImage imgBrasao = XImage.FromFile(brasao);
+                XImage imgEscudo = XImage.FromFile(escudo);
+                XImage imgLogo = XImage.FromFile(logo);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
+                graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                var alunos = _contexto.AlunoAtual.Where(p => p.anoSerie == 9 && p.turma.Equals('A') && p.Transferido == false).OrderBy(q => q.Nome);
+
+                textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
+                textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
+                textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 60, page.Width, page.Height));
+                textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
+                textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("LISTA DE ALUNOS - 9º ano A", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
+                textFomatter.DrawString(+alunos.Count() + " alunos nesta turma", fonteOrganizacaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 170, page.Width, page.Height));
+
+                var inicio = 225;
+                var passo = 15;
+                var cont = 1;
+
+                foreach (var item in alunos)
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
+                    inicio = inicio + passo;
+                    cont++;
+                }
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
+                textFomatter.DrawString("Lista emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
+                textFomatter.DrawString("Esta lista foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("SGI-Sistema de Gerenciamento Interno - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+                    doc.Save(stream, false);
+                    var nomeArquivo = "Lista 9º ano A.pdf";
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+            }
+        }
+
+        public FileResult listaTurma9B(AlunoAtual aluno)
+        {
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.TrimMargins.Right = 50;
+                page.TrimMargins.Left = 50;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFomatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteOrganizacaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 10, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 14);
+                var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
+                var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
+                var fonteTituloGigante = new PdfSharpCore.Drawing.XFont("Calibri", 24, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
+                XImage imgBrasao = XImage.FromFile(brasao);
+                XImage imgEscudo = XImage.FromFile(escudo);
+                XImage imgLogo = XImage.FromFile(logo);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
+                graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                var alunos = _contexto.AlunoAtual.Where(p => p.anoSerie == 9 && p.turma.Equals('B') && p.Transferido == false).OrderBy(q => q.Nome);
+
+                textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
+                textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
+                textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 60, page.Width, page.Height));
+                textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
+                textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("LISTA DE ALUNOS - 9º ano B", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
+                textFomatter.DrawString(+alunos.Count() + " alunos nesta turma", fonteOrganizacaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 170, page.Width, page.Height));
+
+                var inicio = 225;
+                var passo = 15;
+                var cont = 1;
+
+                foreach (var item in alunos)
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
+                    inicio = inicio + passo;
+                    cont++;
+                }
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
+                textFomatter.DrawString("Lista emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
+                textFomatter.DrawString("Esta lista foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("SGI-Sistema de Gerenciamento Interno - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+                    doc.Save(stream, false);
+                    var nomeArquivo = "Lista 9º ano B.pdf";
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+            }
+        }
+
+        public FileResult listaTurmaF3(AlunoAtual aluno)
+        {
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.TrimMargins.Right = 50;
+                page.TrimMargins.Left = 50;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFomatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteOrganizacaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 10, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 14);
+                var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
+                var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
+                var fonteTituloGigante = new PdfSharpCore.Drawing.XFont("Calibri", 24, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
+                XImage imgBrasao = XImage.FromFile(brasao);
+                XImage imgEscudo = XImage.FromFile(escudo);
+                XImage imgLogo = XImage.FromFile(logo);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
+                graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                var alunos = _contexto.AlunoAtual.Where(p => p.FaseProSic == 3 && p.Transferido == false).OrderBy(q => q.Nome);
+
+                textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
+                textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
+                textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 60, page.Width, page.Height));
+                textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
+                textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("LISTA DE ALUNOS - Fase 03", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
+                textFomatter.DrawString(+alunos.Count() + " alunos nesta turma", fonteOrganizacaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 170, page.Width, page.Height));
+
+                var inicio = 225;
+                var passo = 15;
+                var cont = 1;
+
+                foreach (var item in alunos)
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                    textFomatter.DrawString(cont + ". " + item.Nome +" - Série de Origem: "+item.SerieOrigem+"º Ano", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
+                    inicio = inicio + passo;
+                    cont++;
+                }
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
+                textFomatter.DrawString("Lista emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
+                textFomatter.DrawString("Esta lista foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("SGI-Sistema de Gerenciamento Interno - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+                    doc.Save(stream, false);
+                    var nomeArquivo = "Lista Fase 03.pdf";
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+            }
+        }
+
+        public FileResult listaTurmaF4A(AlunoAtual aluno)
+        {
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.TrimMargins.Right = 50;
+                page.TrimMargins.Left = 50;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFomatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteOrganizacaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 10, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 14);
+                var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
+                var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
+                var fonteTituloGigante = new PdfSharpCore.Drawing.XFont("Calibri", 24, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
+                XImage imgBrasao = XImage.FromFile(brasao);
+                XImage imgEscudo = XImage.FromFile(escudo);
+                XImage imgLogo = XImage.FromFile(logo);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
+                graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                var alunos = _contexto.AlunoAtual.Where(p => p.FaseProSic == 4 && p.turma.Equals('A') && p.Transferido == false).OrderBy(q => q.Nome);
+
+                textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
+                textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
+                textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 60, page.Width, page.Height));
+                textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
+                textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("LISTA DE ALUNOS - Fase 04 A", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
+                textFomatter.DrawString(+alunos.Count() + " alunos nesta turma", fonteOrganizacaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 170, page.Width, page.Height));
+
+                var inicio = 225;
+                var passo = 15;
+                var cont = 1;
+
+                foreach (var item in alunos)
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                    textFomatter.DrawString(cont + ". " + item.Nome + " - Série de Origem: " + item.SerieOrigem + "º Ano", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
+                    inicio = inicio + passo;
+                    cont++;
+                }
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
+                textFomatter.DrawString("Lista emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
+                textFomatter.DrawString("Esta lista foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("SGI-Sistema de Gerenciamento Interno - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+                    doc.Save(stream, false);
+                    var nomeArquivo = "Lista Fase 04 A.pdf";
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+            }
+        }
+
+        public FileResult listaTurmaF4B(AlunoAtual aluno)
+        {
+            using (var doc = new PdfSharpCore.Pdf.PdfDocument())
+            {
+                var page = doc.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+                page.TrimMargins.Right = 50;
+                page.TrimMargins.Left = 50;
+                page.Orientation = PdfSharpCore.PageOrientation.Portrait;
+
+                var graphics = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
+                var corFonte = PdfSharpCore.Drawing.XBrushes.Black;
+                var textFomatter = new PdfSharpCore.Drawing.Layout.XTextFormatter(graphics);
+                var fonteOrganizacao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteOrganizacaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 10, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var fonteDesricao = new PdfSharpCore.Drawing.XFont("Calibri", 14);
+                var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
+                var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
+                var fonteDesricaoBold = new PdfSharpCore.Drawing.XFont("Calibri", 14, XFontStyle.Bold);
+                var fonteTituloGigante = new PdfSharpCore.Drawing.XFont("Calibri", 24, PdfSharpCore.Drawing.XFontStyle.Bold);
+
+                var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
+                var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
+                var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
+                XImage imgBrasao = XImage.FromFile(brasao);
+                XImage imgEscudo = XImage.FromFile(escudo);
+                XImage imgLogo = XImage.FromFile(logo);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                graphics.DrawImage(imgBrasao, 0, 30, 50, 75);
+                graphics.DrawImage(imgEscudo, 75, 280, 450, 450);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                graphics.DrawImage(imgLogo, 480, 60, 120, 50);
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                var alunos = _contexto.AlunoAtual.Where(p => p.FaseProSic == 4 && p.turma.Equals('B') && p.Transferido == false).OrderBy(q => q.Nome);
+
+                textFomatter.DrawString("GOVERNO DO ESTADO DE SERGIPE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 30, page.Width, page.Height));
+                textFomatter.DrawString("SECRETARIA DE ESTADO DA EDUCAÇÃO E DA CULTURA", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 45, page.Width, page.Height));
+                textFomatter.DrawString("ESCOLA ESTADUAL JOÃO DE MATTOS CARVALHO", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 60, page.Width, page.Height));
+                textFomatter.DrawString("CNPJ: 01.902.194/0001-83", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 75, page.Width, page.Height));
+                textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                textFomatter.DrawString("LISTA DE ALUNOS - Fase 04 B", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 150, page.Width, page.Height));
+                textFomatter.DrawString(+alunos.Count() + " alunos nesta turma", fonteOrganizacaoBold, corFonte, new PdfSharpCore.Drawing.XRect(0, 170, page.Width, page.Height));
+
+                var inicio = 225;
+                var passo = 15;
+                var cont = 1;
+
+                foreach (var item in alunos)
+                {
+                    textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
+                    textFomatter.DrawString(cont + ". " + item.Nome + " - Série de Origem: " + item.SerieOrigem + "º Ano", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
+                    inicio = inicio + passo;
+                    cont++;
+                }
+
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
+                string dataString = DateTime.Now.ToString("dd/MM/yyyy");
+                textFomatter.DrawString("Lista emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
+                textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
+                textFomatter.DrawString("Esta lista foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
+                textFomatter.DrawString("SGI-Sistema de Gerenciamento Interno - EEJMC ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 30, page.Width, page.Height));
+                textFomatter.DrawString("Usuário: " + User.Identity.Name, fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 40, page.Width, page.Height));
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var contentType = "application/pdf";
+                    doc.Save(stream, false);
+                    var nomeArquivo = "Lista Fase 04 B.pdf";
+                    return File(stream.ToArray(), contentType, nomeArquivo);
+                }
+            }
         }
 
         [Authorize(Roles = "administrador")]

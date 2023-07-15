@@ -301,14 +301,16 @@
                     {
                         <div style="padding-right:10px">
                             <button type="button" id="sidebarCollapse" class="btn btn-default btn-sm">
-                                <i style="color:#fbc45f" class="fa fa-align-left"></i>
                                 <span style="color:#fbc45f">Mostrar/Esconder menu</span>
                             </button>
                         </div>
                         <div style="vertical-align:central;padding-right:10px">
-                            Alunos matriculados: <b>@app.AlunoAtual.Where(n => n.Transferido==false).Count()</b>
+                            Alunos regulares: <b>@app.AlunoAtual.Where(n => n.Transferido==false).Count()</b>
+                            |
+                            Alunos do AEE: <b>20</b>
                             |
                             Alunos transferidos: <b>@app.AlunoAtual.Where(n => n.Transferido==true).Count()</b>
+                            |
                         </div>
                         <div style="padding-right:10px">
                             <ul class="nav navbar-nav ml-auto">
