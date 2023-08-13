@@ -157,7 +157,7 @@ namespace SGI_JMC.Controllers
                 foreach (var item in alunos)
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString(cont + ". " + item.Nome + " - " + item.DataNascimento.ToString("dd/MM/yyyy"), fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
                     textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
                     inicio = inicio + passo;
                     cont++;
@@ -238,7 +238,7 @@ namespace SGI_JMC.Controllers
                 foreach (var item in alunos)
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString(cont + ". " + item.Nome + " - " + item.DataNascimento.ToString("dd/MM/yyyy"), fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
                     textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
                     inicio = inicio + passo;
                     cont++;
@@ -319,7 +319,7 @@ namespace SGI_JMC.Controllers
                 foreach (var item in alunos)
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString(cont + ". " + item.Nome + " - " + item.DataNascimento.ToString("dd/MM/yyyy"), fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
                     textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
                     inicio = inicio + passo;
                     cont++;
@@ -400,7 +400,7 @@ namespace SGI_JMC.Controllers
                 foreach (var item in alunos)
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString(cont + ". " + item.Nome + " - " + item.DataNascimento.ToString("dd/MM/yyyy"), fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
                     textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
                     inicio = inicio + passo;
                     cont++;
@@ -481,7 +481,7 @@ namespace SGI_JMC.Controllers
                 foreach (var item in alunos)
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString(cont + ". " + item.Nome + " - " + item.DataNascimento.ToString("dd/MM/yyyy"), fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
                     textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
                     inicio = inicio + passo;
                     cont++;
@@ -562,7 +562,7 @@ namespace SGI_JMC.Controllers
                 foreach (var item in alunos)
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString(cont + ". " + item.Nome + " - " + item.DataNascimento.ToString("dd/MM/yyyy"), fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
                     textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
                     inicio = inicio + passo;
                     cont++;
@@ -643,7 +643,7 @@ namespace SGI_JMC.Controllers
                 foreach (var item in alunos)
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString(cont + ". " + item.Nome + " - " + item.DataNascimento.ToString("dd/MM/yyyy"), fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
                     textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
                     inicio = inicio + passo;
                     cont++;
@@ -724,7 +724,7 @@ namespace SGI_JMC.Controllers
                 foreach (var item in alunos)
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString(cont + ". " + item.Nome + " - " + item.DataNascimento.ToString("dd/MM/yyyy"), fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
                     textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
                     inicio = inicio + passo;
                     cont++;
@@ -805,7 +805,7 @@ namespace SGI_JMC.Controllers
                 foreach (var item in alunos)
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString(cont + ". " + item.Nome + " - " + item.DataNascimento.ToString("dd/MM/yyyy"), fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
                     textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
                     inicio = inicio + passo;
                     cont++;
@@ -886,7 +886,7 @@ namespace SGI_JMC.Controllers
                 foreach (var item in alunos)
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString(cont + ". " + item.Nome + " - " + item.DataNascimento.ToString("dd/MM/yyyy"), fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
                     textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
                     inicio = inicio + passo;
                     cont++;
@@ -967,7 +967,7 @@ namespace SGI_JMC.Controllers
                 foreach (var item in alunos)
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter.DrawString(cont + ". " + item.Nome, fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString(cont + ". " + item.Nome + " - " + item.DataNascimento.ToString("dd/MM/yyyy"), fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
                     textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
                     inicio = inicio + passo;
                     cont++;
@@ -1048,7 +1048,7 @@ namespace SGI_JMC.Controllers
                 foreach (var item in alunos)
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter.DrawString(cont + ". " + item.Nome +" - Série de Origem: "+item.SerieOrigem+"º Ano", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString(cont + ". " + item.Nome + " - Série de Origem: " + item.SerieOrigem + "º Ano" + " - " + item.DataNascimento.ToString("dd/MM/yyyy"), fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
                     textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
                     inicio = inicio + passo;
                     cont++;
@@ -1129,7 +1129,7 @@ namespace SGI_JMC.Controllers
                 foreach (var item in alunos)
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter.DrawString(cont + ". " + item.Nome + " - Série de Origem: " + item.SerieOrigem + "º Ano", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString(cont + ". " + item.Nome + " - Série de Origem: " + item.SerieOrigem + "º Ano" + " - " + item.DataNascimento.ToString("dd/MM/yyyy"), fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
                     textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
                     inicio = inicio + passo;
                     cont++;
@@ -1210,7 +1210,7 @@ namespace SGI_JMC.Controllers
                 foreach (var item in alunos)
                 {
                     textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Left;
-                    textFomatter.DrawString(cont + ". " + item.Nome + " - Série de Origem: " + item.SerieOrigem + "º Ano", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
+                    textFomatter.DrawString(cont + ". " + item.Nome + " - Série de Origem: " + item.SerieOrigem + "º Ano" + " - " + item.DataNascimento.ToString("dd/MM/yyyy"), fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio, 575, page.Height));
                     textFomatter.DrawString("___________________________________________________________________________________________________", fonteOrganizacao, corFonte, new PdfSharpCore.Drawing.XRect(50, inicio + 1, 575, page.Height));
                     inicio = inicio + passo;
                     cont++;

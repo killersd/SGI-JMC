@@ -65,6 +65,11 @@
                             <a href="#outrosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i style="color:#fbc45f" class="fa fa-sort" aria-hidden="true"></i> Outros</a>
                             <ul class="collapse list-unstyled" id="outrosSubmenu">
                                 <li>
+                                    <a asp-controller="ListaFrequencia" asp-action="Index">
+                                        Frequência Mensal
+                                    </a>
+                                </li>
+                                <li>
                                     <a asp-controller="Advertencia" asp-action="Create">
                                         Advertência
                                     </a>
@@ -307,8 +312,8 @@
                         <div style="vertical-align:central;padding-right:10px">
                             Alunos regulares: <b>@app.AlunoAtual.Where(n => n.Transferido==false).Count()</b>
                             |
-                            Alunos do AEE: <b>20</b>
-                            |
+                            @*                            Alunos do AEE: <b>20</b>
+                        |*@
                             Alunos transferidos: <b>@app.AlunoAtual.Where(n => n.Transferido==true).Count()</b>
                             |
                         </div>
