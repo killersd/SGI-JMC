@@ -43,7 +43,7 @@
                 #customers th {
                     padding-top: 12px;
                     padding-bottom: 12px;
-                    text-align: left;
+                    text-align: center;
                     background-color: #33437f;
                     color: white;
                 }
@@ -58,76 +58,91 @@
                 <tr>
                     <th>Turma</th>
                     <th>Matrículas</th>
-                    <th></th>
+                    <th>Download</th>
+                    <th>Visualizar</th>
                 </tr>
                 <tr>
                     <td>2º Ano "U"</td>
                     <td>@segundoU </td>
                     <td><form asp-action="listaTurma2U"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-download" i></i></button></form></td>
+                    <td><form asp-action="visualizarListaTurma2U"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-eye" i></i></button></form></td>
                 </tr>
                 <tr>
                     <td>3º Ano "U"</td>
                     <td>@terceiroU </td>
                     <td><form asp-action="listaTurma3U"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-download" i></i></button></form></td>
+                    <td><form asp-action="visualizarListaTurma3U"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-eye" i></i></button></form></td>
                 </tr>
                 <tr>
                     <td>4º Ano "U"</td>
                     <td>@quartoU </td>
                     <td><form asp-action="listaTurma4U"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-download" i></i></button></form></td>
+                    <td><form asp-action="visualizarListaTurma4U"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-eye" i></i></button></form></td>
                 </tr>
                 <tr>
                     <td>5º Ano "U"</td>
                     <td> @quintoU</td>
                     <td><form asp-action="listaTurma5U"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-download" i></i></button></form></td>
+                    <td><form asp-action="visualizarListaTurma5U"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-eye" i></i></button></form></td>
                 </tr>
                 <tr>
                     <td>6º Ano "A"</td>
                     <td>@sextoA </td>
                     <td><form asp-action="listaTurma6A"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-download" i></i></button></form></td>
+                    <td><form asp-action="visualizarListaTurma6A"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-eye" i></i></button></form></td>
                 </tr>
                 <tr>
                     <td>6º Ano "B"</td>
                     <td>@sextoB </td>
                     <td><form asp-action="listaTurma6B"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-download" i></i></button></form></td>
+                    <td><form asp-action="visualizarListaTurma6B"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-eye" i></i></button></form></td>
                 <tr>
                     <td>7º Ano "U"</td>
                     <td>@setimoU </td>
                     <td><form asp-action="listaTurma7U"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-download" i></i></button></form></td>
+                    <td><form asp-action="visualizarListaTurma7U"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-eye" i></i></button></form></td>
                 </tr>
                 <tr>
                     <td>8º Ano "A"</td>
                     <td>@oitavoA </td>
                     <td><form asp-action="listaTurma8A"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-download" i></i></button></form></td>
+                    <td><form asp-action="visualizarListaTurma8A"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-eye" i></i></button></form></td>
                 </tr>
                 <tr>
                     <td>8º Ano "B"</td>
                     <td> @oitavoB</td>
                     <td><form asp-action="listaTurma8B"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-download" i></i></button></form></td>
+                    <td><form asp-action="visualizarListaTurma8B"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-eye" i></i></button></form></td>
                 </tr>
                 <tr>
                     <td>9º Ano "A"</td>
                     <td> @nonoA</td>
                     <td><form asp-action="listaTurma9A"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-download" i></i></button></form></td>
+                    <td><form asp-action="visualizarListaTurma9A"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-eye" i></i></button></form></td>
                 </tr>
                 <tr>
                     <td>9º Ano "B"</td>
                     <td> @nonoB</td>
                     <td><form asp-action="listaTurma9B"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-download" i></i></button></form></td>
+                    <td><form asp-action="visualizarListaTurma9B"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-eye" i></i></button></form></td>
                 </tr>
                 <tr>
                     <td>Fase 03 "U"</td>
                     <td>@fase3 </td>
                     <td><form asp-action="listaTurmaF3"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-download" i></i></button></form></td>
+                    <td><form asp-action="visualizarListaTurmaF3"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-eye" i></i></button></form></td>
                 </tr>
                 <tr>
                     <td>Fase 04 "A"</td>
                     <td> @fase4A</td>
                     <td><form asp-action="listaTurmaF4A"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-download" i></i></button></form></td>
+                    <td><form asp-action="visualizarListaTurmaF4A"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-eye" i></i></button></form></td>
                 </tr>
                 <tr>
                     <td>Fase 04 "B"</td>
                     <td> @fase4B</td>
                     <td><form asp-action="listaTurmaF4B"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-download" i></i></button></form></td>
+                    <td><form asp-action="visualizarListaTurmaF4B"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-eye" i></i></button></form></td>
                 </tr>
             </table>
         }

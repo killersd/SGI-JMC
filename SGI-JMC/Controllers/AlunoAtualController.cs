@@ -54,12 +54,97 @@ namespace SGI_JMC.Controllers
             return View(await _contexto.AlunoAtual.ToListAsync());
         }
 
-        [Authorize(Roles = "usuario, administrador")]
-        public async Task<IActionResult> AlunosSextoAnoA()
+        public async Task<IActionResult> visualizarListaTurma2U()
         {
-            var alunos = await _contexto.AlunoAtual.Where(p => p.anoSerie == 6 && p.turma.Equals('A')).ToListAsync();
+            var alunos = await _contexto.AlunoAtual.Where(p => p.anoSerie == 2 && p.turma.Equals('U') && p.Transferido == false).OrderBy(q => q.Nome).ToListAsync();
+            ViewBag.Alunos2U = alunos;
             return View(alunos);
         }
+        public async Task<IActionResult> visualizarListaTurma3U()
+        {
+            var alunos = await _contexto.AlunoAtual.Where(p => p.anoSerie == 3 && p.turma.Equals('U') && p.Transferido == false).OrderBy(q => q.Nome).ToListAsync();
+            ViewBag.Alunos3U = alunos;
+            return View(alunos);
+        }
+        public async Task<IActionResult> visualizarListaTurma4U()
+        {
+            var alunos = await _contexto.AlunoAtual.Where(p => p.anoSerie == 4 && p.turma.Equals('U') && p.Transferido == false).OrderBy(q => q.Nome).ToListAsync();
+            ViewBag.Alunos4U = alunos;
+            return View(alunos);
+        }
+        public async Task<IActionResult> visualizarListaTurma5U()
+        {
+            var alunos = await _contexto.AlunoAtual.Where(p => p.anoSerie == 5 && p.turma.Equals('U') && p.Transferido == false).OrderBy(q => q.Nome).ToListAsync();
+            ViewBag.Alunos5U = alunos;
+            return View(alunos);
+        }
+        public async Task<IActionResult> visualizarListaTurma6A()
+        {
+            var alunos = await _contexto.AlunoAtual.Where(p => p.anoSerie == 6 && p.turma.Equals('A') && p.Transferido == false).OrderBy(q => q.Nome).ToListAsync();
+            ViewBag.Alunos6A = alunos;
+            return View(alunos);
+        }
+        public async Task<IActionResult> visualizarListaTurma6B()
+        {
+            var alunos = await _contexto.AlunoAtual.Where(p => p.anoSerie == 6 && p.turma.Equals('B') && p.Transferido == false).OrderBy(q => q.Nome).ToListAsync();
+            ViewBag.Alunos6B = alunos;
+            return View(alunos);
+        }
+        public async Task<IActionResult> visualizarListaTurma7U()
+        {
+            var alunos = await _contexto.AlunoAtual.Where(p => p.anoSerie == 7 && p.turma.Equals('U') && p.Transferido == false).OrderBy(q => q.Nome).ToListAsync();
+            ViewBag.Alunos7U = alunos;
+            return View(alunos);
+        }
+        public async Task<IActionResult> visualizarListaTurma8A()
+        {
+            var alunos = await _contexto.AlunoAtual.Where(p => p.anoSerie == 8 && p.turma.Equals('A') && p.Transferido == false).OrderBy(q => q.Nome).ToListAsync();
+            ViewBag.Alunos8A = alunos;
+            return View(alunos);
+        }
+        public async Task<IActionResult> visualizarListaTurma8B()
+        {
+            var alunos = await _contexto.AlunoAtual.Where(p => p.anoSerie == 8 && p.turma.Equals('B') && p.Transferido == false).OrderBy(q => q.Nome).ToListAsync();
+            ViewBag.Alunos8B = alunos;
+            return View(alunos);
+        }
+        public async Task<IActionResult> visualizarListaTurma9A()
+        {
+            var alunos = await _contexto.AlunoAtual.Where(p => p.anoSerie == 9 && p.turma.Equals('A') && p.Transferido == false).OrderBy(q => q.Nome).ToListAsync();
+            ViewBag.Alunos9A = alunos;
+            return View(alunos);
+        }
+        public async Task<IActionResult> visualizarListaTurma9B()
+        {
+            var alunos = await _contexto.AlunoAtual.Where(p => p.anoSerie == 9 && p.turma.Equals('B') && p.Transferido == false).OrderBy(q => q.Nome).ToListAsync();
+            ViewBag.Alunos9B = alunos;
+            return View(alunos);
+        }
+        public async Task<IActionResult> visualizarListaTurmaF3()
+        {
+            var alunos = await _contexto.AlunoAtual.Where(p => p.FaseProSic == 3 && p.Transferido == false).OrderBy(q => q.Nome).ToListAsync();
+            ViewBag.AlunosF3 = alunos;
+            return View(alunos);
+        }
+        public async Task<IActionResult> visualizarListaTurmaF4A()
+        {
+            var alunos = await _contexto.AlunoAtual.Where(p => p.FaseProSic == 4 && p.turma.Equals('A') && p.Transferido == false).OrderBy(q => q.Nome).ToListAsync();
+            ViewBag.AlunosF4A = alunos;
+            return View(alunos);
+        }
+        public async Task<IActionResult> visualizarListaTurmaF4B()
+        {
+            var alunos = await _contexto.AlunoAtual.Where(p => p.FaseProSic == 4 && p.turma.Equals('B') && p.Transferido == false).OrderBy(q => q.Nome).ToListAsync();
+            ViewBag.AlunosF4B = alunos;
+            return View(alunos);
+        }
+
+        //[Authorize(Roles = "usuario, administrador")]
+        //public async Task<IActionResult> AlunosSextoAnoA()
+        //{
+        //    var alunos = await _contexto.AlunoAtual.Where(p => p.anoSerie == 6 && p.turma.Equals('A')).ToListAsync();
+        //    return View(alunos);
+        //}
 
         [Authorize]
         public async Task<IActionResult> MostrarMatriculas()

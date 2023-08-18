@@ -1,0 +1,12 @@
+﻿@model IEnumerable<SGI_JMC.Models.AlunoAtual>
+
+@{
+    var alunos = ViewBag.Alunos7U;
+    var cont = 1;
+}
+
+@foreach (var item in alunos)
+{
+    <td>@cont - @item.Nome<br /></td>
+    cont++;
+}

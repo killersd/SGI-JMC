@@ -1,7 +1,7 @@
-﻿@model SGI_JMC.Models.Advertencia
+﻿@model SGI_JMC.Models.Suspensao
 
 @{
-    ViewData["Title"] = "Advertência para aluno - ";
+    ViewData["Title"] = "Suspensão para aluno - ";
 }
 
 <partial name="_MensagemPartial" />
@@ -11,10 +11,10 @@
 <div class="container-fluid">
     <div class="card mb-6">
         <div class="card-header">
-            <h4><b>Advertência</b></h4>
+            <h4><b>Suspensão</b></h4>
         </div>
         <div class="card-body">
-            <form asp-action="gerarAdvertencia">
+            <form asp-action="gerarSuspensao">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="row">
                     <div class="col-md-6">
@@ -38,17 +38,22 @@
                             <input asp-for="Birth_date" class="form-control" />
                             <span asp-validation-for="Birth_date" class="text-danger"></span>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label asp-for="numero" class="control-label"></label>
-                            <input asp-for="numero" class="form-control" />
-                            <span asp-validation-for="numero" class="text-danger"></span>
-                        </div>
                         <div class="form-group">
                             <label asp-for="anoSerie" class="control-label"></label>
                             <input asp-for="anoSerie" MaxLenth="2" placeholder="Exemplos: 6, 7, 8, F3, F4, etc..." class="form-control" />
                             <span asp-validation-for="anoSerie" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="dias" class="control-label"></label>
+                            <input asp-for="dias" placeholder="quantidade de dias da suspensão" class="form-control" />
+                            <span asp-validation-for="dias" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="numeroSuspensao" class="control-label"></label>
+                            <input asp-for="numeroSuspensao" class="form-control" />
+                            <span asp-validation-for="numeroSuspensao" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="turma" class="control-label"></label>
@@ -60,17 +65,15 @@
                             <input asp-for="turno" placeholder="turno" class="form-control" />
                             <span asp-validation-for="turno" class="text-danger"></span>
                         </div>
+                        <div class="form-group">
+                            <label asp-for="descricaoDoFato" class="control-label"></label>
+                            <textarea style="resize:none" placeholder="Relate aqui o ocorrido..." MaxLength="475" rows="7" cols="10" asp-for="descricaoDoFato" class="form-control"></textarea>
+                            <span asp-validation-for="descricaoDoFato" class="text-danger"></span>
+                        </div>
                     </div>
-                    <div class="col-md-12">
-                        <label asp-for="descricaoDoFato" class="control-label"></label>
-                        <textarea style="resize:vertical" placeholder="Relate aqui o ocorrido..." MaxLength="475" asp-for="descricaoDoFato" class="form-control"></textarea>
-                        <span asp-validation-for="descricaoDoFato" class="text-danger"></span>
+                    <div class="col-md-12" style="text-align:center">
+                        <button type="submit" class="btn btn-default" style="color:#fbc45f"><i class="fa fa-download" aria-hidden="true"></i> Baixar suspensão</button>
                     </div>
-                </div>
-                <br />
-                <div class="col-md-12" style="text-align:center">
-                    @*<input type="submit" value="Baixar declaração" class="btn btn-default" />*@
-                    <button type="submit" class="btn btn-default" style="color:#fbc45f"><i class="fa fa-download" aria-hidden="true"></i> Baixar advertência</button>
                 </div>
             </form>
         </div>

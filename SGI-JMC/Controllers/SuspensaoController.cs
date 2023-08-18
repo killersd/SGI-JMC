@@ -10,23 +10,17 @@ using System.Threading.Tasks;
 
 namespace SGI_JMC.Controllers
 {
+
     [Authorize(Roles = "usuario, administrador")]
-    public class AdvertenciaController : Controller
+    public class SuspensaoController : Controller
     {
         private readonly Context _context;
 
 
-        public AdvertenciaController(Context context)
+        public SuspensaoController(Context context)
         {
             _context = context;
         }
-
-        //[Authorize(Roles = "administrador")]
-        //[HttpGet]
-        //public async Task<IActionResult> Index()
-        //{
-        //    return View(await _context.Advertencia.ToListAsync());
-        //}
 
         [Authorize(Roles = "usuario, administrador")]
         [HttpGet]
@@ -35,23 +29,8 @@ namespace SGI_JMC.Controllers
             return View();
         }
 
-        //[Authorize(Roles = "usuario, administrador")]
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,Name,Father_name,Mother_name,Birth_date,anoSerie,turma,dataDeEmissao,descricaoDoFato,turno")] Models.Advertencia advertencia)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        advertencia.dataDeEmissao = DateTime.Now;
-        //        _context.Add(advertencia);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Create));
-        //    }
-        //    return View(advertencia);
-        //}
-
         [Authorize(Roles = "usuario, administrador")]
-        public FileResult gerarAdvertencia(Models.Advertencia advertencia)
+        public FileResult gerarSuspensao(Models.Suspensao suspensao)
         {
             using (var doc = new PdfSharpCore.Pdf.PdfDocument())
             {
@@ -92,55 +71,55 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("PRAÇA ABEL JACÓ DOS SANTOS, Nº 892, CENTRO, SIMÃO DIAS - SE", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(55, 90, page.Width, page.Height));
                 textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                textFomatter.DrawString("ADVERTÊNCIA "+advertencia.numero, fonteTituloGigante, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
+                textFomatter.DrawString("SUSPENSÃO "+suspensao.numeroSuspensao, fonteTituloGigante, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
 
                 graphics.DrawRoundedRectangle(PdfSharpCore.Drawing.XPens.Black, PdfSharpCore.Drawing.XBrushes.Transparent, 0, 400, page.Width, 120, 10, 10);
 
 
                 //melhorar isso aqui
-                string turmaString = advertencia.turma.ToString();
-                string dataNascString = advertencia.Birth_date.ToString("dd/MM/yyyy");
+                string turmaString = suspensao.turma.ToString();
+                string dataNascString = suspensao.Birth_date.ToString("dd/MM/yyyy");
 
-                if (advertencia.Father_name != null)
+                if (suspensao.Father_name != null)
                 {
-                    if ((advertencia.anoSerie.Equals("F3")) || (advertencia.anoSerie.Equals("F4")))
+                    if ((suspensao.anoSerie.ToUpper().Equals("F3")) || (suspensao.anoSerie.ToUpper().Equals("F4")))
                     {
                         textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
-                        textFomatter.DrawString("Venho através desta notificação informar que o aluno(a) " + advertencia.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + advertencia.Mother_name.ToUpper() + " e " + advertencia.Father_name.ToUpper() + ", " +
-                            " matriculado no(a) " + advertencia.anoSerie.ToUpper() + ", turma \"" + advertencia.turma.ToUpper() + "\" no turno " + advertencia.turno + ", está sendo advertido por violar as normas do Regimento desta Unidade de Ensino. Informo ainda " +
+                        textFomatter.DrawString("Venho através desta notificação informar que o aluno(a) " + suspensao.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + suspensao.Mother_name.ToUpper() + " e " + suspensao.Father_name.ToUpper() + ", " +
+                            " matriculado no(a) " + suspensao.anoSerie.ToUpper() + ", turma \"" + suspensao.turma.ToUpper() + "\" no turno " + suspensao.turno + ", está sendo SUSPENSO por um período de "+suspensao.dias+" dia(s), por violar as normas do Regimento desta Unidade de Ensino. Informo ainda " +
                             "que é necessária a presença do responsável legal pelo aluno para dialogar com a equipe diretiva sobre a vida escolar do referido discente.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
                         textFomatter.DrawString("Descrição do fato:", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(10, 400, page.Width, page.Height));
-                        textFomatter.DrawString(advertencia.descricaoDoFato, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(10, 420, 575, page.Height));
+                        textFomatter.DrawString(suspensao.descricaoDoFato, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(10, 420, 575, page.Height));
                     }
                     else
                     {
                         textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
-                        textFomatter.DrawString("Venho através desta notificação informar que o aluno(a) " + advertencia.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + advertencia.Mother_name.ToUpper() + " e " + advertencia.Father_name.ToUpper() + ", " +
-                            " matriculado no(a) " + advertencia.anoSerie.ToUpper() + "º ano, turma \"" + advertencia.turma.ToUpper() + "\" no turno " + advertencia.turno + ", está sendo advertido por violar as normas do Regimento desta Unidade de Ensino. Informo ainda " +
+                        textFomatter.DrawString("Venho através desta notificação informar que o aluno(a) " + suspensao.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + suspensao.Mother_name.ToUpper() + " e " + suspensao.Father_name.ToUpper() + ", " +
+                            " matriculado no(a) " + suspensao.anoSerie.ToUpper() + "º ano, turma \"" + suspensao.turma.ToUpper() + "\" no turno " + suspensao.turno + ", está sendo SUSPENSO por um período de "+suspensao.dias+" dia(s), por violar as normas do Regimento desta Unidade de Ensino. Informo ainda " +
                             "que é necessária a presença do responsável legal pelo aluno para dialogar com a equipe diretiva sobre a vida escolar do referido discente.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
                         textFomatter.DrawString("Descrição do fato:", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(10, 400, page.Width, page.Height));
-                        textFomatter.DrawString(advertencia.descricaoDoFato, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(10, 420, 575, page.Height));
+                        textFomatter.DrawString(suspensao.descricaoDoFato, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(10, 420, 575, page.Height));
                     }
                 }
                 else
                 {
-                    if ((advertencia.anoSerie.Equals("F3")) || (advertencia.anoSerie.Equals("F4")))
+                    if ((suspensao.anoSerie.ToUpper().Equals("F3")) || (suspensao.anoSerie.ToUpper().Equals("F4")))
                     {
                         textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
-                        textFomatter.DrawString("Venho através desta notificação informar que o aluno(a) " + advertencia.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + advertencia.Mother_name.ToUpper() + ", " +
-                            " matriculado no(a) " + advertencia.anoSerie.ToUpper() + ", turma \"" + advertencia.turma.ToUpper() + "\" no turno " + advertencia.turno + ", está sendo advertido por violar as normas do Regimento desta Unidade de Ensino. Informo ainda " +
+                        textFomatter.DrawString("Venho através desta notificação informar que o aluno(a) " + suspensao.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + suspensao.Mother_name.ToUpper() + ", " +
+                            " matriculado no(a) " + suspensao.anoSerie.ToUpper() + ", turma \"" + suspensao.turma.ToUpper() + "\" no turno " + suspensao.turno + ", está sendo SUSPENSO por um período de "+suspensao.dias+" dia(s), por violar as normas do Regimento desta Unidade de Ensino. Informo ainda " +
                             "que é necessária a presença do responsável legal pelo aluno para dialogar com a equipe diretiva sobre a vida escolar do referido discente.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
                         textFomatter.DrawString("Descrição do fato:", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(10, 400, page.Width, page.Height));
-                        textFomatter.DrawString(advertencia.descricaoDoFato, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(10, 420, 575, page.Height));
+                        textFomatter.DrawString(suspensao.descricaoDoFato, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(10, 420, 575, page.Height));
                     }
                     else
                     {
                         textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
-                        textFomatter.DrawString("Venho através desta notificação informar que o aluno(a) " + advertencia.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + advertencia.Mother_name.ToUpper() + ", " +
-                            " matriculado no(a) " + advertencia.anoSerie.ToUpper() + "º ano, turma \"" + advertencia.turma.ToUpper() + "\" no turno " + advertencia.turno + ", está sendo advertido por violar as normas do Regimento desta Unidade de Ensino. Informo ainda " +
+                        textFomatter.DrawString("Venho através desta notificação informar que o aluno(a) " + suspensao.Name.ToUpper() + ", nascido(a) em " + dataNascString + ", filho(a) de " + suspensao.Mother_name.ToUpper() + ", " +
+                            " matriculado no(a) " + suspensao.anoSerie.ToUpper() + "º ano, turma \"" + suspensao.turma.ToUpper() + "\" no turno " + suspensao.turno + ", está sendo SUSPENSO por um período de "+suspensao.dias+" dia(s), por violar as normas do Regimento desta Unidade de Ensino. Informo ainda " +
                             "que é necessária a presença do responsável legal pelo aluno para dialogar com a equipe diretiva sobre a vida escolar do referido discente.", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 270, page.Width, page.Height));
                         textFomatter.DrawString("Descrição do fato:", fonteDesricaoBold, corFonte, new PdfSharpCore.Drawing.XRect(10, 400, page.Width, page.Height));
-                        textFomatter.DrawString(advertencia.descricaoDoFato, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(10, 420, 575, page.Height));
+                        textFomatter.DrawString(suspensao.descricaoDoFato, fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(10, 420, 575, page.Height));
                     }
                 }
 
@@ -155,10 +134,10 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("______________________________________________________________________", fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 700, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
                 string dataString = DateTime.Now.ToString("dd/MM/yyyy");
-                textFomatter.DrawString("Advertência emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
+                textFomatter.DrawString("Suspensão emitida em " + dataString, fonteDetalhesDescricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 780, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Justify;
                 textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 750, page.Width, page.Height));
-                textFomatter.DrawString("Esta advertência foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
+                textFomatter.DrawString("Esta suspensão foi gerada através do SGI da Escola Estadual João de Mattos Carvalho ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
                 textFomatter.DrawString("Contato: eejmc.seed@seduc.se.gov.br ", fonteRodape, corFonte, new PdfSharpCore.Drawing.XRect(0, 810, page.Width, page.Height));
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Right;
@@ -168,15 +147,11 @@ namespace SGI_JMC.Controllers
                 {
                     var contentType = "application/pdf";
                     doc.Save(stream, false);
-                    var nomeArquivo = "Advertência " + advertencia.Name + ".pdf";
-                    //Salvando no banco
-                    advertencia.dataDeEmissao = DateTime.Now;
-                    _context.Add(advertencia);
-                    _context.SaveChangesAsync();
+                    var nomeArquivo = "Suspensão " + suspensao.Name + ".pdf";
+                    suspensao.dataDeEmissao = DateTime.Now;
                     return File(stream.ToArray(), contentType, nomeArquivo);
                 }
             }
         }
-
     }
 }

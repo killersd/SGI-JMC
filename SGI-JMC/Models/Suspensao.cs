@@ -4,9 +4,8 @@ using System.ComponentModel.DataAnnotations;
 namespace SGI_JMC.Models
 {
     [Serializable]
-    public class Advertencia
+    public class Suspensao
     {
-
         [Key]
         public int Id { get; set; }
 
@@ -24,7 +23,7 @@ namespace SGI_JMC.Models
         [Display(Name = "Data de nascimento")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
         [DataType(DataType.Date)]
-        public DateTime Birth_date { get; set; }        
+        public DateTime Birth_date { get; set; }
 
         [Display(Name = "Ano/Série/Fase")]
         [MaxLength(2)]
@@ -42,14 +41,16 @@ namespace SGI_JMC.Models
         [Required(ErrorMessage = "Este campo é obrigatório")]
         public string descricaoDoFato { get; set; }
 
-        [Display(Name="Turno")]
-        [Required(ErrorMessage ="Este campo é obrigatório")]
+        [Display(Name = "Turno")]
+        [Required(ErrorMessage = "Este campo é obrigatório")]
         public string turno { get; set; }
 
-        [Display(Name = "Número da advertência")]
+        [Display(Name = "Dias de suspensão")]
         [Required(ErrorMessage = "Este campo é obrigatório")]
-        public int numero { get; set; }
+        public int dias { get; set; }
 
-
+        [Display(Name = "Número da suspensão")]
+        [Required(ErrorMessage = "Este campo é obrigatório")]
+        public int numeroSuspensao { get; set; }
     }
 }
