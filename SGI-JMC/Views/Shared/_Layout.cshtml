@@ -26,6 +26,9 @@
                 </div>
 
                 <ul class="list-unstyled components">
+                    <li>
+                        <a href="/AlunoAtual/MostrarMatriculas"><i style="color:#fbc45f" class="fa fa-home" aria-hidden="true"></i> Página inicial</a>
+                    </li>
                     @if (User.IsInRole("administrador"))
                     {
                         <li>
@@ -40,7 +43,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#contratadosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i style="color:#fbc45f" class="fa fa-user" aria-hidden="true"></i> Servidores</a>
+                            <a href="#contratadosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i style="color:#fbc45f" class="fa fa-user" aria-hidden="true"></i> Contratados</a>
                             <ul class="collapse list-unstyled" id="contratadosSubmenu">
                                 <li>
                                     <a asp-controller="Contratos" asp-action="Index">Consultar</a>

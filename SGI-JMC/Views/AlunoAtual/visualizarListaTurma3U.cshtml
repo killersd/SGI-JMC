@@ -1,14 +1,79 @@
 ﻿@model IEnumerable<SGI_JMC.Models.AlunoAtual>
-
 @{
     var alunos = ViewBag.Alunos3U;
     var cont = 1;
 }
+<!DOCTYPE html>
+<html>
+<div class="text-center">
+    <p></p>
+    <head>
+        <style>
+            #customers {
+                font-family: Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
 
+                #customers td, #customers th {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                }
 
-@foreach (var item in alunos)
-{
+                #customers tr:nth-child(even) {
+                    background-color: #f2f2f2;
+                }
 
-        <td>@cont - @item.Nome<br /></td>
-        cont++;
-}
+                #customers tr:hover {
+                    background-color: #fbc45f;
+                }
+
+                #customers th {
+                    padding-top: 12px;
+                    padding-bottom: 12px;
+                    text-align: center;
+                    background-color: #33437f;
+                    color: white;
+                }
+        </style>
+    </head>
+    <body>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <table id="customers">
+                <div class="col-md-12" style="text-align:right">
+                    <form asp-action="listaTurma2U"><button type="submit" class="btn btn-sm btn-default"><i style="color:#fbc45f" class="fa fa-download" i> Baixar lista</i></button></form>
+                </div>
+                <tr>
+                    <th>
+                        Lista de alunos do 3º Ano "U"
+                    </th>
+                </tr>
+                @foreach (var item in alunos)
+                {
+                    <tr>
+                        <td>@cont -<a asp-action="VisualizarAluno" asp-route-id=@item.Id title="clique para ver detalhes">@item.Nome</a>  <br /></td>
+                    </tr>
+                    cont++;
+                }
+            </table>
+        }
+        else
+        {
+            <div class="text-center">
+                <h1 class="display-4">Sistema de Gerenciamento Interno</h1>
+                <h4 class="display-6">Escola Estadual João de Mattos Carvalho</h4>
+                <p></p>
+                <div>
+                    <a style="color:#fbc45f" href="../Declaracao/VerificarAutenticidade" class="btn btn-default btn-sm">Verificar autenticidade de documento</a>
+                </div>
+                <p></p>
+                <div class="container">
+                    <img src="~/Imagens/SemTransparencia.png" width="350px" />
+                </div>
+            </div>
+        }
+    </body>
+</html>
+</div>
+<partial name="_NotificationPartial" />
