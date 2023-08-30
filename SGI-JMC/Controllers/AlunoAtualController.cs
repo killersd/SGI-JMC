@@ -1519,6 +1519,9 @@ namespace SGI_JMC.Controllers
                 var fonteTitulo = new PdfSharpCore.Drawing.XFont("Calibri", 17, PdfSharpCore.Drawing.XFontStyle.Bold);
                 var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
                 var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
+                
+                var fonteAtencao = new PdfSharpCore.Drawing.XFont("Calibri", 10, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var corFonteVermelho = PdfSharpCore.Drawing.XBrushes.Red;
 
                 var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
                 var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
@@ -1543,7 +1546,8 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                textFomatter.DrawString("DECLARAÇÃO", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
+                textFomatter.DrawString("DECLARAÇÃO DE FREQUÊNCIA", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
+                textFomatter.DrawString("Esta declaração não é válida para fins de transferência, apenas atesta a frequência do(a) aluno(a) na nossa Unidade. ", fonteAtencao, corFonteVermelho, new PdfSharpCore.Drawing.XRect(0, 225, page.Width, page.Height));
 
                 //melhorar isso aqui
                 string turmaString = alunoAtual.turma.ToString();
@@ -1638,6 +1642,9 @@ namespace SGI_JMC.Controllers
                 var fonteDetalhesDescricao = new PdfSharpCore.Drawing.XFont("Calibri", 10);
                 var fonteRodape = new PdfSharpCore.Drawing.XFont("Calibri", 7);
 
+                var fonteAtencao = new PdfSharpCore.Drawing.XFont("Calibri", 10, PdfSharpCore.Drawing.XFontStyle.Bold);
+                var corFonteVermelho = PdfSharpCore.Drawing.XBrushes.Red;
+
                 var brasao = Path.GetFullPath("wwwroot/Imagens/BrasaoEstado.png");
                 var escudo = Path.GetFullPath("wwwroot/Imagens/Escudo.png");
                 var logo = Path.GetFullPath("wwwroot/Imagens/SGI.jpg");
@@ -1661,7 +1668,8 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                textFomatter.DrawString("DECLARAÇÃO", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
+                textFomatter.DrawString("DECLARAÇÃO DE FREQUÊNCIA", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
+                textFomatter.DrawString("Esta declaração não é válida para fins de transferência, apenas atesta a frequência do(a) aluno(a) na nossa Unidade. ", fonteAtencao, corFonteVermelho, new PdfSharpCore.Drawing.XRect(0, 225, page.Width, page.Height));
 
                 //melhorar isso aqui
                 string turmaString = alunoAtual.turma.ToString();
@@ -1778,7 +1786,7 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                textFomatter.DrawString("DECLARAÇÃO", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
+                textFomatter.DrawString("DECLARAÇÃO DE TRANSFERÊNCIA", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
 
                 //melhorar isso aqui
                 string turmaString = alunoAtual.turma.ToString();
@@ -1898,7 +1906,7 @@ namespace SGI_JMC.Controllers
                 textFomatter.DrawString("_____________________________________________________________________________________", fonteDesricao, corFonte, new PdfSharpCore.Drawing.XRect(0, 100, page.Width, page.Height));
 
                 textFomatter.Alignment = PdfSharpCore.Drawing.Layout.XParagraphAlignment.Center;
-                textFomatter.DrawString("DECLARAÇÃO", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
+                textFomatter.DrawString("DECLARAÇÃO DE TRANSFERÊNCIA", fonteTitulo, corFonte, new PdfSharpCore.Drawing.XRect(0, 200, page.Width, page.Height));
 
                 //melhorar isso aqui
                 string turmaString = alunoAtual.turma.ToString();
