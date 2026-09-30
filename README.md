@@ -1,6 +1,6 @@
 # SGI-JMC
 
-Sistema de Gerenciamento Interno do projeto SGI-JMC, voltado à administração das rotinas escolares da Escola Estadual João de Mattos Carvalho.
+Sistema de Gerenciamento Interno do projeto SGI-JMC, voltado à administração de rotinas administrativas de secretarias escolares
 
 ## Funcionalidades
 
