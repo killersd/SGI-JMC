@@ -2,6 +2,12 @@
 
 Sistema de Gerenciamento Interno do projeto SGI-JMC, voltado à administração de rotinas administrativas de secretarias escolares
 
+## Registro de Software
+
+O software **SGI-JMC — Sistema de Gerenciamento Interno** encontra-se registrado junto ao Instituto Nacional da Propriedade Industrial (INPI), sob o seguinte processo:
+
+**Processo Nº: BR512024000816-0**
+
 ## Funcionalidades
 
 - Cadastro e consulta de alunos, matrículas e transferências.
